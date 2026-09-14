@@ -4,9 +4,13 @@
 
 `chriskulbaba2025/gacm-trial`
 
-## Current authoritative commit
+## Repository identity
 
-`f059819e0384f3fa1591e1e3ba7784534372d9d4`
+The checked-out repository `HEAD` is the authoritative repository commit identity.
+
+The exact SHA must be obtained from Git at execution time. This file defines governed project state and does not duplicate the SHA of the commit that contains it.
+
+Before governed work begins, execution must verify the local `HEAD` against the intended remote and/or explicitly authorized `HEAD` identity.
 
 ## Authoritative implementation PRD
 
