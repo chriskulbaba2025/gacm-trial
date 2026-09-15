@@ -52,6 +52,10 @@
     "evidence": {
       "type": "array",
       "items": { "$ref": "#/$defs/evidence" }
+    },
+    "repair_plans": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/repairPlan" }
     }
   },
   "allOf": [
@@ -457,6 +461,34 @@
         "reason_code": { "enum": ["AUTHORITY_AMBIGUOUS", "AUTHORITY_MISSING", "VERIFICATION_BLOCKED", "UNOBSERVABLE", "POLICY_VIOLATION", "HUMAN_STOP", "ROLLBACK_REQUIRED", "FAILURE_UNRESOLVED", "OTHER"] },
         "message": { "type": "string", "minLength": 1 },
         "stopped_at": { "$ref": "#/$defs/isoTime" }
+      }
+    },
+    "repairPlan": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["run_id", "source_work_unit_id", "repair_plan_id", "classification", "changed_surfaces", "directly_affected_work_units", "transitively_affected_work_units", "assurance_preserved", "assurance_invalidated", "tests_to_rerun", "verifications_to_rerun", "authority_revalidation_required", "model_requalification_required", "architecture_requalification_required", "full_run_replay_required", "status", "reasons", "evidence", "timestamp", "historical_pass_receipts", "currently_reliable_assurance"],
+      "properties": {
+        "run_id": { "$ref": "#/$defs/id" },
+        "source_work_unit_id": { "$ref": "#/$defs/id" },
+        "repair_plan_id": { "$ref": "#/$defs/id" },
+        "classification": { "enum": ["LOCAL", "DEPENDENCY_EXPANDED", "AUTHORITY_BEARING", "MODEL_BEARING", "ARCHITECTURE_BEARING", "UNKNOWN"] },
+        "changed_surfaces": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+        "directly_affected_work_units": { "type": "array", "items": { "$ref": "#/$defs/id" } },
+        "transitively_affected_work_units": { "type": "array", "items": { "$ref": "#/$defs/id" } },
+        "assurance_preserved": { "type": "array", "items": { "$ref": "#/$defs/id" } },
+        "assurance_invalidated": { "type": "array", "items": { "$ref": "#/$defs/id" } },
+        "tests_to_rerun": { "type": "array", "items": { "type": "string" } },
+        "verifications_to_rerun": { "type": "array", "items": { "$ref": "#/$defs/id" } },
+        "authority_revalidation_required": { "type": "boolean" },
+        "model_requalification_required": { "type": "boolean" },
+        "architecture_requalification_required": { "type": "boolean" },
+        "full_run_replay_required": { "type": "boolean" },
+        "status": { "enum": ["PLANNED", "BLOCKED_FOR_SCOPE_RESOLUTION"] },
+        "reasons": { "type": "array", "items": { "type": "string" } },
+        "evidence": { "type": "array", "items": { "type": "string" } },
+        "timestamp": { "$ref": "#/$defs/isoTime" },
+        "historical_pass_receipts": { "type": "array", "items": { "$ref": "#/$defs/id" } },
+        "currently_reliable_assurance": { "type": "array", "items": { "$ref": "#/$defs/id" } }
       }
     }
   }
