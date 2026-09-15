@@ -22,9 +22,9 @@ GACM v4.2.2 is treated as FROZEN methodology authority. This repository is for P
 
 ## Current phase
 
-**Human Gate before Phase 7**
+**Human Gate before Phase 11**
 
-Phases 1–6 are complete and recorded as PASS. Phase 7 — GCU Execution Adapter is not authorized until HUMAN PASS.
+Phases 1–10 are complete and recorded as PASS. Phase 11 — Promotion / Rollback State Machine is not authorized until HUMAN PASS.
 
 ## Phase history
 
@@ -34,14 +34,18 @@ Phases 1–6 are complete and recorded as PASS. Phase 7 — GCU Execution Adapte
 - Phase 4 — Graphify Discovery Adapter: **PASS** — commit `95f7d599c4ebc85fccfcbfce5522eeb14e17fd8f`
 - Phase 5 — Authoritative Operational Context Resolver: **PASS** — commit `575315bab2cb5cc120af232a15597d36fb8ff4b7`
 - Phase 6 — Deterministic Model Router: **PASS** — commit `cf53ee63fa6888b89cfbdff0e718405c26d7f5cb`
+- Phase 7 — GCU Execution Adapter: **PASS** — commit `2277d3a`
+- Phase 8 — Independent Verification Engine: **PASS** — commit `25d5c65`
+- Phase 9 — Repair-Scope / Dependency Logic: **PASS** — commit `1998bea`
+- Phase 10 — Placeholder and Identity Validator: **PASS** — current Phase 10 completion commit
 
 ## Current objective
 
-Await HUMAN PASS before beginning Phase 7 — GCU Execution Adapter.
+Await HUMAN PASS before beginning Phase 11 — Promotion / Rollback State Machine.
 
 ## Completed phases
 
-The Phase 1 control-layer audit, Phase 2 durable run-state schema, Phase 3 GitHub Authority Resolver, Phase 4 Graphify Discovery Adapter, Phase 5 Authoritative Operational Context Resolver, and Phase 6 Deterministic Model Router are complete. Their artifacts and completion proofs remain the evidence for the recorded PASS states.
+The Phase 1 control-layer audit, Phase 2 durable run-state schema, Phase 3 GitHub Authority Resolver, Phase 4 Graphify Discovery Adapter, Phase 5 Authoritative Operational Context Resolver, Phase 6 Deterministic Model Router, Phase 7 GCU Execution Adapter, Phase 8 Independent Verification Engine, Phase 9 Repair-Scope / Dependency Logic, and Phase 10 Placeholder and Identity Validator are complete. Their artifacts and completion proofs remain the evidence for the recorded PASS states.
 
 ## Historical Phase 1 requirements
 
@@ -83,12 +87,12 @@ The audit explicitly covered:
 
 No code, Graphify integration, model routing, or orchestration was to be implemented during Phase 1. Any contradiction preventing deterministic control placement was to be documented and stopped rather than resolved by silently choosing a design.
 
-## Phase 7 gate
+## Phase 11 gate
 
-Do not begin Phase 7 — GCU Execution Adapter until HUMAN PASS is recorded.
+Do not begin Phase 11 — Promotion / Rollback State Machine until HUMAN PASS is recorded.
 
 Preserve repository HEAD as the runtime-authoritative repository identity, GitHub as durable authority, Graphify as discovery only, and frozen GACM v4.2.2 methodology.
 
 ## Next authorized phase
 
-After HUMAN PASS: **Phase 7 — GCU Execution Adapter**.
+After HUMAN PASS: **Phase 11 — Promotion / Rollback State Machine**.

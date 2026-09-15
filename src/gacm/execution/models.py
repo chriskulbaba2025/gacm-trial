@@ -117,6 +117,7 @@ class ExecutionRequest:
     routing_decision: Mapping[str, Any]
     current_state: Mapping[str, Any]
     category_patterns: Mapping[str, tuple[str, ...]] = field(default_factory=dict)
+    required_identity_classes: tuple[str, ...] = ()
 
     def machine_policy(self) -> dict[str, Any]:
         return {

@@ -53,6 +53,10 @@
       "type": "array",
       "items": { "$ref": "#/$defs/evidence" }
     },
+    "identity_validations": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/identityValidation" }
+    },
     "repair_plans": {
       "type": "array",
       "items": { "$ref": "#/$defs/repairPlan" }
@@ -489,6 +493,30 @@
         "timestamp": { "$ref": "#/$defs/isoTime" },
         "historical_pass_receipts": { "type": "array", "items": { "$ref": "#/$defs/id" } },
         "currently_reliable_assurance": { "type": "array", "items": { "$ref": "#/$defs/id" } }
+      }
+    },
+    "identityValidation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["run_id", "work_unit_id", "validation_id", "result", "identity_class", "expected_authoritative_value_digest", "expected_authoritative_reference", "observed_value", "observed_value_digest", "observed_placeholder_pattern", "scope", "source_provenance", "reason", "affected_surface", "timestamp", "authoritative", "issuer_role"],
+      "properties": {
+        "run_id": { "$ref": "#/$defs/id" },
+        "work_unit_id": { "$ref": "#/$defs/id" },
+        "validation_id": { "$ref": "#/$defs/id" },
+        "result": { "enum": ["VALID", "INVALID_PLACEHOLDER", "INVALID_IDENTITY", "INVALID_SCOPE", "BLOCKED", "UNOBSERVABLE"] },
+        "identity_class": { "type": "string", "minLength": 1 },
+        "expected_authoritative_value_digest": { "type": ["string", "null"] },
+        "expected_authoritative_reference": { "type": ["string", "null"] },
+        "observed_value": { "type": ["string", "null"] },
+        "observed_value_digest": { "type": ["string", "null"] },
+        "observed_placeholder_pattern": { "type": ["string", "null"] },
+        "scope": { "type": "object", "additionalProperties": false, "required": ["project", "repository", "environment"], "properties": { "project": { "type": ["string", "null"] }, "repository": { "type": ["string", "null"] }, "environment": { "type": ["string", "null"] } } },
+        "source_provenance": { "type": "string", "minLength": 1 },
+        "reason": { "type": "string", "minLength": 1 },
+        "affected_surface": { "type": "string", "minLength": 1 },
+        "timestamp": { "$ref": "#/$defs/isoTime" },
+        "authoritative": { "const": false },
+        "issuer_role": { "const": "ORCHESTRATION" }
       }
     }
   }

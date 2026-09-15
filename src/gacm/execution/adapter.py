@@ -17,6 +17,7 @@ from .models import (
     RunnerResult,
 )
 from .policy import changed_surface_flags, precondition_failures, unauthorized_paths
+from gacm.identity_validation import ValidationResult
 
 
 class ExecutionStateReader(Protocol):
@@ -62,9 +63,11 @@ class GCUExecutionAdapter:
         self,
         state_reader: ExecutionStateReader | None = None,
         clock: Callable[[], str] | None = None,
+        identity_validator=None,
     ):
         self.state_reader = state_reader
         self.clock = clock or _now
+        self.identity_validator = identity_validator
 
     def prepare(self, request: ExecutionRequest) -> ExecutionPackage:
         failures = precondition_failures(request)
@@ -105,6 +108,18 @@ class GCUExecutionAdapter:
             return self._blocked_receipt(request, (f"executor invocation failed: {error}",), started_at, status="FAILED")
 
         failures = list(unauthorized_paths(result.files_changed, request))
+        validation_artifacts = []
+        if self.identity_validator is not None:
+            validation = self.identity_validator.validate(
+                operational_context=request.operational_context,
+                output={"commands": result.commands_executed, "artifacts": result.evidence_artifacts, "diff_summary": result.diff_summary},
+                required_identity_classes=request.required_identity_classes,
+                run_id=request.contract.run_id,
+                work_unit_id=request.contract.work_unit_id,
+            )
+            validation_artifacts.append(validation.to_dict())
+            if validation.result != ValidationResult.VALID.value:
+                failures.append(f"identity validation {validation.result}: {validation.reason}")
         if result.starting_sha is not None and result.starting_sha != request.contract.authorized_start_sha:
             failures.append("executor reported a starting SHA different from the authorized SHA")
         if result.model_used is not None and result.model_used != request.contract.selected_model:
@@ -135,7 +150,7 @@ class GCUExecutionAdapter:
             commands_executed=tuple(result.commands_executed),
             tests_executed=tuple(result.tests_executed),
             test_outcomes=dict(result.test_outcomes),
-            evidence_artifacts=tuple(dict(item) for item in result.evidence_artifacts),
+            evidence_artifacts=tuple(dict(item) for item in result.evidence_artifacts) + tuple(validation_artifacts),
             stop_reason=stop_reason,
             execution_status=status,
             started_at=started_at,
