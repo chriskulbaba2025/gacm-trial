@@ -57,6 +57,14 @@
       "type": "array",
       "items": { "$ref": "#/$defs/identityValidation" }
     },
+    "promotion_history": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/promotionHistory" }
+    },
+    "rollback_history": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/rollbackHistory" }
+    },
     "repair_plans": {
       "type": "array",
       "items": { "$ref": "#/$defs/repairPlan" }
@@ -517,6 +525,32 @@
         "timestamp": { "$ref": "#/$defs/isoTime" },
         "authoritative": { "const": false },
         "issuer_role": { "const": "ORCHESTRATION" }
+      }
+    },
+    "promotionHistory": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["run_id", "promotion_id", "state", "candidate_sha", "candidate_artifact_identity", "prior_authoritative_sha", "rollback_target_sha", "verification_receipt_ids", "required_approvals", "operational_context_id", "timestamp", "reason", "settle_required", "event_type"],
+      "properties": {
+        "run_id": { "$ref": "#/$defs/id" }, "promotion_id": { "$ref": "#/$defs/id" },
+        "state": { "enum": ["PROMOTION_PENDING", "PROMOTED", "SETTLE_REQUIRED"] },
+        "candidate_sha": { "$ref": "#/$defs/sha" }, "candidate_artifact_identity": { "type": "string", "minLength": 1 },
+        "prior_authoritative_sha": { "$ref": "#/$defs/sha" }, "rollback_target_sha": { "$ref": "#/$defs/sha" },
+        "verification_receipt_ids": { "type": "array", "items": { "$ref": "#/$defs/id" } },
+        "required_approvals": { "type": "array", "items": { "type": "string" } },
+        "operational_context_id": { "type": ["string", "null"] }, "timestamp": { "$ref": "#/$defs/isoTime" },
+        "reason": { "type": "string", "minLength": 1 }, "settle_required": { "type": "boolean" }, "event_type": { "const": "PROMOTION" }
+      }
+    },
+    "rollbackHistory": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["run_id", "rollback_id", "state", "prior_authoritative_sha", "target_sha", "reason", "preserved_promotion_ids", "preserved_verification_receipt_ids", "timestamp", "event_type"],
+      "properties": {
+        "run_id": { "$ref": "#/$defs/id" }, "rollback_id": { "$ref": "#/$defs/id" },
+        "state": { "enum": ["ROLLBACK_PENDING", "ROLLED_BACK"] }, "prior_authoritative_sha": { "$ref": "#/$defs/sha" }, "target_sha": { "$ref": "#/$defs/sha" },
+        "reason": { "type": "string", "minLength": 1 }, "preserved_promotion_ids": { "type": "array", "items": { "$ref": "#/$defs/id" } },
+        "preserved_verification_receipt_ids": { "type": "array", "items": { "$ref": "#/$defs/id" } }, "timestamp": { "$ref": "#/$defs/isoTime" }, "event_type": { "const": "ROLLBACK" }
       }
     }
   }
