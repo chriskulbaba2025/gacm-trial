@@ -22,7 +22,7 @@ GACM v4.2.2 is treated as FROZEN methodology authority. This repository is for P
 
 ## Current phase
 
-**Phase 13: PASS**
+**Phase 14: BLOCKED**
 
 Phases 1–12 are complete and recorded as PASS. Phase 13 has not been started.
 
@@ -41,10 +41,11 @@ Phases 1–12 are complete and recorded as PASS. Phase 13 has not been started.
 - Phase 11 — Promotion / Rollback State Machine: **PASS** — commit `9c5fdc0eab0d22a4066a4f1d4cfb72b231901c53`
 - Phase 12 — Post-Promotion Settle / Observation Gate: **PASS**
 - Phase 13 — Pilot Harness: **PASS**
+- Phase 14 — Real Project Pilot: **BLOCKED** — authoritative spec-skill baseline lacks the existing validators required by the selected work unit; local copies are uncommitted and non-authoritative.
 
 ## Current objective
 
-Phase 13 pilot harness orchestration is complete. Await the separate human gate before Phase 14.
+Phase 14 real-project pilot is blocked before execution because the clean authoritative spec-skill commit does not contain the required existing validators, while the local main worktree contains them only as uncommitted changes. No pilot implementation or promotion was performed.
 
 ## Completed phases
 
@@ -102,4 +103,4 @@ Phase 13 is orchestration integration only. The Pilot Harness coordinates existi
 
 ## Next authorized phase
 
-Next authorized phase after a separate human gate: **Phase 14 Real Project Pilot**.
+Next authorized action after the spec-skill authority discrepancy is reconciled and a separate human gate: resume **Phase 14 Real Project Pilot**. Phase 15 remains unauthorized.
