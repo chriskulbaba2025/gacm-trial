@@ -8,7 +8,7 @@ from jsonschema import Draft202012Validator, FormatChecker
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from gacm.promotion import PromotionRollbackStateMachine, PromotionState, PromotionTransitionError  # noqa: E402
+from gacm.promotion import PromotionRollbackStateMachine, PromotionState, PromotionTransitionError, SettlePolicy  # noqa: E402
 
 
 SHA = "a" * 40
@@ -117,6 +117,75 @@ class PromotionRollbackTests(unittest.TestCase):
         self.assertEqual("ROLLBACK_RECEIPT", projection["evidence"]["kind"])
         self.assertEqual(("verify-1",), rolled.preserved_verification_receipt_ids)
         self.assertEqual(2, len(machine.promotion_history))
+
+    def _settle_machine(self, **overrides):
+        machine = PromotionRollbackStateMachine(clock=self.clock)
+        machine.create_promotion_intent(evidence(settle_required=True, **overrides))
+        machine.promote(current_authoritative_sha=SHA)
+        return machine
+
+    def test_valid_settle_entry_binds_exact_identity_and_receipt(self):
+        machine = self._settle_machine()
+        policy = SettlePolicy("policy-v1", "1", ("health",), optional_checks=("latency",))
+        settle_id = machine.begin_settle(policy, current_authoritative_sha=CANDIDATE)
+        self.assertEqual("OBSERVING", machine.state)
+        self.assertTrue(settle_id.startswith("settle-"))
+        self.assertEqual(CANDIDATE, machine.settle["candidate_sha"])
+        self.assertEqual(SHA, machine.settle["prior_authoritative_sha"])
+        self.assertEqual(0, len(machine.settle_history))
+
+    def test_settle_entry_missing_required_phase_or_rollback_or_changed_authority_blocks(self):
+        machine = PromotionRollbackStateMachine(clock=self.clock)
+        machine.create_promotion_intent(evidence(settle_required=True)); machine.promote(current_authoritative_sha=SHA)
+        machine.intent["rollback_target_sha"] = None
+        with self.assertRaises(PromotionTransitionError): machine.begin_settle(SettlePolicy("p", "1", ("health",)), current_authoritative_sha=CANDIDATE)
+        self.assertEqual("BLOCKED", machine.state)
+        machine = self._settle_machine()
+        with self.assertRaises(PromotionTransitionError): machine.begin_settle(SettlePolicy("p", "1", ("health",)), current_authoritative_sha=TARGET)
+        self.assertEqual("BLOCKED", machine.state)
+
+    def test_settle_pass_then_stable_only_after_observation(self):
+        machine = self._settle_machine()
+        with self.assertRaises(PromotionTransitionError): machine.stabilize(current_authoritative_sha=CANDIDATE)
+        machine.begin_settle(SettlePolicy("p", "1", ("health",)), current_authoritative_sha=CANDIDATE)
+        observed = machine.observe_settle({"health": True}, current_authoritative_sha=CANDIDATE, evidence_references=("obs-1",))
+        self.assertEqual("OBSERVING", observed.state)
+        passed = machine.finalize_settle(current_authoritative_sha=CANDIDATE)
+        self.assertEqual("SETTLE_PASS", passed.state); self.assertEqual("PASS", passed.result)
+        machine.stabilize(current_authoritative_sha=CANDIDATE)
+        self.assertEqual("STABLE", machine.state)
+        self.assertEqual(CANDIDATE, passed.candidate_sha)
+
+    def test_settle_fail_requires_existing_phase11_rollback(self):
+        machine = self._settle_machine()
+        machine.begin_settle(SettlePolicy("p", "1", ("health",)), current_authoritative_sha=CANDIDATE)
+        failed = machine.observe_settle({"health": False}, current_authoritative_sha=CANDIDATE, evidence_references=("failure-1",))
+        self.assertEqual("SETTLE_FAIL", failed.state); self.assertEqual("ROLLBACK_REQUIRED", failed.next_governed_action); self.assertEqual("ROLLBACK_REQUIRED", machine.state)
+        pending = machine.request_rollback(run_id="run-11", current_authoritative_sha=CANDIDATE, rollback_target_sha=TARGET, known_good_targets={TARGET: {}}, reason="settle failed", preserved_verification_receipt_ids=("verify-1",))
+        self.assertEqual("ROLLBACK_PENDING", pending.state)
+
+    def test_missing_mandatory_observation_and_contradictory_authority_fail_closed(self):
+        machine = self._settle_machine(); machine.begin_settle(SettlePolicy("p", "1", ("health", "errors")), current_authoritative_sha=CANDIDATE)
+        missing = machine.observe_settle({"health": True}, current_authoritative_sha=CANDIDATE)
+        self.assertEqual("SETTLE_FAIL", missing.state); self.assertEqual("MANDATORY_OBSERVATION_MISSING", missing.failure_reason); self.assertEqual("ROLLBACK_REQUIRED", machine.state)
+        machine = self._settle_machine(); machine.begin_settle(SettlePolicy("p", "1", ("health",)), current_authoritative_sha=CANDIDATE)
+        blocked = machine.observe_settle({"health": True}, current_authoritative_sha=TARGET, evidence_references=("contradiction",))
+        self.assertEqual("BLOCKED", blocked.state); self.assertEqual("AUTHORITY_CHANGED_DURING_OBSERVATION", blocked.failure_reason)
+
+    def test_duplicate_observation_is_idempotent_and_history_is_append_only(self):
+        machine = self._settle_machine(); machine.begin_settle(SettlePolicy("p", "1", ("health",)), current_authoritative_sha=CANDIDATE)
+        first = machine.observe_settle({"health": True}, current_authoritative_sha=CANDIDATE, evidence_references=("obs-1",))
+        duplicate = machine.observe_settle({"health": True}, current_authoritative_sha=CANDIDATE, evidence_references=("obs-1",))
+        self.assertEqual(first.to_dict(), duplicate.to_dict()); self.assertEqual(1, len(machine.settle_history))
+        machine.finalize_settle(current_authoritative_sha=CANDIDATE); machine.stabilize(current_authoritative_sha=CANDIDATE)
+        self.assertEqual("STABLE", machine.state)
+
+    def test_invalid_policy_and_exact_identity_mismatch(self):
+        with self.assertRaises(ValueError): SettlePolicy("", "1", ("health",))
+        with self.assertRaises(ValueError): SettlePolicy("p", "1", ("health",), optional_checks=("health",))
+        machine = self._settle_machine(); machine.begin_settle(SettlePolicy("p", "1", ("health",)), current_authoritative_sha=CANDIDATE)
+        mismatch = machine.observe_settle({"other": True}, current_authoritative_sha=CANDIDATE)
+        self.assertEqual("SETTLE_FAIL", mismatch.state); self.assertEqual("UNKNOWN_CHECK", mismatch.failure_reason)
 
 
 if __name__ == "__main__": unittest.main()

@@ -22,9 +22,9 @@ GACM v4.2.2 is treated as FROZEN methodology authority. This repository is for P
 
 ## Current phase
 
-**Human Gate before Phase 12**
+**Phase 12: PASS**
 
-Phases 1–11 are complete and recorded as PASS. Phase 12 — SETTLE Logic is not authorized until HUMAN PASS.
+Phases 1–12 are complete and recorded as PASS. Phase 13 has not been started.
 
 ## Phase history
 
@@ -39,10 +39,11 @@ Phases 1–11 are complete and recorded as PASS. Phase 12 — SETTLE Logic is no
 - Phase 9 — Repair-Scope / Dependency Logic: **PASS** — commit `1998bea`
 - Phase 10 — Placeholder and Identity Validator: **PASS** — commit `316e6e2f79dabb7a1a65a6acf569d32042b06e19`
 - Phase 11 — Promotion / Rollback State Machine: **PASS** — commit `9c5fdc0eab0d22a4066a4f1d4cfb72b231901c53`
+- Phase 12 — Post-Promotion Settle / Observation Gate: **PASS**
 
 ## Current objective
 
-Await HUMAN PASS before beginning Phase 12 — SETTLE Logic.
+Phase 12 settle / observation gate is complete. Await the human gate before Phase 13.
 
 ## Completed phases
 
@@ -90,10 +91,10 @@ No code, Graphify integration, model routing, or orchestration was to be impleme
 
 ## Phase 12 gate
 
-Do not begin Phase 12 — SETTLE Logic until HUMAN PASS is recorded.
+Phase 12 requires Phase 11 `SETTLE_REQUIRED`, exact promoted identity, preserved prior authority, valid rollback target, and unchanged authority continuity. It is complete and does not authorize Phase 13.
 
 Preserve repository HEAD as the runtime-authoritative repository identity, GitHub as durable authority, Graphify as discovery only, and frozen GACM v4.2.2 methodology.
 
 ## Next authorized phase
 
-After HUMAN PASS: **Phase 12 — SETTLE Logic**.
+Next authorized phase after a human gate: **Phase 13**.

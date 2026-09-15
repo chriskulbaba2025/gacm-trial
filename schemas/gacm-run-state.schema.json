@@ -42,6 +42,7 @@
     "promotion": { "$ref": "#/$defs/promotion" },
     "deployment": { "$ref": "#/$defs/deployment" },
     "settle": { "$ref": "#/$defs/settle" },
+    "settle_history": { "type": "array", "items": { "$ref": "#/$defs/settleHistory" } },
     "rollback_target": { "$ref": "#/$defs/rollbackTarget" },
     "human_interventions": {
       "type": "array",
@@ -425,10 +426,18 @@
       "additionalProperties": false,
       "required": ["state"],
       "properties": {
-        "state": { "enum": ["SETTLING", "SETTLED", "FAILED", "UNOBSERVABLE", "NOT_REQUIRED"] },
+        "state": { "enum": ["SETTLE_REQUIRED", "OBSERVING", "SETTLE_PASS", "SETTLE_FAIL", "ROLLBACK_REQUIRED", "STABLE", "SETTLING", "SETTLED", "FAILED", "UNOBSERVABLE", "NOT_REQUIRED"] },
         "observed_deployment_revision": { "type": "string", "minLength": 1 },
         "observation_evidence_ids": { "type": "array", "items": { "$ref": "#/$defs/id" } },
         "observed_at": { "$ref": "#/$defs/isoTime" }
+      }
+    },
+    "settleHistory": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["settle_run_id", "candidate_sha", "promoted_artifact_identity", "prior_authoritative_sha", "promotion_receipt_id", "policy_id", "policy_version", "state", "authoritative_sha_observed", "checks_executed", "evidence_references", "result", "started_at", "observed_at", "next_governed_action", "rollback_target_sha", "event_type"],
+      "properties": {
+        "settle_run_id": { "$ref": "#/$defs/id" }, "candidate_sha": { "$ref": "#/$defs/sha" }, "promoted_artifact_identity": { "type": "string", "minLength": 1 }, "prior_authoritative_sha": { "$ref": "#/$defs/sha" }, "promotion_receipt_id": { "$ref": "#/$defs/id" }, "policy_id": { "type": "string", "minLength": 1 }, "policy_version": { "type": "string", "minLength": 1 }, "state": { "enum": ["OBSERVING", "SETTLE_PASS", "SETTLE_FAIL", "BLOCKED"] }, "authoritative_sha_observed": { "type": "string", "minLength": 1 }, "checks_executed": { "type": "array", "items": { "type": "string" } }, "evidence_references": { "type": "array", "items": { "$ref": "#/$defs/id" } }, "result": { "enum": ["OBSERVING", "PASS", "FAIL"] }, "failure_reason": { "type": ["string", "null"] }, "started_at": { "$ref": "#/$defs/isoTime" }, "observed_at": { "$ref": "#/$defs/isoTime" }, "next_governed_action": { "type": "string", "minLength": 1 }, "rollback_target_sha": { "$ref": "#/$defs/sha" }, "event_type": { "const": "SETTLE" }
       }
     },
     "rollbackTarget": {

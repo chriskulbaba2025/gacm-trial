@@ -15,6 +15,11 @@ class PromotionState(StrEnum):
     PROMOTION_PENDING = "PROMOTION_PENDING"
     PROMOTED = "PROMOTED"
     SETTLE_REQUIRED = "SETTLE_REQUIRED"
+    OBSERVING = "OBSERVING"
+    SETTLE_PASS = "SETTLE_PASS"
+    SETTLE_FAIL = "SETTLE_FAIL"
+    ROLLBACK_REQUIRED = "ROLLBACK_REQUIRED"
+    STABLE = "STABLE"
     ROLLBACK_PENDING = "ROLLBACK_PENDING"
     ROLLED_BACK = "ROLLED_BACK"
     BLOCKED = "BLOCKED"
@@ -106,4 +111,51 @@ class RollbackReceipt:
             "evidence": {"evidence_id": "rollback-" + self.rollback_id, "kind": "ROLLBACK_RECEIPT", "content_sha": self.content_sha(), "produced_by": "ORCHESTRATION", "recorded_at": self.timestamp},
             "rollback_target": {"target_sha": self.target_sha, "authority_source": {"kind": "APPROVED_DURABLE_STATE", "ref": self.target_sha or "unresolved", "content_sha": self.target_sha or "0" * 40}, "reason": self.reason, "executed_at": self.timestamp} if self.target_sha else None,
             "rollback_history": [self.to_dict()],
+        }
+
+
+@dataclass(frozen=True)
+class SettleReceipt:
+    settle_run_id: str
+    candidate_sha: str
+    promoted_artifact_identity: str
+    prior_authoritative_sha: str
+    promotion_receipt_id: str
+    policy_id: str
+    policy_version: str
+    state: str
+    authoritative_sha_observed: str
+    checks_executed: tuple[str, ...]
+    evidence_references: tuple[str, ...]
+    result: str
+    failure_reason: str | None
+    started_at: str
+    observed_at: str
+    next_governed_action: str
+    rollback_target_sha: str
+    event_type: str = "SETTLE"
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "settle_run_id": self.settle_run_id, "candidate_sha": self.candidate_sha,
+            "promoted_artifact_identity": self.promoted_artifact_identity,
+            "prior_authoritative_sha": self.prior_authoritative_sha,
+            "promotion_receipt_id": self.promotion_receipt_id,
+            "policy_id": self.policy_id, "policy_version": self.policy_version,
+            "state": self.state, "authoritative_sha_observed": self.authoritative_sha_observed,
+            "checks_executed": list(self.checks_executed), "evidence_references": list(self.evidence_references),
+            "result": self.result, "failure_reason": self.failure_reason,
+            "started_at": self.started_at, "observed_at": self.observed_at,
+            "next_governed_action": self.next_governed_action,
+            "rollback_target_sha": self.rollback_target_sha, "event_type": self.event_type,
+        }
+
+    def content_sha(self) -> str:
+        return hashlib.sha256(canonical(self.to_dict()).encode()).hexdigest()[:40]
+
+    def to_run_state_projection(self) -> dict[str, Any]:
+        return {
+            "evidence": {"evidence_id": "settle-" + self.settle_run_id + "-" + self.result.lower(), "kind": "SETTLE_RECEIPT", "content_sha": self.content_sha(), "produced_by": "ORCHESTRATION", "recorded_at": self.observed_at},
+            "settle": {"state": self.state, "observed_deployment_revision": self.candidate_sha, "observation_evidence_ids": list(self.evidence_references), "observed_at": self.observed_at},
+            "settle_history": [self.to_dict()],
         }

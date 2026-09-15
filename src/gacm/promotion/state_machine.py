@@ -19,6 +19,8 @@ class PromotionRollbackStateMachine:
         self.intent: dict[str, Any] | None = None
         self.promotion_history: list[PromotionReceipt] = []
         self.rollback_history: list[RollbackReceipt] = []
+        self.settle: dict[str, Any] | None = None
+        self.settle_history: list[Any] = []
 
     def assess(self, evidence: Mapping[str, Any]) -> EligibilityResult:
         result = self.eligibility.evaluate(evidence)
@@ -52,13 +54,34 @@ class PromotionRollbackStateMachine:
 
     def request_rollback(self, *, run_id: str, current_authoritative_sha: str, rollback_target_sha: str | None, known_good_targets: Mapping[str, Any], reason: str, preserved_verification_receipt_ids: tuple[str, ...] = (), actor_role: str = "GACM_GOVERNANCE") -> RollbackReceipt:
         self._governance_actor(actor_role)
-        if self.state not in {PromotionState.PROMOTED.value, PromotionState.SETTLE_REQUIRED.value, PromotionState.PROMOTION_PENDING.value, PromotionState.BLOCKED.value}: raise PromotionTransitionError("rollback is not legal from current promotion state")
+        if self.state not in {PromotionState.PROMOTED.value, PromotionState.SETTLE_REQUIRED.value, PromotionState.OBSERVING.value, PromotionState.SETTLE_FAIL.value, PromotionState.ROLLBACK_REQUIRED.value, PromotionState.PROMOTION_PENDING.value, PromotionState.BLOCKED.value}: raise PromotionTransitionError("rollback is not legal from current promotion state")
         if not rollback_target_sha or rollback_target_sha not in known_good_targets or current_authoritative_sha != self.current_authority_sha: self.state = PromotionState.BLOCKED.value; raise PromotionTransitionError("rollback target or current authority cannot be proven")
         self.state = PromotionState.ROLLBACK_PENDING.value
         rollback_id = "rollback-" + hashlib.sha256(canonical({"run_id": run_id, "current": current_authoritative_sha, "target": rollback_target_sha, "reason": reason}).encode()).hexdigest()[:24]
         receipt = RollbackReceipt(run_id, rollback_id, self.state, current_authoritative_sha, rollback_target_sha, reason, tuple(item.promotion_id for item in self.promotion_history), tuple(sorted(preserved_verification_receipt_ids)), self.clock())
         self.rollback_history.append(receipt)
         return receipt
+
+    def stabilize(self, *, current_authoritative_sha: str, actor_role: str = "GACM_GOVERNANCE") -> None:
+        self._governance_actor(actor_role)
+        if self.state != PromotionState.SETTLE_PASS.value or not self.settle:
+            raise PromotionTransitionError("STABLE requires SETTLE_PASS")
+        if current_authoritative_sha != self.settle["candidate_sha"] or self.current_authority_sha != current_authoritative_sha:
+            self.state = PromotionState.BLOCKED.value
+            raise PromotionTransitionError("stable transition authority continuity mismatch")
+        self.state = PromotionState.STABLE.value
+
+    def begin_settle(self, policy: Any, *, current_authoritative_sha: str, authority_continuity: bool = True) -> str:
+        from .settle import SettleObservationGate
+        return SettleObservationGate(clock=self.clock).begin(self, policy, current_authoritative_sha=current_authoritative_sha, authority_continuity=authority_continuity)
+
+    def observe_settle(self, checks: Mapping[str, Any], *, current_authoritative_sha: str, evidence_references: tuple[str, ...] = ()) -> Any:
+        from .settle import SettleObservationGate
+        return SettleObservationGate(clock=self.clock).observe(self, checks, current_authoritative_sha=current_authoritative_sha, evidence_references=evidence_references)
+
+    def finalize_settle(self, *, current_authoritative_sha: str) -> Any:
+        from .settle import SettleObservationGate
+        return SettleObservationGate(clock=self.clock).finalize(self, current_authoritative_sha=current_authoritative_sha)
 
     def execute_rollback(self, *, rollback_id: str, current_authoritative_sha: str, actor_role: str = "GACM_GOVERNANCE") -> RollbackReceipt:
         self._governance_actor(actor_role)
