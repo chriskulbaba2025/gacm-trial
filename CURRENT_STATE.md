@@ -22,9 +22,9 @@ GACM v4.2.2 is treated as FROZEN methodology authority. This repository is for P
 
 ## Current phase
 
-**Phase 14: BLOCKED**
+**Phase 14: BLOCKED / RESUMING**
 
-Phases 1–12 are complete and recorded as PASS. Phase 13 has not been started.
+Phases 1–13 are complete and recorded as PASS. Phase 14 is resuming from its previously blocked state after the authoritative SPEC baseline was reconciled.
 
 ## Phase history
 
