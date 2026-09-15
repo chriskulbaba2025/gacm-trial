@@ -22,30 +22,30 @@ GACM v4.2.2 is treated as FROZEN methodology authority. This repository is for P
 
 ## Current phase
 
-**Phase 1 — Control-Layer Audit**
+**Human Gate before Phase 7**
 
-No application implementation is authorized yet.
+Phases 1–6 are complete and recorded as PASS. Phase 7 — GCU Execution Adapter is not authorized until HUMAN PASS.
+
+## Phase history
+
+- Phase 1 — Control-Layer Audit: **PASS** — commit `efc2622fdc46310c2aae7c12c6cb2e6291848aa4`
+- Phase 2 — Durable Run-State Schema: **PASS** — commit `35f74bc84209591ccb19dec67fbeadb8e04779c2`
+- Phase 3 — GitHub Authority Resolver: **PASS** — commit `cc9fb773aa31324a2f8e764e482de0516783ace5`
+- Phase 4 — Graphify Discovery Adapter: **PASS** — commit `95f7d599c4ebc85fccfcbfce5522eeb14e17fd8f`
+- Phase 5 — Authoritative Operational Context Resolver: **PASS** — commit `575315bab2cb5cc120af232a15597d36fb8ff4b7`
+- Phase 6 — Deterministic Model Router: **PASS** — commit `cf53ee63fa6888b89cfbdff0e718405c26d7f5cb`
 
 ## Current objective
 
-Audit every control expressed or implied by the Pilot v1 PRD and classify it by the lowest deterministic enforcement layer capable of preventing the failure.
+Await HUMAN PASS before beginning Phase 7 — GCU Execution Adapter.
 
-Allowed layers:
+## Completed phases
 
-- BUSINESS
-- GOVERNANCE
-- DURABLE AUTHORITY
-- DISCOVERY / GRAPH
-- ORCHESTRATION
-- EXECUTION / GCU
-- MODEL
-- INDEPENDENT VERIFICATION
-- RELEASE / SETTLE
-- HUMAN JUDGMENT
+The Phase 1 control-layer audit, Phase 2 durable run-state schema, Phase 3 GitHub Authority Resolver, Phase 4 Graphify Discovery Adapter, Phase 5 Authoritative Operational Context Resolver, and Phase 6 Deterministic Model Router are complete. Their artifacts and completion proofs remain the evidence for the recorded PASS states.
 
-## Required Phase 1 output
+## Historical Phase 1 requirements
 
-Create `GACM_CONTROL_LAYER_AUDIT_V1.md` containing, for every control:
+The Phase 1 audit was required to cover every control:
 
 1. Control ID
 2. Control statement
@@ -60,7 +60,7 @@ Create `GACM_CONTROL_LAYER_AUDIT_V1.md` containing, for every control:
 11. Dependencies on other controls
 12. Implementation priority
 
-The audit must explicitly cover:
+The audit explicitly covered:
 
 - GitHub authority
 - Graphify discovery only, never authority
@@ -79,14 +79,16 @@ The audit must explicitly cover:
 - human authority
 - continuation across chats/sessions without chat memory
 
-## Stop condition
+## Historical Phase 1 stop condition
 
-Do not implement code, Graphify integration, model routing, or orchestration during Phase 1.
+No code, Graphify integration, model routing, or orchestration was to be implemented during Phase 1. Any contradiction preventing deterministic control placement was to be documented and stopped rather than resolved by silently choosing a design.
 
-If the audit finds a contradiction in the PRD that prevents a deterministic control placement, document the contradiction and STOP rather than silently choosing a design.
+## Phase 7 gate
 
-## Next gate
+Do not begin Phase 7 — GCU Execution Adapter until HUMAN PASS is recorded.
 
-Human review of `GACM_CONTROL_LAYER_AUDIT_V1.md`.
+Preserve repository HEAD as the runtime-authoritative repository identity, GitHub as durable authority, Graphify as discovery only, and frozen GACM v4.2.2 methodology.
 
-Only after HUMAN PASS may Phase 2 — Durable Run-State Schema begin.
+## Next authorized phase
+
+After HUMAN PASS: **Phase 7 — GCU Execution Adapter**.
