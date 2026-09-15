@@ -22,7 +22,7 @@ GACM v4.2.2 is treated as FROZEN methodology authority. This repository is for P
 
 ## Current phase
 
-**Phase 12: PASS**
+**Phase 13: PASS**
 
 Phases 1–12 are complete and recorded as PASS. Phase 13 has not been started.
 
@@ -40,14 +40,15 @@ Phases 1–12 are complete and recorded as PASS. Phase 13 has not been started.
 - Phase 10 — Placeholder and Identity Validator: **PASS** — commit `316e6e2f79dabb7a1a65a6acf569d32042b06e19`
 - Phase 11 — Promotion / Rollback State Machine: **PASS** — commit `9c5fdc0eab0d22a4066a4f1d4cfb72b231901c53`
 - Phase 12 — Post-Promotion Settle / Observation Gate: **PASS**
+- Phase 13 — Pilot Harness: **PASS**
 
 ## Current objective
 
-Phase 12 settle / observation gate is complete. Await the human gate before Phase 13.
+Phase 13 pilot harness orchestration is complete. Await the separate human gate before Phase 14.
 
 ## Completed phases
 
-The Phase 1 control-layer audit, Phase 2 durable run-state schema, Phase 3 GitHub Authority Resolver, Phase 4 Graphify Discovery Adapter, Phase 5 Authoritative Operational Context Resolver, Phase 6 Deterministic Model Router, Phase 7 GCU Execution Adapter, Phase 8 Independent Verification Engine, Phase 9 Repair-Scope / Dependency Logic, Phase 10 Placeholder and Identity Validator, and Phase 11 Promotion / Rollback State Machine are complete. Their artifacts and completion proofs remain the evidence for the recorded PASS states.
+The Phase 1 control-layer audit, Phase 2 durable run-state schema, Phase 3 GitHub Authority Resolver, Phase 4 Graphify Discovery Adapter, Phase 5 Authoritative Operational Context Resolver, Phase 6 Deterministic Model Router, Phase 7 GCU Execution Adapter, Phase 8 Independent Verification Engine, Phase 9 Repair-Scope / Dependency Logic, Phase 10 Placeholder and Identity Validator, Phase 11 Promotion / Rollback State Machine, Phase 12 SETTLE gate, and Phase 13 Pilot Harness are complete. Their artifacts and completion proofs remain the evidence for the recorded PASS states.
 
 ## Historical Phase 1 requirements
 
@@ -95,6 +96,10 @@ Phase 12 requires Phase 11 `SETTLE_REQUIRED`, exact promoted identity, preserved
 
 Preserve repository HEAD as the runtime-authoritative repository identity, GitHub as durable authority, Graphify as discovery only, and frozen GACM v4.2.2 methodology.
 
+## Phase 13 gate
+
+Phase 13 is orchestration integration only. The Pilot Harness coordinates existing controls, preserves durable evidence, supports resume and bounded repair, respects human promotion authority, and does not start a real project or integrate Hermes.
+
 ## Next authorized phase
 
-Next authorized phase after a human gate: **Phase 13**.
+Next authorized phase after a separate human gate: **Phase 14 Real Project Pilot**.
