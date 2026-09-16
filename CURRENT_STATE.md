@@ -22,7 +22,7 @@ GACM v4.2.2 is treated as FROZEN methodology authority. This repository is for P
 
 ## Current phase
 
-**Phase 14: IN PROGRESS**
+**Phase 14: COMPLETE (PASS)**
 
 Phases 1–13 are complete and recorded as PASS. Phase 14 is resuming from its previously blocked state after the authoritative SPEC baseline was reconciled.
 
@@ -42,10 +42,11 @@ Phases 1–13 are complete and recorded as PASS. Phase 14 is resuming from its p
 - Phase 12 — Post-Promotion Settle / Observation Gate: **PASS**
 - Phase 13 — Pilot Harness: **PASS**
 - Phase 14 — Real Project Pilot: **BLOCKED (historical)** — the former authoritative spec-skill baseline lacked the existing validators required by the selected work unit; that authority discrepancy is now resolved.
+- Phase 14 — Real Project Pilot: **PASS** — exact SPEC candidate `30bfb0e78bab11c1e20cdc74b45530114c431654` was explicitly approved by Chris Kulbaba, promoted to SPEC `main`, independently verified, and SETTLED. Product repair cycles: 0; repair-process findings: 0.
 
 ## Current objective
 
-The authoritative SPEC baseline is `1264a0d4bf0bf4423f116126039bf695671aa91e`. The former validator-authority blocker is resolved: that exact authoritative commit contains the required package validator, PRD freeze validator, and fixtures. Phase 14 is resumed and in progress for the bounded Real Project Pilot using spec-skill. No pilot implementation or promotion has yet been performed.
+The authoritative SPEC baseline was `1264a0d4bf0bf4423f116126039bf695671aa91e`. The exact approved candidate `30bfb0e78bab11c1e20cdc74b45530114c431654` is now the promoted SPEC `main` identity. Chris Kulbaba provided explicit human promotion approval for Phase 14 SPEC readiness candidate promotion only. Independent verification PASS and post-promotion SETTLE are complete. Historical BLOCKED and HUMAN GATE states remain preserved in durable evidence. Phase 15 remains unauthorized.
 
 ## Completed phases
 
@@ -101,6 +102,10 @@ Preserve repository HEAD as the runtime-authoritative repository identity, GitHu
 
 Phase 13 is orchestration integration only. The Pilot Harness coordinates existing controls, preserves durable evidence, supports resume and bounded repair, respects human promotion authority, and does not start a real project or integrate Hermes.
 
+## Phase 14 promotion and settlement
+
+The promoted SPEC identity is `30bfb0e78bab11c1e20cdc74b45530114c431654` on local and remote `main`. The candidate changed only `scripts/spec_readiness.py` and `tests/test_spec_readiness.py`; authoritative validators and forbidden surfaces were preserved. Explicit human approval, independent verification, promotion, and SETTLE receipts are recorded in the durable Phase 14 run state. Rollback target remains `1264a0d4bf0bf4423f116126039bf695671aa91e`; rollback did not occur.
+
 ## Next authorized action
 
-Continue the bounded **Phase 14 Real Project Pilot using spec-skill** under the governed authority, routing, execution, verification, repair, promotion, human-gate, settle, and durable-completion controls. Phase 15 remains unauthorized.
+No Phase 15 action is authorized. Preserve the settled Phase 14 state and evidence. Any future work requires a separately governed authorization.
