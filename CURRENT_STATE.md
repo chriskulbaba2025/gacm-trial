@@ -22,7 +22,7 @@ GACM v4.2.2 is treated as FROZEN methodology authority. This repository is for P
 
 ## Current phase
 
-**Phase 14: BLOCKED / RESUMING**
+**Phase 14: IN PROGRESS**
 
 Phases 1–13 are complete and recorded as PASS. Phase 14 is resuming from its previously blocked state after the authoritative SPEC baseline was reconciled.
 
@@ -41,11 +41,11 @@ Phases 1–13 are complete and recorded as PASS. Phase 14 is resuming from its p
 - Phase 11 — Promotion / Rollback State Machine: **PASS** — commit `9c5fdc0eab0d22a4066a4f1d4cfb72b231901c53`
 - Phase 12 — Post-Promotion Settle / Observation Gate: **PASS**
 - Phase 13 — Pilot Harness: **PASS**
-- Phase 14 — Real Project Pilot: **BLOCKED** — authoritative spec-skill baseline lacks the existing validators required by the selected work unit; local copies are uncommitted and non-authoritative.
+- Phase 14 — Real Project Pilot: **BLOCKED (historical)** — the former authoritative spec-skill baseline lacked the existing validators required by the selected work unit; that authority discrepancy is now resolved.
 
 ## Current objective
 
-Phase 14 real-project pilot is blocked before execution because the clean authoritative spec-skill commit does not contain the required existing validators, while the local main worktree contains them only as uncommitted changes. No pilot implementation or promotion was performed.
+The authoritative SPEC baseline is `1264a0d4bf0bf4423f116126039bf695671aa91e`. The former validator-authority blocker is resolved: that exact authoritative commit contains the required package validator, PRD freeze validator, and fixtures. Phase 14 is resumed and in progress for the bounded Real Project Pilot using spec-skill. No pilot implementation or promotion has yet been performed.
 
 ## Completed phases
 
@@ -101,6 +101,6 @@ Preserve repository HEAD as the runtime-authoritative repository identity, GitHu
 
 Phase 13 is orchestration integration only. The Pilot Harness coordinates existing controls, preserves durable evidence, supports resume and bounded repair, respects human promotion authority, and does not start a real project or integrate Hermes.
 
-## Next authorized phase
+## Next authorized action
 
-Next authorized action after the spec-skill authority discrepancy is reconciled and a separate human gate: resume **Phase 14 Real Project Pilot**. Phase 15 remains unauthorized.
+Continue the bounded **Phase 14 Real Project Pilot using spec-skill** under the governed authority, routing, execution, verification, repair, promotion, human-gate, settle, and durable-completion controls. Phase 15 remains unauthorized.
