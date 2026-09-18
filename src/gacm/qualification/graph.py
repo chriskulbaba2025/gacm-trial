@@ -133,6 +133,7 @@ class QualificationGraph:
     graph_digest: str
     completeness_verifier: str
     completeness_evidence: str
+    completeness_receipt_digest: str
     frozen: bool = True
 
     @property
@@ -293,8 +294,7 @@ class QualificationGraphCompiler:
         spec_digest: str,
         normative_requirement_ids: Iterable[str],
         nodes: Iterable[Mapping[str, Any] | QualificationNode],
-        completeness_verifier: str,
-        completeness_evidence: str,
+        completeness_receipt: Mapping[str, Any],
     ) -> QualificationGraph:
         requirements = tuple(sorted(set(map(str, normative_requirement_ids))))
         if not requirements:
@@ -324,14 +324,29 @@ class QualificationGraphCompiler:
                 raise ValueError("UNKNOWN_PREREQUISITE:" + ",".join(invalid_prereqs))
             if invalid_retests:
                 raise ValueError("UNKNOWN_RETEST_NODE:" + ",".join(invalid_retests))
-        if not completeness_verifier or not completeness_evidence:
+        receipt = dict(completeness_receipt)
+        if receipt.get("status") != "PASS" or receipt.get("issuer_role") != "INDEPENDENT_VERIFIER":
             raise ValueError("INDEPENDENT_COMPLETENESS_VERIFICATION_REQUIRED")
+        if receipt.get("authoritative") is not True:
+            raise ValueError("COMPLETENESS_VERIFICATION_NOT_AUTHORITATIVE")
+        if str(receipt.get("spec_digest", "")) != str(spec_digest):
+            raise ValueError("COMPLETENESS_SPEC_DIGEST_MISMATCH")
+        if list(receipt.get("unmapped_requirements", [])):
+            raise ValueError("COMPLETENESS_RECEIPT_HAS_UNMAPPED_REQUIREMENTS")
+        if int(receipt.get("node_count", -1)) != len(parsed):
+            raise ValueError("COMPLETENESS_NODE_COUNT_MISMATCH")
+        completeness_verifier = str(receipt.get("verifier_id", ""))
+        completeness_evidence = str(receipt.get("evidence_id", ""))
+        if not completeness_verifier or not completeness_evidence:
+            raise ValueError("COMPLETENESS_RECEIPT_IDENTITY_MISSING")
+        completeness_receipt_digest = hashlib.sha256(_canonical(receipt).encode()).hexdigest()
         material = {
             "spec_digest": spec_digest,
             "requirements": requirements,
             "nodes": [node.to_dict() for node in sorted(parsed, key=lambda item: item.node_id)],
             "completeness_verifier": completeness_verifier,
             "completeness_evidence": completeness_evidence,
+            "completeness_receipt_digest": completeness_receipt_digest,
         }
         digest = hashlib.sha256(_canonical(material).encode()).hexdigest()
         return QualificationGraph(
@@ -340,5 +355,6 @@ class QualificationGraphCompiler:
             graph_digest=digest,
             completeness_verifier=str(completeness_verifier),
             completeness_evidence=str(completeness_evidence),
+            completeness_receipt_digest=completeness_receipt_digest,
             frozen=True,
         )
