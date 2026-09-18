@@ -185,6 +185,8 @@ class PilotHarness:
             state.config.authoritative_start_sha != config.authoritative_start_sha
             or state.config.project_id != config.project_id
             or state.config.frozen_spec_digest != config.frozen_spec_digest
+            or tuple(state.config.normative_requirement_ids) != tuple(config.normative_requirement_ids)
+            or state.config.escape_scan_budget != config.escape_scan_budget
         ):
             return self._block(state, "RESUME_IDENTITY_MISMATCH")
         if resume:
