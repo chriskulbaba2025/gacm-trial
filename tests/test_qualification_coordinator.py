@@ -170,6 +170,20 @@ class QualificationCoordinatorTests(unittest.TestCase):
         with self.assertRaisesRegex(QualificationBlocked, "QUALIFICATION_GRAPH_DIGEST_CHANGED"):
             c.run(state)
 
+    def test_requirement_set_mutation_fails_closed(self):
+        c, _ = self.make()
+        state = c.run()
+        state["normative_requirement_ids"] = ["R1", "R2"]
+        with self.assertRaisesRegex(QualificationBlocked, "QUALIFICATION_REQUIREMENT_SET_CHANGED"):
+            c.run(state)
+
+    def test_escape_budget_mutation_on_resume_fails_closed(self):
+        c, _ = self.make()
+        state = c.run()
+        state["escape_scan_budget"] = 99
+        with self.assertRaisesRegex(QualificationBlocked, "ESCAPE_SCAN_BUDGET_MUTATED"):
+            c.run(state)
+
 
 if __name__ == "__main__":
     unittest.main()
