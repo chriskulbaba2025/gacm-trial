@@ -66,6 +66,8 @@ class QualificationCoordinator:
         if graph is None:
             graph = self._compile_graph()
             state["graph"] = self._graph_snapshot(graph)
+            state["normative_requirement_ids"] = list(self.requirement_ids)
+            state["escape_scan_budget"] = self.escape_scan_budget
             state["progress"] = asdict(QualificationProgress.unavailable())
         self._assert_identity(graph, state)
 
@@ -267,6 +269,11 @@ class QualificationCoordinator:
     def _assert_identity(self, graph: QualificationGraph, state: Mapping[str, Any]) -> None:
         if graph.spec_digest != self.spec_digest:
             raise QualificationBlocked("QUALIFICATION_SPEC_DIGEST_CHANGED")
+        persisted_requirements = tuple(sorted(map(str, state.get("normative_requirement_ids", self.requirement_ids))))
+        if persisted_requirements != tuple(sorted(self.requirement_ids)):
+            raise QualificationBlocked("QUALIFICATION_REQUIREMENT_SET_CHANGED")
+        if int(state.get("escape_scan_budget", self.escape_scan_budget)) != self.escape_scan_budget:
+            raise QualificationBlocked("ESCAPE_SCAN_BUDGET_MUTATED")
         if graph.denominator != len(graph.nodes):
             raise QualificationBlocked("QUALIFICATION_DENOMINATOR_MUTATED")
         raw = state.get("graph", {})
