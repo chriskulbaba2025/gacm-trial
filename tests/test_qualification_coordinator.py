@@ -163,6 +163,13 @@ class QualificationCoordinatorTests(unittest.TestCase):
         with self.assertRaisesRegex(QualificationBlocked, "QUALIFICATION_DENOMINATOR_MUTATED"):
             c.run(state)
 
+    def test_graph_digest_mutation_fails_closed(self):
+        c, _ = self.make()
+        state = c.run()
+        state["graph"]["graph_digest"] = "0" * 64
+        with self.assertRaisesRegex(QualificationBlocked, "QUALIFICATION_GRAPH_DIGEST_CHANGED"):
+            c.run(state)
+
 
 if __name__ == "__main__":
     unittest.main()
