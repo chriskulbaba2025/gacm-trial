@@ -284,6 +284,11 @@ class PilotHarness:
         graph = state.qualification.get("graph")
         if not graph:
             return None
+        try:
+            context = next(x["value"] for x in state.evidence if x["kind"] == "context")
+            self._coordinator(config, context, state).validate_durable_identity(state.qualification)
+        except (StopIteration, QualificationBlocked) as error:
+            return str(error) if str(error) else "QUALIFICATION_DURABLE_IDENTITY_INVALID"
         if not self.adapters.current_qualification_identity:
             return "QUALIFICATION_IDENTITY_ADAPTER_MISSING"
         current = self.adapters.current_qualification_identity(config)
