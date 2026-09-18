@@ -187,12 +187,12 @@ class PilotHarness:
             or state.config.frozen_spec_digest != config.frozen_spec_digest
         ):
             return self._block(state, "RESUME_IDENTITY_MISMATCH")
-        if state.state in TERMINAL:
-            return state.snapshot()
         if resume:
             mismatch = self._resume_identity_mismatch(state, config)
             if mismatch:
                 return self._block(state, mismatch)
+        if state.state in TERMINAL:
+            return self._normalized(state.snapshot())
 
         try:
             if state.state == TopLevelState.INITIALIZED:
@@ -337,8 +337,13 @@ class PilotHarness:
         state.evidence.append(self._ev(kind, value))
 
     def _save(self, state: PilotState) -> dict[str, Any]:
-        self.store.save(state.snapshot())
-        return state.snapshot()
+        snapshot = self._normalized(state.snapshot())
+        self.store.save(snapshot)
+        return snapshot
+
+    @staticmethod
+    def _normalized(value: Mapping[str, Any]) -> dict[str, Any]:
+        return json.loads(json.dumps(value, default=str))
 
     def _block(self, state: PilotState, reason: str) -> dict[str, Any]:
         state.blockers.append(reason)
