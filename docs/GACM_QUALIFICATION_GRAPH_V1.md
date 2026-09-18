@@ -128,4 +128,4 @@ It intentionally does not mutate the Phase 15 sandbox and does not add Stage F T
 - progress semantics;
 - explicit termination evaluation.
 
-The existing PilotHarness is not silently changed in this correction. Phase 15 qualification must enter the graph path before further Stage F execution; the old per-unit repair loop is no longer the governing qualification process for this phase.
+The PilotHarness now delegates qualification to the finite QualificationCoordinator. The old per-unit immediate-repair loop has been removed as the governing qualification path. Promotion is guarded by finite pre-promotion readiness, resume binds to SPEC/graph/denominator identity, and final completion additionally requires successful SETTLE.
