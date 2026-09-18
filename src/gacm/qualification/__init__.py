@@ -1,3 +1,4 @@
+from .coordinator import QualificationBlocked, QualificationCoordinator
 from .graph import (
     DiscoveryObservation,
     EscapeScanResult,
@@ -11,6 +12,8 @@ from .graph import (
 __all__ = [
     "DiscoveryObservation",
     "EscapeScanResult",
+    "QualificationBlocked",
+    "QualificationCoordinator",
     "QualificationGraph",
     "QualificationGraphCompiler",
     "QualificationNode",
