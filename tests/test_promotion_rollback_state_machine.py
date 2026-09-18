@@ -22,6 +22,10 @@ def evidence(**overrides):
         "current_authoritative_sha": SHA, "rollback_target_sha": TARGET,
         "github_authority_status": "VERIFIED", "operational_context_status": "VERIFIED",
         "execution_status": "COMPLETED", "identity_validation_result": "VALID",
+        "qualification": {
+            "graph": {"graph_digest": "graph-1", "spec_digest": "spec-1", "denominator": 3},
+            "pre_promotion": {"ready": True, "reasons": []},
+        },
         "verification": {"status": "PASS", "authoritative": True, "issuer_role": "INDEPENDENT_VERIFIER"},
         "verification_receipt_ids": ("verify-1",), "operational_context_id": "ctx-1",
         "authority_continuity": True, "candidate_identity_matches": True,
@@ -38,7 +42,7 @@ class PromotionRollbackTests(unittest.TestCase):
     def test_eligibility_requires_all_governed_preconditions(self):
         machine = PromotionRollbackStateMachine(clock=self.clock)
         self.assertEqual("ELIGIBLE", machine.assess(evidence()).state)
-        for key, value in (("verification", {}), ("execution_status", "FAILED"), ("identity_validation_result", "INVALID_PLACEHOLDER"), ("rollback_target_sha", None), ("candidate_sha", None), ("repair_required", True)):
+        for key, value in (("verification", {}), ("execution_status", "FAILED"), ("identity_validation_result", "INVALID_PLACEHOLDER"), ("rollback_target_sha", None), ("candidate_sha", None), ("repair_required", True), ("qualification", {"pre_promotion": {"ready": False}, "graph": {}})):
             result = machine.assess(evidence(**{key: value}))
             self.assertIn(result.state, {"NOT_ELIGIBLE", "BLOCKED"})
 
