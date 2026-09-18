@@ -6,6 +6,8 @@ graph identity, bounds the escape scan, and produces a pre-promotion gate.
 """
 from __future__ import annotations
 
+import hashlib
+import json
 from dataclasses import asdict
 from typing import Any, Callable, Iterable, Mapping
 
@@ -270,3 +272,16 @@ class QualificationCoordinator:
         raw = state.get("graph", {})
         if raw and int(raw.get("denominator", -1)) != graph.denominator:
             raise QualificationBlocked("QUALIFICATION_DENOMINATOR_MUTATED")
+        material = {
+            "spec_digest": graph.spec_digest,
+            "requirements": tuple(sorted(self.requirement_ids)),
+            "nodes": [node.to_dict() for node in sorted(graph.nodes, key=lambda item: item.node_id)],
+            "completeness_verifier": graph.completeness_verifier,
+            "completeness_evidence": graph.completeness_evidence,
+            "completeness_receipt_digest": graph.completeness_receipt_digest,
+        }
+        expected = hashlib.sha256(
+            json.dumps(material, sort_keys=True, separators=(",", ":"), ensure_ascii=True, default=str).encode()
+        ).hexdigest()
+        if expected != graph.graph_digest:
+            raise QualificationBlocked("QUALIFICATION_GRAPH_DIGEST_CHANGED")
