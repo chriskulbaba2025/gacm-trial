@@ -1992,7 +1992,9 @@
       "additionalProperties": false,
       "required": [
         "graph",
-        "pre_promotion"
+        "pre_promotion",
+        "normative_requirement_ids",
+        "escape_scan_budget"
       ],
       "properties": {
         "graph": {
@@ -2133,6 +2135,19 @@
               }
             }
           }
+        },
+        "normative_requirement_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "escape_scan_budget": {
+          "type": "integer",
+          "minimum": 0
         }
       }
     }
