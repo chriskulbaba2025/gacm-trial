@@ -14,6 +14,12 @@ class PromotionEligibility:
         if evidence.get("github_authority_status") != "VERIFIED": reasons.append("GITHUB_AUTHORITY_NOT_VERIFIED")
         if evidence.get("operational_context_status") != "VERIFIED": reasons.append("OPERATIONAL_CONTEXT_NOT_VERIFIED")
         if evidence.get("execution_status") != "COMPLETED": reasons.append("EXECUTION_NOT_COMPLETED")
+        qualification = evidence.get("qualification", {})
+        pre = qualification.get("pre_promotion", {}) if isinstance(qualification, Mapping) else {}
+        graph = qualification.get("graph", {}) if isinstance(qualification, Mapping) else {}
+        if pre.get("ready") is not True: reasons.append("FINITE_QUALIFICATION_NOT_COMPLETE")
+        if not graph.get("graph_digest") or not graph.get("spec_digest") or not graph.get("denominator"):
+            reasons.append("FROZEN_QUALIFICATION_IDENTITY_REQUIRED")
         identity = evidence.get("identity_validation_result", evidence.get("placeholder_identity_result", "VALID"))
         if identity != "VALID": reasons.append("IDENTITY_VALIDATION_NOT_VALID")
         verifier = evidence.get("verification", {})
