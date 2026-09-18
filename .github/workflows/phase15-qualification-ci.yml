@@ -5,6 +5,9 @@ on:
     branches:
       - phase15/qualification-graph-methodology
   workflow_dispatch:
+  pull_request:
+    branches:
+      - main
 
 jobs:
   test:
