@@ -171,6 +171,12 @@ class QualificationCoordinator:
             raise QualificationBlocked("QUALIFICATION_PRE_PROMOTION_GATE_BLOCKED:" + ",".join(pre.reasons))
         return state
 
+    def validate_durable_identity(self, durable_state: Mapping[str, Any]) -> None:
+        graph = self._graph_from_state(durable_state)
+        if graph is None:
+            raise QualificationBlocked("QUALIFICATION_GRAPH_MISSING_ON_RESUME")
+        self._assert_identity(graph, durable_state)
+
     def finalize_after_settle(self, durable_state: Mapping[str, Any], *, settle_succeeded: bool) -> dict[str, Any]:
         state = dict(durable_state)
         graph = self._graph_from_state(state)
