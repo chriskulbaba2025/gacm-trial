@@ -1,0 +1,66 @@
+GACM PHASE 15 — QUALIFICATION METHODOLOGY CORRECTION PROOF
+
+STATUS
+METHODOLOGY_CORRECTION_CANDIDATE_READY_FOR_INDEPENDENT_VERIFICATION
+
+AUTHORITATIVE BASE
+Repository: chriskulbaba2025/gacm-trial
+Base SHA: 3d0f2e23ebd95cb9db3f0d7bd19a3d564f55d28b
+
+CANDIDATE
+Branch: phase15/qualification-graph-methodology
+Candidate SHA before this proof artifact: 4cf3163d39c1d0c9e5084b08b01f87caa71d56cb
+
+ROOT CAUSE
+The existing PilotHarness performs execute -> verify -> repair -> reverify inside the per-work-unit loop.
+That makes qualification discovery serial: an ordinary product divergence triggers repair before later safe qualification surfaces are observed.
+
+CORRECTION
+Added a finite Qualification Graph control that:
+- maps every normative frozen SPEC requirement to at least one qualification node;
+- rejects any qualification node that does not map back to the frozen SPEC;
+- requires authoritative independent completeness PASS tied to the same SPEC digest before graph freeze;
+- freezes an immutable graph denominator and deterministic digest;
+- separates sandbox-safe discovery from mutation/repair;
+- continues safe discovery after ordinary product failures;
+- hard-stops on unsafe authority/security/external-state conditions;
+- clusters failures by invariant/root-cause class;
+- computes transitive retest closure for bounded repairs;
+- enforces a fixed adversarial escape-scan budget;
+- reports completion as UNAVAILABLE before graph freeze;
+- defines explicit machine-checkable termination conditions.
+
+FILES ADDED
+- docs/GACM_QUALIFICATION_GRAPH_V1.md
+- src/gacm/qualification/__init__.py
+- src/gacm/qualification/graph.py
+- tests/test_qualification_graph.py
+
+INDEPENDENT LOCAL EXECUTION
+9 PASS / 0 FAIL
+Validated:
+1. zero-unmapped requirement freeze
+2. independent completeness gate
+3. ordinary-failure discovery continuation
+4. unsafe hard-stop
+5. invariant-class clustering
+6. transitive retest closure
+7. pre-freeze progress UNAVAILABLE
+8. fixed escape-scan budget
+9. explicit finite termination
+
+PRESERVED BOUNDARIES
+- Frozen SPEC unchanged
+- CRIT unchanged
+- SPEC repository unchanged
+- Phase 15 qualification sandbox unchanged
+- Stage F Test 07 not added
+- No production access
+- No deployment
+- No promotion
+- No merge
+- No qualification claim
+- No SETTLE
+
+NEXT GOVERNED ACTION
+Independently verify this methodology candidate against the approved Phase 15 correction requirements before any graph compilation or further Stage F qualification execution.
