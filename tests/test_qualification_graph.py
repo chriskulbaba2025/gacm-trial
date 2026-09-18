@@ -39,8 +39,16 @@ class QualificationGraphTests(unittest.TestCase):
                 node("N2", "R2", "identity", prereq=("N1",), retest=("N3",)),
                 node("N3", "R3", "presentation", prereq=("N2",)),
             ],
-            completeness_verifier="independent-verifier",
-            completeness_evidence="proof-1",
+            completeness_receipt={
+                "status": "PASS",
+                "issuer_role": "INDEPENDENT_VERIFIER",
+                "authoritative": True,
+                "spec_digest": "c506",
+                "unmapped_requirements": [],
+                "node_count": 3,
+                "verifier_id": "independent-verifier",
+                "evidence_id": "proof-1",
+            },
         )
 
     def test_freeze_requires_zero_unmapped_requirements(self):
@@ -49,8 +57,35 @@ class QualificationGraphTests(unittest.TestCase):
                 spec_digest="x",
                 normative_requirement_ids=["R1", "R2"],
                 nodes=[node("N1", "R1", "identity")],
-                completeness_verifier="verifier",
-                completeness_evidence="proof",
+                completeness_receipt={
+                    "status": "PASS",
+                    "issuer_role": "INDEPENDENT_VERIFIER",
+                    "authoritative": True,
+                    "spec_digest": "x",
+                    "unmapped_requirements": [],
+                    "node_count": 1,
+                    "verifier_id": "verifier",
+                    "evidence_id": "proof",
+                },
+            )
+
+
+    def test_freeze_rejects_non_independent_completeness_receipt(self):
+        with self.assertRaisesRegex(ValueError, "INDEPENDENT_COMPLETENESS_VERIFICATION_REQUIRED"):
+            QualificationGraphCompiler.compile(
+                spec_digest="x",
+                normative_requirement_ids=["R1"],
+                nodes=[node("N1", "R1", "identity")],
+                completeness_receipt={
+                    "status": "PASS",
+                    "issuer_role": "EXECUTOR",
+                    "authoritative": True,
+                    "spec_digest": "x",
+                    "unmapped_requirements": [],
+                    "node_count": 1,
+                    "verifier_id": "executor",
+                    "evidence_id": "proof",
+                },
             )
 
     def test_foreign_node_is_rejected(self):
@@ -59,8 +94,16 @@ class QualificationGraphTests(unittest.TestCase):
                 spec_digest="x",
                 normative_requirement_ids=["R1"],
                 nodes=[node("N1", "R1", "identity"), node("N2", "R2", "identity")],
-                completeness_verifier="verifier",
-                completeness_evidence="proof",
+                completeness_receipt={
+                    "status": "PASS",
+                    "issuer_role": "INDEPENDENT_VERIFIER",
+                    "authoritative": True,
+                    "spec_digest": "x",
+                    "unmapped_requirements": [],
+                    "node_count": 1,
+                    "verifier_id": "verifier",
+                    "evidence_id": "proof",
+                },
             )
 
     def test_discovery_continues_after_ordinary_failures(self):
