@@ -1,23 +1,31 @@
 # GACM Pilot Harness v1
 
-Phase 13 composes the proven Phase 1–12 controls into one retry-safe lifecycle. The harness is an orchestration boundary: GitHub authority, Graphify discovery, operational context, model routing, GCU execution, independent verification, repair scope, identity validation, promotion/rollback, and SETTLE retain their own decisions and receipts.
+Phase 15 integrates the finite Qualification Graph into the existing governed lifecycle. The harness remains orchestration-only: GitHub authority, operational context, qualification completeness, repair scope, independent verification, promotion/rollback, and SETTLE keep their existing ownership boundaries.
 
-## Lifecycle
+## Governing lifecycle
 
-`INITIALIZED → AUTHORITY_RESOLVED → CONTEXT_RESOLVED → PLANNED → EXECUTING → VERIFYING → PROMOTION_READY → PROMOTION_PENDING → SETTLE_REQUIRED → SETTLING → COMPLETED`.
+`INITIALIZED → AUTHORITY_RESOLVED → CONTEXT_RESOLVED → PLANNED → QUALIFYING → PROMOTION_READY → PROMOTION_PENDING → SETTLE_REQUIRED → SETTLING → COMPLETED`.
 
-Failure branches are `REPAIR_REQUIRED → REPAIRING`, `BLOCKED`, `FAILED`, and `ROLLBACK_REQUIRED`. `PROMOTION_PENDING` is the human gate when configured. Completion is written only after SETTLE passes (or an explicit policy says settlement is not required).
+The former per-work-unit `execute → verify → repair → reverify` loop is no longer the governing qualification path.
 
-`PilotHarness` receives a `HarnessConfig`, durable `RunStateStore`, and `HarnessAdapters`. Adapters invoke existing subsystem APIs; the harness does not interpret the PRD, qualify models, certify execution, or replace any Phase 9/11/12 state machine.
+`QUALIFYING` delegates to one `QualificationCoordinator`:
 
-## Resume, retry, and evidence
+`Frozen SPEC → graph compile → independent completeness PASS → graph freeze → complete safe discovery → invariant-class repair → transitive closure retest → fixed-budget escape scan → final graph replay → full regression/runtime checks → independent final verification`.
 
-`MemoryRunStateStore` is useful for tests; `JsonRunStateStore` reconstructs a run from JSON without chat context. Every transition, subsystem result, receipt, blocker, and assurance-preservation note is append-only in the snapshot. Terminal states are idempotent, completed units are skipped, and deterministic run IDs make infrastructure retries re-load the same logical run. Resume checks the configured project and starting authority and refuses stale authority.
+Promotion is unreachable unless that coordinator produces `pre_promotion.ready = true`. Completion is unreachable until SETTLE succeeds and the final qualification termination gate is complete.
 
-## Repair and human authority
+## Resume and identity
 
-Verification must return an independent `PASS`. A non-pass result is sent to the existing repair-scope adapter; only its affected scope is repaired and reverified. The adapter may report a broader requalification classification; the harness does not widen scope itself. Promotion requires the configured human approval when required; a model or executor cannot manufacture that approval.
+Durable state preserves the frozen SPEC digest, graph digest, denominator, completeness evidence, discovery observations, defect classes, repair closures, escape-scan budget/results, final observations, progress, and termination state.
 
-## Stop conditions and synthetic paths
+Resume fails closed when repository authority, frozen SPEC digest, graph digest, or denominator differs from the durable run. The graph is never silently recompiled under an existing run identity.
 
-The harness fails closed for ambiguous/stale authority, unresolved context, missing model qualification, execution failure, missing or non-independent verification, unresolved repair, blocked promotion, and missing settle/rollback adapters. The deterministic test suite exercises clean pass, local repair, broad requalification, blocked authority/context, model and scope enforcement, verifier self-certification rejection, human promotion gating, durable resume, duplicate retry, and settle failure to rollback. All simulations are in-memory and do not use credentials or modify a real project.
+## Discovery and repair
+
+Ordinary product divergence stops mutation but not safe discovery. All safely executable graph nodes are observed before ordinary repair begins. Failures are clustered by invariant/root-cause class, not test row. Repairs rerun only their proven transitive graph closure unless existing dependency evidence requires broader requalification.
+
+## Termination
+
+Before graph freeze, completion percentage is `UNAVAILABLE`.
+
+After graph freeze, discovery coverage, defect closure, and final qualification coverage are reported separately. Qualification cannot self-extend after its explicit terminal conditions pass; reopening requires actual new evidence or formal human authorization.
