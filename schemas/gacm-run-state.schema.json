@@ -33,6 +33,7 @@
     "gacm": { "$ref": "#/$defs/gacm" },
     "graphify": { "$ref": "#/$defs/graphify" },
     "operational_context": { "$ref": "#/$defs/operationalContext" },
+    "qualification": { "$ref": "#/$defs/qualificationState" },
     "work_units": {
       "type": "array",
       "minItems": 1,
@@ -109,6 +110,60 @@
     }
   ],
   "$defs": {
+    "qualificationState": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["graph", "normative_requirement_ids", "escape_scan_budget", "pre_promotion"],
+      "properties": {
+        "graph": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["spec_digest", "graph_digest", "denominator", "completeness_verifier", "completeness_evidence", "completeness_receipt_digest", "nodes", "frozen"],
+          "properties": {
+            "spec_digest": { "type": "string", "minLength": 1 },
+            "graph_digest": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+            "denominator": { "type": "integer", "minimum": 1 },
+            "completeness_verifier": { "type": "string", "minLength": 1 },
+            "completeness_evidence": { "type": "string", "minLength": 1 },
+            "completeness_receipt_digest": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+            "nodes": { "type": "array", "minItems": 1, "items": { "type": "object" } },
+            "frozen": { "const": true }
+          }
+        },
+        "normative_requirement_ids": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+        "escape_scan_budget": { "type": "integer", "minimum": 0 },
+        "discovery_observations": { "type": "array", "items": { "type": "object" } },
+        "discovered_defect_classes": { "type": "array", "items": { "type": "string" } },
+        "closed_defect_classes": { "type": "array", "items": { "type": "string" } },
+        "repair_receipts": { "type": "array", "items": { "type": "object" } },
+        "escape_scan_original": { "type": "object" },
+        "escape_scan": { "type": "object" },
+        "escaped_defect_closures": { "type": "object" },
+        "final_observations": { "type": "array", "items": { "type": "object" } },
+        "full_regression_green": { "type": "boolean" },
+        "runtime_checks_green": { "type": "boolean" },
+        "independent_final_verification": { "type": "object" },
+        "pre_promotion": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["ready", "reasons"],
+          "properties": {
+            "ready": { "type": "boolean" },
+            "reasons": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "progress": { "type": "object" },
+        "termination": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["complete", "reasons"],
+          "properties": {
+            "complete": { "type": "boolean" },
+            "reasons": { "type": "array", "items": { "type": "string" } }
+          }
+        }
+      }
+    },
     "id": {
       "type": "string",
       "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$"

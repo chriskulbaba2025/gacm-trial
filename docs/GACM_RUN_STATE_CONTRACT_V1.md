@@ -189,3 +189,12 @@ The schema intentionally does not claim to enforce what JSON Schema cannot prove
 - It cannot prove that a referenced evidence ID exists in the durable evidence store.
 
 Those are required runtime controls owned by the layers identified in the Phase 1 audit. A schema-valid document is therefore necessary but not sufficient for a GACM run to proceed or for any release claim.
+
+
+## Phase 15 finite qualification state
+
+Phase 15 adds an optional `qualification` projection for new finite-qualification runs while preserving backward validation of historical run-state fixtures.
+
+The projection records the frozen SPEC digest, deterministic Qualification Graph digest, immutable node denominator, independent completeness identities, node map, discovery observations, discovered and closed invariant classes, repair receipts and retest closures, fixed escape-scan state, final graph observations, full-regression/runtime outcomes, independent final verification, separate progress measures, pre-promotion readiness, and final termination.
+
+Runtime resume MUST compare durable SPEC digest, graph digest, and denominator with current governed identity. A mismatch fails closed. Promotion MUST NOT treat work-unit PASS states as a substitute for finite qualification readiness.

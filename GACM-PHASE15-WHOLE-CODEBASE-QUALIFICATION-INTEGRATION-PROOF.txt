@@ -1,0 +1,136 @@
+GACM PHASE 15 — WHOLE-CODEBASE QUALIFICATION INTEGRATION PROOF
+
+STATUS
+PASS — WHOLE_CODEBASE_QUALIFICATION_INTEGRATION_COMPLETE
+Candidate remains unmerged and unpromoted.
+
+AUTHORITATIVE BASE
+Repository: chriskulbaba2025/gacm-trial
+Base SHA: 3d0f2e23ebd95cb9db3f0d7bd19a3d564f55d28b
+
+BRANCH
+phase15/qualification-graph-methodology
+
+FULLY TESTED INTEGRATED CODE SHA
+c9f1aee8639a2cc3b88bd339e36bc5e44ffd1863
+
+CI EVIDENCE
+GitHub Actions workflow: Phase 15 Qualification Integration CI
+Run ID: 35402490180
+Result: SUCCESS
+Complete repository regression: 164 PASS / 0 FAIL / 0 SKIP
+Runtime: 3.34 seconds
+
+ROOT CAUSE
+The prior PilotHarness performed execute -> verify -> repair -> reverify inside each work-unit loop.
+This structurally serialized defect discovery and caused ordinary product divergences to be repaired before later safe qualification surfaces were observed.
+
+ARCHITECTURE CORRECTION
+The governing qualification path is now:
+
+Frozen SPEC
+-> Qualification Graph compile
+-> authoritative independent completeness verification
+-> graph freeze
+-> complete sandbox-safe discovery sweep
+-> invariant/root-cause defect clustering
+-> bounded invariant-class repair
+-> transitive closure retest
+-> fixed-budget adversarial escape scan
+-> final complete graph replay
+-> full regression and runtime checks
+-> authoritative independent final verification
+-> promotion gate
+-> SETTLE
+-> explicit finite termination
+
+MATERIAL IMPLEMENTATION
+- Added src/gacm/qualification/graph.py
+- Added src/gacm/qualification/coordinator.py
+- Added qualification package exports
+- Replaced PilotHarness serialized immediate-repair qualification loop
+- Added immutable SPEC/graph/denominator/requirement-set/escape-budget resume checks
+- Added deterministic graph digest recomputation on resume
+- Gated promotion eligibility on finite qualification readiness
+- Added durable qualification state schema
+- Updated Pilot Harness, Qualification Graph, and Run State contracts
+- Added complete qualification graph/coordinator/harness/promotion/schema tests
+- Added isolated branch CI for full repository regression
+
+PROVEN BEHAVIOURS
+- graph freeze rejects unmapped frozen SPEC requirements
+- graph freeze rejects foreign qualification nodes
+- graph freeze requires authoritative independent completeness PASS
+- completeness receipt binds exact frozen SPEC digest and node count
+- denominator is immutable
+- normative requirement set is immutable on resume
+- escape-scan budget is immutable and cannot self-extend
+- ordinary product failures do not stop safe discovery
+- unsafe authority/security conditions hard-stop discovery
+- repair cannot precede complete safe discovery
+- failures cluster by invariant/root-cause class
+- retest closure is deterministic and transitive
+- unrelated repair surfaces remain outside proven closure
+- escaped defects reopen only affected invariant closure
+- final full graph replay occurs before promotion readiness
+- progress is UNAVAILABLE before graph freeze
+- progress after freeze uses frozen graph denominator
+- promotion is blocked before finite qualification readiness
+- SETTLE is blocked before finite qualification readiness
+- resume rejects changed SPEC digest
+- resume rejects changed graph digest
+- resume rejects changed denominator
+- resume rejects changed requirement set
+- resume rejects changed escape budget
+- terminal resume still validates durable qualification identity
+- final termination requires successful SETTLE
+- completed qualification does not self-create another theoretical stage
+
+AFFECTED SURFACE AUDIT
+Changed governing surfaces:
+- lifecycle orchestration: src/gacm/harness/pilot.py
+- finite qualification: src/gacm/qualification/*
+- promotion eligibility: src/gacm/promotion/eligibility.py
+- durable state: schemas/gacm-run-state.schema.json
+- contracts/docs: Pilot Harness, Qualification Graph, Run State
+- tests: qualification graph, coordinator, harness, promotion, schema
+- CI: branch-only full regression workflow
+
+Preserved existing controls:
+- GitHub authority resolver
+- Graphify discovery authority boundary
+- operational context resolver
+- model router
+- GCU execution adapter
+- independent verification engine
+- repair-scope/dependency engine
+- placeholder/identity validator
+- promotion/rollback state machine
+- SETTLE observation gate
+
+BOUNDARIES PRESERVED
+Frozen Phase 15 SPEC: unchanged
+CRIT: unchanged
+SPEC repository: unchanged
+Phase 15 qualification sandbox: unchanged
+Stage F Tests 01-06 state: unchanged
+Stage F Test 07: NOT CREATED / NOT STARTED
+Production: untouched
+PRYSM: untouched
+COMPAS: untouched
+Falardeau: untouched
+Deployment: none
+Promotion: none
+Merge: none
+Release SETTLE: none
+
+PULL REQUEST
+Draft PR #1 exists only to expose independent CI evidence.
+It is not authorization to merge.
+
+PROGRESS RULE
+No Phase 15 product qualification percentage is reported yet.
+Completion percentage remains UNAVAILABLE until the real Phase 15 Qualification Graph is compiled, independently verified, and frozen against the frozen Phase 15 SPEC.
+
+NEXT GOVERNED ACTION
+Use this completed GACM methodology candidate to compile and independently verify the real Phase 15 Qualification Graph before any continuation to Stage F Test 07.

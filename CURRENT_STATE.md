@@ -109,3 +109,14 @@ The promoted SPEC identity is `30bfb0e78bab11c1e20cdc74b45530114c431654` on loca
 ## Next authorized action
 
 No Phase 15 action is authorized. Preserve the settled Phase 14 state and evidence. Any future work requires a separately governed authorization.
+
+
+## Phase 15 qualification-methodology candidate
+
+Phase 15 finite qualification architecture has been implemented on branch `phase15/qualification-graph-methodology` from authoritative base `3d0f2e23ebd95cb9db3f0d7bd19a3d564f55d28b`.
+
+The candidate replaces the serialized per-work-unit immediate-repair qualification path with a frozen Qualification Graph, independent completeness gate, complete safe discovery sweep, invariant-class repair, transitive closure retest, fixed-budget escape scan, final full replay, independent final verification, promotion gating, and SETTLE-bound termination.
+
+Independent GitHub Actions full regression for integrated code SHA `c9f1aee8639a2cc3b88bd339e36bc5e44ffd1863`: **164 PASS / 0 FAIL / 0 SKIP**.
+
+This is a methodology candidate only. It has not been merged to `main`, promoted, deployed, SETTLED as a release, or executed against the Phase 15 qualification sandbox. Stage F Test 07 remains unstarted.

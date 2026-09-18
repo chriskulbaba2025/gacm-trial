@@ -57,6 +57,13 @@ class GacmRunStateSchemaTests(unittest.TestCase):
     def test_invalid_illegal_lifecycle_transition(self):
         self.assert_invalid_fixture("invalid_illegal_transition.json")
 
+    def test_schema_declares_finite_qualification_state(self):
+        qualification = self.schema["$defs"]["qualificationState"]
+        self.assertIn("graph", qualification["required"])
+        self.assertIn("normative_requirement_ids", qualification["required"])
+        self.assertIn("escape_scan_budget", qualification["required"])
+        self.assertIn("pre_promotion", qualification["required"])
+
     def test_schema_declares_required_lifecycle_enums(self):
         lifecycle = self.schema["$defs"]["lifecycle"]["properties"]["status"]["enum"]
         verification = self.schema["$defs"]["verification"]["properties"]["status"]["enum"]

@@ -1,0 +1,2666 @@
+{
+  "schema_version": "GACM-QUALIFICATION-GRAPH-V1",
+  "spec_digest": "c506f1051d54874621de3eb3d84ef1bd627d8bde23bc458753cd56bfb27d4671d",
+  "normative_requirement_ids": [
+    "P15-R001",
+    "P15-R002",
+    "P15-R003",
+    "P15-R004",
+    "P15-R005",
+    "P15-R006",
+    "P15-R007",
+    "P15-R008",
+    "P15-R009",
+    "P15-R010",
+    "P15-R011",
+    "P15-R012",
+    "P15-R013",
+    "P15-R014",
+    "P15-R015",
+    "P15-R016",
+    "P15-R017",
+    "P15-R018",
+    "P15-R019",
+    "P15-R020",
+    "P15-R021",
+    "P15-R022",
+    "P15-R023",
+    "P15-R024",
+    "P15-R025",
+    "P15-R026",
+    "P15-R027",
+    "P15-R028",
+    "P15-R029",
+    "P15-R030",
+    "P15-R031",
+    "P15-R032",
+    "P15-R033",
+    "P15-R034",
+    "P15-R035",
+    "P15-R036",
+    "P15-R037",
+    "P15-R038",
+    "P15-R039",
+    "P15-R040",
+    "P15-R041",
+    "P15-R042",
+    "P15-R043",
+    "P15-R044",
+    "P15-R045",
+    "P15-R046",
+    "P15-R047",
+    "P15-R048",
+    "P15-R049",
+    "P15-R050",
+    "P15-R051",
+    "P15-R052",
+    "P15-R053",
+    "P15-R054",
+    "P15-R055",
+    "P15-R056",
+    "P15-R057",
+    "P15-R058",
+    "P15-R059",
+    "P15-R060",
+    "P15-R061",
+    "P15-R062",
+    "P15-R063",
+    "P15-R064",
+    "P15-R065",
+    "P15-R066",
+    "P15-R067",
+    "P15-R068",
+    "P15-R069",
+    "P15-R070",
+    "P15-R071",
+    "P15-R072",
+    "P15-R073",
+    "P15-R074",
+    "P15-R075",
+    "P15-R076",
+    "P15-R077",
+    "P15-R078"
+  ],
+  "nodes": [
+    {
+      "node_id": "N001",
+      "spec_requirement_id": "P15-R001",
+      "invariant": "behavior:browser/backend",
+      "affected_surface": [
+        "browser",
+        "backend"
+      ],
+      "prerequisites": [],
+      "fixture_input": "Frozen SPEC §2 fixture for P15-R001; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R001 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R001 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "READ_ONLY_SANDBOX",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "BEHAVIOR_CONTRACT",
+      "transitive_retest_closure": [
+        "N001"
+      ],
+      "required_evidence": [
+        "direct_N001_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N002",
+      "spec_requirement_id": "P15-R002",
+      "invariant": "behavior:browser",
+      "affected_surface": [
+        "browser"
+      ],
+      "prerequisites": [],
+      "fixture_input": "Frozen SPEC §2, §15 fixture for P15-R002; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R002 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R002 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "READ_ONLY_SANDBOX",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "BEHAVIOR_CONTRACT",
+      "transitive_retest_closure": [
+        "N002"
+      ],
+      "required_evidence": [
+        "direct_N002_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N003",
+      "spec_requirement_id": "P15-R003",
+      "invariant": "constraint:implementation",
+      "affected_surface": [
+        "implementation"
+      ],
+      "prerequisites": [],
+      "fixture_input": "Frozen SPEC §4, §21 fixture for P15-R003; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R003 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R003 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "READ_ONLY_SANDBOX",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "CONSTRAINT_CONTRACT",
+      "transitive_retest_closure": [
+        "N003"
+      ],
+      "required_evidence": [
+        "direct_N003_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N004",
+      "spec_requirement_id": "P15-R004",
+      "invariant": "identity:entry",
+      "affected_surface": [
+        "entry"
+      ],
+      "prerequisites": [],
+      "fixture_input": "Frozen SPEC §3 fixture for P15-R004; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R004 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R004 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "READ_ONLY_SANDBOX",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "IDENTITY_CONTRACT",
+      "transitive_retest_closure": [
+        "N004"
+      ],
+      "required_evidence": [
+        "direct_N004_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N005",
+      "spec_requirement_id": "P15-R005",
+      "invariant": "scope:whole-system",
+      "affected_surface": [
+        "whole-system"
+      ],
+      "prerequisites": [],
+      "fixture_input": "Frozen SPEC §4 fixture for P15-R005; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R005 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R005 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "READ_ONLY_SANDBOX",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "SCOPE_CONTRACT",
+      "transitive_retest_closure": [
+        "N005"
+      ],
+      "required_evidence": [
+        "direct_N005_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N006",
+      "spec_requirement_id": "P15-R006",
+      "invariant": "route:browser",
+      "affected_surface": [
+        "browser"
+      ],
+      "prerequisites": [],
+      "fixture_input": "Frozen SPEC §5, §6 fixture for P15-R006; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R006 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R006 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "READ_ONLY_SANDBOX",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "ROUTE_CONTRACT",
+      "transitive_retest_closure": [
+        "N006"
+      ],
+      "required_evidence": [
+        "direct_N006_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N007",
+      "spec_requirement_id": "P15-R007",
+      "invariant": "api:http",
+      "affected_surface": [
+        "http"
+      ],
+      "prerequisites": [],
+      "fixture_input": "Frozen SPEC §4, §7 fixture for P15-R007; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R007 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R007 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "READ_ONLY_SANDBOX",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "API_CONTRACT",
+      "transitive_retest_closure": [
+        "N007"
+      ],
+      "required_evidence": [
+        "direct_N007_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N008",
+      "spec_requirement_id": "P15-R008",
+      "invariant": "persistence:sqlite",
+      "affected_surface": [
+        "sqlite"
+      ],
+      "prerequisites": [],
+      "fixture_input": "Frozen SPEC §4, §9 fixture for P15-R008; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R008 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R008 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "DISPOSABLE_FIXTURE_MUTATION",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "PERSISTENCE_CONTRACT",
+      "transitive_retest_closure": [
+        "N008"
+      ],
+      "required_evidence": [
+        "direct_N008_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N009",
+      "spec_requirement_id": "P15-R009",
+      "invariant": "processing:backend",
+      "affected_surface": [
+        "backend"
+      ],
+      "prerequisites": [],
+      "fixture_input": "Frozen SPEC §4, §10 fixture for P15-R009; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R009 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R009 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "READ_ONLY_SANDBOX",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "PROCESSING_CONTRACT",
+      "transitive_retest_closure": [
+        "N009"
+      ],
+      "required_evidence": [
+        "direct_N009_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N010",
+      "spec_requirement_id": "P15-R010",
+      "invariant": "identity:whole-system",
+      "affected_surface": [
+        "whole-system"
+      ],
+      "prerequisites": [],
+      "fixture_input": "Frozen SPEC §4, §11 fixture for P15-R010; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R010 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R010 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "READ_ONLY_SANDBOX",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "IDENTITY_CONTRACT",
+      "transitive_retest_closure": [
+        "N010",
+        "N013",
+        "N014",
+        "N015",
+        "N016",
+        "N017",
+        "N018",
+        "N019",
+        "N036",
+        "N037",
+        "N038",
+        "N052",
+        "N053",
+        "N061",
+        "N064",
+        "N065",
+        "N066",
+        "N067",
+        "N068",
+        "N069",
+        "N070",
+        "N071"
+      ],
+      "required_evidence": [
+        "direct_N010_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N011",
+      "spec_requirement_id": "P15-R011",
+      "invariant": "error:http/backend",
+      "affected_surface": [
+        "http",
+        "backend"
+      ],
+      "prerequisites": [],
+      "fixture_input": "Frozen SPEC §4, §8, §13 fixture for P15-R011; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R011 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R011 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "READ_ONLY_SANDBOX",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "ERROR_CONTRACT",
+      "transitive_retest_closure": [
+        "N011"
+      ],
+      "required_evidence": [
+        "direct_N011_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N012",
+      "spec_requirement_id": "P15-R012",
+      "invariant": "test-seam:tests",
+      "affected_surface": [
+        "tests"
+      ],
+      "prerequisites": [],
+      "fixture_input": "Frozen SPEC §4, §14 fixture for P15-R012; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R012 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R012 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "READ_ONLY_SANDBOX",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "TEST-SEAM_CONTRACT",
+      "transitive_retest_closure": [
+        "N012"
+      ],
+      "required_evidence": [
+        "direct_N012_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N013",
+      "spec_requirement_id": "P15-R013",
+      "invariant": "flow:http/persistence",
+      "affected_surface": [
+        "http",
+        "persistence"
+      ],
+      "prerequisites": [
+        "N012"
+      ],
+      "fixture_input": "Frozen SPEC §5, §7 fixture for P15-R013; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R013 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R013 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "READ_ONLY_SANDBOX",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "FLOW_CONTRACT",
+      "transitive_retest_closure": [
+        "N013",
+        "N014",
+        "N015",
+        "N016",
+        "N017",
+        "N018",
+        "N019",
+        "N036",
+        "N037",
+        "N038",
+        "N052",
+        "N053",
+        "N061",
+        "N064",
+        "N065",
+        "N066",
+        "N067",
+        "N068",
+        "N069",
+        "N070",
+        "N071"
+      ],
+      "required_evidence": [
+        "direct_N013_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N014",
+      "spec_requirement_id": "P15-R014",
+      "invariant": "render:browser",
+      "affected_surface": [
+        "browser"
+      ],
+      "prerequisites": [
+        "N013"
+      ],
+      "fixture_input": "Frozen SPEC §5, §15 fixture for P15-R014; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R014 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R014 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "READ_ONLY_SANDBOX",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "RENDER_CONTRACT",
+      "transitive_retest_closure": [
+        "N014",
+        "N013",
+        "N015",
+        "N016",
+        "N017",
+        "N018",
+        "N019",
+        "N036",
+        "N037",
+        "N038",
+        "N052",
+        "N053",
+        "N061",
+        "N064",
+        "N065",
+        "N066",
+        "N067",
+        "N068",
+        "N069",
+        "N070",
+        "N071"
+      ],
+      "required_evidence": [
+        "direct_N014_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N015",
+      "spec_requirement_id": "P15-R015",
+      "invariant": "source-of-truth:browser/http",
+      "affected_surface": [
+        "browser",
+        "http"
+      ],
+      "prerequisites": [
+        "N014"
+      ],
+      "fixture_input": "Frozen SPEC §5, §6 fixture for P15-R015; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R015 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R015 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "READ_ONLY_SANDBOX",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "SOURCE-OF-TRUTH_CONTRACT",
+      "transitive_retest_closure": [
+        "N015",
+        "N013",
+        "N014",
+        "N016",
+        "N017",
+        "N018",
+        "N019",
+        "N036",
+        "N037",
+        "N038",
+        "N052",
+        "N053",
+        "N061",
+        "N064",
+        "N065",
+        "N066",
+        "N067",
+        "N068",
+        "N069",
+        "N070",
+        "N071"
+      ],
+      "required_evidence": [
+        "direct_N015_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N016",
+      "spec_requirement_id": "P15-R016",
+      "invariant": "source-of-truth:browser/http",
+      "affected_surface": [
+        "browser",
+        "http"
+      ],
+      "prerequisites": [
+        "N015"
+      ],
+      "fixture_input": "Frozen SPEC §5, §6 fixture for P15-R016; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R016 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R016 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "READ_ONLY_SANDBOX",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "SOURCE-OF-TRUTH_CONTRACT",
+      "transitive_retest_closure": [
+        "N016",
+        "N013",
+        "N014",
+        "N015",
+        "N017",
+        "N018",
+        "N019",
+        "N036",
+        "N037",
+        "N038",
+        "N052",
+        "N053",
+        "N061",
+        "N064",
+        "N065",
+        "N066",
+        "N067",
+        "N068",
+        "N069",
+        "N070",
+        "N071"
+      ],
+      "required_evidence": [
+        "direct_N016_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N017",
+      "spec_requirement_id": "P15-R017",
+      "invariant": "reload:browser",
+      "affected_surface": [
+        "browser"
+      ],
+      "prerequisites": [
+        "N016"
+      ],
+      "fixture_input": "Frozen SPEC §5, §6 fixture for P15-R017; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R017 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R017 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "READ_ONLY_SANDBOX",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "RELOAD_CONTRACT",
+      "transitive_retest_closure": [
+        "N017",
+        "N013",
+        "N014",
+        "N015",
+        "N016",
+        "N018",
+        "N019",
+        "N036",
+        "N037",
+        "N038",
+        "N052",
+        "N053",
+        "N061",
+        "N064",
+        "N065",
+        "N066",
+        "N067",
+        "N068",
+        "N069",
+        "N070",
+        "N071"
+      ],
+      "required_evidence": [
+        "direct_N017_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N018",
+      "spec_requirement_id": "P15-R018",
+      "invariant": "recovery:process/sqlite",
+      "affected_surface": [
+        "process",
+        "sqlite"
+      ],
+      "prerequisites": [
+        "N017"
+      ],
+      "fixture_input": "Frozen SPEC §5, §16 fixture for P15-R018; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R018 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R018 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "DISPOSABLE_FIXTURE_MUTATION",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "RECOVERY_CONTRACT",
+      "transitive_retest_closure": [
+        "N018",
+        "N013",
+        "N014",
+        "N015",
+        "N016",
+        "N017",
+        "N019",
+        "N036",
+        "N037",
+        "N038",
+        "N052",
+        "N053",
+        "N061",
+        "N064",
+        "N065",
+        "N066",
+        "N067",
+        "N068",
+        "N069",
+        "N070",
+        "N071"
+      ],
+      "required_evidence": [
+        "direct_N018_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N019",
+      "spec_requirement_id": "P15-R019",
+      "invariant": "prohibition:browser/backend",
+      "affected_surface": [
+        "browser",
+        "backend"
+      ],
+      "prerequisites": [
+        "N018"
+      ],
+      "fixture_input": "Frozen SPEC §5, §22 fixture for P15-R019; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R019 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R019 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "READ_ONLY_SANDBOX",
+      "failure_class": "GOVERNANCE_OR_PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "PROHIBITION_CONTRACT",
+      "transitive_retest_closure": [
+        "N019",
+        "N013",
+        "N014",
+        "N015",
+        "N016",
+        "N017",
+        "N018",
+        "N036",
+        "N037",
+        "N038",
+        "N052",
+        "N053",
+        "N061",
+        "N064",
+        "N065",
+        "N066",
+        "N067",
+        "N068",
+        "N069",
+        "N070",
+        "N071"
+      ],
+      "required_evidence": [
+        "direct_N019_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N020",
+      "spec_requirement_id": "P15-R020",
+      "invariant": "route:browser",
+      "affected_surface": [
+        "browser"
+      ],
+      "prerequisites": [],
+      "fixture_input": "Frozen SPEC §6 fixture for P15-R020; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R020 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R020 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "READ_ONLY_SANDBOX",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "ROUTE_CONTRACT",
+      "transitive_retest_closure": [
+        "N020"
+      ],
+      "required_evidence": [
+        "direct_N020_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N021",
+      "spec_requirement_id": "P15-R021",
+      "invariant": "route:browser",
+      "affected_surface": [
+        "browser"
+      ],
+      "prerequisites": [],
+      "fixture_input": "Frozen SPEC §6 fixture for P15-R021; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R021 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R021 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "READ_ONLY_SANDBOX",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "ROUTE_CONTRACT",
+      "transitive_retest_closure": [
+        "N021"
+      ],
+      "required_evidence": [
+        "direct_N021_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N022",
+      "spec_requirement_id": "P15-R022",
+      "invariant": "route:browser",
+      "affected_surface": [
+        "browser"
+      ],
+      "prerequisites": [],
+      "fixture_input": "Frozen SPEC §6 fixture for P15-R022; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R022 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R022 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "READ_ONLY_SANDBOX",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "ROUTE_CONTRACT",
+      "transitive_retest_closure": [
+        "N022"
+      ],
+      "required_evidence": [
+        "direct_N022_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N023",
+      "spec_requirement_id": "P15-R023",
+      "invariant": "api-contract:http",
+      "affected_surface": [
+        "http"
+      ],
+      "prerequisites": [
+        "N022"
+      ],
+      "fixture_input": "Frozen SPEC §7 fixture for P15-R023; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R023 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R023 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "READ_ONLY_SANDBOX",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "API-CONTRACT_CONTRACT",
+      "transitive_retest_closure": [
+        "N023"
+      ],
+      "required_evidence": [
+        "direct_N023_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N024",
+      "spec_requirement_id": "P15-R024",
+      "invariant": "api-contract:http/sqlite",
+      "affected_surface": [
+        "http",
+        "sqlite"
+      ],
+      "prerequisites": [
+        "N023"
+      ],
+      "fixture_input": "Frozen SPEC §7 fixture for P15-R024; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R024 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R024 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "READ_ONLY_SANDBOX",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "API-CONTRACT_CONTRACT",
+      "transitive_retest_closure": [
+        "N024"
+      ],
+      "required_evidence": [
+        "direct_N024_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N025",
+      "spec_requirement_id": "P15-R025",
+      "invariant": "api-contract:http",
+      "affected_surface": [
+        "http"
+      ],
+      "prerequisites": [
+        "N024"
+      ],
+      "fixture_input": "Frozen SPEC §7 fixture for P15-R025; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R025 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R025 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "READ_ONLY_SANDBOX",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "API-CONTRACT_CONTRACT",
+      "transitive_retest_closure": [
+        "N025"
+      ],
+      "required_evidence": [
+        "direct_N025_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N026",
+      "spec_requirement_id": "P15-R026",
+      "invariant": "prohibition:http",
+      "affected_surface": [
+        "http"
+      ],
+      "prerequisites": [
+        "N025"
+      ],
+      "fixture_input": "Frozen SPEC §7 fixture for P15-R026; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R026 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R026 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "READ_ONLY_SANDBOX",
+      "failure_class": "GOVERNANCE_OR_PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "PROHIBITION_CONTRACT",
+      "transitive_retest_closure": [
+        "N026"
+      ],
+      "required_evidence": [
+        "direct_N026_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N027",
+      "spec_requirement_id": "P15-R027",
+      "invariant": "schema:validation",
+      "affected_surface": [
+        "validation"
+      ],
+      "prerequisites": [
+        "N026"
+      ],
+      "fixture_input": "Frozen SPEC §8 fixture for P15-R027; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R027 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R027 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "READ_ONLY_SANDBOX",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "SCHEMA_CONTRACT",
+      "transitive_retest_closure": [
+        "N027"
+      ],
+      "required_evidence": [
+        "direct_N027_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N028",
+      "spec_requirement_id": "P15-R028",
+      "invariant": "schema:response/persistence",
+      "affected_surface": [
+        "response",
+        "persistence"
+      ],
+      "prerequisites": [
+        "N027"
+      ],
+      "fixture_input": "Frozen SPEC §8 fixture for P15-R028; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R028 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R028 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "READ_ONLY_SANDBOX",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "SCHEMA_CONTRACT",
+      "transitive_retest_closure": [
+        "N028"
+      ],
+      "required_evidence": [
+        "direct_N028_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N029",
+      "spec_requirement_id": "P15-R029",
+      "invariant": "error-contract:http",
+      "affected_surface": [
+        "http"
+      ],
+      "prerequisites": [
+        "N028"
+      ],
+      "fixture_input": "Frozen SPEC §8 fixture for P15-R029; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R029 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R029 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "READ_ONLY_SANDBOX",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "ERROR-CONTRACT_CONTRACT",
+      "transitive_retest_closure": [
+        "N029"
+      ],
+      "required_evidence": [
+        "direct_N029_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N030",
+      "spec_requirement_id": "P15-R030",
+      "invariant": "schema:sqlite",
+      "affected_surface": [
+        "sqlite"
+      ],
+      "prerequisites": [
+        "N029"
+      ],
+      "fixture_input": "Frozen SPEC §9 fixture for P15-R030; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R030 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R030 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "READ_ONLY_SANDBOX",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "SCHEMA_CONTRACT",
+      "transitive_retest_closure": [
+        "N030"
+      ],
+      "required_evidence": [
+        "direct_N030_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N031",
+      "spec_requirement_id": "P15-R031",
+      "invariant": "atomicity:sqlite",
+      "affected_surface": [
+        "sqlite"
+      ],
+      "prerequisites": [
+        "N030"
+      ],
+      "fixture_input": "Frozen SPEC §9 fixture for P15-R031; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R031 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R031 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "DISPOSABLE_FIXTURE_MUTATION",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "ATOMICITY_CONTRACT",
+      "transitive_retest_closure": [
+        "N031"
+      ],
+      "required_evidence": [
+        "direct_N031_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N032",
+      "spec_requirement_id": "P15-R032",
+      "invariant": "determinism:backend",
+      "affected_surface": [
+        "backend"
+      ],
+      "prerequisites": [
+        "N031"
+      ],
+      "fixture_input": "Frozen SPEC §10 fixture for P15-R032; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R032 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R032 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "READ_ONLY_SANDBOX",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "DETERMINISM_CONTRACT",
+      "transitive_retest_closure": [
+        "N032"
+      ],
+      "required_evidence": [
+        "direct_N032_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N033",
+      "spec_requirement_id": "P15-R033",
+      "invariant": "prohibition:backend",
+      "affected_surface": [
+        "backend"
+      ],
+      "prerequisites": [
+        "N032"
+      ],
+      "fixture_input": "Frozen SPEC §10 fixture for P15-R033; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R033 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R033 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "READ_ONLY_SANDBOX",
+      "failure_class": "GOVERNANCE_OR_PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "PROHIBITION_CONTRACT",
+      "transitive_retest_closure": [
+        "N033"
+      ],
+      "required_evidence": [
+        "direct_N033_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N034",
+      "spec_requirement_id": "P15-R034",
+      "invariant": "test-seam:tests/sqlite",
+      "affected_surface": [
+        "tests",
+        "sqlite"
+      ],
+      "prerequisites": [
+        "N033"
+      ],
+      "fixture_input": "Frozen SPEC §10, §14 fixture for P15-R034; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R034 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R034 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "READ_ONLY_SANDBOX",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "TEST-SEAM_CONTRACT",
+      "transitive_retest_closure": [
+        "N034"
+      ],
+      "required_evidence": [
+        "direct_N034_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N035",
+      "spec_requirement_id": "P15-R035",
+      "invariant": "identity-contract:persistence",
+      "affected_surface": [
+        "persistence"
+      ],
+      "prerequisites": [
+        "N034"
+      ],
+      "fixture_input": "Frozen SPEC §11 fixture for P15-R035; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R035 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R035 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "READ_ONLY_SANDBOX",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "IDENTITY-CONTRACT_CONTRACT",
+      "transitive_retest_closure": [
+        "N035",
+        "N013",
+        "N014",
+        "N015",
+        "N016",
+        "N017",
+        "N018",
+        "N019",
+        "N036",
+        "N037",
+        "N038",
+        "N052",
+        "N053",
+        "N061",
+        "N064",
+        "N065",
+        "N066",
+        "N067",
+        "N068",
+        "N069",
+        "N070",
+        "N071"
+      ],
+      "required_evidence": [
+        "direct_N035_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N036",
+      "spec_requirement_id": "P15-R036",
+      "invariant": "identity-contract:whole-system",
+      "affected_surface": [
+        "whole-system"
+      ],
+      "prerequisites": [
+        "N035"
+      ],
+      "fixture_input": "Frozen SPEC §11 fixture for P15-R036; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R036 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R036 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "READ_ONLY_SANDBOX",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "IDENTITY-CONTRACT_CONTRACT",
+      "transitive_retest_closure": [
+        "N036",
+        "N013",
+        "N014",
+        "N015",
+        "N016",
+        "N017",
+        "N018",
+        "N019",
+        "N037",
+        "N038",
+        "N052",
+        "N053",
+        "N061",
+        "N064",
+        "N065",
+        "N066",
+        "N067",
+        "N068",
+        "N069",
+        "N070",
+        "N071"
+      ],
+      "required_evidence": [
+        "direct_N036_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N037",
+      "spec_requirement_id": "P15-R037",
+      "invariant": "render-contract:browser",
+      "affected_surface": [
+        "browser"
+      ],
+      "prerequisites": [
+        "N036"
+      ],
+      "fixture_input": "Frozen SPEC §11 fixture for P15-R037; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R037 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R037 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "READ_ONLY_SANDBOX",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "RENDER-CONTRACT_CONTRACT",
+      "transitive_retest_closure": [
+        "N037",
+        "N013",
+        "N014",
+        "N015",
+        "N016",
+        "N017",
+        "N018",
+        "N019",
+        "N036",
+        "N038",
+        "N052",
+        "N053",
+        "N061",
+        "N064",
+        "N065",
+        "N066",
+        "N067",
+        "N068",
+        "N069",
+        "N070",
+        "N071"
+      ],
+      "required_evidence": [
+        "direct_N037_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N038",
+      "spec_requirement_id": "P15-R038",
+      "invariant": "negative:validation/sqlite",
+      "affected_surface": [
+        "validation",
+        "sqlite"
+      ],
+      "prerequisites": [
+        "N037"
+      ],
+      "fixture_input": "Frozen SPEC §12 fixture for P15-R038; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R038 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R038 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "DISPOSABLE_FIXTURE_MUTATION",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "NEGATIVE_CONTRACT",
+      "transitive_retest_closure": [
+        "N038"
+      ],
+      "required_evidence": [
+        "direct_N038_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N039",
+      "spec_requirement_id": "P15-R039",
+      "invariant": "negative:validation/sqlite",
+      "affected_surface": [
+        "validation",
+        "sqlite"
+      ],
+      "prerequisites": [
+        "N038"
+      ],
+      "fixture_input": "Frozen SPEC §12 fixture for P15-R039; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R039 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R039 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "DISPOSABLE_FIXTURE_MUTATION",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "NEGATIVE_CONTRACT",
+      "transitive_retest_closure": [
+        "N039"
+      ],
+      "required_evidence": [
+        "direct_N039_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N040",
+      "spec_requirement_id": "P15-R040",
+      "invariant": "negative:validation/sqlite",
+      "affected_surface": [
+        "validation",
+        "sqlite"
+      ],
+      "prerequisites": [
+        "N039"
+      ],
+      "fixture_input": "Frozen SPEC §12 fixture for P15-R040; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R040 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R040 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "DISPOSABLE_FIXTURE_MUTATION",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "NEGATIVE_CONTRACT",
+      "transitive_retest_closure": [
+        "N040"
+      ],
+      "required_evidence": [
+        "direct_N040_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N041",
+      "spec_requirement_id": "P15-R041",
+      "invariant": "negative:validation/sqlite",
+      "affected_surface": [
+        "validation",
+        "sqlite"
+      ],
+      "prerequisites": [
+        "N040"
+      ],
+      "fixture_input": "Frozen SPEC §12 fixture for P15-R041; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R041 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R041 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "DISPOSABLE_FIXTURE_MUTATION",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "NEGATIVE_CONTRACT",
+      "transitive_retest_closure": [
+        "N041"
+      ],
+      "required_evidence": [
+        "direct_N041_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N042",
+      "spec_requirement_id": "P15-R042",
+      "invariant": "negative:validation",
+      "affected_surface": [
+        "validation"
+      ],
+      "prerequisites": [
+        "N041"
+      ],
+      "fixture_input": "Frozen SPEC §12 fixture for P15-R042; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R042 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R042 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "DISPOSABLE_FIXTURE_MUTATION",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "NEGATIVE_CONTRACT",
+      "transitive_retest_closure": [
+        "N042"
+      ],
+      "required_evidence": [
+        "direct_N042_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N043",
+      "spec_requirement_id": "P15-R043",
+      "invariant": "negative:http",
+      "affected_surface": [
+        "http"
+      ],
+      "prerequisites": [
+        "N042"
+      ],
+      "fixture_input": "Frozen SPEC §12 fixture for P15-R043; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R043 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R043 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "DISPOSABLE_FIXTURE_MUTATION",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "NEGATIVE_CONTRACT",
+      "transitive_retest_closure": [
+        "N043"
+      ],
+      "required_evidence": [
+        "direct_N043_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N044",
+      "spec_requirement_id": "P15-R044",
+      "invariant": "negative:integrity",
+      "affected_surface": [
+        "integrity"
+      ],
+      "prerequisites": [
+        "N043"
+      ],
+      "fixture_input": "Frozen SPEC §12 fixture for P15-R044; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R044 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R044 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "DISPOSABLE_FIXTURE_MUTATION",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "NEGATIVE_CONTRACT",
+      "transitive_retest_closure": [
+        "N044"
+      ],
+      "required_evidence": [
+        "direct_N044_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N045",
+      "spec_requirement_id": "P15-R045",
+      "invariant": "negative:integrity",
+      "affected_surface": [
+        "integrity"
+      ],
+      "prerequisites": [
+        "N044"
+      ],
+      "fixture_input": "Frozen SPEC §12 fixture for P15-R045; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R045 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R045 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "DISPOSABLE_FIXTURE_MUTATION",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "NEGATIVE_CONTRACT",
+      "transitive_retest_closure": [
+        "N045"
+      ],
+      "required_evidence": [
+        "direct_N045_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N046",
+      "spec_requirement_id": "P15-R046",
+      "invariant": "negative:sqlite/integrity",
+      "affected_surface": [
+        "sqlite",
+        "integrity"
+      ],
+      "prerequisites": [
+        "N045"
+      ],
+      "fixture_input": "Frozen SPEC §12 fixture for P15-R046; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R046 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R046 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "DISPOSABLE_FIXTURE_MUTATION",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "NEGATIVE_CONTRACT",
+      "transitive_retest_closure": [
+        "N046"
+      ],
+      "required_evidence": [
+        "direct_N046_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N047",
+      "spec_requirement_id": "P15-R047",
+      "invariant": "negative:browser/render",
+      "affected_surface": [
+        "browser",
+        "render"
+      ],
+      "prerequisites": [
+        "N046"
+      ],
+      "fixture_input": "Frozen SPEC §12 fixture for P15-R047; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R047 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R047 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "DISPOSABLE_FIXTURE_MUTATION",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "NEGATIVE_CONTRACT",
+      "transitive_retest_closure": [
+        "N047",
+        "N013",
+        "N014",
+        "N015",
+        "N016",
+        "N017",
+        "N018",
+        "N019",
+        "N036",
+        "N037",
+        "N038",
+        "N052",
+        "N053",
+        "N061",
+        "N064",
+        "N065",
+        "N066",
+        "N067",
+        "N068",
+        "N069",
+        "N070",
+        "N071"
+      ],
+      "required_evidence": [
+        "direct_N047_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N048",
+      "spec_requirement_id": "P15-R048",
+      "invariant": "negative:backend/sqlite",
+      "affected_surface": [
+        "backend",
+        "sqlite"
+      ],
+      "prerequisites": [
+        "N047"
+      ],
+      "fixture_input": "Frozen SPEC §13 fixture for P15-R048; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R048 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R048 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "DISPOSABLE_FIXTURE_MUTATION",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "NEGATIVE_CONTRACT",
+      "transitive_retest_closure": [
+        "N048",
+        "N013",
+        "N014",
+        "N015",
+        "N016",
+        "N017",
+        "N018",
+        "N019",
+        "N036",
+        "N037",
+        "N038",
+        "N052",
+        "N053",
+        "N061",
+        "N064",
+        "N065",
+        "N066",
+        "N067",
+        "N068",
+        "N069",
+        "N070",
+        "N071"
+      ],
+      "required_evidence": [
+        "direct_N048_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N049",
+      "spec_requirement_id": "P15-R049",
+      "invariant": "fail-closed:sqlite",
+      "affected_surface": [
+        "sqlite"
+      ],
+      "prerequisites": [
+        "N048"
+      ],
+      "fixture_input": "Frozen SPEC §13 fixture for P15-R049; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R049 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R049 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "READ_ONLY_SANDBOX",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "FAIL-CLOSED_CONTRACT",
+      "transitive_retest_closure": [
+        "N049"
+      ],
+      "required_evidence": [
+        "direct_N049_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N050",
+      "spec_requirement_id": "P15-R050",
+      "invariant": "prohibition:http",
+      "affected_surface": [
+        "http"
+      ],
+      "prerequisites": [
+        "N049"
+      ],
+      "fixture_input": "Frozen SPEC §14 fixture for P15-R050; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R050 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R050 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "READ_ONLY_SANDBOX",
+      "failure_class": "GOVERNANCE_OR_PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "PROHIBITION_CONTRACT",
+      "transitive_retest_closure": [
+        "N050"
+      ],
+      "required_evidence": [
+        "direct_N050_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N051",
+      "spec_requirement_id": "P15-R051",
+      "invariant": "integration:browser/http",
+      "affected_surface": [
+        "browser",
+        "http"
+      ],
+      "prerequisites": [
+        "N050"
+      ],
+      "fixture_input": "Frozen SPEC §15 fixture for P15-R051; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R051 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R051 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "READ_ONLY_SANDBOX",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "INTEGRATION_CONTRACT",
+      "transitive_retest_closure": [
+        "N051"
+      ],
+      "required_evidence": [
+        "direct_N051_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N052",
+      "spec_requirement_id": "P15-R052",
+      "invariant": "recovery:process/sqlite",
+      "affected_surface": [
+        "process",
+        "sqlite"
+      ],
+      "prerequisites": [
+        "N051"
+      ],
+      "fixture_input": "Frozen SPEC §16 fixture for P15-R052; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R052 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R052 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "DISPOSABLE_FIXTURE_MUTATION",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "RECOVERY_CONTRACT",
+      "transitive_retest_closure": [
+        "N052",
+        "N013",
+        "N014",
+        "N015",
+        "N016",
+        "N017",
+        "N018",
+        "N019",
+        "N036",
+        "N037",
+        "N038",
+        "N053",
+        "N061",
+        "N064",
+        "N065",
+        "N066",
+        "N067",
+        "N068",
+        "N069",
+        "N070",
+        "N071"
+      ],
+      "required_evidence": [
+        "direct_N052_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N053",
+      "spec_requirement_id": "P15-R053",
+      "invariant": "test-matrix:tests",
+      "affected_surface": [
+        "tests"
+      ],
+      "prerequisites": [
+        "N052"
+      ],
+      "fixture_input": "Frozen SPEC §17 fixture for P15-R053; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R053 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R053 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "READ_ONLY_SANDBOX",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "TEST-MATRIX_CONTRACT",
+      "transitive_retest_closure": [
+        "N053",
+        "N013",
+        "N014",
+        "N015",
+        "N016",
+        "N017",
+        "N018",
+        "N019",
+        "N036",
+        "N037",
+        "N038",
+        "N052",
+        "N061",
+        "N064",
+        "N065",
+        "N066",
+        "N067",
+        "N068",
+        "N069",
+        "N070",
+        "N071"
+      ],
+      "required_evidence": [
+        "direct_N053_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N054",
+      "spec_requirement_id": "P15-R054",
+      "invariant": "test-matrix:tests/http",
+      "affected_surface": [
+        "tests",
+        "http"
+      ],
+      "prerequisites": [
+        "N053"
+      ],
+      "fixture_input": "Frozen SPEC §17 fixture for P15-R054; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R054 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R054 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "READ_ONLY_SANDBOX",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "TEST-MATRIX_CONTRACT",
+      "transitive_retest_closure": [
+        "N054"
+      ],
+      "required_evidence": [
+        "direct_N054_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N055",
+      "spec_requirement_id": "P15-R055",
+      "invariant": "test-matrix:tests/sqlite",
+      "affected_surface": [
+        "tests",
+        "sqlite"
+      ],
+      "prerequisites": [
+        "N054"
+      ],
+      "fixture_input": "Frozen SPEC §17 fixture for P15-R055; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R055 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R055 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "READ_ONLY_SANDBOX",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "TEST-MATRIX_CONTRACT",
+      "transitive_retest_closure": [
+        "N055"
+      ],
+      "required_evidence": [
+        "direct_N055_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N056",
+      "spec_requirement_id": "P15-R056",
+      "invariant": "test-matrix:tests/recovery",
+      "affected_surface": [
+        "tests",
+        "recovery"
+      ],
+      "prerequisites": [
+        "N055"
+      ],
+      "fixture_input": "Frozen SPEC §17 fixture for P15-R056; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R056 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R056 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "READ_ONLY_SANDBOX",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "TEST-MATRIX_CONTRACT",
+      "transitive_retest_closure": [
+        "N056"
+      ],
+      "required_evidence": [
+        "direct_N056_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N057",
+      "spec_requirement_id": "P15-R057",
+      "invariant": "test-matrix:tests/negative",
+      "affected_surface": [
+        "tests",
+        "negative"
+      ],
+      "prerequisites": [
+        "N056"
+      ],
+      "fixture_input": "Frozen SPEC §17 fixture for P15-R057; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R057 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R057 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "READ_ONLY_SANDBOX",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "TEST-MATRIX_CONTRACT",
+      "transitive_retest_closure": [
+        "N057"
+      ],
+      "required_evidence": [
+        "direct_N057_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N058",
+      "spec_requirement_id": "P15-R058",
+      "invariant": "test-matrix:tests",
+      "affected_surface": [
+        "tests"
+      ],
+      "prerequisites": [
+        "N057"
+      ],
+      "fixture_input": "Frozen SPEC §17 fixture for P15-R058; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R058 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R058 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "READ_ONLY_SANDBOX",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "TEST-MATRIX_CONTRACT",
+      "transitive_retest_closure": [
+        "N058"
+      ],
+      "required_evidence": [
+        "direct_N058_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N059",
+      "spec_requirement_id": "P15-R059",
+      "invariant": "test-matrix:tests/sqlite",
+      "affected_surface": [
+        "tests",
+        "sqlite"
+      ],
+      "prerequisites": [
+        "N058"
+      ],
+      "fixture_input": "Frozen SPEC §17 fixture for P15-R059; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R059 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R059 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "READ_ONLY_SANDBOX",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "TEST-MATRIX_CONTRACT",
+      "transitive_retest_closure": [
+        "N059"
+      ],
+      "required_evidence": [
+        "direct_N059_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N060",
+      "spec_requirement_id": "P15-R060",
+      "invariant": "test-matrix:tests/browser",
+      "affected_surface": [
+        "tests",
+        "browser"
+      ],
+      "prerequisites": [
+        "N059"
+      ],
+      "fixture_input": "Frozen SPEC §17 fixture for P15-R060; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R060 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R060 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "READ_ONLY_SANDBOX",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "TEST-MATRIX_CONTRACT",
+      "transitive_retest_closure": [
+        "N060",
+        "N013",
+        "N014",
+        "N015",
+        "N016",
+        "N017",
+        "N018",
+        "N019",
+        "N036",
+        "N037",
+        "N038",
+        "N052",
+        "N053",
+        "N061",
+        "N064",
+        "N065",
+        "N066",
+        "N067",
+        "N068",
+        "N069",
+        "N070",
+        "N071"
+      ],
+      "required_evidence": [
+        "direct_N060_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N061",
+      "spec_requirement_id": "P15-R061",
+      "invariant": "negative:tests",
+      "affected_surface": [
+        "tests"
+      ],
+      "prerequisites": [
+        "N060"
+      ],
+      "fixture_input": "Frozen SPEC §18 fixture for P15-R061; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R061 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R061 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "DISPOSABLE_FIXTURE_MUTATION",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "NEGATIVE_CONTRACT",
+      "transitive_retest_closure": [
+        "N061",
+        "N013",
+        "N014",
+        "N015",
+        "N016",
+        "N017",
+        "N018",
+        "N019",
+        "N036",
+        "N037",
+        "N038",
+        "N052",
+        "N053",
+        "N064",
+        "N065",
+        "N066",
+        "N067",
+        "N068",
+        "N069",
+        "N070",
+        "N071"
+      ],
+      "required_evidence": [
+        "direct_N061_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N062",
+      "spec_requirement_id": "P15-R062",
+      "invariant": "boundary:application",
+      "affected_surface": [
+        "application"
+      ],
+      "prerequisites": [
+        "N061"
+      ],
+      "fixture_input": "Frozen SPEC §19 fixture for P15-R062; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R062 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R062 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "READ_ONLY_SANDBOX",
+      "failure_class": "GOVERNANCE_OR_PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "BOUNDARY_CONTRACT",
+      "transitive_retest_closure": [
+        "N062"
+      ],
+      "required_evidence": [
+        "direct_N062_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N063",
+      "spec_requirement_id": "P15-R063",
+      "invariant": "acceptance:whole-system",
+      "affected_surface": [
+        "whole-system"
+      ],
+      "prerequisites": [
+        "N062"
+      ],
+      "fixture_input": "Frozen SPEC §19 fixture for P15-R063; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R063 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R063 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "DISPOSABLE_FIXTURE_MUTATION",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "ACCEPTANCE_CONTRACT",
+      "transitive_retest_closure": [
+        "N063"
+      ],
+      "required_evidence": [
+        "direct_N063_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N064",
+      "spec_requirement_id": "P15-R064",
+      "invariant": "acceptance:http",
+      "affected_surface": [
+        "http"
+      ],
+      "prerequisites": [
+        "N063"
+      ],
+      "fixture_input": "Frozen SPEC §19 fixture for P15-R064; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R064 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R064 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "DISPOSABLE_FIXTURE_MUTATION",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "ACCEPTANCE_CONTRACT",
+      "transitive_retest_closure": [
+        "N064"
+      ],
+      "required_evidence": [
+        "direct_N064_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N065",
+      "spec_requirement_id": "P15-R065",
+      "invariant": "acceptance:backend",
+      "affected_surface": [
+        "backend"
+      ],
+      "prerequisites": [
+        "N064"
+      ],
+      "fixture_input": "Frozen SPEC §19 fixture for P15-R065; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R065 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R065 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "DISPOSABLE_FIXTURE_MUTATION",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "ACCEPTANCE_CONTRACT",
+      "transitive_retest_closure": [
+        "N065"
+      ],
+      "required_evidence": [
+        "direct_N065_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N066",
+      "spec_requirement_id": "P15-R066",
+      "invariant": "acceptance:whole-system",
+      "affected_surface": [
+        "whole-system"
+      ],
+      "prerequisites": [
+        "N065"
+      ],
+      "fixture_input": "Frozen SPEC §19 fixture for P15-R066; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R066 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R066 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "DISPOSABLE_FIXTURE_MUTATION",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "ACCEPTANCE_CONTRACT",
+      "transitive_retest_closure": [
+        "N066",
+        "N013",
+        "N014",
+        "N015",
+        "N016",
+        "N017",
+        "N018",
+        "N019",
+        "N036",
+        "N037",
+        "N038",
+        "N052",
+        "N053",
+        "N061",
+        "N064",
+        "N065",
+        "N067",
+        "N068",
+        "N069",
+        "N070",
+        "N071"
+      ],
+      "required_evidence": [
+        "direct_N066_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N067",
+      "spec_requirement_id": "P15-R067",
+      "invariant": "acceptance:negative",
+      "affected_surface": [
+        "negative"
+      ],
+      "prerequisites": [
+        "N066"
+      ],
+      "fixture_input": "Frozen SPEC §19 fixture for P15-R067; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R067 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R067 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "DISPOSABLE_FIXTURE_MUTATION",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "ACCEPTANCE_CONTRACT",
+      "transitive_retest_closure": [
+        "N067",
+        "N013",
+        "N014",
+        "N015",
+        "N016",
+        "N017",
+        "N018",
+        "N019",
+        "N036",
+        "N037",
+        "N038",
+        "N052",
+        "N053",
+        "N061",
+        "N064",
+        "N065",
+        "N066",
+        "N068",
+        "N069",
+        "N070",
+        "N071"
+      ],
+      "required_evidence": [
+        "direct_N067_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N068",
+      "spec_requirement_id": "P15-R068",
+      "invariant": "acceptance:whole-system",
+      "affected_surface": [
+        "whole-system"
+      ],
+      "prerequisites": [
+        "N067"
+      ],
+      "fixture_input": "Frozen SPEC §19 fixture for P15-R068; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R068 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R068 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "DISPOSABLE_FIXTURE_MUTATION",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "ACCEPTANCE_CONTRACT",
+      "transitive_retest_closure": [
+        "N068",
+        "N013",
+        "N014",
+        "N015",
+        "N016",
+        "N017",
+        "N018",
+        "N019",
+        "N036",
+        "N037",
+        "N038",
+        "N052",
+        "N053",
+        "N061",
+        "N064",
+        "N065",
+        "N066",
+        "N067",
+        "N069",
+        "N070",
+        "N071"
+      ],
+      "required_evidence": [
+        "direct_N068_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N069",
+      "spec_requirement_id": "P15-R069",
+      "invariant": "acceptance:tests",
+      "affected_surface": [
+        "tests"
+      ],
+      "prerequisites": [
+        "N068"
+      ],
+      "fixture_input": "Frozen SPEC §19 fixture for P15-R069; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R069 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R069 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "DISPOSABLE_FIXTURE_MUTATION",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "ACCEPTANCE_CONTRACT",
+      "transitive_retest_closure": [
+        "N069",
+        "N013",
+        "N014",
+        "N015",
+        "N016",
+        "N017",
+        "N018",
+        "N019",
+        "N036",
+        "N037",
+        "N038",
+        "N052",
+        "N053",
+        "N061",
+        "N064",
+        "N065",
+        "N066",
+        "N067",
+        "N068",
+        "N070",
+        "N071"
+      ],
+      "required_evidence": [
+        "direct_N069_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N070",
+      "spec_requirement_id": "P15-R070",
+      "invariant": "acceptance:recovery",
+      "affected_surface": [
+        "recovery"
+      ],
+      "prerequisites": [
+        "N069"
+      ],
+      "fixture_input": "Frozen SPEC §19 fixture for P15-R070; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R070 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R070 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "DISPOSABLE_FIXTURE_MUTATION",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "ACCEPTANCE_CONTRACT",
+      "transitive_retest_closure": [
+        "N070",
+        "N013",
+        "N014",
+        "N015",
+        "N016",
+        "N017",
+        "N018",
+        "N019",
+        "N036",
+        "N037",
+        "N038",
+        "N052",
+        "N053",
+        "N061",
+        "N064",
+        "N065",
+        "N066",
+        "N067",
+        "N068",
+        "N069",
+        "N071"
+      ],
+      "required_evidence": [
+        "direct_N070_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N071",
+      "spec_requirement_id": "P15-R071",
+      "invariant": "acceptance:tests",
+      "affected_surface": [
+        "tests"
+      ],
+      "prerequisites": [
+        "N070"
+      ],
+      "fixture_input": "Frozen SPEC §19 fixture for P15-R071; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R071 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R071 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "DISPOSABLE_FIXTURE_MUTATION",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "ACCEPTANCE_CONTRACT",
+      "transitive_retest_closure": [
+        "N071",
+        "N013",
+        "N014",
+        "N015",
+        "N016",
+        "N017",
+        "N018",
+        "N019",
+        "N036",
+        "N037",
+        "N038",
+        "N052",
+        "N053",
+        "N061",
+        "N064",
+        "N065",
+        "N066",
+        "N067",
+        "N068",
+        "N069",
+        "N070"
+      ],
+      "required_evidence": [
+        "direct_N071_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N072",
+      "spec_requirement_id": "P15-R072",
+      "invariant": "acceptance:external-boundary",
+      "affected_surface": [
+        "external-boundary"
+      ],
+      "prerequisites": [
+        "N071"
+      ],
+      "fixture_input": "Frozen SPEC §19 fixture for P15-R072; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R072 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R072 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "DISPOSABLE_FIXTURE_MUTATION",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "ACCEPTANCE_CONTRACT",
+      "transitive_retest_closure": [
+        "N072"
+      ],
+      "required_evidence": [
+        "direct_N072_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N073",
+      "spec_requirement_id": "P15-R073",
+      "invariant": "security:browser",
+      "affected_surface": [
+        "browser"
+      ],
+      "prerequisites": [
+        "N072"
+      ],
+      "fixture_input": "Frozen SPEC §19 fixture for P15-R073; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R073 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R073 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "READ_ONLY_SANDBOX",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "SECURITY_CONTRACT",
+      "transitive_retest_closure": [
+        "N073"
+      ],
+      "required_evidence": [
+        "direct_N073_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N074",
+      "spec_requirement_id": "P15-R074",
+      "invariant": "scope-exclusion:application",
+      "affected_surface": [
+        "application"
+      ],
+      "prerequisites": [
+        "N073"
+      ],
+      "fixture_input": "Frozen SPEC §20 fixture for P15-R074; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R074 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R074 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "READ_ONLY_SANDBOX",
+      "failure_class": "GOVERNANCE_OR_PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "SCOPE-EXCLUSION_CONTRACT",
+      "transitive_retest_closure": [
+        "N074"
+      ],
+      "required_evidence": [
+        "direct_N074_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N075",
+      "spec_requirement_id": "P15-R075",
+      "invariant": "prohibition:whole-system",
+      "affected_surface": [
+        "whole-system"
+      ],
+      "prerequisites": [
+        "N074"
+      ],
+      "fixture_input": "Frozen SPEC §22 fixture for P15-R075; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R075 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R075 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "READ_ONLY_SANDBOX",
+      "failure_class": "GOVERNANCE_OR_PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "PROHIBITION_CONTRACT",
+      "transitive_retest_closure": [
+        "N075"
+      ],
+      "required_evidence": [
+        "direct_N075_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N076",
+      "spec_requirement_id": "P15-R076",
+      "invariant": "boundary:application/GACM",
+      "affected_surface": [
+        "application",
+        "GACM"
+      ],
+      "prerequisites": [
+        "N075"
+      ],
+      "fixture_input": "Frozen SPEC §23 fixture for P15-R076; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R076 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R076 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "READ_ONLY_SANDBOX",
+      "failure_class": "GOVERNANCE_OR_PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "BOUNDARY_CONTRACT",
+      "transitive_retest_closure": [
+        "N076"
+      ],
+      "required_evidence": [
+        "direct_N076_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N077",
+      "spec_requirement_id": "P15-R077",
+      "invariant": "traceability:governance",
+      "affected_surface": [
+        "governance"
+      ],
+      "prerequisites": [
+        "N076"
+      ],
+      "fixture_input": "Frozen SPEC §24 fixture for P15-R077; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R077 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R077 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "READ_ONLY_SANDBOX",
+      "failure_class": "PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "TRACEABILITY_CONTRACT",
+      "transitive_retest_closure": [
+        "N077"
+      ],
+      "required_evidence": [
+        "direct_N077_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    },
+    {
+      "node_id": "N078",
+      "spec_requirement_id": "P15-R078",
+      "invariant": "authority:governance",
+      "affected_surface": [
+        "governance"
+      ],
+      "prerequisites": [
+        "N077"
+      ],
+      "fixture_input": "Frozen SPEC §25 fixture for P15-R078; disposable sandbox only",
+      "oracle": "Deterministic oracle: assert the stated P15-R078 contract on the real implemented boundary; any divergence is terminal FAIL.",
+      "expected_result": "PASS only when P15-R078 is directly evidenced; otherwise FAIL/BLOCKED with explicit disposition.",
+      "mutation_risk": "READ_ONLY_SANDBOX",
+      "failure_class": "GOVERNANCE_OR_PRODUCT_DIVERGENCE",
+      "discovery_continuation_policy": "CONTINUE_SAFE_DISCOVERY; record ordinary FAIL/BLOCKED and continue; stop only on configured HARD_STOP safety class.",
+      "repair_class": "AUTHORITY_CONTRACT",
+      "transitive_retest_closure": [
+        "N078"
+      ],
+      "required_evidence": [
+        "direct_N078_receipt",
+        "terminal_observation",
+        "fixture_state_or_read_only_proof"
+      ],
+      "final_verification_method": "Independent exact-node replay against frozen SPEC and assembled application boundary; verify terminal observable result and evidence identity."
+    }
+  ],
+  "completeness_receipt": {
+    "status": "PASS",
+    "issuer_role": "INDEPENDENT_VERIFIER",
+    "authoritative": true,
+    "spec_digest": "c506f1051d54874621de3eb3d84ef1bd627d8bde23bc458753cd56bfb27d4671d",
+    "unmapped_requirements": [],
+    "node_count": 78,
+    "verifier_id": "GACM-P15-INDEPENDENT-COMPLETENESS-VERIFIER-20260918",
+    "evidence_id": "GACM-P15-INDEPENDENT-COMPLETENESS-EVIDENCE-20260918"
+  },
+  "graph_digest": "6c34f1f249af6aa39c552a15c1c9349f6ea6e8789cba1acc5ff5a6fce41ca1a8",
+  "denominator": 78,
+  "frozen": true
+}
