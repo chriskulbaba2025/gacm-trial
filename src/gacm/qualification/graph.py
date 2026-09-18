@@ -231,11 +231,14 @@ class EscapeScanResult:
     budget: int
     executed: int
     escaped_defect_invariants: tuple[str, ...] = ()
+    escaped_defect_node_ids: tuple[str, ...] = ()
     hard_stop_reason: str | None = None
 
     def __post_init__(self):
         if self.budget < 0 or self.executed < 0 or self.executed > self.budget:
             raise ValueError("INVALID_ESCAPE_SCAN_BUDGET")
+        if bool(self.escaped_defect_invariants) != bool(self.escaped_defect_node_ids):
+            raise ValueError("ESCAPED_DEFECT_IDENTITY_INCOMPLETE")
 
     @property
     def complete(self) -> bool:
@@ -246,6 +249,35 @@ class EscapeScanResult:
 class QualificationTermination:
     complete: bool
     reasons: tuple[str, ...]
+
+    @classmethod
+    def evaluate_pre_promotion(
+        cls,
+        graph: QualificationGraph,
+        terminal_node_ids: Iterable[str],
+        discovered_defect_classes: Iterable[str],
+        closed_or_human_deferred_defect_classes: Iterable[str],
+        escape_scan: EscapeScanResult,
+        *,
+        full_regression_green: bool,
+        runtime_checks_green: bool,
+        independent_final_verification_green: bool,
+    ) -> "QualificationTermination":
+        result = cls.evaluate(
+            graph,
+            terminal_node_ids,
+            discovered_defect_classes,
+            closed_or_human_deferred_defect_classes,
+            escape_scan,
+            full_regression_green=full_regression_green,
+            runtime_checks_green=runtime_checks_green,
+            independent_final_verification_green=independent_final_verification_green,
+            settle_succeeded=True,
+        )
+        return cls(
+            not result.reasons,
+            tuple(reason for reason in result.reasons if reason != "SETTLE_NOT_SUCCEEDED"),
+        )
 
     @classmethod
     def evaluate(
