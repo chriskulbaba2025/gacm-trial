@@ -8,6 +8,7 @@ from jsonschema import Draft202012Validator, FormatChecker
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
+from gacm.generalization import GATE_ID, GeneralizationGate  # noqa: E402
 from gacm.promotion import PromotionRollbackStateMachine, PromotionState, PromotionTransitionError, SettlePolicy  # noqa: E402
 
 
@@ -16,7 +17,36 @@ CANDIDATE = "b" * 40
 TARGET = "c" * 40
 
 
+def generalization_pair():
+    contract = {
+        "gate_id": GATE_ID,
+        "mode": "GENERALIZED",
+        "product_definition_of_done": "Variable valid inputs traverse the capability end-to-end.",
+        "authorized_capability_scope": ["capability"],
+        "connected_system_path": ["input", "processing", "output"],
+        "required_full_path_boundaries": ["input", "processing", "output"],
+        "minimum_fresh_scenarios": 2,
+        "reference_regression_ids": ["reference-case"],
+    }
+    digest = GeneralizationGate().contract_digest(contract)
+    evidence = {
+        "issuer_role": "INDEPENDENT_VERIFIER", "authoritative": True,
+        "contract_digest": digest, "acceptance_boundary_unchanged": True,
+        "system_map_status": "PASS", "whole_authorized_scope_closed": True,
+        "closure_definition_of_done_met": True,
+        "generalized_scenarios": [
+            {"scenario_id": "fresh-a", "input_identity": "a", "materially_different": True, "reference_fixture": False, "runtime_path_identity": "generic", "boundary_results": {"input": "PASS", "processing": "PASS", "output": "PASS"}, "evidence_ids": ["fresh-a"]},
+            {"scenario_id": "fresh-b", "input_identity": "b", "materially_different": True, "reference_fixture": False, "runtime_path_identity": "generic", "boundary_results": {"input": "PASS", "processing": "PASS", "output": "PASS"}, "evidence_ids": ["fresh-b"]},
+        ],
+        "fixture_dependency_scan": {"status": "PASS", "scanner_id": "scan", "scanned_paths": ["src/product.py"], "findings": [], "evidence_ids": ["scan"]},
+        "reference_regression": {"status": "PASS", "evidence_ids": ["reference"]},
+        "full_regression": {"status": "PASS", "evidence_ids": ["full"]},
+    }
+    return contract, evidence
+
+
 def evidence(**overrides):
+    generalization_contract, generalization_evidence = generalization_pair()
     value = {
         "run_id": "run-11", "candidate_sha": CANDIDATE, "candidate_artifact_identity": "artifact-b",
         "current_authoritative_sha": SHA, "rollback_target_sha": TARGET,
@@ -26,6 +56,8 @@ def evidence(**overrides):
         "verification_receipt_ids": ("verify-1",), "operational_context_id": "ctx-1",
         "authority_continuity": True, "candidate_identity_matches": True,
         "known_good_targets": {TARGET: {"sha": TARGET}},
+        "generalization_contract": generalization_contract,
+        "generalization_evidence": generalization_evidence,
     }
     value.update(overrides)
     return value
@@ -38,7 +70,7 @@ class PromotionRollbackTests(unittest.TestCase):
     def test_eligibility_requires_all_governed_preconditions(self):
         machine = PromotionRollbackStateMachine(clock=self.clock)
         self.assertEqual("ELIGIBLE", machine.assess(evidence()).state)
-        for key, value in (("verification", {}), ("execution_status", "FAILED"), ("identity_validation_result", "INVALID_PLACEHOLDER"), ("rollback_target_sha", None), ("candidate_sha", None), ("repair_required", True)):
+        for key, value in (("verification", {}), ("execution_status", "FAILED"), ("identity_validation_result", "INVALID_PLACEHOLDER"), ("rollback_target_sha", None), ("candidate_sha", None), ("repair_required", True), ("generalization_evidence", {})):
             result = machine.assess(evidence(**{key: value}))
             self.assertIn(result.state, {"NOT_ELIGIBLE", "BLOCKED"})
 

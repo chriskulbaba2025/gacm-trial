@@ -13,6 +13,8 @@ from enum import StrEnum
 from pathlib import Path
 from typing import Any, Callable, Mapping, Protocol
 
+from gacm.generalization import GeneralizationGate
+
 
 class TopLevelState(StrEnum):
     INITIALIZED = "INITIALIZED"; AUTHORITY_RESOLVED = "AUTHORITY_RESOLVED"
@@ -38,6 +40,7 @@ class HarnessConfig:
     discovery_config: Mapping[str, Any]
     operational_context_requirements: Mapping[str, Any]
     settle_required: bool = True
+    generalization_contract: Mapping[str, Any] = field(default_factory=dict)
 
 
 @dataclass(frozen=True)
@@ -57,6 +60,7 @@ class HarnessAdapters:
     rollback: Callable[[Mapping[str, Any], Mapping[str, Any]], Any] | None = None
     current_authority: Callable[[HarnessConfig], str] | None = None
     human_approval: Callable[[Mapping[str, Any], Mapping[str, Any]], bool] | None = None
+    generalization_evidence: Callable[[Mapping[str, Any], Mapping[str, Any]], Mapping[str, Any]] | None = None
 
 
 class RunStateStore(Protocol):
@@ -88,20 +92,40 @@ class PilotState:
     evidence: list[dict[str, Any]] = field(default_factory=list)
     units: list[dict[str, Any]] = field(default_factory=list)
     blockers: list[str] = field(default_factory=list)
-    receipts: dict[str, list[dict[str, Any]]] = field(default_factory=lambda: {"verification": [], "repair": [], "promotion": [], "settle": [], "rollback": []})
+    receipts: dict[str, list[dict[str, Any]]] = field(default_factory=lambda: {"verification": [], "repair": [], "generalization": [], "promotion": [], "settle": [], "rollback": []})
     assurance_preserved: list[str] = field(default_factory=list)
     human_action_required: bool = False
+    generalization_contract_digest: str | None = None
+    generalization_gate: dict[str, Any] | None = None
 
     def snapshot(self) -> dict[str, Any]:
         return {"run_id": self.run_id, "config": asdict(self.config), "state": self.state.value,
                 "events": self.events, "evidence": self.evidence, "units": self.units,
                 "blockers": self.blockers, "receipts": self.receipts,
-                "assurance_preserved": self.assurance_preserved, "human_action_required": self.human_action_required}
+                "assurance_preserved": self.assurance_preserved, "human_action_required": self.human_action_required,
+                "generalization_contract_digest": self.generalization_contract_digest,
+                "generalization_gate": self.generalization_gate}
 
     @classmethod
     def restore(cls, raw: Mapping[str, Any]) -> "PilotState":
         config = HarnessConfig(**raw["config"])
-        return cls(str(raw["run_id"]), config, TopLevelState(raw["state"]), list(raw.get("events", [])), list(raw.get("evidence", [])), list(raw.get("units", [])), list(raw.get("blockers", [])), dict(raw.get("receipts", {})), list(raw.get("assurance_preserved", [])), bool(raw.get("human_action_required", False)))
+        receipts = dict(raw.get("receipts", {}))
+        for key in ("verification", "repair", "generalization", "promotion", "settle", "rollback"):
+            receipts.setdefault(key, [])
+        return cls(
+            run_id=str(raw["run_id"]),
+            config=config,
+            state=TopLevelState(raw["state"]),
+            events=list(raw.get("events", [])),
+            evidence=list(raw.get("evidence", [])),
+            units=list(raw.get("units", [])),
+            blockers=list(raw.get("blockers", [])),
+            receipts=receipts,
+            assurance_preserved=list(raw.get("assurance_preserved", [])),
+            human_action_required=bool(raw.get("human_action_required", False)),
+            generalization_contract_digest=raw.get("generalization_contract_digest"),
+            generalization_gate=dict(raw["generalization_gate"]) if isinstance(raw.get("generalization_gate"), Mapping) else None,
+        )
 
 
 class PilotHarness:
@@ -117,6 +141,9 @@ class PilotHarness:
         if state.config.authoritative_start_sha != config.authoritative_start_sha or state.config.project_id != config.project_id:
             return self._block(state, "RESUME_IDENTITY_MISMATCH")
         if state.state in TERMINAL: return state.snapshot()
+        preflight = self._freeze_generalization_contract(state, config)
+        if preflight is not None:
+            return preflight
         if resume and self.adapters.current_authority and self.adapters.current_authority(config) != config.authoritative_start_sha:
             return self._block(state, "STALE_AUTHORITY_ON_RESUME")
         try:
@@ -130,7 +157,9 @@ class PilotHarness:
                 planned = self.adapters.plan(config, context, work_units or []); state.units = [dict(x) for x in planned]; self._require(state.units, True, "EMPTY_PLAN"); self._transition(state, TopLevelState.PLANNED)
             if state.state in {TopLevelState.PLANNED, TopLevelState.EXECUTING, TopLevelState.REPAIRING}:
                 self._execute_and_verify(state, config, context)
-            if state.state == TopLevelState.VERIFYING: self._transition(state, TopLevelState.PROMOTION_READY)
+            if state.state == TopLevelState.VERIFYING:
+                self._run_generalization_gate(state, config)
+                self._transition(state, TopLevelState.PROMOTION_READY)
             if state.state == TopLevelState.PROMOTION_READY:
                 if config.human_authority.get("promotion_required", True) and human_approval is not True and not (self.adapters.human_approval and self.adapters.human_approval(state.snapshot(), config.human_authority)):
                     state.human_action_required = True; self._transition(state, TopLevelState.PROMOTION_PENDING); return self._save(state)
@@ -158,17 +187,56 @@ class PilotHarness:
             identity = self.adapters.identity_validate(unit, context)
             unit["identity_validation"] = self._plain(identity)
             if self._get(identity, "result") != "VALID": raise _Blocked("PLACEHOLDER_OR_IDENTITY_VALIDATION_FAILED")
-            self._transition(state, TopLevelState.VERIFYING); verification = self.adapters.verify(unit, execution, context); unit["verification"] = self._plain(verification)
-            status = self._get(verification, "status")
-            if status != "PASS" or self._get(verification, "issuer_role") != "INDEPENDENT_VERIFIER":
-                if not self.adapters.repair_plan or not self.adapters.repair: raise _Blocked("MISSING_OR_UNRESOLVED_VERIFICATION")
-                self._transition(state, TopLevelState.REPAIR_REQUIRED); plan = self.adapters.repair_plan(unit, verification, state.snapshot()); self._require(plan, "PLANNED", "REPAIR_SCOPE_UNRESOLVED"); self._transition(state, TopLevelState.REPAIRING); repaired = self.adapters.repair(unit, plan, context); self._plain(repaired); self.receipt(state, "repair", plan); verification = self.adapters.verify(unit, repaired, context); unit["verification_after_repair"] = self._plain(verification); self.receipt(state, "verification", verification)
-                if self._get(verification, "status") != "PASS": raise _Blocked("REPAIR_UNRESOLVED")
-            else: self.receipt(state, "verification", verification)
+            self._transition(state, TopLevelState.VERIFYING)
+            verification = self.adapters.verify(unit, execution, context)
+            unit["verification"] = self._plain(verification)
+            self.receipt(state, "verification", verification)
+            attempts = 0
+            while self._get(verification, "status") != "PASS" or self._get(verification, "issuer_role") != "INDEPENDENT_VERIFIER":
+                if not self.adapters.repair_plan or not self.adapters.repair:
+                    raise _Blocked("MISSING_OR_UNRESOLVED_VERIFICATION")
+                if attempts >= 3:
+                    raise _Blocked("REPAIR_ATTEMPT_LIMIT_REACHED")
+                self._transition(state, TopLevelState.REPAIR_REQUIRED)
+                plan = self.adapters.repair_plan(unit, verification, state.snapshot())
+                self._require(plan, "PLANNED", "REPAIR_SCOPE_UNRESOLVED")
+                self._transition(state, TopLevelState.REPAIRING)
+                repaired = self.adapters.repair(unit, plan, context)
+                self.receipt(state, "repair", plan)
+                attempts += 1
+                verification = self.adapters.verify(unit, repaired, context)
+                unit[f"verification_after_repair_{attempts}"] = self._plain(verification)
+                self.receipt(state, "verification", verification)
             unit["status"] = "PASS"
         self._transition(state, TopLevelState.VERIFYING)
 
+    def _freeze_generalization_contract(self, state, config):
+        gate = GeneralizationGate()
+        preflight = gate.preflight(config.generalization_contract)
+        if preflight.status == "HOLD":
+            return self._block(state, "GENERALIZATION_CONTRACT_INVALID:" + ",".join(preflight.reasons))
+        digest = preflight.contract_digest
+        if state.generalization_contract_digest and state.generalization_contract_digest != digest:
+            return self._block(state, "FROZEN_ACCEPTANCE_BOUNDARY_CHANGED")
+        state.generalization_contract_digest = digest
+        self.store.save(state.snapshot())
+        return None
+
+    def _run_generalization_gate(self, state, config):
+        if state.generalization_gate and state.generalization_gate.get("status") in GeneralizationGate.accepted_statuses:
+            return
+        if not self.adapters.generalization_evidence:
+            raise _Blocked("GENERALIZATION_EVIDENCE_ADAPTER_MISSING")
+        evidence = self.adapters.generalization_evidence(state.snapshot(), config.generalization_contract)
+        result = GeneralizationGate().evaluate(config.generalization_contract, evidence)
+        state.generalization_gate = result.to_dict()
+        self.receipt(state, "generalization", result)
+        if result.status not in GeneralizationGate.accepted_statuses:
+            raise _Blocked("GENERALIZATION_GATE_HOLD:" + ",".join(result.reasons))
+
     def _promote(self, state, config):
+        if not state.generalization_gate or state.generalization_gate.get("status") not in GeneralizationGate.accepted_statuses:
+            raise _Blocked("GENERALIZATION_GATE_REQUIRED_BEFORE_PROMOTION")
         if not self.adapters.promotion: raise _Blocked("PROMOTION_ADAPTER_MISSING")
         if self.adapters.current_authority and self.adapters.current_authority(config) != config.authoritative_start_sha:
             raise _Blocked("AUTHORITY_CHANGED_BEFORE_PROMOTION")

@@ -69,7 +69,9 @@
     "repair_plans": {
       "type": "array",
       "items": { "$ref": "#/$defs/repairPlan" }
-    }
+    },
+    "generalization_contract": { "$ref": "#/$defs/generalizationContract" },
+    "generalization_gate": { "$ref": "#/$defs/generalizationGate" }
   },
   "allOf": [
     {
@@ -104,6 +106,29 @@
         "properties": {
           "promotion": { "properties": { "state": { "enum": ["PROMOTED", "NOT_REQUIRED"] } } },
           "settle": { "properties": { "state": { "enum": ["SETTLED", "NOT_REQUIRED"] } } }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "gacm": { "properties": { "schema_release": { "const": "1.1.0" } }, "required": ["schema_release"] } },
+        "required": ["gacm"]
+      },
+      "then": {
+        "required": ["generalization_contract", "generalization_gate"],
+        "properties": {
+          "generalization_gate": {
+            "allOf": [
+              { "$ref": "#/$defs/generalizationGate" },
+              {
+                "properties": {
+                  "status": { "enum": ["PASS", "AUTHORIZED_FIXTURE_SPECIFIC"] },
+                  "authoritative": { "const": true },
+                  "issuer_role": { "const": "GACM_GOVERNANCE" }
+                }
+              }
+            ]
+          }
         }
       }
     }
@@ -510,6 +535,57 @@
         "timestamp": { "$ref": "#/$defs/isoTime" },
         "historical_pass_receipts": { "type": "array", "items": { "$ref": "#/$defs/id" } },
         "currently_reliable_assurance": { "type": "array", "items": { "$ref": "#/$defs/id" } }
+      }
+    },
+    "generalizationContract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["gate_id", "mode", "product_definition_of_done", "authorized_capability_scope", "connected_system_path", "required_full_path_boundaries"],
+      "properties": {
+        "gate_id": { "const": "GACM-GENERALIZATION-AND-WHOLE-SYSTEM-GATE" },
+        "mode": { "enum": ["GENERALIZED", "FIXTURE_SPECIFIC_AUTHORIZED"] },
+        "product_definition_of_done": { "type": "string", "minLength": 1 },
+        "authorized_capability_scope": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+        "connected_system_path": { "type": "array", "minItems": 2, "items": { "type": "string", "minLength": 1 } },
+        "required_full_path_boundaries": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+        "minimum_fresh_scenarios": { "type": "integer", "minimum": 2 },
+        "reference_regression_ids": { "type": "array", "items": { "$ref": "#/$defs/id" } },
+        "required_continuity_controls": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+        "required_security_controls": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+        "fixture_specific_authorization": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["authorized_by", "reason", "evidence_id"],
+          "properties": {
+            "authorized_by": { "enum": ["HUMAN", "GACM_GOVERNANCE", "RELEASE_AUTHORITY"] },
+            "reason": { "type": "string", "minLength": 1 },
+            "evidence_id": { "$ref": "#/$defs/id" }
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "mode": { "const": "FIXTURE_SPECIFIC_AUTHORIZED" } }, "required": ["mode"] },
+          "then": { "required": ["fixture_specific_authorization"] }
+        }
+      ]
+    },
+    "generalizationGate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["gate_id", "status", "contract_digest", "reasons", "escape_classes", "evidence_ids", "scenario_ids", "authoritative", "issuer_role", "fixture_specific_authorized"],
+      "properties": {
+        "gate_id": { "const": "GACM-GENERALIZATION-AND-WHOLE-SYSTEM-GATE" },
+        "status": { "enum": ["PASS", "HOLD", "AUTHORIZED_FIXTURE_SPECIFIC"] },
+        "contract_digest": { "$ref": "#/$defs/sha" },
+        "reasons": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+        "escape_classes": { "type": "array", "items": { "enum": ["FIXTURE_TARGET_COLLAPSE", "SEQUENTIAL_BLOCKER_TUNNELING"] } },
+        "evidence_ids": { "type": "array", "items": { "$ref": "#/$defs/id" } },
+        "scenario_ids": { "type": "array", "items": { "$ref": "#/$defs/id" } },
+        "runtime_path_identity": { "type": ["string", "null"] },
+        "authoritative": { "type": "boolean" },
+        "issuer_role": { "const": "GACM_GOVERNANCE" },
+        "fixture_specific_authorized": { "type": "boolean" }
       }
     },
     "identityValidation": {
