@@ -189,3 +189,16 @@ The schema intentionally does not claim to enforce what JSON Schema cannot prove
 - It cannot prove that a referenced evidence ID exists in the durable evidence store.
 
 Those are required runtime controls owned by the layers identified in the Phase 1 audit. A schema-valid document is therefore necessary but not sufficient for a GACM run to proceed or for any release claim.
+
+
+## Generalization and whole-system gate — schema release 1.1.0
+
+New governed product-repair run states must use `gacm.schema_release = "1.1.0"` and persist both `generalization_contract` and `generalization_gate`.
+
+The contract is frozen before execution and identifies the product-level definition of done, authorized capability scope, connected-system path, required full-path boundaries, fresh-scenario minimum, reference regressions, and continuity/security controls.
+
+The gate result is a governance-issued projection derived from raw independent-verifier evidence. A schema-release 1.1.0 run cannot validate as COMPLETE unless the gate status is `PASS` or `AUTHORIZED_FIXTURE_SPECIFIC`, the result is authoritative, and the issuer role is `GACM_GOVERNANCE`.
+
+Raw proof remains in append-only evidence referenced by the gate result. The executor cannot make the durable state acceptable by writing a PASS string into the snapshot; runtime promotion re-evaluates the raw contract and raw independent evidence.
+
+Historical schema-release states remain historical evidence. Resuming unfinished governed repair under the corrected control requires the new gate rather than silently continuing under fixture-only acceptance.
