@@ -278,3 +278,28 @@ GACM is not an autonomous developer.
 GACM is the governance system that makes increasingly autonomous development trustworthy.
 
 Its job is not to make the model smarter. Its job is to ensure that intelligence operates against the correct authority, within the correct boundaries, with independently verified evidence, and with a recoverable path when it is wrong.
+
+
+## 25. Mandatory generalization and whole-system repair gate
+
+Governed product repairs are subject to the fail-closed `GACM-GENERALIZATION-AND-WHOLE-SYSTEM-GATE`.
+
+Before diagnosis or code changes, GACM must freeze the product-level definition of done and map the connected system inside the authorized capability. Named fixtures, records, IDs, documents, URLs, screenshots, scores, or customer examples are regression evidence only and may not silently become the implementation target.
+
+The frozen acceptance boundary remains fixed throughout the work unit. Defects found inside that boundary remain part of the same authorized repair unless they cross an authorization boundary, require an unsafe or production-forbidden action, are a genuinely separate product capability, or depend on an external condition that cannot be resolved in the authorized environment.
+
+Repair must occur at the generic owning boundary. Fixture-specific branches, hard-coded IDs, named-case logic, expected-output patches, test-only production fallbacks, or contract weakening solely to satisfy one example are prohibited.
+
+Before closure, GACM requires at least two fresh materially different valid input scenarios when the product domain supports variable inputs. They must traverse the same generic runtime path and prove all required boundaries through durable output and downstream continuity. Reference regression is separate proof and cannot substitute for generalization.
+
+The gate must fail closed when generalized scenarios are missing or skipped, only the original reference case was tested, the generic path cannot be proven, required save/reopen or downstream continuity is unproven, fixture dependencies are detected, the frozen acceptance boundary changed, required security/privacy/isolation checks are unproven, or full regression is missing.
+
+The gate is machine-enforced in orchestration and promotion eligibility. Promotion re-evaluates raw independent generalization evidence against the frozen contract; executor prose or a claimed PASS cannot override it.
+
+Permanent escape classes are `FIXTURE_TARGET_COLLAPSE` and `SEQUENTIAL_BLOCKER_TUNNELING`. Future adversarial audits must explicitly challenge both.
+
+Universal acceptance model:
+
+`variable valid input → generic system path → durable output → downstream continuity → generalized acceptance`
+
+The COMPAS2 `GCU-GENERALIZATION-01` pilot is a reference implementation only. Universal GACM must remain domain-independent.
