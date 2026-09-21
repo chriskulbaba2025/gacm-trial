@@ -1,16 +1,47 @@
 import unittest
 
+from gacm.generalization import GATE_ID, GeneralizationGate
 from gacm.harness import HarnessAdapters, HarnessConfig, MemoryRunStateStore, PilotHarness, TopLevelState
 
 
 SHA = "a" * 40
 
 
+def generalization_contract():
+    return {
+        "gate_id": GATE_ID,
+        "mode": "GENERALIZED",
+        "product_definition_of_done": "Variable valid inputs traverse the capability end-to-end.",
+        "authorized_capability_scope": ["capability"],
+        "connected_system_path": ["input", "processing", "output"],
+        "required_full_path_boundaries": ["input", "processing", "output"],
+        "minimum_fresh_scenarios": 2,
+        "reference_regression_ids": ["reference-case"],
+    }
+
+
+def generalization_evidence(c):
+    digest = GeneralizationGate().contract_digest(c)
+    return {
+        "issuer_role": "INDEPENDENT_VERIFIER", "authoritative": True,
+        "contract_digest": digest, "acceptance_boundary_unchanged": True,
+        "system_map_status": "PASS", "whole_authorized_scope_closed": True,
+        "closure_definition_of_done_met": True,
+        "generalized_scenarios": [
+            {"scenario_id": "fresh-a", "input_identity": "a", "materially_different": True, "reference_fixture": False, "runtime_path_identity": "generic", "boundary_results": {"input": "PASS", "processing": "PASS", "output": "PASS"}, "evidence_ids": ["fresh-a"]},
+            {"scenario_id": "fresh-b", "input_identity": "b", "materially_different": True, "reference_fixture": False, "runtime_path_identity": "generic", "boundary_results": {"input": "PASS", "processing": "PASS", "output": "PASS"}, "evidence_ids": ["fresh-b"]},
+        ],
+        "fixture_dependency_scan": {"status": "PASS", "scanner_id": "scan", "scanned_paths": ["src/product.py"], "findings": [], "evidence_ids": ["scan"]},
+        "reference_regression": {"status": "PASS", "evidence_ids": ["reference"]},
+        "full_regression": {"status": "PASS", "evidence_ids": ["full"]},
+    }
+
+
 def config(**kwargs):
     values = dict(project_id="synthetic", prd_identity="prd-v1", authoritative_start_sha=SHA,
                   branch_or_worktree="isolated", gacm_version="4.2.2", execution_policy={},
                   human_authority={"promotion_required": False}, discovery_config={},
-                  operational_context_requirements={})
+                  operational_context_requirements={}, generalization_contract=generalization_contract())
     values.update(kwargs)
     return HarnessConfig(**values)
 
@@ -26,13 +57,14 @@ class PilotHarnessTests(unittest.TestCase):
         def repair_plan(u, v, s): return {"status": "PLANNED", "classification": "BROADER_REQUALIFICATION" if broad else "LOCAL"}
         def repair(u, p, c): return {"execution_status": "COMPLETED", "ending_sha": SHA}
         def identity(u, c): return {"result": "VALID"}
+        def gen(s, c): return generalization_evidence(c)
         def promotion(s, h): return {"state": "SETTLE_REQUIRED"}
         def settle(s, p): return {"status": "SETTLE_PASS" if settle_outcome == "PASS" else "SETTLE_FAIL"}
         def rollback(s, r): return {"state": "ROLLED_BACK"}
         adapters = HarnessAdapters(authority_fn, lambda c, a: {"status": "DISCOVERED"}, context_fn,
                                    lambda c, x, w: [{"unit_id": "u1", "title": "unit", "status": "PENDING"}],
                                    route_fn, execute, verify, repair_plan, repair, identity_validate=identity, promotion=promotion,
-                                   settle=settle, rollback=rollback)
+                                   settle=settle, rollback=rollback, generalization_evidence=gen)
         return PilotHarness(adapters, store), config(), calls, store
 
     def test_clean_pass_and_resume_is_durable(self):
@@ -57,6 +89,19 @@ class PilotHarnessTests(unittest.TestCase):
         h, c, _, _ = self.make(settle_outcome="FAIL")
         result = h.run(c, [{"unit_id": "u1"}])
         self.assertEqual(result["state"], "ROLLBACK_REQUIRED"); self.assertTrue(result["receipts"]["rollback"])
+
+    def test_missing_generalization_evidence_blocks_before_promotion(self):
+        h, c, _, _ = self.make()
+        h.adapters = HarnessAdapters(
+            h.adapters.authority, h.adapters.discovery, h.adapters.context, h.adapters.plan,
+            h.adapters.route, h.adapters.execute, h.adapters.verify, h.adapters.repair_plan,
+            h.adapters.repair, h.adapters.identity_validate, h.adapters.promotion, h.adapters.settle,
+            h.adapters.rollback, h.adapters.current_authority, h.adapters.human_approval,
+            generalization_evidence=None,
+        )
+        result = h.run(c, [{"unit_id": "u1"}])
+        self.assertEqual("BLOCKED", result["state"])
+        self.assertTrue(any("GENERALIZATION_EVIDENCE_ADAPTER_MISSING" in item for item in result["blockers"]))
 
     def test_human_gate(self):
         h, c, _, _ = self.make(); c = config(human_authority={"promotion_required": True})
