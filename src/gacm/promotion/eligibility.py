@@ -4,6 +4,8 @@ from __future__ import annotations
 
 from typing import Any, Mapping
 
+from gacm.generalization import GeneralizationGate
+
 from .models import EligibilityResult, PromotionState
 
 
@@ -25,5 +27,15 @@ class PromotionEligibility:
         if evidence.get("candidate_identity_matches") is False: reasons.append("CANDIDATE_IDENTITY_MISMATCH")
         if evidence.get("authority_continuity") is False: blocked.append("CURRENT_AUTHORITY_CHANGED_SINCE_VERIFICATION")
         if evidence.get("human_approval_required") and not evidence.get("human_approval"): reasons.append("REQUIRED_HUMAN_APPROVAL_MISSING")
+        gate = GeneralizationGate().evaluate(
+            evidence.get("generalization_contract"),
+            evidence.get("generalization_evidence"),
+        )
+        if gate.status not in GeneralizationGate.accepted_statuses:
+            reasons.append("GENERALIZATION_GATE_NOT_SATISFIED")
+        claimed_gate = evidence.get("generalization_gate")
+        if claimed_gate is not None:
+            if not isinstance(claimed_gate, Mapping) or claimed_gate.get("status") != gate.status or claimed_gate.get("contract_digest") != gate.contract_digest:
+                reasons.append("GENERALIZATION_GATE_CLAIM_MISMATCH")
         if blocked: reasons.extend(blocked); return EligibilityResult(PromotionState.BLOCKED.value, tuple(sorted(set(reasons))))
         return EligibilityResult(PromotionState.ELIGIBLE.value if not reasons else PromotionState.NOT_ELIGIBLE.value, tuple(sorted(set(reasons))))
