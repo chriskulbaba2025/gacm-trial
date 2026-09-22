@@ -303,3 +303,282 @@ Universal acceptance model:
 `variable valid input → generic system path → durable output → downstream continuity → generalized acceptance`
 
 The COMPAS2 `GCU-GENERALIZATION-01` pilot is a reference implementation only. Universal GACM must remain domain-independent.
+
+## 26. GACM — Release Currentness and Identity Gate
+
+**Gate ID:** `GACM-RELEASE-CURRENTNESS-AND-IDENTITY-GATE`
+
+======================================================================
+GACM — RELEASE CURRENTNESS AND IDENTITY GATE
+======================================================================
+
+PURPOSE
+
+Prevent release drift where the artifact that passed governed acceptance is not the artifact actually being used by reviewers, testers, staging users, or production users.
+
+This is a mandatory fail-closed gate for every governed product.
+
+It applies before:
+
+TEAM UAT
+MVP ACCEPTANCE
+STAGING FREEZE
+PRODUCTION PROMOTION
+
+CORE INVARIANT
+
+THE EXACT SYSTEM THAT PASSED ACCEPTANCE MUST BE THE EXACT SYSTEM SERVED TO USERS.
+
+A successful test run against one version does not prove another deployed version.
+
+A current GitHub branch does not prove Vercel/Railway/runtime currentness.
+
+A current frontend does not prove backend currentness.
+
+A current deployment does not prove the public/team-facing alias points to it.
+
+CURRENTNESS MUST BE PROVEN END TO END.
+
+----------------------------------------------------------------------
+REQUIRED RELEASE MANIFEST
+----------------------------------------------------------------------
+
+Every release candidate must produce a frozen release manifest containing, where applicable:
+
+authoritative source SHA
+authoritative branch
+repository
+dependency-lock identity
+build identity
+deployment project identity
+deployment ID
+deployment alias
+frontend identity
+backend/runtime identity
+API identity
+AI/model/provider routing identity
+runtime configuration identity
+authentication environment
+persistence environment
+storage environment
+data-contract/schema identity
+report/render identity
+team-facing entry points
+acceptance test totals
+
+Do not include secrets.
+
+----------------------------------------------------------------------
+MANDATORY CURRENTNESS MATRIX
+----------------------------------------------------------------------
+
+Verify every applicable layer:
+
+LOCAL SOURCE
+GITHUB SOURCE
+DEPENDENCY LOCK
+CLEAN BUILD
+DEPLOYMENT PROJECT
+DEPLOYMENT ARTIFACT
+DEPLOYMENT ALIAS
+FRONTEND
+SERVER/BACKEND
+API ROUTES
+RUNTIME CONFIGURATION
+FEATURE FLAGS
+AI/MODEL/PROVIDER ROUTING
+AUTHENTICATION
+DATABASE/PERSISTENCE
+OBJECT/DOCUMENT STORAGE
+DATA CONTRACTS
+SAVE/REOPEN
+REPORT RENDERER
+PRINT/PDF
+TEAM ENTRY URLS
+FRESH-BROWSER SERVING STATE
+
+For every row record:
+
+EXPECTED IDENTITY
+OBSERVED IDENTITY
+CURRENT?
+SERVING?
+PROOF
+PASS/FAIL
+
+No row may be marked:
+
+ASSUMED
+PROBABLY
+EXPECTED
+SHOULD BE
+
+----------------------------------------------------------------------
+STALE-COMPONENT SCAN
+----------------------------------------------------------------------
+
+Actively search for stale active references including:
+
+old SHAs
+old branches
+old deployment IDs
+old project IDs
+old aliases
+old preview URLs
+old backend URLs
+old runtime variables
+old feature flags
+old model pins
+mock modes
+test-only provider modes
+obsolete storage resources
+obsolete authentication environments
+obsolete schemas
+old report/render code
+
+Classify every occurrence as:
+
+HISTORICAL ONLY
+TEST FIXTURE
+ACTIVE BUT INTENTIONAL
+ACTIVE STALE RISK
+
+All ACTIVE STALE RISK findings must be resolved before acceptance.
+
+----------------------------------------------------------------------
+ALIAS AND ENTRY-POINT PROOF
+----------------------------------------------------------------------
+
+It is not sufficient that the accepted deployment exists.
+
+Prove that the actual URL supplied to users resolves to that deployment.
+
+Prove all normal user entry points resolve into the same accepted release/environment.
+
+Mark old preview/deployment URLs as:
+
+NON-AUTHORITATIVE
+
+----------------------------------------------------------------------
+CLIENT / SERVER COHERENCE
+----------------------------------------------------------------------
+
+Prove:
+
+current frontend
+→ current server/API
+→ current runtime configuration
+→ current persistence/storage
+
+Do not allow:
+
+new frontend + old API
+old frontend + new API
+staging frontend + production backend
+accepted frontend + mock semantic/runtime layer
+
+----------------------------------------------------------------------
+FRESH-BROWSER NEGATIVE CONTROL
+----------------------------------------------------------------------
+
+Acceptance must include a clean browser/session check.
+
+Verify the authoritative alias serves current assets and runtime behavior.
+
+Check applicable stale mechanisms:
+
+browser cache
+CDN cache
+service worker
+old bookmark
+old preview URL
+stale authenticated session
+
+Page appearance alone is not proof.
+
+----------------------------------------------------------------------
+RELEASE IDENTITY OBSERVABILITY
+----------------------------------------------------------------------
+
+Where practical, governed products should expose a safe non-secret way to determine:
+
+release SHA
+environment
+build/deployment identity
+
+so a reviewer can answer:
+
+"Which exact release is this browser running?"
+
+without inference.
+
+----------------------------------------------------------------------
+FAIL-CLOSED CONDITIONS
+----------------------------------------------------------------------
+
+The release-currentness gate FAILS if any applicable condition exists:
+
+local != GitHub
+
+GitHub != accepted deployment
+
+alias != accepted deployment
+
+frontend/backend mismatch
+
+API/runtime mismatch
+
+runtime configuration stale
+
+AI/model/provider path differs from accepted path
+
+authentication points to wrong environment
+
+persistence/storage points to wrong environment
+
+data contract incompatible or stale
+
+save/reopen crosses release identities incorrectly
+
+report/PDF uses a stale projection
+
+team URL serves an older release
+
+current release identity cannot be proven
+
+----------------------------------------------------------------------
+REQUIRED ARTIFACTS
+----------------------------------------------------------------------
+
+CURRENT-RELEASE-MANIFEST.md
+
+RELEASE-CONSISTENCY-MATRIX.md
+
+STALE-COMPONENT-SCAN.md
+
+TEAM-ENTRY-POINT-AUDIT.md
+
+FRESH-BROWSER-CURRENTNESS-PROOF.md
+
+INDEPENDENT-WHOLE-SYSTEM-RELEASE-VERIFICATION.txt
+
+FINAL-RELEASE-FREEZE.md
+
+----------------------------------------------------------------------
+GACM UNIVERSAL RULE
+----------------------------------------------------------------------
+
+This gate is independent of product functionality.
+
+Passing:
+
+unit tests
+integration tests
+semantic tests
+browser tests
+regression tests
+
+does NOT close release acceptance unless the exact tested artifact is proven to be the exact artifact being served.
+
+RELEASE CURRENTNESS IS PART OF CORRECTNESS.
+
