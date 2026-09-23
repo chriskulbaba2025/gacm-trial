@@ -629,3 +629,356 @@ This document is Version 2 architecture authority and roadmap intent only.
 It does not authorize implementation, production mutation, paid provider calls, new infrastructure, embedding-provider data transfer, or migration of current GACM state.
 
 Implementation requires a separately approved governed PRD/tranche beginning from the latest authoritative GACM release and must satisfy all current mandatory gates, including generalization/whole-system and release-currentness/identity controls.
+
+## 24. Canonical identity and entity resolution
+
+Graph quality depends on stable identity.
+
+GACM must prevent one real requirement, defect, decision, component, or evidence item from silently becoming multiple independent graph objects.
+
+Every durable object must support:
+
+- stable canonical object identity;
+- source-local aliases;
+- duplicate-candidate detection;
+- merge proposals;
+- split proposals;
+- provenance-preserving merge/split history;
+- supersession without destructive deletion.
+
+A model may suggest that two objects are the same. It may not silently merge them.
+
+Merged objects must retain the identities and provenance of all source records.
+
+A mistaken merge must be reversible without losing history.
+
+Entity identity is part of authority. False deduplication can be as damaging as missed duplication.
+
+## 25. Conflict sets and evidence independence
+
+CONFLICTED must be a governed state, not merely a label.
+
+When evidence disagrees, GACM should create an explicit conflict set containing:
+
+- the competing assertions;
+- source identities;
+- provenance;
+- source currentness;
+- independence/dependence relationships;
+- applicable authority class;
+- resolution status;
+- evidence needed to resolve the conflict.
+
+Conflicting assertions remain visible until resolved or superseded.
+
+GACM must also avoid evidence double-counting.
+
+Ten documents copied from one original source are not ten independent pieces of evidence.
+
+Evidence lineage should identify derived, duplicated, quoted, mirrored, summarized, or independently observed evidence.
+
+No confidence or acceptance calculation may silently count dependent evidence as independent corroboration.
+
+## 26. Epistemic path composition
+
+Authority must not increase merely because weak graph assertions are chained together.
+
+A traversal such as:
+
+    HYPOTHESIS
+    → INFERRED
+    → POSSIBLY_CAUSED_BY
+    → historical pattern
+
+must not produce an EVIDENCED or ACCEPTED conclusion simply because several edges support one another.
+
+Any graph-derived conclusion must expose:
+
+- the path used;
+- the epistemic state of every material node/edge;
+- the weakest material link;
+- source provenance;
+- unresolved conflicts;
+- whether the conclusion is direct evidence or derived inference.
+
+Transitive graph reasoning cannot promote authority by composition.
+
+If a path contains unresolved HYPOTHESIS, UNKNOWN, CONFLICTED, stale, or unauthorized material, the derived conclusion must remain bounded accordingly.
+
+## 27. Operational-state / graph consistency
+
+The operational database and reasoning graph must not drift into two competing versions of current state.
+
+When one user or worker action changes both operational state and graph state, GACM must use one of:
+
+- the same database transaction when technically possible; or
+- a durable transactional outbox/event ledger with idempotent replay and reconciliation.
+
+The system must be able to prove that:
+
+    accepted operational event
+    → graph mutation
+    → artifact/evidence references
+    → resulting graph revision
+
+belong to the same governed change.
+
+Split-brain conditions must be detectable.
+
+Examples include:
+
+- operational state says APPROVED while graph says pending;
+- graph says requirement resolved while run state says UNKNOWN;
+- graph revision advances but the workflow transaction rolled back;
+- workflow state advances but graph mutation never commits.
+
+A reconciliation process must fail closed for governance decisions when material state divergence remains unresolved.
+
+## 28. Retrieval completeness semantics
+
+NO_MATCH is not the same as ABSENT.
+
+Failure to retrieve a requirement, defect, historical pattern, dependency, or conflicting item does not prove that it does not exist.
+
+This rule is especially important for approximate vector search.
+
+Safety- or authority-critical lookups must use deterministic exact retrieval when exact identity or completeness is required.
+
+Approximate nearest-neighbor search may be used for candidate recall, but:
+
+- its recall characteristics must be measured;
+- filter behavior must be tested under tenant/project restrictions;
+- absence from ANN results cannot close an evidence gap;
+- exact/lexical fallback must exist for identifiers and authoritative terms;
+- high-impact negative claims require a retrieval method appropriate to proving absence.
+
+Tenant authorization must be enforced at the data layer as well as orchestration where practical.
+
+## 29. Graph mutation impact classes
+
+Not every proposed mutation requires the same approval burden.
+
+Every mutation type should be assigned an impact class.
+
+Recommended classes:
+
+    LOW
+    MATERIAL
+    HIGH_AUTHORITY
+
+LOW examples may include adding a non-authoritative retrieval candidate or duplicate-candidate link.
+
+MATERIAL examples may include adding or superseding an inferred requirement relationship used for planning.
+
+HIGH_AUTHORITY examples include:
+
+- accepting or superseding a governing requirement;
+- accepting root cause;
+- changing human approval state;
+- changing release identity;
+- generalizing a failure pattern;
+- changing a gate-relevant assertion.
+
+The mutation contract must specify which actor may propose, validate, accept, independently verify, or reject each class.
+
+Automation should be cheap where safe and strict where authority changes.
+
+## 30. Reasoning provenance
+
+For model-assisted graph assertions, provenance must record enough information to reconstruct how the assertion was produced without storing private chain-of-thought.
+
+Where applicable, record:
+
+- reasoning contract or task type;
+- model route identity;
+- provider/model identity;
+- prompt/instruction template digest;
+- structured-output schema version;
+- retrieval receipt ID;
+- input evidence IDs/digests;
+- output/assertion digest;
+- producer role;
+- independent verification receipt.
+
+This is provenance of the decision process, not hidden reasoning text.
+
+The design should be compatible with standard entity/activity/agent provenance concepts so later interchange is possible without making an external standard the authority.
+
+## 31. Measurable graph-value gate
+
+The graph must prove that it improves GACM rather than merely making it more complicated.
+
+Before production acceptance, run controlled comparisons on fresh, unseen scenarios.
+
+Compare at minimum:
+
+    CRIT/GACM without graph intelligence
+    versus
+    CRIT/GACM with governed graph intelligence
+
+Measure:
+
+- material issues discovered;
+- missed material issues;
+- useful questions;
+- redundant questions;
+- unsupported assumptions;
+- shared-root defects correctly detected;
+- false shared-root flags;
+- repair cycles;
+- rework;
+- requirement coverage;
+- evidence/provenance completeness;
+- retrieval precision/recall where measurable;
+- context/token volume;
+- latency;
+- cost.
+
+The graph architecture passes only when it produces a material quality or efficiency gain without increasing governance escapes.
+
+A graph that merely produces more context is not a success.
+
+## 32. Retrieval and convergence negative controls
+
+Acceptance must include deliberately planted negatives, not only positive examples.
+
+The retrieval system must demonstrate that unrelated historical cases are not promoted merely because they are semantically similar.
+
+The convergence detector must demonstrate both:
+
+- detection of true shared-boundary cases; and
+- rejection of materially different defects that only share superficial vocabulary or a common component.
+
+False convergence can create oversized repairs and unnecessary blast radius.
+
+False non-convergence can recreate sequential blocker tunnelling.
+
+Both error classes must be measured.
+
+## 33. Performance, cost, and context budgets
+
+Graph intelligence must operate within explicit product-level budgets.
+
+Each use case should define acceptable:
+
+- retrieval latency;
+- graph traversal depth;
+- maximum returned objects;
+- context/token budget;
+- external model calls;
+- embedding/re-index cost;
+- graph mutation volume;
+- verification overhead.
+
+Budgets may differ by task risk.
+
+A high-risk release decision may justify more reasoning than a low-risk UI wording change.
+
+Budget pressure may reduce optional enrichment, but it must never silently weaken mandatory authority, evidence, verification, isolation, or release gates.
+
+## 34. Retention, deletion, and audit-history reconciliation
+
+Append-only governance history and data-deletion obligations can conflict.
+
+The architecture must distinguish:
+
+- immutable audit metadata;
+- removable/redactable payload content;
+- legal/contractual retention;
+- tenant-requested deletion;
+- credential/secret removal;
+- derived embeddings;
+- generalized de-identified knowledge.
+
+Deletion of restricted source content must also address derived embeddings and cached retrieval artifacts where required.
+
+Where payload content must be deleted, GACM should preserve the minimum non-sensitive tombstone/audit record necessary to explain that a governed object once existed and why it is no longer available, subject to applicable policy.
+
+Deletion must not silently leave usable embeddings or generalized copies behind.
+
+## 35. Backup, restore, and disaster recovery
+
+Durable reasoning memory is not durable merely because it is stored in PostgreSQL.
+
+Before production reliance, GACM must prove:
+
+- backup creation;
+- backup integrity;
+- point-in-time or equivalent recovery strategy appropriate to the product;
+- restoration into an isolated environment;
+- graph revision consistency after restore;
+- operational-state / graph reconciliation;
+- artifact-reference integrity;
+- tenant isolation after restore;
+- recovery from partial graph corruption.
+
+A restore test is stronger evidence than a backup-success message.
+
+## 36. Schema, embedding, and index migrations
+
+Graph schema and retrieval infrastructure will evolve.
+
+Every migration must define:
+
+- from-version;
+- to-version;
+- reversible or irreversible status;
+- data transformation;
+- authority impact;
+- re-index requirements;
+- embedding regeneration requirements;
+- compatibility window;
+- rollback strategy;
+- verification tests.
+
+Changing embedding model, distance metric, index type, tokenizer, chunking strategy, or retrieval filters can materially change what context is retrieved.
+
+These are governed retrieval-version changes and must not silently inherit old acceptance proof.
+
+## 37. Production preconditions for Version 2 graph intelligence
+
+The Version 2 graph must not reach production release acceptance until all prerequisite control-plane gates it depends on are themselves machine-enforced.
+
+At minimum:
+
+1. GACM-GENERALIZATION-AND-WHOLE-SYSTEM-GATE remains machine-enforced.
+2. GACM-RELEASE-CURRENTNESS-AND-IDENTITY-GATE is implemented in runtime/promotion enforcement rather than existing only as specification text.
+3. The authoritative governance repository uses protected branch/ruleset or equivalent enforced change control for governing artifacts.
+4. Independent-verifier identity cannot be impersonated by the execution worker.
+5. Graph mutation writer permissions are machine-enforced.
+6. Durable evidence and mutation history cannot be silently rewritten.
+
+Architecture documentation is not a substitute for those runtime controls.
+
+## 38. Final architecture acceptance rubric
+
+The Version 2 graph architecture is ready to enter implementation planning only when the architecture itself covers, without unresolved contradiction:
+
+- authority separation;
+- identity and entity resolution;
+- provenance;
+- epistemic state;
+- evidence conflict and independence;
+- causal-claim standards;
+- currentness/invalidation;
+- mutation transactions;
+- concurrency/replay;
+- graph/operational consistency;
+- tenant/privacy/security;
+- retrieval reproducibility;
+- retrieval completeness semantics;
+- prompt-injection resistance;
+- convergence positive and negative controls;
+- cross-project learning/generalization;
+- rollback/reconstruction;
+- retention/deletion;
+- backup/restore;
+- schema/index/embedding migration;
+- independent verification;
+- release identity;
+- measurable product benefit;
+- performance/cost budgets;
+- degraded-mode behavior.
+
+Any missing item becomes an explicit implementation-plan HOLD rather than an assumption.
+
