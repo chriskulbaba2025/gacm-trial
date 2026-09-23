@@ -345,3 +345,15 @@ The reasoning graph remains a governed projection rather than a replacement for 
 
 This roadmap does not authorize implementation of that architecture. Implementation requires a separately governed PRD/tranche.
 
+## 15. Final architecture hardening status
+
+The final pre-implementation architecture audit is recorded in:
+
+GACM_V2_FINAL_ARCHITECTURE_HARDENING_AUDIT.md
+
+The detailed graph architecture now includes canonical entity identity, explicit conflict sets, evidence-independence controls, epistemic path composition, operational-state/graph consistency, retrieval negative semantics, mutation impact classes, reasoning provenance, measurable graph-value tests, convergence negative controls, performance/cost budgets, deletion/retention reconciliation, backup/restore proof, migration controls, and prerequisite control-plane enforcement.
+
+Architecture discovery should stop here unless implementation reveals a concrete contradiction or missing control.
+
+The next governed artifact should be the Version 2 implementation PRD/tranche plan.
+
