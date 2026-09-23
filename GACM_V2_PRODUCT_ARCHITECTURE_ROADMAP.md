@@ -332,3 +332,16 @@ This file is a Version 2 roadmap and memory artifact.
 It does **not** authorize immediate implementation, production changes, provider integration, paid calls, new infrastructure, or modification of the current accepted GACM baseline.
 
 Future implementation should begin from the latest explicitly approved GACM authority and be decomposed into governed tranches before code changes are made.
+
+## 14. Governed Change Intelligence Graph — detailed architecture
+
+The governed reasoning-graph direction is now specified in:
+
+GACM_V2_GOVERNED_CHANGE_INTELLIGENCE_GRAPH.md
+
+That document is the detailed Version 2 architecture authority for graph reasoning, provenance, epistemic state, graph mutation, hybrid retrieval, convergence detection, historical failure-pattern learning, tenant isolation, rollback/reconstruction, release-currentness integration, independent verification, adversarial acceptance, and implementation order.
+
+The reasoning graph remains a governed projection rather than a replacement for GitHub/durable authority, relational operational state, Graphify discovery, artifact storage, or independent verification.
+
+This roadmap does not authorize implementation of that architecture. Implementation requires a separately governed PRD/tranche.
+
