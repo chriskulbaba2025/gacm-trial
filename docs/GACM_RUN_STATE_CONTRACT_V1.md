@@ -202,3 +202,15 @@ The gate result is a governance-issued projection derived from raw independent-v
 Raw proof remains in append-only evidence referenced by the gate result. The executor cannot make the durable state acceptable by writing a PASS string into the snapshot; runtime promotion re-evaluates the raw contract and raw independent evidence.
 
 Historical schema-release states remain historical evidence. Resuming unfinished governed repair under the corrected control requires the new gate rather than silently continuing under fixture-only acceptance.
+
+## External provider authority — schema release 1.2.0
+
+Governed runs that may perform authenticated external actions must use `gacm.schema_release = "1.2.0"` and persist `external_provider_authority` plus `external_provider_gate`.
+
+The authority record is frozen before the authenticated action and contains only non-secret identity/provenance metadata.
+
+The gate must be PASS before external execution and its durable identity digest must survive save/reopen, handoff and restart.
+
+Discovery results are not authority. A restored run may not replace the frozen provider/account/credential-source identity with newly discovered ambient configuration.
+
+Schema-valid state is necessary but not sufficient: runtime orchestration and promotion re-evaluate the gate from the frozen authority record and action identity.

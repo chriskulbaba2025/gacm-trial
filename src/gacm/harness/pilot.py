@@ -14,6 +14,7 @@ from pathlib import Path
 from typing import Any, Callable, Mapping, Protocol
 
 from gacm.generalization import GeneralizationGate
+from gacm.provider_authority import ExternalProviderAuthorityGate
 
 
 class TopLevelState(StrEnum):
@@ -41,6 +42,7 @@ class HarnessConfig:
     operational_context_requirements: Mapping[str, Any]
     settle_required: bool = True
     generalization_contract: Mapping[str, Any] = field(default_factory=dict)
+    external_provider_authority: Mapping[str, Any] = field(default_factory=dict)
 
 
 @dataclass(frozen=True)
@@ -92,7 +94,7 @@ class PilotState:
     evidence: list[dict[str, Any]] = field(default_factory=list)
     units: list[dict[str, Any]] = field(default_factory=list)
     blockers: list[str] = field(default_factory=list)
-    receipts: dict[str, list[dict[str, Any]]] = field(default_factory=lambda: {"verification": [], "repair": [], "generalization": [], "promotion": [], "settle": [], "rollback": []})
+    receipts: dict[str, list[dict[str, Any]]] = field(default_factory=lambda: {"verification": [], "repair": [], "generalization": [], "provider_authority": [], "promotion": [], "settle": [], "rollback": []})
     assurance_preserved: list[str] = field(default_factory=list)
     human_action_required: bool = False
     generalization_contract_digest: str | None = None
@@ -110,7 +112,7 @@ class PilotState:
     def restore(cls, raw: Mapping[str, Any]) -> "PilotState":
         config = HarnessConfig(**raw["config"])
         receipts = dict(raw.get("receipts", {}))
-        for key in ("verification", "repair", "generalization", "promotion", "settle", "rollback"):
+        for key in ("verification", "repair", "generalization", "provider_authority", "promotion", "settle", "rollback"):
             receipts.setdefault(key, [])
         return cls(
             run_id=str(raw["run_id"]),
@@ -178,8 +180,45 @@ class PilotHarness:
         self._transition(state, TopLevelState.EXECUTING)
         for unit in state.units:
             if unit.get("status") == "PASS": continue
+            provider_policy_required = config.execution_policy.get("external_provider_authority_gate") == "REQUIRED"
+            if provider_policy_required and "external_action_required" not in unit:
+                raise _Blocked("EXTERNAL_ACTION_CLASSIFICATION_REQUIRED")
+            if provider_policy_required and unit.get("external_provider_request") and unit.get("external_action_required") is not True:
+                raise _Blocked("UNDECLARED_EXTERNAL_PROVIDER_ACTION")
+            if unit.get("external_action_required"):
+                pre_request = unit.get("external_provider_request", {})
+                pre_gate = ExternalProviderAuthorityGate().evaluate(config.external_provider_authority, pre_request)
+                unit["external_provider_pre_execution_gate"] = pre_gate.to_dict()
+                self.receipt(state, "provider_authority", pre_gate)
+                if pre_gate.status != "PASS":
+                    raise _Blocked("EXTERNAL_PROVIDER_AUTHORITY_GATE_HOLD:" + ",".join(pre_gate.reasons))
             route = self.adapters.route(unit)
             if not self._route_is_qualified(route): raise _Blocked("MODEL_QUALIFICATION_MISSING")
+            if provider_policy_required and unit.get("external_action_required") is not True:
+                route_plain_check = self._plain(route)
+                if any(route_plain_check.get(key) is not None for key in ("provider_id", "selected_provider", "endpoint_identity", "endpoint", "credential_source_id")):
+                    raise _Blocked("UNDECLARED_EXTERNAL_PROVIDER_ROUTE")
+            if unit.get("external_action_required"):
+                runtime_request = dict(unit.get("external_provider_request", {}))
+                route_plain = self._plain(route)
+                route_field_map = {
+                    "provider_id": ("provider_id", "selected_provider"),
+                    "account_identity": ("account_identity", "account_id", "project_id", "tenant_id"),
+                    "environment": ("environment",),
+                    "endpoint_identity": ("endpoint_identity", "endpoint"),
+                    "model_api_variant": ("model_api_variant", "selected_model"),
+                    "credential_source_id": ("credential_source_id",),
+                }
+                for target, candidates in route_field_map.items():
+                    for source in candidates:
+                        if route_plain.get(source) is not None:
+                            runtime_request[target] = route_plain[source]
+                            break
+                runtime_gate = ExternalProviderAuthorityGate().evaluate(config.external_provider_authority, runtime_request)
+                unit["external_provider_runtime_gate"] = runtime_gate.to_dict()
+                self.receipt(state, "provider_authority", runtime_gate)
+                if runtime_gate.status != "PASS":
+                    raise _Blocked("EXTERNAL_PROVIDER_RUNTIME_IDENTITY_HOLD:" + ",".join(runtime_gate.reasons))
             execution = self.adapters.execute(unit, route, context)
             if self._get(execution, "execution_status") != "COMPLETED": raise _Blocked("EXECUTION_FAILED_OR_BLOCKED")
             unit.update({"route": self._plain(route), "execution": self._plain(execution), "status": "EXECUTED"})

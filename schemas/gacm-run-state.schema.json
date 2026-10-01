@@ -71,7 +71,10 @@
       "items": { "$ref": "#/$defs/repairPlan" }
     },
     "generalization_contract": { "$ref": "#/$defs/generalizationContract" },
-    "generalization_gate": { "$ref": "#/$defs/generalizationGate" }
+    "generalization_gate": { "$ref": "#/$defs/generalizationGate" },
+    "external_action_required": { "type": "boolean" },
+    "external_provider_authority": { "$ref": "#/$defs/externalProviderAuthority" },
+    "external_provider_gate": { "$ref": "#/$defs/externalProviderGate" }
   },
   "allOf": [
     {
@@ -130,6 +133,37 @@
             ]
           }
         }
+      }
+    },
+    {
+      "if": {
+        "properties": { "gacm": { "properties": { "schema_release": { "const": "1.2.0" } }, "required": ["schema_release"] } },
+        "required": ["gacm"]
+      },
+      "then": {
+        "required": ["generalization_contract", "generalization_gate", "external_action_required"],
+        "allOf": [
+          {
+            "if": { "properties": { "external_action_required": { "const": true } }, "required": ["external_action_required"] },
+            "then": {
+              "required": ["external_provider_authority", "external_provider_gate"],
+              "properties": {
+                "external_provider_authority": {
+                  "allOf": [
+                    { "$ref": "#/$defs/externalProviderAuthority" },
+                    { "properties": { "provider_authority": { "const": "AUTHORIZED" }, "credential_provenance": { "const": "VERIFIED" } } }
+                  ]
+                },
+                "external_provider_gate": {
+                  "allOf": [
+                    { "$ref": "#/$defs/externalProviderGate" },
+                    { "properties": { "status": { "const": "PASS" }, "authoritative": { "const": true }, "issuer_role": { "const": "GACM_GOVERNANCE" } } }
+                  ]
+                }
+              }
+            }
+          }
+        ]
       }
     }
   ],
@@ -586,6 +620,50 @@
         "authoritative": { "type": "boolean" },
         "issuer_role": { "const": "GACM_GOVERNANCE" },
         "fixture_specific_authorized": { "type": "boolean" }
+      }
+    },
+    "externalProviderAuthority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["gate_id", "provider_authority", "provider_id", "account_identity", "environment", "endpoint_identity", "credential_source_id", "credential_provenance", "governing_authority_artifact", "authorization_scope"],
+      "properties": {
+        "gate_id": { "const": "GACM-EXTERNAL-PROVIDER-AUTHORITY-AND-CREDENTIAL-PROVENANCE-GATE" },
+        "provider_authority": { "enum": ["AUTHORIZED", "DISCOVERED", "UNRESOLVED"] },
+        "provider_id": { "type": "string", "minLength": 1 },
+        "service_id": { "type": ["string", "null"] },
+        "account_identity": { "type": "string", "minLength": 1 },
+        "environment": { "type": "string", "minLength": 1 },
+        "endpoint_identity": { "type": "string", "minLength": 1 },
+        "model_api_variant": { "type": ["string", "null"] },
+        "model_variant_required": { "type": "boolean" },
+        "credential_source_id": { "type": "string", "minLength": 1 },
+        "credential_provenance": { "enum": ["VERIFIED", "AVAILABLE_BUT_UNAUTHORIZED", "UNPROVEN"] },
+        "governing_authority_artifact": { "type": "string", "minLength": 1 },
+        "candidate_release_sha": { "type": ["string", "null"] },
+        "authorization_scope": { "type": "string", "minLength": 1 },
+        "identity_digest": { "type": ["string", "null"] }
+      }
+    },
+    "externalProviderGate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["gate_id", "status", "reasons", "identity_digest", "authoritative", "issuer_role"],
+      "properties": {
+        "gate_id": { "const": "GACM-EXTERNAL-PROVIDER-AUTHORITY-AND-CREDENTIAL-PROVENANCE-GATE" },
+        "status": { "enum": ["PASS", "HOLD"] },
+        "reasons": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+        "identity_digest": { "type": "string", "minLength": 1 },
+        "provider_id": { "type": ["string", "null"] },
+        "account_identity": { "type": ["string", "null"] },
+        "environment": { "type": ["string", "null"] },
+        "endpoint_identity": { "type": ["string", "null"] },
+        "model_api_variant": { "type": ["string", "null"] },
+        "credential_source_id": { "type": ["string", "null"] },
+        "credential_provenance": { "type": ["string", "null"] },
+        "governing_authority_artifact": { "type": ["string", "null"] },
+        "authorization_scope": { "type": ["string", "null"] },
+        "authoritative": { "type": "boolean" },
+        "issuer_role": { "const": "GACM_GOVERNANCE" }
       }
     },
     "identityValidation": {

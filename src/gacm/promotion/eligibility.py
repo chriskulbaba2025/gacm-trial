@@ -5,6 +5,7 @@ from __future__ import annotations
 from typing import Any, Mapping
 
 from gacm.generalization import GeneralizationGate
+from gacm.provider_authority import ExternalProviderAuthorityGate
 
 from .models import EligibilityResult, PromotionState
 
@@ -27,6 +28,21 @@ class PromotionEligibility:
         if evidence.get("candidate_identity_matches") is False: reasons.append("CANDIDATE_IDENTITY_MISMATCH")
         if evidence.get("authority_continuity") is False: blocked.append("CURRENT_AUTHORITY_CHANGED_SINCE_VERIFICATION")
         if evidence.get("human_approval_required") and not evidence.get("human_approval"): reasons.append("REQUIRED_HUMAN_APPROVAL_MISSING")
+        if evidence.get("external_action_required"):
+            provider_gate = ExternalProviderAuthorityGate().evaluate(
+                evidence.get("external_provider_authority"),
+                evidence.get("external_provider_request"),
+            )
+            if provider_gate.status != "PASS":
+                reasons.append("EXTERNAL_PROVIDER_AUTHORITY_GATE_NOT_SATISFIED")
+            claimed_provider_gate = evidence.get("external_provider_gate")
+            if claimed_provider_gate is not None:
+                if (
+                    not isinstance(claimed_provider_gate, Mapping)
+                    or claimed_provider_gate.get("status") != provider_gate.status
+                    or claimed_provider_gate.get("identity_digest") != provider_gate.identity_digest
+                ):
+                    reasons.append("EXTERNAL_PROVIDER_GATE_CLAIM_MISMATCH")
         gate = GeneralizationGate().evaluate(
             evidence.get("generalization_contract"),
             evidence.get("generalization_evidence"),
