@@ -357,3 +357,14 @@ Architecture discovery should stop here unless implementation reveals a concrete
 
 The next governed artifact should be the Version 2 implementation PRD/tranche plan.
 
+## 16. External provider authority boundary
+
+Version 2 adds the mandatory `GACM-EXTERNAL-PROVIDER-AUTHORITY-AND-CREDENTIAL-PROVENANCE-GATE`.
+
+Worker/provider interchangeability does not mean provider arbitrariness. Before an authenticated external action, the governed project must establish the authorized provider/service, account/environment, endpoint, model/API variant where applicable, credential-source provenance and governing authority artifact.
+
+Ambient credentials, installed tools, compatible APIs and spend permission are not provider authority.
+
+The approved ordering is provider authority → credential provenance → endpoint/model identity → manifest/runtime parity → cost/policy gates → execution.
+
+This is an additive architecture amendment recorded in `GACM_V2_ARCHITECTURE_AMENDMENT_A3_EXTERNAL_PROVIDER_AUTHORITY.md`.
