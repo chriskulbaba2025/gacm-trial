@@ -982,3 +982,16 @@ The Version 2 graph architecture is ready to enter implementation planning only 
 
 Any missing item becomes an explicit implementation-plan HOLD rather than an assumption.
 
+## 39. External-provider authority and provenance
+
+External-provider identity is a governed authority input, not an inference produced by retrieval, graph proximity, ambient credentials or model reasoning.
+
+When GACM/RRSI represents an external provider dependency, the graph may project the accepted non-secret provider identity and provenance, but it may not choose the provider.
+
+Before external execution the authoritative provider record must establish provider/service, account/project/tenant/environment, endpoint, model/API variant where applicable, credential-source identifier/provenance, governing authority artifact and authorization scope.
+
+Discovery relationships such as AVAILABLE_ON_MACHINE, API_COMPATIBLE_WITH, CHEAPER_THAN or USED_BY_OTHER_PROJECT remain non-authoritative and cannot compose into AUTHORIZED_PROVIDER.
+
+Provider authority and credential provenance are evaluated by `GACM-EXTERNAL-PROVIDER-AUTHORITY-AND-CREDENTIAL-PROVENANCE-GATE` before network execution.
+
+Release-currentness later proves runtime parity with that already-authorized identity; it cannot retroactively authorize a provider selected without upstream authority.
