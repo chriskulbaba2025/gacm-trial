@@ -180,6 +180,11 @@ class PilotHarness:
         self._transition(state, TopLevelState.EXECUTING)
         for unit in state.units:
             if unit.get("status") == "PASS": continue
+            provider_policy_required = config.execution_policy.get("external_provider_authority_gate") == "REQUIRED"
+            if provider_policy_required and "external_action_required" not in unit:
+                raise _Blocked("EXTERNAL_ACTION_CLASSIFICATION_REQUIRED")
+            if provider_policy_required and unit.get("external_provider_request") and unit.get("external_action_required") is not True:
+                raise _Blocked("UNDECLARED_EXTERNAL_PROVIDER_ACTION")
             if unit.get("external_action_required"):
                 pre_request = unit.get("external_provider_request", {})
                 pre_gate = ExternalProviderAuthorityGate().evaluate(config.external_provider_authority, pre_request)
@@ -189,6 +194,10 @@ class PilotHarness:
                     raise _Blocked("EXTERNAL_PROVIDER_AUTHORITY_GATE_HOLD:" + ",".join(pre_gate.reasons))
             route = self.adapters.route(unit)
             if not self._route_is_qualified(route): raise _Blocked("MODEL_QUALIFICATION_MISSING")
+            if provider_policy_required and unit.get("external_action_required") is not True:
+                route_plain_check = self._plain(route)
+                if any(route_plain_check.get(key) is not None for key in ("provider_id", "selected_provider", "endpoint_identity", "endpoint", "credential_source_id")):
+                    raise _Blocked("UNDECLARED_EXTERNAL_PROVIDER_ROUTE")
             if unit.get("external_action_required"):
                 runtime_request = dict(unit.get("external_provider_request", {}))
                 route_plain = self._plain(route)
