@@ -179,11 +179,25 @@ class ExternalProviderAuthorityGate:
         if requested is not None and authorized is not None and requested != authorized:
             reasons.append(reason)
 
+    @staticmethod
+    def _is_secret_key(key: Any) -> bool:
+        name = str(key).lower()
+        return (
+            name in _SECRET_KEYS
+            or "password" in name
+            or "private_key" in name
+            or "api_key" in name
+            or name.endswith("_token")
+            or name == "token"
+            or name.endswith("_secret")
+            or name == "secret"
+        )
+
     @classmethod
     def _contains_secret(cls, value: Any) -> bool:
         if isinstance(value, Mapping):
             for key, item in value.items():
-                if str(key).lower() in _SECRET_KEYS and item not in (None, "", "<REDACTED>", "REDACTED"):
+                if cls._is_secret_key(key) and item not in (None, "", "<REDACTED>", "REDACTED"):
                     return True
                 if cls._contains_secret(item):
                     return True
