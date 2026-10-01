@@ -144,6 +144,9 @@ class ProviderPromotionAndSchemaTests(unittest.TestCase):
         state = json.loads((ROOT / "tests/fixtures/valid_new_run.json").read_text(encoding="utf-8"))
         state["gacm"]["schema_release"] = "1.2.0"
         state["external_action_required"] = True
+        contract, generalized = generalization_pair()
+        state["generalization_contract"] = contract
+        state["generalization_gate"] = GeneralizationGate().evaluate(contract, generalized).to_dict()
         errors = list(validator.iter_errors(state))
         self.assertTrue(errors)
 
