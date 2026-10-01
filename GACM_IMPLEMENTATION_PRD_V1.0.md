@@ -582,3 +582,22 @@ does NOT close release acceptance unless the exact tested artifact is proven to 
 
 RELEASE CURRENTNESS IS PART OF CORRECTNESS.
 
+## 27. External provider authority and credential provenance gate
+
+Every authenticated external action is subject to the mandatory fail-closed `GACM-EXTERNAL-PROVIDER-AUTHORITY-AND-CREDENTIAL-PROVENANCE-GATE`.
+
+Provider authority is established before credential provenance, endpoint/model identity, runtime parity, cost/policy gates and network execution.
+
+Available credentials, authenticated CLIs, installed SDKs, API compatibility, price, unrelated project configuration and executor preference are discovery only. They cannot authorize provider selection.
+
+A governed external action must have durable non-secret identity metadata for provider/service, account/project/tenant/environment, endpoint, model/API variant where applicable, credential source identifier, credential provenance classification, governing authority artifact, authorization scope and candidate/release identity where applicable.
+
+If the governed provider is unavailable the action is HOLD. Provider/account substitution requires explicit authority.
+
+Spend authorization never substitutes for provider authorization.
+
+The gate is required before execution and is re-evaluated at promotion/currentness boundaries where external provider identity is material.
+
+Permanent generalized failure patterns: `EXTERNAL_PROVIDER_AUTHORITY_UNDER_SPECIFICATION` and `CREDENTIAL_PROVENANCE_UNDER_SPECIFICATION`.
+
+Definition of Done for any external-provider capability includes provider-authority PASS, credential-provenance PASS, secret-exclusion PASS, provider identity persistence through restart/handoff, generalized adversarial tests, full regression and release-currentness PASS.
