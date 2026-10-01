@@ -120,3 +120,18 @@ Future governed product-repair runs must freeze a product-level definition of do
 Permanent escape classes: `FIXTURE_TARGET_COLLAPSE` and `SEQUENTIAL_BLOCKER_TUNNELING`.
 
 The machine enforcement implementation lives in `src/gacm/generalization/`, the Pilot Harness pre-execution and pre-promotion gates, PromotionEligibility, and the durable run-state schema release 1.1.0 controls.
+
+## Permanent governance correction — external provider authority
+
+On 2026-09-30, human authority explicitly authorized an additive universal governance correction establishing `GACM-EXTERNAL-PROVIDER-AUTHORITY-AND-CREDENTIAL-PROVENANCE-GATE`.
+
+Permanent failure patterns:
+
+- `EXTERNAL_PROVIDER_AUTHORITY_UNDER_SPECIFICATION`
+- `CREDENTIAL_PROVENANCE_UNDER_SPECIFICATION`
+
+Future governed authenticated external actions must prove provider/service authority and credential provenance before network execution. Ambient/global credentials and provider discovery are diagnostic only and may not become configuration automatically. Provider substitution is HOLD unless explicitly authorized. Paid-call authorization does not select or authorize a provider.
+
+The gate must execute before parity/currentness so a self-consistent but unauthorized provider configuration cannot pass by internal consistency alone.
+
+Durable handoff/restart state must preserve the non-secret governed provider identity and authority reference.
