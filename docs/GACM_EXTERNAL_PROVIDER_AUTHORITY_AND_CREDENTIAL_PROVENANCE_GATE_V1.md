@@ -237,3 +237,14 @@ Every future governed product involving an authenticated external service must a
 The gate belongs before execution, not as post-failure diagnosis.
 
 The two failure patterns are reusable GACM governance patterns and must remain in the permanent regression library.
+
+## Work-unit classification control
+
+A governed execution policy that enables this gate must require every work unit to declare whether it performs an authenticated external action.
+
+Missing classification is HOLD.
+
+A work unit declared non-external must fail before execution if the routing layer introduces a provider, endpoint or credential-source identity.
+
+This prevents omission of the external-action flag from becoming a bypass.
+
