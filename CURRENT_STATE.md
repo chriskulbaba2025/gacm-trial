@@ -48,7 +48,7 @@ On 2026-10-03 human authority instructed GACM to take the next action after Foun
 
 ## Current objective
 
-Preserve the accepted Railway staging deployment `160f13f2-b1ae-401b-b0e2-2365d3a827e0` at exact app SHA `7341b9c89869528eeafc2704984dbe9115d2dabc`. Hosting identity, canonical source identity, domain currentness, persistent SQLite/graph continuity, real hosted browser rendering, and provider restart continuity are proven. Foundation 06 remains fail-closed HOLD only because hosted Human CRIT semantic review is unavailable without an explicitly authorized hosted semantic-review provider/model/account/credential boundary.
+Preserve the accepted Railway staging infrastructure and add only the explicitly authorized hosted CRIT semantic-review boundary: OpenAI API direct, `gpt-6-luna`, staging only, dedicated credential stored only as Railway `OPENAI_API_KEY`. Implement the smallest provider adapter/configuration repair, preserve the local Codex CLI default path, require explicit `GACM_CRIT_PROVIDER=openai_api` selection in Railway, and test without a live credential before any provider call.
 
 The reconciled authority set remains defined by `docs/GACM_MVP_AUTHORITY_MANIFEST_V1.md`. The graph-first operating contract is `docs/GACM_GRAPH_ENGINEERING_FOUNDATION_V1.md`; the Jev and graph-binding contract is `docs/GACM_JEV_CLASSIFICATION_AND_GRAPH_BINDING_V1.md`; the durable graph contract is `docs/GACM_GRAPH_DURABLE_PERSISTENCE_V1.md`; the application runtime contract is `docs/GACM_GRAPH_APPLICATION_RUNTIME_INTEGRATION_V1.md`; the Foundation 06 staging-authority contract is `docs/GACM_GRAPH_FOUNDATION_06_HOSTED_STAGING_AUTHORITY_V1.md`.
 
@@ -129,7 +129,7 @@ Complete `GACM-GRAPH-FOUNDATION-06` only:
 9. prove deployment identity, served-candidate currentness, durable restart/redeploy continuity, rollback boundary, and real hosted browser acceptance;
 10. STOP before retrieval, graph-aware CRIT, convergence, legacy-planner removal, either `main` merge, production deployment, or production promotion.
 
-Current execution state: `HOLD — HOSTED_CRIT_SEMANTIC_REVIEW_PROVIDER_AUTHORITY_MISSING`.
+Current execution state: `READY — OPENAI HOSTED CRIT REPAIR AUTHORIZED / DEDICATED CREDENTIAL PENDING`.
 
 ### Current HOLD items
 
@@ -142,7 +142,7 @@ Current execution state: `HOLD — HOSTED_CRIT_SEMANTIC_REVIEW_PROVIDER_AUTHORIT
 - PilotHarness remains the accepted lifecycle owner; Graph Foundation 03B adds an explicit graph-authoritative planning mode while preserving the legacy planner as the default/shadow path until graph scheduling is independently accepted;
 - TypeSafe Jev remains an advisory classifier boundary; Foundation 03A proved one live authenticated governed `POST /v1/systemone` path, with `jev-latest` resolving to `jev-1.13.0`, projection only as `INFERRED`, and GraphScheduler returning `COLLECT_EVIDENCE`; Jev is not graph truth;
 - `jev-latest` is a provider alias, so the runtime records requested/resolved model and request/result digests; immutable provider-version currentness remains a future hardening item if TypeSafe exposes a durable version identity;
-- Railway is the authorized Foundation 06 staging provider in workspace `7ba8db0e-2024-4d68-ad54-8781fba5dd6e`, project `bfff14c9-125f-483f-a3ef-a9bfba855774`, environment `3bd45723-a62f-49ab-946c-7963553aa7ff`; deployment `160f13f2-b1ae-401b-b0e2-2365d3a827e0` at exact SHA `7341b9c...` is accepted for hosting/currentness/persistence/browser/restart behavior, but hosted CRIT semantic review remains HOLD because no hosted provider/model/credential authority has been granted;
+- Railway staging infrastructure remains accepted; human authority has now explicitly authorized OpenAI API direct with `gpt-6-luna` for hosted CRIT semantic review in staging only, using a dedicated `OPENAI_API_KEY` stored only as a Railway secret; implementation/mock acceptance may proceed, but live provider acceptance remains HOLD until that secret exists;
 - production remains untouched.
 
 

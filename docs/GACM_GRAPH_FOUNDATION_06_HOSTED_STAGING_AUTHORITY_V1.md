@@ -1,6 +1,6 @@
 # GACM Graph Foundation 06 — Hosted Staging Authority v1
 
-**Status:** HOLD — HOSTED INFRASTRUCTURE ACCEPTED / CRIT SEMANTIC REVIEW UNAVAILABLE
+**Status:** AUTHORIZED — OPENAI HOSTED CRIT REPAIR / CREDENTIAL PENDING
 **Authorized:** 2026-10-03
 **Provider authority resolved:** 2026-10-03
 **Production authority:** NOT GRANTED
@@ -207,9 +207,30 @@ The deployed application currently instantiates `CodexCliSemanticReviewer`. The 
 
 This is correct fail-closed behavior, but it means the hosted application is not yet usable for end-to-end Human CRIT interviewing.
 
-Foundation 06 therefore remains HOLD at end-to-end hosted acceptance. GACM must not infer or substitute a hosted semantic-review provider, model, credential, account, or API from ambient configuration.
+Foundation 06 therefore remained HOLD at end-to-end hosted acceptance until explicit hosted semantic-review authority was supplied.
 
-The next separately authorized repair boundary must establish explicit hosted semantic-review provider/model/account/credential authority and then prove the complete hosted interview path without weakening Jev's advisory-only boundary or existing model/provider governance.
+## Hosted CRIT semantic-review authority
+
+On 2026-10-03, human authority explicitly authorized:
+
+- provider: OpenAI API, direct;
+- model: `gpt-6-luna`;
+- scope: Foundation 06 Railway staging only;
+- credential: a dedicated OpenAI API credential;
+- credential storage: Railway secret only;
+- provider API: OpenAI Responses API;
+- response contract: strict JSON-schema structured output;
+- OpenAI tools: none;
+- response persistence: disabled (`store=false`);
+- CRIT authority: advisory semantic review only; GACM retains readiness, persistence, approval, graph, and release authority.
+
+The authorized Railway configuration selector is `GACM_CRIT_PROVIDER=openai_api`. The authorized hosted model configuration is `OPENAI_CRIT_MODEL=gpt-6-luna`. The dedicated credential is referenced only as `OPENAI_API_KEY` and must never be committed, copied into governance artifacts, logs, test fixtures, or chat transcripts.
+
+The local workstation Codex CLI path remains the default local development path when `GACM_CRIT_PROVIDER` is absent. The hosted OpenAI API path must never be selected from ambient credentials or provider availability. Unknown provider selectors must fail closed rather than falling back.
+
+No live OpenAI API call is authorized until the dedicated credential is installed as a Railway secret. The repair may be implemented and tested with mocked provider responses before that credential is supplied.
+
+This authorization does not change Jev's advisory-only boundary and does not authorize retrieval, web search, external tools, autonomous execution, provider/model fallback, model escalation, production deployment, or either `main` merge.
 
 ## Explicit exclusions
 
@@ -229,6 +250,6 @@ Foundation 06 does not authorize:
 
 ## Current execution gate
 
-`HOLD — HOSTED_CRIT_SEMANTIC_REVIEW_PROVIDER_AUTHORITY_MISSING`
+`READY — OPENAI HOSTED CRIT REPAIR AUTHORIZED / DEDICATED CREDENTIAL PENDING`
 
-Railway hosting, exact release identity, persistence, restart continuity, domain currentness, and hosted browser rendering are accepted. End-to-end Human CRIT remains unavailable because the accepted local semantic-review path depends on a workstation-authenticated Codex CLI session that is not present or authorized in Railway. No hosted provider/model/credential substitution is authorized in Foundation 06.
+Railway hosting remains accepted. OpenAI API with `gpt-6-luna` is now the explicit hosted CRIT semantic-review authority for staging only. The next authorized work is the bounded provider-adapter/configuration repair with mock/no-secret tests. Live provider acceptance remains fail-closed until the dedicated `OPENAI_API_KEY` is installed directly as a Railway secret.
