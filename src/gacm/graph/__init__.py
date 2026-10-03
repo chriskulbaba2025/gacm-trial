@@ -13,20 +13,24 @@ from .models import (
     ProducerRole,
     StaleGraphRevision,
 )
+from .binder import BoundGraphWorkUnit, GraphBindingError, GraphWorkPackageBinder
 from .scheduler import ActionKind, GraphAction, GraphScheduler
 from .store import GovernedGraph
 
 __all__ = [
     "ActionKind",
+    "BoundGraphWorkUnit",
     "EdgeType",
     "EpistemicState",
     "GovernedGraph",
     "GraphAction",
+    "GraphBindingError",
     "GraphEdge",
     "GraphInvariantError",
     "GraphMutation",
     "GraphNode",
     "GraphScheduler",
+    "GraphWorkPackageBinder",
     "MutationReceipt",
     "MutationReplayConflict",
     "NodeType",

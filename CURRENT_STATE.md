@@ -18,15 +18,15 @@ Before governed work begins, execution must verify the local `HEAD` against the 
 
 ## Methodology status
 
-GACM v4.2.2 remains the frozen base methodology authority. Explicitly authorized additive governance corrections and V2 architecture specifications are also recorded in this repository. The MVP closure contract excluded V2 graph runtime work by default; on 2026-10-03 explicit human authority authorized the bounded graph-engineering foundation in `GACM-GRAPH-FOUNDATION-01`. Full V2 runtime expansion remains separately governed.
+GACM v4.2.2 remains the frozen base methodology authority. Explicitly authorized additive governance corrections and V2 architecture specifications are also recorded in this repository. The MVP closure contract excluded V2 graph runtime work by default; on 2026-10-03 explicit human authority authorized bounded Graph Foundation 01 and then Graph Foundation 02. Full V2 runtime expansion remains separately governed.
 
 ## Current phase
 
-**GACM-GRAPH-FOUNDATION-01 — GRAPH-FIRST ORCHESTRATION FOUNDATION**
+**GACM-GRAPH-FOUNDATION-02 — JEV CLASSIFICATION + ROUTING AUTHORITY + GRAPH EXECUTION BINDING**
 
-Historical Phases 1–14 remain preserved as recorded below. GACM-MVP-CLOSURE-00 established the reconciled candidate authority at `0dd82e6176bd00e32fddfc975584a70773350b14`.
+Historical Phases 1–14 remain preserved as recorded below. GACM-MVP-CLOSURE-00 established the reconciled candidate authority at `0dd82e6176bd00e32fddfc975584a70773350b14`; Graph Foundation 01 established the graph kernel candidate at `150f895f4effa74dee116d51dd7fbee974445447`.
 
-On 2026-10-03 human authority explicitly changed the next architectural direction from prompt-sequenced orchestration toward graph-engineered orchestration. This authorization is bounded to the graph kernel, mutation invariants, deterministic graph scheduler, machine work-package projection, tests, and governing documentation. It does not authorize merge, deployment, production mutation, model escalation, graph retrieval, Neo4j/pgvector, convergence, or full V2 migration.
+On 2026-10-03 human authority explicitly authorized the next bounded graph tranche. This tranche adds a TypeSafe Jev advisory classification layer, reconciles model routing to Luna-first with explicit durable human authority for any non-Luna model, and binds graph action/revision identity into durable run-state and GCU execution contracts. It does not authorize merge, deployment, production mutation, autonomous model escalation, subagents, graph retrieval, Neo4j/pgvector, convergence, PilotHarness lifecycle replacement, or full V2 migration.
 
 ## Phase history
 
@@ -48,13 +48,13 @@ On 2026-10-03 human authority explicitly changed the next architectural directio
 
 ## Current objective
 
-Establish the smallest machine-enforced graph control plane that can become the source for work eligibility and bounded work packages without replacing existing authority, verification, run-state, release, or human-decision controls.
+Prove the first usable graph-first execution handoff: cheap advisory semantic classification can create non-authoritative graph candidates; deterministic graph state decides what evidence is needed; routing cannot silently upgrade models; and only an exact graph-bound machine contract can reach the GCU execution gate.
 
-The reconciled authority set remains defined by `docs/GACM_MVP_AUTHORITY_MANIFEST_V1.md`. The graph-first operating contract is `docs/GACM_GRAPH_ENGINEERING_FOUNDATION_V1.md`.
+The reconciled authority set remains defined by `docs/GACM_MVP_AUTHORITY_MANIFEST_V1.md`. The graph-first operating contract is `docs/GACM_GRAPH_ENGINEERING_FOUNDATION_V1.md`; the Jev and graph-binding contract is `docs/GACM_JEV_CLASSIFICATION_AND_GRAPH_BINDING_V1.md`.
 
 The authoritative SPEC `main` identity remains `30bfb0e78bab11c1e20cdc74b45530114c431654`. The authoritative CRIT `main` identity remains `187b7f7d3d63025f98386da09255942d6693303d`. The recovered Human CRIT MVP candidate remains `132cff6d3280e3fe8f86b23a0113cab986df03e3`.
 
-The graph foundation must preserve the existing MVP finish line. Full V2 graph persistence, retrieval, graph-aware CRIT, convergence, and production migration remain outside this tranche.
+Full V2 graph persistence, retrieval, graph-aware CRIT, convergence, PilotHarness scheduler replacement, and production migration remain outside this tranche.
 
 ## Completed phases
 
@@ -116,18 +116,19 @@ The promoted SPEC identity is `30bfb0e78bab11c1e20cdc74b45530114c431654` on loca
 
 ## Next authorized action
 
-Complete `GACM-GRAPH-FOUNDATION-01` only:
+Complete `GACM-GRAPH-FOUNDATION-02` only:
 
-1. implement the typed governed graph kernel;
-2. enforce revision, provenance, epistemic, writer-role, project-scope and replay invariants;
-3. implement deterministic graph-derived next-action scheduling;
-4. project bounded machine work packages without rendering prompts;
-5. prove fail-closed routing/external-action/subagent/escalation behavior;
-6. run targeted tests and the complete GACM regression;
-7. push the exact candidate branch;
-8. STOP before graph-to-run-state/GCU integration, merge, deployment, or promotion.
+1. preserve Jev as advisory classification, never authority;
+2. require inferred/hypothesis classifier output to collect stronger evidence before governing work;
+3. keep Luna as the only automatic execution-model route;
+4. require explicit durable human authority for any non-Luna route or escalation;
+5. bind exact graph action/revision/target/project identity into run state and GCU execution contracts;
+6. prove stale/mismatched graph state, route identity, subagent authorization, and external-action classification fail closed;
+7. run targeted tests and the complete GACM regression;
+8. push the exact candidate branch and verify candidate CI;
+9. STOP before PilotHarness scheduler replacement, merge, deployment, or promotion.
 
-The next graph tranche requires explicit authorization.
+Any next graph tranche requires explicit authorization.
 
 ### Current HOLD items
 
@@ -135,7 +136,11 @@ The next graph tranche requires explicit authorization.
 - GACM `main` remains unprotected;
 - the pre-reconciliation current-state record was stale relative to later governance/V2 work;
 - Codex CLI `gpt-5.6-luna` was invoked read-only during the preceding reconciliation tranche but its internal command helper failed before repository access with `helper_unknown_error: setup refresh had errors`; no model escalation or additional model session was used;
-- the legacy pre-graph ModelRouter still contains automatic Terra/Sol routing semantics for some task classes; the graph foundation does not invoke that router, and graph-to-GCU integration is HOLD until it is reconciled to Luna-first with explicit authorization for any escalation;
+- the legacy automatic Terra/Sol routing defect is resolved in this candidate: Luna is the only automatic route, while non-Luna selection/escalation requires explicit durable human model authority;
+- graph-derived work packages are now bound to GCU contracts, but the in-process graph is not yet durably persisted/reconstructed across process restart;
+- the existing PilotHarness still owns procedural lifecycle/planning and has not yet been replaced by GraphScheduler output;
+- TypeSafe Jev is integrated as an advisory classifier boundary; live authenticated inference remains an external action subject to provider/credential authority and is not treated as graph truth;
+- `jev-latest` is a provider alias, so the runtime records requested/resolved model and request/result digests; immutable provider-version currentness remains a future hardening item if TypeSafe exposes a durable version identity;
 - production remains untouched.
 
 

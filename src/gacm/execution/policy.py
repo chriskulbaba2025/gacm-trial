@@ -37,10 +37,15 @@ def precondition_failures(request: ExecutionRequest) -> list[str]:
         failures.append("work unit is not READY")
     if not route or not route.get("decision_id"):
         failures.append("routing decision is missing")
+    if route.get("decision_id") != contract.routing_decision_id:
+        failures.append("routing decision identity does not match work unit contract")
     if route.get("selected_model") != contract.selected_model:
         failures.append("selected model does not match routing decision")
     if route.get("qualification_identity") != contract.qualification_identity:
         failures.append("qualification identity does not match routing decision")
+    if contract.selected_model != "gpt-5.6-luna":
+        if not route.get("human_authorization_id") or not route.get("model_authority_ref"):
+            failures.append("non-Luna model lacks explicit durable human authorization")
     if not contract.model_qualified:
         failures.append("selected model is not qualified")
     if not contract.rollback_authority:
@@ -55,6 +60,14 @@ def precondition_failures(request: ExecutionRequest) -> list[str]:
         failures.append("operational-context snapshot identity does not match work unit")
     if context.get("context_revision") != contract.context_snapshot_revision:
         failures.append("operational-context snapshot revision does not match work unit")
+    if state.get("graph_action_id") != contract.graph_action_id:
+        failures.append("graph action identity differs from bound work unit")
+    if state.get("graph_revision") != contract.graph_revision:
+        failures.append("graph revision differs from bound work unit")
+    if state.get("graph_target_object_id") != contract.graph_target_object_id:
+        failures.append("graph target differs from bound work unit")
+    if state.get("graph_project_id") != contract.graph_project_id:
+        failures.append("graph project differs from bound work unit")
     if state.get("head") != contract.authorized_start_sha:
         failures.append("repository HEAD does not equal authorized starting SHA")
     if state.get("branch") != contract.branch:

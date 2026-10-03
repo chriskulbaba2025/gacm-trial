@@ -34,6 +34,11 @@ def contract(**overrides):
         "context_snapshot_revision": "1",
         "selected_model": "gpt-5.6-luna",
         "qualification_identity": "qual-luna-1",
+        "graph_action_id": "graph-action-1",
+        "graph_revision": 7,
+        "graph_target_object_id": "tranche-1",
+        "graph_project_id": "project-gacm",
+        "external_action_required": False,
         "allowed_writable_paths": ("src/gacm/execution/*",),
         "forbidden_paths": ("CURRENT_STATE.md", "schemas/*"),
         "test_contract": ("python -m unittest",),
@@ -54,7 +59,17 @@ def request(**overrides):
         "authority": {"status": "VERIFIED", "repository_id": "repo-gacm", "branch": "main", "worktree": "C:/work/gacm", "head": SHA},
         "operational_context": {"status": "VERIFIED", "context_id": "ctx-1", "context_revision": "1"},
         "routing_decision": {"decision_id": "route-1", "selected_model": "gpt-5.6-luna", "qualification_identity": "qual-luna-1"},
-        "current_state": {"work_unit_status": "READY", "head": SHA, "branch": "main", "worktree": "C:/work/gacm", "clean": True},
+        "current_state": {
+            "work_unit_status": "READY",
+            "head": SHA,
+            "branch": "main",
+            "worktree": "C:/work/gacm",
+            "clean": True,
+            "graph_action_id": "graph-action-1",
+            "graph_revision": 7,
+            "graph_target_object_id": "tranche-1",
+            "graph_project_id": "project-gacm",
+        },
         "category_patterns": {"authority": ("CURRENT_STATE.md",), "model": ("prompts/*",), "architecture": ("schemas/*",)},
     }
     values.update(overrides)
@@ -88,6 +103,77 @@ class GCUExecutionAdapterTests(unittest.TestCase):
         self.assertEqual("READY", package.status)
         self.assertTrue(package.package_id.startswith("pkg-"))
         self.assertIn("machine_policy", package.rendered_prompt)
+
+    def test_machine_policy_contains_exact_graph_binding(self):
+        package = self.adapter.prepare(request())
+        binding = package.machine_policy["contract"]["graph_binding"]
+        self.assertEqual("graph-action-1", binding["graph_action_id"])
+        self.assertEqual(7, binding["graph_revision"])
+        self.assertEqual("tranche-1", binding["target_object_id"])
+        self.assertEqual("project-gacm", binding["project_id"])
+
+    def test_graph_revision_mismatch_is_blocked(self):
+        package = self.adapter.prepare(request(contract=contract(graph_revision=8)))
+        self.assertEqual("BLOCKED", package.status)
+        self.assertIn("graph revision", " ".join(package.blocking_reasons))
+
+    def test_graph_action_mismatch_is_blocked(self):
+        package = self.adapter.prepare(
+            request(contract=contract(graph_action_id="graph-action-other"))
+        )
+        self.assertEqual("BLOCKED", package.status)
+        self.assertIn("graph action", " ".join(package.blocking_reasons))
+
+    def test_routing_decision_identity_mismatch_is_blocked(self):
+        package = self.adapter.prepare(
+            request(
+                routing_decision={
+                    "decision_id": "route-other",
+                    "selected_model": "gpt-5.6-luna",
+                    "qualification_identity": "qual-luna-1",
+                }
+            )
+        )
+        self.assertEqual("BLOCKED", package.status)
+        self.assertIn("routing decision identity", " ".join(package.blocking_reasons))
+
+    def test_non_luna_route_requires_durable_human_authorization(self):
+        terra_contract = contract(
+            selected_model="gpt-5.6-terra",
+            qualification_identity="qual-terra-1",
+            routing_decision_id="route-terra",
+        )
+        route = {
+            "decision_id": "route-terra",
+            "selected_model": "gpt-5.6-terra",
+            "qualification_identity": "qual-terra-1",
+        }
+        package = self.adapter.prepare(
+            request(contract=terra_contract, routing_decision=route)
+        )
+        self.assertEqual("BLOCKED", package.status)
+        self.assertIn("human authorization", " ".join(package.blocking_reasons))
+
+        route["human_authorization_id"] = "human-terra-1"
+        route["model_authority_ref"] = "human://chris/model-authorization"
+        package = self.adapter.prepare(
+            request(contract=terra_contract, routing_decision=route)
+        )
+        self.assertEqual("READY", package.status)
+
+    def test_graph_revision_changes_execution_package_identity(self):
+        first_request = request()
+        first = self.adapter.prepare(first_request)
+        current = dict(first_request.current_state)
+        current["graph_revision"] = 8
+        second = self.adapter.prepare(
+            request(
+                contract=contract(graph_revision=8),
+                current_state=current,
+            )
+        )
+        self.assertEqual("READY", second.status)
+        self.assertNotEqual(first.package_id, second.package_id)
 
     def test_unverified_github_authority_is_blocked(self):
         package = self.adapter.prepare(request(authority={"status": "BLOCKED"}))

@@ -316,7 +316,9 @@
         "provider": { "type": "string", "minLength": 1 },
         "decision_id": { "$ref": "#/$defs/id" },
         "supersedes_decision_id": { "$ref": "#/$defs/id" },
-        "escalation_reason": { "type": "string", "minLength": 1 }
+        "escalation_reason": { "type": "string", "minLength": 1 },
+        "model_authority_ref": { "type": "string", "minLength": 1 },
+        "human_authorization_id": { "$ref": "#/$defs/id" }
       }
     },
     "verification": {
@@ -395,6 +397,17 @@
         }
       ]
     },
+    "graphBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["graph_action_id", "graph_revision", "target_object_id", "project_id"],
+      "properties": {
+        "graph_action_id": { "$ref": "#/$defs/id" },
+        "graph_revision": { "type": "integer", "minimum": 0 },
+        "target_object_id": { "$ref": "#/$defs/id" },
+        "project_id": { "$ref": "#/$defs/id" }
+      }
+    },
     "workUnit": {
       "type": "object",
       "additionalProperties": false,
@@ -402,6 +415,7 @@
       "properties": {
         "unit_id": { "$ref": "#/$defs/id" },
         "title": { "type": "string", "minLength": 1 },
+        "graph_binding": { "$ref": "#/$defs/graphBinding" },
         "dependencies": { "type": "array", "items": { "$ref": "#/$defs/id" } },
         "allowed_surfaces": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
         "model": { "$ref": "#/$defs/modelSelection" },

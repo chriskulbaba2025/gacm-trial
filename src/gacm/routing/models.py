@@ -45,9 +45,14 @@ class WorkUnit:
         missing = sorted(set(ROUTING_DIMENSIONS) - set(self.dimensions))
         if missing:
             raise ValueError(f"missing routing dimensions: {', '.join(missing)}")
-        invalid = sorted(key for key, value in self.dimensions.items() if not isinstance(value, int) or not 0 <= value <= 4)
+        invalid = sorted(
+            key for key, value in self.dimensions.items()
+            if not isinstance(value, int) or not 0 <= value <= 4
+        )
         if invalid:
-            raise ValueError(f"routing dimensions must be integer scores from 0 to 4: {', '.join(invalid)}")
+            raise ValueError(
+                f"routing dimensions must be integer scores from 0 to 4: {', '.join(invalid)}"
+            )
 
 
 @dataclass(frozen=True)
@@ -71,10 +76,50 @@ class ModelQualification:
             raise ValueError("cost_rank must not be negative")
 
 
+@dataclass(frozen=True)
+class ModelAuthorization:
+    """Explicit durable human authority to use a named non-default model."""
+
+    authorization_id: str
+    work_unit_id: str
+    model_id: str
+    authority_ref: str
+    actor_id: str
+    authorized_at: str
+
+    def __post_init__(self) -> None:
+        values = (
+            self.authorization_id,
+            self.work_unit_id,
+            self.model_id,
+            self.authority_ref,
+            self.actor_id,
+            self.authorized_at,
+        )
+        if any(not isinstance(value, str) or not value.strip() for value in values):
+            raise ValueError("model authorization fields must all be non-empty strings")
+
+    def to_dict(self) -> dict[str, str]:
+        return {
+            "authorization_id": self.authorization_id,
+            "work_unit_id": self.work_unit_id,
+            "model_id": self.model_id,
+            "authority_ref": self.authority_ref,
+            "actor_id": self.actor_id,
+            "authorized_at": self.authorized_at,
+        }
+
+
 class RoutingBlocked(RuntimeError):
-    """Raised when deterministic routing cannot find a qualified model."""
+    """Raised when deterministic routing cannot produce an authorized route."""
 
     code = "BLOCKED"
+
+
+class HumanModelAuthorizationRequired(RoutingBlocked):
+    """A higher/non-default model is needed but no human authority exists."""
+
+    code = "HUMAN_MODEL_AUTHORIZATION_REQUIRED"
 
 
 @dataclass(frozen=True)
@@ -94,6 +139,8 @@ class RoutingDecision:
     decision_id: str
     supersedes_decision_id: str | None = None
     escalation_reason: str | None = None
+    model_authority_ref: str | None = None
+    human_authorization_id: str | None = None
 
     @classmethod
     def timestamp_now(cls) -> str:
@@ -117,10 +164,17 @@ class RoutingDecision:
             result["supersedes_decision_id"] = self.supersedes_decision_id
         if self.escalation_reason is not None:
             result["escalation_reason"] = self.escalation_reason
+        if self.model_authority_ref is not None:
+            result["model_authority_ref"] = self.model_authority_ref
+        if self.human_authorization_id is not None:
+            result["human_authorization_id"] = self.human_authorization_id
         return result
 
-    def to_run_state_model(self, previous_decisions: tuple["RoutingDecision", ...] = ()) -> dict[str, Any]:
-        """Project routing evidence into the existing Phase 2 model receipt."""
+    def to_run_state_model(
+        self,
+        previous_decisions: tuple["RoutingDecision", ...] = (),
+    ) -> dict[str, Any]:
+        """Project routing evidence into the durable run-state model receipt."""
 
         model = {
             "model_id": self.selected_model,
@@ -131,5 +185,7 @@ class RoutingDecision:
             "routing_decision": self.to_dict(),
         }
         if previous_decisions:
-            model["routing_history"] = [decision.to_dict() for decision in (*previous_decisions, self)]
+            model["routing_history"] = [
+                decision.to_dict() for decision in (*previous_decisions, self)
+            ]
         return model

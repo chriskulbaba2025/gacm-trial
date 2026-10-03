@@ -56,9 +56,11 @@ The schema never makes Graphify authoritative and never gives an executor permis
 
 Each work unit requires `unit_id`, title, dependency IDs, allowed writable surfaces, selected model and qualification identity, status, verification, input/output evidence references, failures, repair attempts, affected scope, and broader-requalification triggers.
 
+Graph-derived work units may additionally carry `graph_binding` with the exact `graph_action_id`, `graph_revision`, target object, and project identity. This field is additive for historical compatibility, but Graph Foundation 02 requires it on work units produced by `GraphWorkPackageBinder`. Runtime GCU preconditions compare those values against the currently authorized graph-bound state before execution.
+
 `dependencies` are IDs, not a claim that the model’s graph is authoritative. The dependency/blast-radius owner must preserve the source and decision evidence in the referenced evidence records. A work unit may not be considered safely isolated merely because its list is short.
 
-`model.qualification_id` identifies the qualification decision; `model.model_id`, `provider`, and route reason identify what was selected. The model itself does not write or approve its qualification.
+`model.qualification_id` identifies the qualification decision; `model.model_id`, `provider`, and route reason identify what was selected. The model itself does not write or approve its qualification. Routing decisions may carry `human_authorization_id` and `model_authority_ref`; these are required by runtime policy for a non-Luna execution route. A model name by itself is never authorization.
 
 ## Enumerated states
 

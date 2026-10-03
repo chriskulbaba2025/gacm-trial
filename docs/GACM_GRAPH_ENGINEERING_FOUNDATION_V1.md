@@ -45,7 +45,10 @@ It contains:
 - `models.py` — typed graph objects, epistemic states, relationship vocabulary, mutation and receipt contracts;
 - `store.py` — revisioned mutation validation and current graph projection;
 - `scheduler.py` — deterministic next-action and work-package planning;
+- `binder.py` — graph-action/revision binding into GCU `WorkUnitContract`;
 - `__init__.py` — public graph API.
+
+The advisory classifier boundary lives separately in `src/gacm/classification/` so semantic classification cannot become graph authority by module placement.
 
 ## Governed object model
 
@@ -233,20 +236,20 @@ These may become true only through explicit governed authorization.
 
 No scheduler logic creates Luna → Terra → Sol escalation.
 
-### Legacy router compatibility HOLD
+### Routing authority reconciliation
 
-The existing pre-graph `src/gacm/routing/` model router still contains historical risk-driven routing semantics and regression tests that select Terra or Sol for some task classes.
+Graph Foundation 02 resolves the legacy automatic-routing HOLD.
 
-The graph foundation does not invoke that router, so it does not inherit those choices in this tranche.
+The `src/gacm/routing/` boundary now enforces:
 
-Before graph work packages are bound to the GCU execution path, the routing boundary must be reconciled to the current operating authority:
+- GPT-5.6 Luna is the only automatic/default execution-model route;
+- if Luna does not satisfy the assessed capability envelope, routing returns `HUMAN_MODEL_AUTHORIZATION_REQUIRED` rather than choosing Terra or Sol;
+- every non-Luna route requires a durable explicit `ModelAuthorization` naming the work unit and model;
+- escalation requires the same explicit human authority and cannot be inferred from risk;
+- routing decisions retain selected model, qualification identity, routing decision ID, and human authority reference where applicable;
+- an execution-model string supplied by an executor remains non-authoritative.
 
-- Luna first/default;
-- no autonomous model escalation;
-- a non-Luna route requires explicit human authorization;
-- the route must retain a qualification identity and routing decision ID.
-
-Until that reconciliation is proved, graph-to-GCU integration is HOLD.
+The graph-to-GCU binder independently rechecks these identities and rejects a non-Luna route without the durable human authorization fields.
 
 ## External-action control
 
@@ -278,8 +281,8 @@ This foundation does not rewrite it.
 
 The migration path is:
 
-1. graph kernel and deterministic scheduler — this tranche;
-2. graph-to-run-state / graph-to-GCU binder;
+1. graph kernel and deterministic scheduler — completed in Graph Foundation 01;
+2. graph-to-run-state / graph-to-GCU binder plus routing authority reconciliation — completed in Graph Foundation 02;
 3. replace procedural planning/next-step selection with graph scheduler output;
 4. durable graph persistence/reconstruction;
 5. graph-aware CRIT questioning;
@@ -347,8 +350,10 @@ Those require separate governed tranches.
 
 ## Next owning boundary
 
-After this foundation is accepted, the next graph tranche should bind:
+After Graph Foundation 02 is accepted, the next graph tranche should integrate:
 
-`GovernedGraph + GraphScheduler → durable run state + GCU WorkUnitContract`
+`GovernedGraph + GraphScheduler → PilotHarness planning/next-step selection`
 
-That is the point where graph-derived work packages begin replacing procedural/prompt-derived planning in actual GACM execution.
+The replacement must be additive and fail-closed: the accepted PilotHarness lifecycle remains active until graph-derived scheduling is independently proven against equivalent and adversarial scenarios.
+
+Durable graph persistence/reconstruction is also still required before graph state can survive a process restart as an operational authority source.

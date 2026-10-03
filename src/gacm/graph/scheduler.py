@@ -108,6 +108,13 @@ class GraphScheduler:
                 "Conflicted graph state must be resolved before dependent work can rely on it.",
             )
 
+        if state in {EpistemicState.INFERRED, EpistemicState.HYPOTHESIS}:
+            return self._build(
+                ActionKind.COLLECT_EVIDENCE,
+                node,
+                "Inferred or hypothesis graph state requires stronger evidence before it can govern work.",
+            )
+
         if node_type == NodeType.EVIDENCE_GAP and status not in {"CLOSED", "RESOLVED", "PASS"}:
             return self._build(
                 ActionKind.CLOSE_EVIDENCE_GAP,

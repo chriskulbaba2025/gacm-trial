@@ -40,6 +40,11 @@ class WorkUnitContract:
     context_snapshot_revision: str
     selected_model: str
     qualification_identity: str
+    graph_action_id: str
+    graph_revision: int
+    graph_target_object_id: str
+    graph_project_id: str
+    external_action_required: bool
     allowed_writable_paths: tuple[str, ...]
     forbidden_paths: tuple[str, ...]
     test_contract: tuple[str, ...]
@@ -67,11 +72,18 @@ class WorkUnitContract:
             "context_snapshot_revision": self.context_snapshot_revision,
             "selected_model": self.selected_model,
             "qualification_identity": self.qualification_identity,
+            "graph_action_id": self.graph_action_id,
+            "graph_target_object_id": self.graph_target_object_id,
+            "graph_project_id": self.graph_project_id,
             "routing_decision_id": self.routing_decision_id,
             "rollback_authority": self.rollback_authority,
         }
         if any(not isinstance(value, str) or not value.strip() for value in required.values()):
             raise ValueError("all execution identity and authority fields are required")
+        if not isinstance(self.graph_revision, int) or isinstance(self.graph_revision, bool) or self.graph_revision < 0:
+            raise ValueError("graph_revision must be a non-negative integer")
+        if not isinstance(self.external_action_required, bool):
+            raise ValueError("external_action_required must be explicitly true or false")
         if not self.allowed_writable_paths:
             raise ValueError("at least one allowed writable path is required")
         if not self.test_contract or not self.evidence_requirements or not self.stop_conditions:
@@ -94,6 +106,13 @@ class WorkUnitContract:
             "context_snapshot_revision": self.context_snapshot_revision,
             "selected_model": self.selected_model,
             "qualification_identity": self.qualification_identity,
+            "graph_binding": {
+                "graph_action_id": self.graph_action_id,
+                "graph_revision": self.graph_revision,
+                "target_object_id": self.graph_target_object_id,
+                "project_id": self.graph_project_id,
+            },
+            "external_action_required": self.external_action_required,
             "allowed_writable_paths": list(self.allowed_writable_paths),
             "forbidden_paths": list(self.forbidden_paths),
             "test_contract": list(self.test_contract),
