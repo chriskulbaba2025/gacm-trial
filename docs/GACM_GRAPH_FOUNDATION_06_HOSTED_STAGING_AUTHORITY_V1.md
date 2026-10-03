@@ -1,6 +1,6 @@
 # GACM Graph Foundation 06 — Hosted Staging Authority v1
 
-**Status:** AUTHORIZED — HOSTED IDENTITY REPAIR ACCEPTED / RAILWAY REDEPLOY PENDING
+**Status:** HOLD — HOSTED INFRASTRUCTURE ACCEPTED / CRIT SEMANTIC REVIEW UNAVAILABLE
 **Authorized:** 2026-10-03
 **Provider authority resolved:** 2026-10-03
 **Production authority:** NOT GRANTED
@@ -172,6 +172,45 @@ Before Foundation 06 may PASS:
 - rollback must be proven or explicitly held if provider constraints make it unobservable;
 - production must remain untouched.
 
+## Hosted staging acceptance result
+
+Railway deployment `160f13f2-b1ae-401b-b0e2-2365d3a827e0` reached terminal `SUCCESS` for exact app SHA `7341b9c89869528eeafc2704984dbe9115d2dabc`.
+
+Accepted hosted evidence:
+
+- Railway deployment metadata commit SHA = `7341b9c89869528eeafc2704984dbe9115d2dabc`;
+- served runtime `application_identity.git_head` = `7341b9c89869528eeafc2704984dbe9115d2dabc`;
+- served runtime mode = `railway_git`;
+- canonical source-tree SHA-256 = `720de64ed63db28460b96d89373b05871d92749070641f412e28cef422267f7a` locally and hosted;
+- governed graph engine authority SHA = `4ecc2ead93f185bb563b99ca87580c0d90a69e27`;
+- hosted root HTTP = 200;
+- governed graph API = PASS;
+- pre-repair idea persisted through redeploy;
+- new hosted acceptance idea persisted;
+- graph revisions survived provider restart exactly;
+- same accepted deployment returned online after provider restart with one running replica and zero crashes/warnings;
+- real Microsoft Edge hosted browser render PASS;
+- browser graph revision/audit, `CLOSE_EVIDENCE_GAP`, `HUMAN_APPROVAL`, and engine SHA visible;
+- browser request-failure text absent;
+- staging domain: `https://gacm-qualification-app-staging.up.railway.app`;
+- persistent volume remained attached at `/data`;
+- production/main mutation = none.
+
+Hosted CRIT semantic review is not accepted.
+
+The deployed application currently instantiates `CodexCliSemanticReviewer`. The local accepted path relies on an authenticated workstation Codex CLI session. Railway does not possess that local CLI/session authority. Hosted interview evidence therefore reports:
+
+- `question_status=REVIEW_UNAVAILABLE`;
+- `current_question=null`;
+- `fast_filter_status=UNAVAILABLE`;
+- qualification record remains available and fail-closed.
+
+This is correct fail-closed behavior, but it means the hosted application is not yet usable for end-to-end Human CRIT interviewing.
+
+Foundation 06 therefore remains HOLD at end-to-end hosted acceptance. GACM must not infer or substitute a hosted semantic-review provider, model, credential, account, or API from ambient configuration.
+
+The next separately authorized repair boundary must establish explicit hosted semantic-review provider/model/account/credential authority and then prove the complete hosted interview path without weakening Jev's advisory-only boundary or existing model/provider governance.
+
 ## Explicit exclusions
 
 Foundation 06 does not authorize:
@@ -190,6 +229,6 @@ Foundation 06 does not authorize:
 
 ## Current execution gate
 
-`READY — HOSTED IDENTITY REPAIR CI PASS / RAILWAY REDEPLOY AUTHORIZED`
+`HOLD — HOSTED_CRIT_SEMANTIC_REVIEW_PROVIDER_AUTHORITY_MISSING`
 
-Provider/account/project/environment/service/storage authority remains resolved. The first Railway deployment is not accepted because served runtime identity was unprovable. The next authorized mutation is to repin the Railway service and `GACM_RUNTIME_EXPECTED_SHA` to exact repaired candidate `7341b9c89869528eeafc2704984dbe9115d2dabc`, review the staged diff, redeploy, and continue only if provider deployment identity and served runtime identity both match.
+Railway hosting, exact release identity, persistence, restart continuity, domain currentness, and hosted browser rendering are accepted. End-to-end Human CRIT remains unavailable because the accepted local semantic-review path depends on a workstation-authenticated Codex CLI session that is not present or authorized in Railway. No hosted provider/model/credential substitution is authorized in Foundation 06.
