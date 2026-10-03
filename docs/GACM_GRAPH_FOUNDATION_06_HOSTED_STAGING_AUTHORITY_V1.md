@@ -1,6 +1,6 @@
 # GACM Graph Foundation 06 — Hosted Staging Authority v1
 
-**Status:** AUTHORIZED — OPENAI HOSTED CRIT REPAIR / CREDENTIAL PENDING
+**Status:** HOLD — OPENAI HOSTED CRIT CANDIDATE DEPLOYED / DEDICATED CREDENTIAL PENDING
 **Authorized:** 2026-10-03
 **Provider authority resolved:** 2026-10-03
 **Production authority:** NOT GRANTED
@@ -234,7 +234,27 @@ The bounded implementation candidate is `7da781a4e4279082c117442b52a9d70abad2a9c
 
 The candidate preserves the local Codex CLI default and introduces `OpenAIResponsesSemanticReviewer` only behind explicit selector `GACM_CRIT_PROVIDER=openai_api`. It hard-binds the direct endpoint `https://api.openai.com/v1/responses`, authorizes only `gpt-6-luna`, sends `tools=[]`, sends `store=false`, uses strict JSON-schema structured output, bounds request/response sizes and timeouts, records provider response/model provenance, and fails closed on unknown provider, unauthorized model, missing credential, provider refusal, malformed output, or provider failure.
 
-A staging deployment of this exact candidate is authorized before the credential is installed only to prove provider selection/configuration and missing-secret fail-closed behavior. That deployment must set `GACM_CRIT_PROVIDER=openai_api`, `OPENAI_CRIT_MODEL=gpt-6-luna`, and `GACM_RUNTIME_EXPECTED_SHA=7da781a4e4279082c117442b52a9d70abad2a9c2`, while `OPENAI_API_KEY` remains absent. It must not claim end-to-end CRIT acceptance.
+A staging deployment of this exact candidate was authorized before the credential was installed only to prove provider selection/configuration and missing-secret fail-closed behavior.
+
+That deployment is now complete:
+
+- Railway deployment: `62f90b69-5b92-47ac-b239-1fc49aac254f`;
+- provider status: `SUCCESS`;
+- Railway commit metadata: `7da781a4e4279082c117442b52a9d70abad2a9c2`;
+- served runtime git identity: `7da781a4e4279082c117442b52a9d70abad2a9c2`;
+- local and hosted canonical source-tree SHA-256: `dc2f59d0672c7de4a31dd2c876ebfaa532b0dcfefffcc2390d3721b85e044f50`;
+- graph runtime: PASS;
+- engine authority SHA: `4ecc2ead93f185bb563b99ca87580c0d90a69e27`;
+- Railway variables present: `GACM_CRIT_PROVIDER`, `OPENAI_CRIT_MODEL`, `GACM_RUNTIME_EXPECTED_SHA`, `RAILPACK_PYTHON_VERSION`;
+- `OPENAI_API_KEY`: absent;
+- hosted interview `question_status=REVIEW_UNAVAILABLE`;
+- hosted interview `current_question=null`;
+- hosted fast-filter status: `UNAVAILABLE`;
+- qualification record remains available;
+- Railway DNS log entries for this no-secret acceptance: none;
+- live OpenAI provider calls: 0.
+
+This proves the provider selector is active, exact runtime identity is current, and the credential gate fails closed before a provider request. End-to-end CRIT acceptance remains prohibited until the dedicated Railway secret is installed.
 
 This authorization does not change Jev's advisory-only boundary and does not authorize retrieval, web search, external tools, autonomous execution, provider/model fallback, model escalation, production deployment, or either `main` merge.
 
@@ -256,6 +276,6 @@ Foundation 06 does not authorize:
 
 ## Current execution gate
 
-`READY — OPENAI HOSTED CRIT CANDIDATE CI PASS / NO-SECRET STAGING DEPLOY AUTHORIZED`
+`HOLD — DEDICATED_OPENAI_API_CREDENTIAL_MISSING`
 
-Railway hosting remains accepted. Candidate `7da781a4e4279082c117442b52a9d70abad2a9c2` passed targeted, full-regression, secret, and exact-SHA CI gates with zero live provider calls. The next authorized mutation is a staging-only deployment with explicit OpenAI provider/model selectors and no `OPENAI_API_KEY`, followed by proof that hosted runtime identity is exact and Human CRIT remains fail-closed until the dedicated Railway secret is supplied.
+Railway hosting, candidate deployment, exact runtime identity, provider selection, model lock, and missing-secret fail-closed behavior are accepted. The next mutation is forbidden until the dedicated OpenAI API credential is supplied for storage directly as Railway secret `OPENAI_API_KEY`. No other provider/model/configuration change is required or authorized.
