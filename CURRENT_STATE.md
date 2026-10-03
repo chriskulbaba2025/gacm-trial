@@ -18,15 +18,15 @@ Before governed work begins, execution must verify the local `HEAD` against the 
 
 ## Methodology status
 
-GACM v4.2.2 remains the frozen base methodology authority. Explicitly authorized additive governance corrections and V2 architecture specifications are also recorded in this repository. The MVP closure contract excluded V2 graph runtime work by default; on 2026-10-03 explicit human authority authorized bounded Graph Foundation 01, Graph Foundation 02, the Foundation 03A live Jev smoke, and then Graph Foundation 03B planning integration. Full V2 runtime expansion remains separately governed.
+GACM v4.2.2 remains the frozen base methodology authority. Explicitly authorized additive governance corrections and V2 architecture specifications are also recorded in this repository. The MVP closure contract excluded V2 graph runtime work by default; on 2026-10-03 explicit human authority authorized bounded Graph Foundation 01, Graph Foundation 02, the Foundation 03A live Jev smoke, Graph Foundation 03B planning integration, and then Graph Foundation 04 durable persistence/reconstruction. Full V2 runtime expansion remains separately governed.
 
 ## Current phase
 
-**GACM-GRAPH-FOUNDATION-03B — GRAPH SCHEDULER → PILOTHARNESS PLANNING INTEGRATION**
+**GACM-GRAPH-FOUNDATION-04 — DURABLE GOVERNED GRAPH PERSISTENCE / RECONSTRUCTION**
 
-Historical Phases 1–14 remain preserved as recorded below. GACM-MVP-CLOSURE-00 established the reconciled candidate authority at `0dd82e6176bd00e32fddfc975584a70773350b14`; Graph Foundation 01 established the graph kernel candidate at `150f895f4effa74dee116d51dd7fbee974445447`.
+Historical Phases 1–14 remain preserved as recorded below. GACM-MVP-CLOSURE-00 established the reconciled candidate authority at `0dd82e6176bd00e32fddfc975584a70773350b14`; Graph Foundation 01 established the graph kernel candidate at `150f895f4effa74dee116d51dd7fbee974445447`; Graph Foundation 03B established the graph-to-PilotHarness planning candidate at `25d67953c465abe91b2ad0f5e9378e24e78dcb45`.
 
-On 2026-10-03 human authority explicitly authorized Graph Foundation 03B after the governed Foundation 03A live Jev smoke passed. This tranche adds an explicit `GRAPH_SCHEDULER` planning-authority mode to PilotHarness while preserving the accepted lifecycle and the legacy planner as a shadow/fallback path. In graph mode, GraphScheduler determines eligible executable units; graph HOLD packages, human-approval actions, stale revisions, route/work-unit mismatches, route-identity substitution, and legacy-shadow graph mutation fail closed. It does not authorize merge to `main`, deployment, production mutation, durable graph persistence/reconstruction, retrieval, convergence, graph-aware CRIT, removal of the legacy planner, or broad V2 migration.
+On 2026-10-03 human authority explicitly authorized Graph Foundation 04 after Foundation 03B passed. This tranche adds replay-validated durable JSON persistence for the governed graph, atomic writes, exact-revision compare-and-swap semantics, cross-process writer locking, restart reconstruction through normal graph mutation replay, and scheduler continuity after restart. Persistence does not create graph truth or replace existing authority. It does not authorize retrieval, convergence, graph-aware CRIT, legacy-planner removal, merge to `main`, deployment, production mutation, or broad V2 migration.
 
 ## Phase history
 
@@ -48,13 +48,13 @@ On 2026-10-03 human authority explicitly authorized Graph Foundation 03B after t
 
 ## Current objective
 
-Prove the first usable graph-first execution handoff: cheap advisory semantic classification can create non-authoritative graph candidates; deterministic graph state decides what evidence is needed; routing cannot silently upgrade models; and only an exact graph-bound machine contract can reach the GCU execution gate.
+Prove that the accepted graph-first planning authority can survive process restart without trusting serialized current state directly: durable bytes must replay through normal graph invariants, reconstruct exact revision/history/idempotency, and produce the same GraphScheduler work eligibility.
 
-The reconciled authority set remains defined by `docs/GACM_MVP_AUTHORITY_MANIFEST_V1.md`. The graph-first operating contract is `docs/GACM_GRAPH_ENGINEERING_FOUNDATION_V1.md`; the Jev and graph-binding contract is `docs/GACM_JEV_CLASSIFICATION_AND_GRAPH_BINDING_V1.md`.
+The reconciled authority set remains defined by `docs/GACM_MVP_AUTHORITY_MANIFEST_V1.md`. The graph-first operating contract is `docs/GACM_GRAPH_ENGINEERING_FOUNDATION_V1.md`; the Jev and graph-binding contract is `docs/GACM_JEV_CLASSIFICATION_AND_GRAPH_BINDING_V1.md`; the durable graph contract is `docs/GACM_GRAPH_DURABLE_PERSISTENCE_V1.md`.
 
 The authoritative SPEC `main` identity remains `30bfb0e78bab11c1e20cdc74b45530114c431654`. The authoritative CRIT `main` identity remains `187b7f7d3d63025f98386da09255942d6693303d`. The recovered Human CRIT MVP candidate remains `132cff6d3280e3fe8f86b23a0113cab986df03e3`.
 
-Full V2 graph persistence/reconstruction, retrieval, graph-aware CRIT, convergence, removal of the legacy planner, and production migration remain outside this tranche.
+Retrieval, graph-aware CRIT, convergence, removal of the legacy planner, application/runtime staging integration, and production migration remain outside this tranche.
 
 ## Completed phases
 
@@ -116,18 +116,18 @@ The promoted SPEC identity is `30bfb0e78bab11c1e20cdc74b45530114c431654` on loca
 
 ## Next authorized action
 
-Complete `GACM-GRAPH-FOUNDATION-03B` only:
+Complete `GACM-GRAPH-FOUNDATION-04` only:
 
-1. keep `LEGACY_ADAPTER` as the unchanged default planning mode;
-2. add explicit `GRAPH_SCHEDULER` planning authority without removing the accepted PilotHarness lifecycle;
-3. run the legacy planner only as a non-authoritative shadow when graph planning is selected;
-4. make GraphScheduler output the executable unit set and reject graph HOLD packages before routing;
-5. fail closed on any pending graph human approval rather than falling back to procedural planning;
-6. bind route receipts to the exact graph-selected work unit and preserve exact pre-bound routing identity;
-7. reject graph-revision drift before execution and after routing, including durable resume from a stale PLANNED state;
-8. preserve external-provider request identity through graph work-package projection so existing provider gates remain operative;
+1. persist the complete unfiltered governed graph with deterministic format/schema identity and payload digest;
+2. reconstruct only by replaying persisted mutations through normal `GovernedGraph.apply()`;
+3. cross-check reconstructed revision, receipts, nodes, edges and mutation history before the graph may be used;
+4. preserve replay/idempotency state across process restart;
+5. provide an atomic durable mutation boundary with cross-process writer locking;
+6. fail closed on stale writers, divergent history, malformed/corrupt records, unsupported schema and projection mismatch;
+7. prove a fresh Python process reconstructs the exact graph and derives equivalent GraphScheduler output;
+8. preserve all Foundation 03B planning, routing, provider, verification, repair and release controls;
 9. run targeted tests and the complete GACM regression, push the exact candidate branch, and verify candidate CI;
-10. STOP before durable graph persistence/reconstruction, legacy-planner removal, merge to `main`, deployment, or production promotion.
+10. STOP before app/runtime staging integration, retrieval, graph-aware CRIT, convergence, legacy-planner removal, merge to `main`, deployment, or production promotion.
 
 Any next graph tranche requires explicit authorization.
 
@@ -138,7 +138,7 @@ Any next graph tranche requires explicit authorization.
 - the pre-reconciliation current-state record was stale relative to later governance/V2 work;
 - Codex CLI `gpt-5.6-luna` was invoked read-only during the preceding reconciliation tranche but its internal command helper failed before repository access with `helper_unknown_error: setup refresh had errors`; no model escalation or additional model session was used;
 - the legacy automatic Terra/Sol routing defect is resolved in this candidate: Luna is the only automatic route, while non-Luna selection/escalation requires explicit durable human model authority;
-- graph-derived work packages are now bound to GCU contracts, but the in-process graph is not yet durably persisted/reconstructed across process restart;
+- graph-derived work packages remain bound to GCU contracts; Foundation 04 adds durable replay-validated graph persistence/reconstruction across process restart, but this durable store is not yet wired into the actual application/runtime staging path;
 - PilotHarness remains the accepted lifecycle owner; Graph Foundation 03B adds an explicit graph-authoritative planning mode while preserving the legacy planner as the default/shadow path until graph scheduling is independently accepted;
 - TypeSafe Jev remains an advisory classifier boundary; Foundation 03A proved one live authenticated governed `POST /v1/systemone` path, with `jev-latest` resolving to `jev-1.13.0`, projection only as `INFERRED`, and GraphScheduler returning `COLLECT_EVIDENCE`; Jev is not graph truth;
 - `jev-latest` is a provider alias, so the runtime records requested/resolved model and request/result digests; immutable provider-version currentness remains a future hardening item if TypeSafe exposes a durable version identity;

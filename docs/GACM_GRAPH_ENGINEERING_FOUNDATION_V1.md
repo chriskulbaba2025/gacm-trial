@@ -44,6 +44,7 @@ It contains:
 
 - `models.py` — typed graph objects, epistemic states, relationship vocabulary, mutation and receipt contracts;
 - `store.py` — revisioned mutation validation and current graph projection;
+- `persistence.py` — atomic durable graph persistence, replay reconstruction, stale-writer control and cross-process writer locking;
 - `scheduler.py` — deterministic next-action and work-package planning;
 - `binder.py` — graph-action/revision binding into GCU `WorkUnitContract`;
 - `__init__.py` — public graph API.
@@ -351,27 +352,37 @@ This foundation is acceptable only if tests prove:
 This foundation does not implement:
 
 - PostgreSQL/pgvector or Neo4j;
-- persistence across process restart;
 - vector/lexical retrieval;
 - graph-aware CRIT;
 - convergence detection;
 - cross-project generalized learning;
+- application/runtime staging integration of the durable store;
 - production graph migration;
 - production deployment.
 
 Those require separate governed tranches.
 
+## Durable persistence / reconstruction
+
+Graph Foundation 04 implements the durable graph contract defined in `docs/GACM_GRAPH_DURABLE_PERSISTENCE_V1.md`.
+
+The durable store:
+
+- persists the full graph snapshot, mutation history and mutation receipts;
+- reconstructs only by replaying governed mutations through `GovernedGraph.apply()`;
+- cross-checks the replayed projection and receipts before returning a graph;
+- rebuilds idempotency state through replay;
+- uses exact-revision compare-and-swap checks so stale writers fail closed;
+- rejects divergent durable history;
+- uses a cross-process non-blocking OS writer lock;
+- writes by same-directory temporary file plus atomic replacement;
+- replay-validates candidate graph state before persisting it;
+- preserves GraphScheduler action identity across restart for the same graph revision.
+
+The persistence artifact and payload digest are integrity/currentness mechanisms only. They do not create epistemic, human, verification, provider, model or release authority.
+
 ## Next owning boundary
 
-After Graph Foundation 03B is independently accepted, the next bounded graph tranche should implement durable governed graph persistence/reconstruction across process restart.
+After Graph Foundation 04 is independently accepted, application/runtime wiring of the durable graph into the actual GACM app and staging/browser path should be a separate governed tranche.
 
-That tranche must preserve:
-
-- exact graph revision and mutation history;
-- project/run scope;
-- epistemic state and provenance;
-- authority references/digests;
-- replay/idempotency guarantees;
-- currentness checks before GraphScheduler output may govern work.
-
-It must not silently combine persistence with retrieval, graph-aware CRIT, convergence, cross-project learning, legacy-planner removal, deployment, or production migration.
+That tranche must not silently combine runtime wiring with retrieval, graph-aware CRIT, convergence, cross-project learning, legacy-planner removal, broad V2 migration, or production promotion.
