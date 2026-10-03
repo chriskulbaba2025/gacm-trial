@@ -230,6 +230,12 @@ The local workstation Codex CLI path remains the default local development path 
 
 No live OpenAI API call is authorized until the dedicated credential is installed as a Railway secret. The repair may be implemented and tested with mocked provider responses before that credential is supplied.
 
+The bounded implementation candidate is `7da781a4e4279082c117442b52a9d70abad2a9c2`, parent `7341b9c89869528eeafc2704984dbe9115d2dabc`. It changes only `app.py`, `crit_review.py`, and `tests/test_crit_review_provider.py`. Evidence: targeted provider/local-regression tests 42/42 PASS; complete application regression 132/132 PASS; exact-SHA application CI PASS; secret scan 0; live provider calls 0.
+
+The candidate preserves the local Codex CLI default and introduces `OpenAIResponsesSemanticReviewer` only behind explicit selector `GACM_CRIT_PROVIDER=openai_api`. It hard-binds the direct endpoint `https://api.openai.com/v1/responses`, authorizes only `gpt-6-luna`, sends `tools=[]`, sends `store=false`, uses strict JSON-schema structured output, bounds request/response sizes and timeouts, records provider response/model provenance, and fails closed on unknown provider, unauthorized model, missing credential, provider refusal, malformed output, or provider failure.
+
+A staging deployment of this exact candidate is authorized before the credential is installed only to prove provider selection/configuration and missing-secret fail-closed behavior. That deployment must set `GACM_CRIT_PROVIDER=openai_api`, `OPENAI_CRIT_MODEL=gpt-6-luna`, and `GACM_RUNTIME_EXPECTED_SHA=7da781a4e4279082c117442b52a9d70abad2a9c2`, while `OPENAI_API_KEY` remains absent. It must not claim end-to-end CRIT acceptance.
+
 This authorization does not change Jev's advisory-only boundary and does not authorize retrieval, web search, external tools, autonomous execution, provider/model fallback, model escalation, production deployment, or either `main` merge.
 
 ## Explicit exclusions
@@ -250,6 +256,6 @@ Foundation 06 does not authorize:
 
 ## Current execution gate
 
-`READY — OPENAI HOSTED CRIT REPAIR AUTHORIZED / DEDICATED CREDENTIAL PENDING`
+`READY — OPENAI HOSTED CRIT CANDIDATE CI PASS / NO-SECRET STAGING DEPLOY AUTHORIZED`
 
-Railway hosting remains accepted. OpenAI API with `gpt-6-luna` is now the explicit hosted CRIT semantic-review authority for staging only. The next authorized work is the bounded provider-adapter/configuration repair with mock/no-secret tests. Live provider acceptance remains fail-closed until the dedicated `OPENAI_API_KEY` is installed directly as a Railway secret.
+Railway hosting remains accepted. Candidate `7da781a4e4279082c117442b52a9d70abad2a9c2` passed targeted, full-regression, secret, and exact-SHA CI gates with zero live provider calls. The next authorized mutation is a staging-only deployment with explicit OpenAI provider/model selectors and no `OPENAI_API_KEY`, followed by proof that hosted runtime identity is exact and Human CRIT remains fail-closed until the dedicated Railway secret is supplied.
