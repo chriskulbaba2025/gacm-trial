@@ -18,15 +18,15 @@ Before governed work begins, execution must verify the local `HEAD` against the 
 
 ## Methodology status
 
-GACM v4.2.2 remains the frozen base methodology authority. Explicitly authorized additive governance corrections and V2 architecture specifications are also recorded in this repository. The MVP closure contract excluded V2 graph runtime work by default; on 2026-10-03 explicit human authority authorized bounded Graph Foundation 01, Graph Foundation 02, the Foundation 03A live Jev smoke, Graph Foundation 03B planning integration, and then Graph Foundation 04 durable persistence/reconstruction. Full V2 runtime expansion remains separately governed.
+GACM v4.2.2 remains the frozen base methodology authority. Explicitly authorized additive governance corrections and V2 architecture specifications are also recorded in this repository. The MVP closure contract excluded V2 graph runtime work by default; on 2026-10-03 explicit human authority authorized bounded Graph Foundation 01, Graph Foundation 02, the Foundation 03A live Jev smoke, Graph Foundation 03B planning integration, Graph Foundation 04 durable persistence/reconstruction, and then Graph Foundation 05 application/runtime browser integration. Full V2 runtime expansion remains separately governed.
 
 ## Current phase
 
-**GACM-GRAPH-FOUNDATION-04 — DURABLE GOVERNED GRAPH PERSISTENCE / RECONSTRUCTION**
+**GACM-GRAPH-FOUNDATION-05 — APPLICATION / RUNTIME + BROWSER INTEGRATION**
 
-Historical Phases 1–14 remain preserved as recorded below. GACM-MVP-CLOSURE-00 established the reconciled candidate authority at `0dd82e6176bd00e32fddfc975584a70773350b14`; Graph Foundation 01 established the graph kernel candidate at `150f895f4effa74dee116d51dd7fbee974445447`; Graph Foundation 03B established the graph-to-PilotHarness planning candidate at `25d67953c465abe91b2ad0f5e9378e24e78dcb45`.
+Historical Phases 1–14 remain preserved as recorded below. GACM-MVP-CLOSURE-00 established the reconciled candidate authority at `0dd82e6176bd00e32fddfc975584a70773350b14`; Graph Foundation 01 established the graph kernel candidate at `150f895f4effa74dee116d51dd7fbee974445447`; Graph Foundation 03B established the graph-to-PilotHarness planning candidate at `25d67953c465abe91b2ad0f5e9378e24e78dcb45`; Graph Foundation 04 established durable graph persistence at `4ecc2ead93f185bb563b99ca87580c0d90a69e27`; Foundation 05 binds that exact engine to qualification-app candidate `19028a49b89a00be718ee017149a7615e966e4fd`.
 
-On 2026-10-03 human authority explicitly authorized Graph Foundation 04 after Foundation 03B passed. This tranche adds replay-validated durable JSON persistence for the governed graph, atomic writes, exact-revision compare-and-swap semantics, cross-process writer locking, restart reconstruction through normal graph mutation replay, and scheduler continuity after restart. Persistence does not create graph truth or replace existing authority. It does not authorize retrieval, convergence, graph-aware CRIT, legacy-planner removal, merge to `main`, deployment, production mutation, or broad V2 migration.
+On 2026-10-03 human authority explicitly authorized Graph Foundation 05 after Foundation 04 passed. This tranche vendors the exact Foundation 04 GACM engine into the existing qualification application under a runtime-verified authority manifest, projects validated SQLite application state into one durable governed graph per idea, exposes bounded graph status through the actual HTTP/browser path, and proves browser plus process-restart continuity. SQLite remains application-record authority and the graph remains a governed control projection. Foundation 05 does not authorize a hosting provider, hosted staging deployment, production mutation, retrieval, convergence, graph-aware CRIT, legacy-planner removal, or merge to either `main` branch.
 
 ## Phase history
 
@@ -48,13 +48,13 @@ On 2026-10-03 human authority explicitly authorized Graph Foundation 04 after Fo
 
 ## Current objective
 
-Prove that the accepted graph-first planning authority can survive process restart without trusting serialized current state directly: durable bytes must replay through normal graph invariants, reconstruct exact revision/history/idempotency, and produce the same GraphScheduler work eligibility.
+Prove that the exact durable graph engine can operate inside the real qualification application without authority leakage: validated application state projects deterministically into durable graph state, the real browser exposes bounded graph eligibility, app and graph identities survive restart, and graph failure cannot corrupt the SQLite application record.
 
-The reconciled authority set remains defined by `docs/GACM_MVP_AUTHORITY_MANIFEST_V1.md`. The graph-first operating contract is `docs/GACM_GRAPH_ENGINEERING_FOUNDATION_V1.md`; the Jev and graph-binding contract is `docs/GACM_JEV_CLASSIFICATION_AND_GRAPH_BINDING_V1.md`; the durable graph contract is `docs/GACM_GRAPH_DURABLE_PERSISTENCE_V1.md`.
+The reconciled authority set remains defined by `docs/GACM_MVP_AUTHORITY_MANIFEST_V1.md`. The graph-first operating contract is `docs/GACM_GRAPH_ENGINEERING_FOUNDATION_V1.md`; the Jev and graph-binding contract is `docs/GACM_JEV_CLASSIFICATION_AND_GRAPH_BINDING_V1.md`; the durable graph contract is `docs/GACM_GRAPH_DURABLE_PERSISTENCE_V1.md`; the application runtime contract is `docs/GACM_GRAPH_APPLICATION_RUNTIME_INTEGRATION_V1.md`.
 
-The authoritative SPEC `main` identity remains `30bfb0e78bab11c1e20cdc74b45530114c431654`. The authoritative CRIT `main` identity remains `187b7f7d3d63025f98386da09255942d6693303d`. The recovered Human CRIT MVP candidate remains `132cff6d3280e3fe8f86b23a0113cab986df03e3`.
+The authoritative SPEC `main` identity remains `30bfb0e78bab11c1e20cdc74b45530114c431654`. The authoritative CRIT `main` identity remains `187b7f7d3d63025f98386da09255942d6693303d`. The Phase 16 Human CRIT baseline `132cff6d3280e3fe8f86b23a0113cab986df03e3` is preserved as the parent of the accepted Foundation 05 qualification-app candidate `19028a49b89a00be718ee017149a7615e966e4fd`.
 
-Retrieval, graph-aware CRIT, convergence, removal of the legacy planner, application/runtime staging integration, and production migration remain outside this tranche.
+Hosted staging deployment, retrieval, graph-aware CRIT, convergence, removal of the legacy planner, and production migration remain outside this tranche.
 
 ## Completed phases
 
@@ -116,32 +116,33 @@ The promoted SPEC identity is `30bfb0e78bab11c1e20cdc74b45530114c431654` on loca
 
 ## Next authorized action
 
-Complete `GACM-GRAPH-FOUNDATION-04` only:
+Complete `GACM-GRAPH-FOUNDATION-05` only:
 
-1. persist the complete unfiltered governed graph with deterministic format/schema identity and payload digest;
-2. reconstruct only by replaying persisted mutations through normal `GovernedGraph.apply()`;
-3. cross-check reconstructed revision, receipts, nodes, edges and mutation history before the graph may be used;
-4. preserve replay/idempotency state across process restart;
-5. provide an atomic durable mutation boundary with cross-process writer locking;
-6. fail closed on stale writers, divergent history, malformed/corrupt records, unsupported schema and projection mismatch;
-7. prove a fresh Python process reconstructs the exact graph and derives equivalent GraphScheduler output;
-8. preserve all Foundation 03B planning, routing, provider, verification, repair and release controls;
-9. run targeted tests and the complete GACM regression, push the exact candidate branch, and verify candidate CI;
-10. STOP before app/runtime staging integration, retrieval, graph-aware CRIT, convergence, legacy-planner removal, merge to `main`, deployment, or production promotion.
+1. bind the actual qualification application to the exact Foundation 04 GACM engine identity;
+2. preserve SQLite as application-record authority and graph state as a separately durable governed control projection;
+3. verify vendored engine repository, branch, source SHA, manifest, file set and canonical Git-text content at runtime;
+4. project user-stated idea identity, open evidence gaps, observed PRD approval state and qualification eligibility without upgrading epistemic authority;
+5. expose bounded graph revision and next-action state through the real HTTP/browser path;
+6. fail graph-dependent reads closed while preserving committed SQLite state;
+7. prove idempotent sync, cross-idea scope isolation, graph tamper rejection, raw-text minimization and process-restart continuity;
+8. run complete qualification-app regression and exact-SHA app CI;
+9. prove the actual application in a real browser using the exact accepted app candidate;
+10. STOP before inferring a hosting provider, hosted staging deployment, retrieval, graph-aware CRIT, convergence, legacy-planner removal, either `main` merge, or production promotion.
 
-Any next graph tranche requires explicit authorization.
+Any hosted staging/deployment tranche requires explicit authorization and authoritative provider/account/environment identity.
 
 ### Current HOLD items
 
-- qualification-app candidate `132cff6d...` is recovered and remotely preserved but is not promoted to app `main`;
+- qualification-app Foundation 05 candidate `19028a49b89a00be718ee017149a7615e966e4fd` is remotely preserved and exact-SHA CI/browser accepted but is not merged to app `main`;
 - GACM `main` remains unprotected;
 - the pre-reconciliation current-state record was stale relative to later governance/V2 work;
 - Codex CLI `gpt-5.6-luna` was invoked read-only during the preceding reconciliation tranche but its internal command helper failed before repository access with `helper_unknown_error: setup refresh had errors`; no model escalation or additional model session was used;
 - the legacy automatic Terra/Sol routing defect is resolved in this candidate: Luna is the only automatic route, while non-Luna selection/escalation requires explicit durable human model authority;
-- graph-derived work packages remain bound to GCU contracts; Foundation 04 adds durable replay-validated graph persistence/reconstruction across process restart, but this durable store is not yet wired into the actual application/runtime staging path;
+- graph-derived work packages remain bound to GCU contracts; Foundation 04 durable persistence is now wired into the actual qualification application runtime through Foundation 05, with real HTTP/browser and restart acceptance; hosted staging remains unconfigured and unauthorised;
 - PilotHarness remains the accepted lifecycle owner; Graph Foundation 03B adds an explicit graph-authoritative planning mode while preserving the legacy planner as the default/shadow path until graph scheduling is independently accepted;
 - TypeSafe Jev remains an advisory classifier boundary; Foundation 03A proved one live authenticated governed `POST /v1/systemone` path, with `jev-latest` resolving to `jev-1.13.0`, projection only as `INFERRED`, and GraphScheduler returning `COLLECT_EVIDENCE`; Jev is not graph truth;
 - `jev-latest` is a provider alias, so the runtime records requested/resolved model and request/result digests; immutable provider-version currentness remains a future hardening item if TypeSafe exposes a durable version identity;
+- no authoritative hosted staging provider/account/environment has been selected; hosted staging deployment remains HOLD rather than being inferred from ambient tools or available accounts;
 - production remains untouched.
 
 

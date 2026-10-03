@@ -297,12 +297,13 @@ The migration path is:
 
 1. graph kernel and deterministic scheduler — completed in Graph Foundation 01;
 2. graph-to-run-state / graph-to-GCU binder plus routing authority reconciliation — completed in Graph Foundation 02;
-3. graph scheduler to PilotHarness planning integration — implemented additively in Graph Foundation 03B;
-4. durable graph persistence/reconstruction;
-5. graph-aware CRIT questioning;
-6. bounded retrieval;
-7. convergence/shared-root detection;
-8. independently verified graph-derived release acceptance.
+3. graph scheduler to PilotHarness planning integration — completed additively in Graph Foundation 03B;
+4. durable graph persistence/reconstruction — completed in Graph Foundation 04;
+5. application/runtime browser integration — completed in Graph Foundation 05;
+6. graph-aware CRIT questioning — not yet implemented;
+7. bounded retrieval — not yet implemented;
+8. convergence/shared-root detection — not yet implemented;
+9. independently verified graph-derived release acceptance — not yet implemented.
 
 The legacy planner is not removed by Foundation 03B. Existing accepted controls remain active until the graph-derived path is independently accepted.
 
@@ -356,7 +357,7 @@ This foundation does not implement:
 - graph-aware CRIT;
 - convergence detection;
 - cross-project generalized learning;
-- application/runtime staging integration of the durable store;
+- hosted staging deployment/provider selection;
 - production graph migration;
 - production deployment.
 
@@ -381,8 +382,47 @@ The durable store:
 
 The persistence artifact and payload digest are integrity/currentness mechanisms only. They do not create epistemic, human, verification, provider, model or release authority.
 
+## Application/runtime integration
+
+Graph Foundation 05 implements the application runtime contract defined in `docs/GACM_GRAPH_APPLICATION_RUNTIME_INTEGRATION_V1.md`.
+
+The accepted qualification application candidate is:
+
+`19028a49b89a00be718ee017149a7615e966e4fd`
+
+It vendors the exact Foundation 04 engine at:
+
+`4ecc2ead93f185bb563b99ca87580c0d90a69e27`
+
+under a runtime-verified canonical Git-text manifest.
+
+Foundation 05 preserves these boundaries:
+
+- SQLite remains application-record authority;
+- the graph remains a separately durable governed control projection;
+- user statements and application analysis do not become evidenced/accepted graph truth automatically;
+- unverified references do not close evidence gaps;
+- graph actions remain deterministic eligibility signals, not autonomous decisions;
+- graph failure cannot mutate or roll back the committed SQLite record;
+- graph-dependent reads fail closed when projection/currentness cannot be validated;
+- the real HTTP/browser surface exposes bounded graph revision and actions;
+- process restart reconstructs the same current graph/action state;
+- no hosting provider is inferred from available tools, credentials, accounts or convenience.
+
+Foundation 05 was accepted with complete application regression, exact-SHA application CI, real Microsoft Edge browser rendering, and process-restart continuity.
+
 ## Next owning boundary
 
-After Graph Foundation 04 is independently accepted, application/runtime wiring of the durable graph into the actual GACM app and staging/browser path should be a separate governed tranche.
+The next deployment boundary is a separately governed hosted staging environment.
 
-That tranche must not silently combine runtime wiring with retrieval, graph-aware CRIT, convergence, cross-project learning, legacy-planner removal, broad V2 migration, or production promotion.
+Before deployment, GACM must establish authoritative:
+
+- hosting provider;
+- account/project/environment identity;
+- credential provenance;
+- deployment target and release identity;
+- staging URL/currentness contract;
+- rollback boundary;
+- hosted browser acceptance contract.
+
+This must remain separate from production promotion and must not silently combine deployment with retrieval, graph-aware CRIT, convergence, cross-project learning, or legacy-planner removal.
