@@ -18,15 +18,15 @@ Before governed work begins, execution must verify the local `HEAD` against the 
 
 ## Methodology status
 
-GACM v4.2.2 remains the frozen base methodology authority. Explicitly authorized additive governance corrections and V2 architecture specifications are also recorded in this repository. The current MVP closure does not authorize methodology redesign or V2 runtime expansion.
+GACM v4.2.2 remains the frozen base methodology authority. Explicitly authorized additive governance corrections and V2 architecture specifications are also recorded in this repository. The MVP closure contract excluded V2 graph runtime work by default; on 2026-10-03 explicit human authority authorized the bounded graph-engineering foundation in `GACM-GRAPH-FOUNDATION-01`. Full V2 runtime expansion remains separately governed.
 
 ## Current phase
 
-**GACM MVP closure: AUTHORITY RECONCILIATION CANDIDATE**
+**GACM-GRAPH-FOUNDATION-01 — GRAPH-FIRST ORCHESTRATION FOUNDATION**
 
-Historical Phases 1–14 remain preserved as recorded below. Later Phase 15/16 qualification-app work and V2 architecture work exist and must not be represented as if the project stopped at Phase 14.
+Historical Phases 1–14 remain preserved as recorded below. GACM-MVP-CLOSURE-00 established the reconciled candidate authority at `0dd82e6176bd00e32fddfc975584a70773350b14`.
 
-The current authorized work is `GACM-MVP-CLOSURE-00 — Authority and State Reconciliation`. It is bounded to recovering authoritative identities, freezing the MVP closure contract, and reconciling project state. It does not authorize merge, deployment, production mutation, model escalation, or V2 graph implementation.
+On 2026-10-03 human authority explicitly changed the next architectural direction from prompt-sequenced orchestration toward graph-engineered orchestration. This authorization is bounded to the graph kernel, mutation invariants, deterministic graph scheduler, machine work-package projection, tests, and governing documentation. It does not authorize merge, deployment, production mutation, model escalation, graph retrieval, Neo4j/pgvector, convergence, or full V2 migration.
 
 ## Phase history
 
@@ -48,15 +48,13 @@ The current authorized work is `GACM-MVP-CLOSURE-00 — Authority and State Reco
 
 ## Current objective
 
-Re-establish one truthful, reproducible MVP authority set before further implementation.
+Establish the smallest machine-enforced graph control plane that can become the source for work eligibility and bounded work packages without replacing existing authority, verification, run-state, release, or human-decision controls.
 
-Current frozen identities are defined by `docs/GACM_MVP_AUTHORITY_MANIFEST_V1.md`. The recovered Human CRIT MVP candidate is `132cff6d3280e3fe8f86b23a0113cab986df03e3` on `chriskulbaba2025/gacm-qualification-sandbox` branch `candidate/phase16-human-crit-mvp`. Its current remote-main baseline is `8f070ff4419c2d0318356b13f656bf4f0de21021`. On 2026-10-03 the recovered candidate was re-run locally with 108 tests and 28 subtests passing and a clean tracked tree.
+The reconciled authority set remains defined by `docs/GACM_MVP_AUTHORITY_MANIFEST_V1.md`. The graph-first operating contract is `docs/GACM_GRAPH_ENGINEERING_FOUNDATION_V1.md`.
 
-The authoritative SPEC `main` identity remains `30bfb0e78bab11c1e20cdc74b45530114c431654`. The authoritative CRIT `main` identity is `187b7f7d3d63025f98386da09255942d6693303d`.
+The authoritative SPEC `main` identity remains `30bfb0e78bab11c1e20cdc74b45530114c431654`. The authoritative CRIT `main` identity remains `187b7f7d3d63025f98386da09255942d6693303d`. The recovered Human CRIT MVP candidate remains `132cff6d3280e3fe8f86b23a0113cab986df03e3`.
 
-GACM V2 architecture discovery is complete at the specification level, but V2 runtime implementation is not part of current MVP closure. `GACM_V2_FINAL_ARCHITECTURE_HARDENING_AUDIT.md` explicitly separates its 98.6/100 architecture score from runtime completion.
-
-The MVP finish line is frozen in `docs/GACM_MVP_CLOSURE_CONTRACT_V1.md`.
+The graph foundation must preserve the existing MVP finish line. Full V2 graph persistence, retrieval, graph-aware CRIT, convergence, and production migration remain outside this tranche.
 
 ## Completed phases
 
@@ -118,22 +116,26 @@ The promoted SPEC identity is `30bfb0e78bab11c1e20cdc74b45530114c431654` on loca
 
 ## Next authorized action
 
-Complete `GACM-MVP-CLOSURE-00` only:
+Complete `GACM-GRAPH-FOUNDATION-01` only:
 
-1. preserve the recovered Phase 16 Human CRIT candidate as an exact remote candidate ref;
-2. freeze the authority manifest and MVP closure contract;
-3. verify the governance closure candidate with the repository regression suite and exact diff;
-4. push the closure candidate branch for durable review;
-5. STOP before merge or promotion.
+1. implement the typed governed graph kernel;
+2. enforce revision, provenance, epistemic, writer-role, project-scope and replay invariants;
+3. implement deterministic graph-derived next-action scheduling;
+4. project bounded machine work packages without rendering prompts;
+5. prove fail-closed routing/external-action/subagent/escalation behavior;
+6. run targeted tests and the complete GACM regression;
+7. push the exact candidate branch;
+8. STOP before graph-to-run-state/GCU integration, merge, deployment, or promotion.
 
-The next implementation/promotion tranche requires explicit authorization.
+The next graph tranche requires explicit authorization.
 
 ### Current HOLD items
 
 - qualification-app candidate `132cff6d...` is recovered and remotely preserved but is not promoted to app `main`;
 - GACM `main` remains unprotected;
 - the pre-reconciliation current-state record was stale relative to later governance/V2 work;
-- Codex CLI `gpt-5.6-luna` was invoked read-only for this tranche but its internal command helper failed before repository access with `helper_unknown_error: setup refresh had errors`; no model escalation or additional model session is authorized;
+- Codex CLI `gpt-5.6-luna` was invoked read-only during the preceding reconciliation tranche but its internal command helper failed before repository access with `helper_unknown_error: setup refresh had errors`; no model escalation or additional model session was used;
+- the legacy pre-graph ModelRouter still contains automatic Terra/Sol routing semantics for some task classes; the graph foundation does not invoke that router, and graph-to-GCU integration is HOLD until it is reconciled to Luna-first with explicit authorization for any escalation;
 - production remains untouched.
 
 

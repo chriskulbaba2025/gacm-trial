@@ -1,8 +1,8 @@
 # GACM Version 2 — Governed Change Intelligence Graph
 
-Status: Future-state architecture authority / roadmap detail
+Status: Architecture authority with bounded foundation implementation authorized
 Repository: chriskulbaba2025/gacm-trial
-Purpose: Define the governed reasoning-graph architecture for GACM Version 2 without changing the current accepted runtime baseline.
+Purpose: Define the governed reasoning-graph architecture for GACM Version 2. On 2026-10-03, human authority authorized GACM-GRAPH-FOUNDATION-01 to implement only the typed graph kernel, mutation invariants, deterministic scheduler, and machine work-package projection. The remainder of Version 2 stays separately governed and this document does not authorize broad runtime migration.
 
 ## 1. Architectural objective
 
