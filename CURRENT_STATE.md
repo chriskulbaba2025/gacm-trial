@@ -18,13 +18,15 @@ Before governed work begins, execution must verify the local `HEAD` against the 
 
 ## Methodology status
 
-GACM v4.2.2 is treated as FROZEN methodology authority. This repository is for Pilot v1 implementation and evidence, not methodology redesign.
+GACM v4.2.2 remains the frozen base methodology authority. Explicitly authorized additive governance corrections and V2 architecture specifications are also recorded in this repository. The current MVP closure does not authorize methodology redesign or V2 runtime expansion.
 
 ## Current phase
 
-**Phase 14: COMPLETE (PASS)**
+**GACM MVP closure: AUTHORITY RECONCILIATION CANDIDATE**
 
-Phases 1–13 are complete and recorded as PASS. Phase 14 is resuming from its previously blocked state after the authoritative SPEC baseline was reconciled.
+Historical Phases 1–14 remain preserved as recorded below. Later Phase 15/16 qualification-app work and V2 architecture work exist and must not be represented as if the project stopped at Phase 14.
+
+The current authorized work is `GACM-MVP-CLOSURE-00 — Authority and State Reconciliation`. It is bounded to recovering authoritative identities, freezing the MVP closure contract, and reconciling project state. It does not authorize merge, deployment, production mutation, model escalation, or V2 graph implementation.
 
 ## Phase history
 
@@ -46,7 +48,15 @@ Phases 1–13 are complete and recorded as PASS. Phase 14 is resuming from its p
 
 ## Current objective
 
-The authoritative SPEC baseline was `1264a0d4bf0bf4423f116126039bf695671aa91e`. The exact approved candidate `30bfb0e78bab11c1e20cdc74b45530114c431654` is now the promoted SPEC `main` identity. Chris Kulbaba provided explicit human promotion approval for Phase 14 SPEC readiness candidate promotion only. Independent verification PASS and post-promotion SETTLE are complete. Historical BLOCKED and HUMAN GATE states remain preserved in durable evidence. Phase 15 remains unauthorized.
+Re-establish one truthful, reproducible MVP authority set before further implementation.
+
+Current frozen identities are defined by `docs/GACM_MVP_AUTHORITY_MANIFEST_V1.md`. The recovered Human CRIT MVP candidate is `132cff6d3280e3fe8f86b23a0113cab986df03e3` on `chriskulbaba2025/gacm-qualification-sandbox` branch `candidate/phase16-human-crit-mvp`. Its current remote-main baseline is `8f070ff4419c2d0318356b13f656bf4f0de21021`. On 2026-10-03 the recovered candidate was re-run locally with 108 tests and 28 subtests passing and a clean tracked tree.
+
+The authoritative SPEC `main` identity remains `30bfb0e78bab11c1e20cdc74b45530114c431654`. The authoritative CRIT `main` identity is `187b7f7d3d63025f98386da09255942d6693303d`.
+
+GACM V2 architecture discovery is complete at the specification level, but V2 runtime implementation is not part of current MVP closure. `GACM_V2_FINAL_ARCHITECTURE_HARDENING_AUDIT.md` explicitly separates its 98.6/100 architecture score from runtime completion.
+
+The MVP finish line is frozen in `docs/GACM_MVP_CLOSURE_CONTRACT_V1.md`.
 
 ## Completed phases
 
@@ -108,7 +118,23 @@ The promoted SPEC identity is `30bfb0e78bab11c1e20cdc74b45530114c431654` on loca
 
 ## Next authorized action
 
-No Phase 15 action is authorized. Preserve the settled Phase 14 state and evidence. Any future work requires a separately governed authorization.
+Complete `GACM-MVP-CLOSURE-00` only:
+
+1. preserve the recovered Phase 16 Human CRIT candidate as an exact remote candidate ref;
+2. freeze the authority manifest and MVP closure contract;
+3. verify the governance closure candidate with the repository regression suite and exact diff;
+4. push the closure candidate branch for durable review;
+5. STOP before merge or promotion.
+
+The next implementation/promotion tranche requires explicit authorization.
+
+### Current HOLD items
+
+- qualification-app candidate `132cff6d...` is recovered and remotely preserved but is not promoted to app `main`;
+- GACM `main` remains unprotected;
+- the pre-reconciliation current-state record was stale relative to later governance/V2 work;
+- Codex CLI `gpt-5.6-luna` was invoked read-only for this tranche but its internal command helper failed before repository access with `helper_unknown_error: setup refresh had errors`; no model escalation or additional model session is authorized;
+- production remains untouched.
 
 
 ## Permanent governance correction — generalization
