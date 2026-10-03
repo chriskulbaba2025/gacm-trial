@@ -1,6 +1,6 @@
 # GACM Graph Foundation 06 — Hosted Staging Authority v1
 
-**Status:** AUTHORIZED — RAILWAY STAGING CONFIGURATION STAGED / DEPLOYMENT PENDING
+**Status:** AUTHORIZED — HOSTED IDENTITY REPAIR ACCEPTED / RAILWAY REDEPLOY PENDING
 **Authorized:** 2026-10-03
 **Provider authority resolved:** 2026-10-03
 **Production authority:** NOT GRANTED
@@ -106,7 +106,8 @@ The following identities are now authoritative for Foundation 06 staging:
 - volume size: `512 MB`;
 - source repository: `chriskulbaba2025/gacm-qualification-sandbox`;
 - source branch: `candidate/foundation06-hosted-staging-20261003`;
-- exact source SHA: `19028a49b89a00be718ee017149a7615e966e4fd`;
+- Foundation 05 application parent SHA: `19028a49b89a00be718ee017149a7615e966e4fd`;
+- Foundation 06 hosted-identity repair candidate SHA: `7341b9c89869528eeafc2704984dbe9115d2dabc`;
 - build system: Railway Railpack;
 - runtime version pin: Python `3.12`;
 - staging resource limits: `0.5 vCPU`, `500 MB` memory;
@@ -117,9 +118,20 @@ The following identities are now authoritative for Foundation 06 staging:
 
 Credential provenance is the connected Railway OAuth integration for the authorized Railway principal/workspace. No Railway access token, provider secret, GitHub token, or other credential is committed to either repository.
 
-The staged Railway source is pinned to the exact source SHA. It does not follow future branch movement.
+The Railway source must remain pinned to an exact source SHA and must not follow future branch movement.
 
-The staging URL contract is a Railway-generated service domain created only after the first accepted deployment. That URL must resolve to the accepted Railway deployment identity, and the deployment metadata must retain source commit `19028a49b89a00be718ee017149a7615e966e4fd`.
+The first Railway deployment, `0ab21434-8a7c-44c1-a024-601d948bc089`, reached provider status `SUCCESS` at Foundation 05 app SHA `19028a49b89a00be718ee017149a7615e966e4fd`. Hosted API and governed graph behavior were functional, but Foundation 06 acceptance remained HOLD because the runtime image had no `.git` metadata, causing `application_identity.git_head=UNAVAILABLE`, and the app source-tree digest was not cross-platform stable because raw CRLF/LF bytes were hashed.
+
+A bounded identity-only repair changed only `app.py` and `tests/test_browser.py`. It canonicalizes text line endings for source-tree identity, uses Railway-provided `RAILWAY_GIT_COMMIT_SHA` when repository metadata is unavailable, and fails closed if that runtime identity does not match `GACM_RUNTIME_EXPECTED_SHA`. It does not alter graph logic, SQLite authority, CRIT semantics, model/provider selection, or user-facing workflow behavior.
+
+Repair evidence:
+
+- targeted identity/browser/Phase16 tests: 34/34 PASS;
+- complete application regression: 128/128 PASS;
+- exact-SHA application CI: PASS at `7341b9c89869528eeafc2704984dbe9115d2dabc`;
+- changed files: `app.py`, `tests/test_browser.py` only.
+
+The staging URL is `https://gacm-qualification-app-staging.up.railway.app`. It must resolve to the accepted Railway deployment identity, and deployment metadata plus served runtime identity must both bind to source commit `7341b9c89869528eeafc2704984dbe9115d2dabc`.
 
 The initial rollback target is `EMPTY_STAGING_TARGET` because no prior GACM staging deployment exists in this project. If the initial deployment fails acceptance, the failed deployment must not be treated as current/settled; the dedicated staging project/service/volume remain isolated while repair or teardown is separately governed.
 
@@ -178,6 +190,6 @@ Foundation 06 does not authorize:
 
 ## Current execution gate
 
-`READY — RAILWAY STAGING PATCH REVIEWED / DEPLOYMENT COMMIT AUTHORIZED`
+`READY — HOSTED IDENTITY REPAIR CI PASS / RAILWAY REDEPLOY AUTHORIZED`
 
-Provider/account/project/environment/service/storage authority is resolved. The Railway patch is non-destructive and pinned to the exact accepted application SHA. The next authorized mutation is to commit this staged Railway environment patch, observe a terminal deployment state, and continue only with hosted acceptance if the exact deployment succeeds.
+Provider/account/project/environment/service/storage authority remains resolved. The first Railway deployment is not accepted because served runtime identity was unprovable. The next authorized mutation is to repin the Railway service and `GACM_RUNTIME_EXPECTED_SHA` to exact repaired candidate `7341b9c89869528eeafc2704984dbe9115d2dabc`, review the staged diff, redeploy, and continue only if provider deployment identity and served runtime identity both match.
