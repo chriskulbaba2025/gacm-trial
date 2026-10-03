@@ -48,7 +48,7 @@ On 2026-10-03 human authority instructed GACM to take the next action after Foun
 
 ## Current objective
 
-Resolve the exact hosted-staging provider/account/project/environment authority for the accepted Foundation 05 qualification application, then deploy and accept only that exact candidate if and when those authority fields are explicitly supplied. Until then, deployment is fail-closed HOLD.
+Deploy and accept the exact Foundation 05 qualification application candidate to the explicitly authorized Railway staging target. Provider/account/project/environment/service/storage authority is now resolved and recorded. Deployment remains staging-only and must prove exact source identity, persistent SQLite/graph continuity, hosted browser behavior, and release currentness before Foundation 06 can PASS.
 
 The reconciled authority set remains defined by `docs/GACM_MVP_AUTHORITY_MANIFEST_V1.md`. The graph-first operating contract is `docs/GACM_GRAPH_ENGINEERING_FOUNDATION_V1.md`; the Jev and graph-binding contract is `docs/GACM_JEV_CLASSIFICATION_AND_GRAPH_BINDING_V1.md`; the durable graph contract is `docs/GACM_GRAPH_DURABLE_PERSISTENCE_V1.md`; the application runtime contract is `docs/GACM_GRAPH_APPLICATION_RUNTIME_INTEGRATION_V1.md`; the Foundation 06 staging-authority contract is `docs/GACM_GRAPH_FOUNDATION_06_HOSTED_STAGING_AUTHORITY_V1.md`.
 
@@ -129,7 +129,7 @@ Complete `GACM-GRAPH-FOUNDATION-06` only:
 9. prove deployment identity, served-candidate currentness, durable restart/redeploy continuity, rollback boundary, and real hosted browser acceptance;
 10. STOP before retrieval, graph-aware CRIT, convergence, legacy-planner removal, either `main` merge, production deployment, or production promotion.
 
-Current execution state: `HOLD — HOSTING_PROVIDER_AUTHORITY_MISSING`.
+Current execution state: `READY — RAILWAY STAGING PATCH REVIEWED / DEPLOYMENT COMMIT AUTHORIZED`.
 
 ### Current HOLD items
 
@@ -138,11 +138,11 @@ Current execution state: `HOLD — HOSTING_PROVIDER_AUTHORITY_MISSING`.
 - the pre-reconciliation current-state record was stale relative to later governance/V2 work;
 - Codex CLI `gpt-5.6-luna` was invoked read-only during the preceding reconciliation tranche but its internal command helper failed before repository access with `helper_unknown_error: setup refresh had errors`; no model escalation or additional model session was used;
 - the legacy automatic Terra/Sol routing defect is resolved in this candidate: Luna is the only automatic route, while non-Luna selection/escalation requires explicit durable human model authority;
-- graph-derived work packages remain bound to GCU contracts; Foundation 04 durable persistence is now wired into the actual qualification application runtime through Foundation 05, with real HTTP/browser and restart acceptance; Foundation 06 is authorized as a staging boundary but deployment remains unconfigured and HOLD until provider/account/project/environment authority is explicit;
+- graph-derived work packages remain bound to GCU contracts; Foundation 04 durable persistence is wired into the actual qualification application runtime through Foundation 05; Foundation 06 Railway staging authority is now explicit and the non-destructive deployment patch is staged against exact app SHA `19028a49b89a00be718ee017149a7615e966e4fd`, but hosted acceptance is not yet complete;
 - PilotHarness remains the accepted lifecycle owner; Graph Foundation 03B adds an explicit graph-authoritative planning mode while preserving the legacy planner as the default/shadow path until graph scheduling is independently accepted;
 - TypeSafe Jev remains an advisory classifier boundary; Foundation 03A proved one live authenticated governed `POST /v1/systemone` path, with `jev-latest` resolving to `jev-1.13.0`, projection only as `INFERRED`, and GraphScheduler returning `COLLECT_EVIDENCE`; Jev is not graph truth;
 - `jev-latest` is a provider alias, so the runtime records requested/resolved model and request/result digests; immutable provider-version currentness remains a future hardening item if TypeSafe exposes a durable version identity;
-- no authoritative hosted staging provider/account/environment has been selected; hosted staging deployment remains HOLD rather than being inferred from ambient tools or available accounts;
+- Railway is the authorized Foundation 06 staging provider in workspace `7ba8db0e-2024-4d68-ad54-8781fba5dd6e`, project `bfff14c9-125f-483f-a3ef-a9bfba855774`, environment `3bd45723-a62f-49ab-946c-7963553aa7ff`; hosted deployment and browser acceptance remain pending;
 - production remains untouched.
 
 

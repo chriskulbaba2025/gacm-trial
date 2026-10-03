@@ -1,7 +1,8 @@
 # GACM Graph Foundation 06 — Hosted Staging Authority v1
 
-**Status:** AUTHORIZED / HOLD — PROVIDER IDENTITY UNRESOLVED
+**Status:** AUTHORIZED — RAILWAY STAGING CONFIGURATION STAGED / DEPLOYMENT PENDING
 **Authorized:** 2026-10-03
+**Provider authority resolved:** 2026-10-03
 **Production authority:** NOT GRANTED
 
 ## Purpose
@@ -33,7 +34,9 @@ On 2026-10-03, after Foundation 05 passed at its tranche boundary, human authori
 
 This authorizes opening the hosted-staging tranche and resolving its required authority inputs.
 
-It does not authorize GACM to choose a hosting provider, incur provider cost, create a cloud project, deploy, merge either `main`, mutate production, or reuse an unrelated provider project.
+Human authority subsequently authorized Railway staging in workspace `chriskulbaba2025's Projects`, creation of a new dedicated GACM qualification staging project/environment, and the required staging resource cost. Railway rejected the originally proposed project name because it exceeded the provider's 32-character name limit. Human authority explicitly approved the Railway-compatible project name `gacm-qualification-sandbox-stg` and instructed execution to continue.
+
+This authorization is staging-only. It does not authorize merge to either `main`, production mutation, reuse of an unrelated provider project, retrieval, convergence, graph-aware CRIT, legacy-planner removal, or any provider/model substitution unrelated to staging.
 
 ## Mandatory authority before deployment
 
@@ -86,7 +89,41 @@ An older Railway project exists:
 
 Read-only inspection shows it contains only a `Postgres` service in its `production` environment. It does not establish authority for the Foundation 06 qualification application and must not be reused by inference.
 
-This is discovery only and does not authorize Railway.
+This discovery did not authorize Railway by itself.
+
+## Resolved Railway staging authority
+
+The following identities are now authoritative for Foundation 06 staging:
+
+- provider: `Railway`;
+- authenticated Railway principal: `chriskulbaba2025` through the connected Railway OAuth integration;
+- workspace: `7ba8db0e-2024-4d68-ad54-8781fba5dd6e` — `chriskulbaba2025's Projects`;
+- project: `bfff14c9-125f-483f-a3ef-a9bfba855774` — `gacm-qualification-sandbox-stg`;
+- environment: `3bd45723-a62f-49ab-946c-7963553aa7ff` — `staging`;
+- service: `21a38625-76eb-46ba-9333-996e867fd136` — `gacm-qualification-app`;
+- persistent volume: `4d0b61fa-afa5-49aa-8f5c-63de9727e5a0` — `gacm-staging-data`;
+- volume mount: `/data`;
+- volume size: `512 MB`;
+- source repository: `chriskulbaba2025/gacm-qualification-sandbox`;
+- source branch: `candidate/foundation06-hosted-staging-20261003`;
+- exact source SHA: `19028a49b89a00be718ee017149a7615e966e4fd`;
+- build system: Railway Railpack;
+- runtime version pin: Python `3.12`;
+- staging resource limits: `0.5 vCPU`, `500 MB` memory;
+- restart policy: `ON_FAILURE`, maximum 3 retries;
+- application data path: `/data/decisions.sqlite3`;
+- graph data path: `/data/graphs/`;
+- health check: `GET /`, 30-second timeout.
+
+Credential provenance is the connected Railway OAuth integration for the authorized Railway principal/workspace. No Railway access token, provider secret, GitHub token, or other credential is committed to either repository.
+
+The staged Railway source is pinned to the exact source SHA. It does not follow future branch movement.
+
+The staging URL contract is a Railway-generated service domain created only after the first accepted deployment. That URL must resolve to the accepted Railway deployment identity, and the deployment metadata must retain source commit `19028a49b89a00be718ee017149a7615e966e4fd`.
+
+The initial rollback target is `EMPTY_STAGING_TARGET` because no prior GACM staging deployment exists in this project. If the initial deployment fails acceptance, the failed deployment must not be treated as current/settled; the dedicated staging project/service/volume remain isolated while repair or teardown is separately governed.
+
+The Railway environment patch was reviewed before commit and reported `destructive=false`. It contains only the authorized service source/configuration, two non-secret configuration variables, and the new persistent volume.
 
 ## Application constraints preserved
 
@@ -139,8 +176,8 @@ Foundation 06 does not authorize:
 - provider/model changes unrelated to staging;
 - paid resource creation without explicit provider/account/environment authority.
 
-## Current stop condition
+## Current execution gate
 
-`HOLD — HOSTING_PROVIDER_AUTHORITY_MISSING`
+`READY — RAILWAY STAGING PATCH REVIEWED / DEPLOYMENT COMMIT AUTHORIZED`
 
-The next mutation is forbidden until human authority identifies the hosting provider and the intended provider account/workspace/team and staging project/environment boundary.
+Provider/account/project/environment/service/storage authority is resolved. The Railway patch is non-destructive and pinned to the exact accepted application SHA. The next authorized mutation is to commit this staged Railway environment patch, observe a terminal deployment state, and continue only with hosted acceptance if the exact deployment succeeds.
