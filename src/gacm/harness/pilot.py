@@ -14,6 +14,7 @@ from pathlib import Path
 from typing import Any, Callable, Mapping, Protocol
 
 from gacm.generalization import GeneralizationGate
+from gacm.graph import ActionKind, GraphScheduler
 from gacm.provider_authority import ExternalProviderAuthorityGate
 
 
@@ -132,8 +133,15 @@ class PilotState:
 
 class PilotHarness:
     """One retry-safe lifecycle coordinator; it never manufactures a PASS."""
-    def __init__(self, adapters: HarnessAdapters, store: RunStateStore | None = None):
-        self.adapters, self.store = adapters, store or MemoryRunStateStore()
+    def __init__(
+        self,
+        adapters: HarnessAdapters,
+        store: RunStateStore | None = None,
+        graph_scheduler: GraphScheduler | None = None,
+    ):
+        self.adapters = adapters
+        self.store = store or MemoryRunStateStore()
+        self.graph_scheduler = graph_scheduler
 
     def run(self, config: HarnessConfig, work_units: list[Mapping[str, Any]] | None = None, *, run_id: str | None = None, resume: bool = False, human_approval: bool | None = None) -> dict[str, Any]:
         rid = run_id or self._id(config)
@@ -156,8 +164,11 @@ class PilotHarness:
                 discovery = self.adapters.discovery(config, authority); state.evidence.append(self._ev("discovery", discovery)); context = self.adapters.context(config, authority, discovery); self._require(context, "VERIFIED", "UNRESOLVED_OPERATIONAL_IDENTITY"); state.evidence.append(self._ev("context", context)); self._transition(state, TopLevelState.CONTEXT_RESOLVED)
             context = next(x["value"] for x in state.evidence if x["kind"] == "context")
             if state.state == TopLevelState.CONTEXT_RESOLVED:
-                planned = self.adapters.plan(config, context, work_units or []); state.units = [dict(x) for x in planned]; self._require(state.units, True, "EMPTY_PLAN"); self._transition(state, TopLevelState.PLANNED)
+                state.units = self._plan_units(state, config, context, work_units or [])
+                self._require(state.units, True, "EMPTY_PLAN")
+                self._transition(state, TopLevelState.PLANNED)
             if state.state in {TopLevelState.PLANNED, TopLevelState.EXECUTING, TopLevelState.REPAIRING}:
+                self._validate_graph_plan_currentness(state, config)
                 self._execute_and_verify(state, config, context)
             if state.state == TopLevelState.VERIFYING:
                 self._run_generalization_gate(state, config)
@@ -176,7 +187,121 @@ class PilotHarness:
         except _Blocked as error: return self._block(state, str(error))
         except Exception as error: state.blockers.append(str(error)); state.state = TopLevelState.FAILED; return self._save(state)
 
+    @staticmethod
+    def _planning_authority(config: HarnessConfig) -> str:
+        mode = str(config.execution_policy.get("planning_authority", "LEGACY_ADAPTER")).upper()
+        if mode not in {"LEGACY_ADAPTER", "GRAPH_SCHEDULER"}:
+            raise _Blocked("UNKNOWN_PLANNING_AUTHORITY")
+        return mode
+
+    def _plan_units(self, state, config, context, work_units):
+        mode = self._planning_authority(config)
+        if mode == "GRAPH_SCHEDULER" and self.graph_scheduler is None:
+            raise _Blocked("GRAPH_SCHEDULER_REQUIRED")
+        graph_revision_before_shadow = (
+            self.graph_scheduler.graph.revision
+            if mode == "GRAPH_SCHEDULER" and self.graph_scheduler is not None
+            else None
+        )
+        legacy_planned = self.adapters.plan(config, context, work_units)
+        legacy_units = [dict(item) for item in legacy_planned]
+        if mode == "LEGACY_ADAPTER":
+            return legacy_units
+        if self.graph_scheduler.graph.revision != graph_revision_before_shadow:
+            raise _Blocked("LEGACY_SHADOW_MUTATED_GRAPH")
+
+        actions = self.graph_scheduler.next_actions(config.project_id, run_id=state.run_id)
+        human_actions = tuple(
+            action for action in actions
+            if ActionKind(str(action.kind)) == ActionKind.HUMAN_APPROVAL
+        )
+        executable_actions = tuple(
+            action for action in actions
+            if ActionKind(str(action.kind)) != ActionKind.HUMAN_APPROVAL
+        )
+        legacy_digest = hashlib.sha256(
+            json.dumps(legacy_units, sort_keys=True, separators=(",", ":"), default=str).encode()
+        ).hexdigest()
+        plan_evidence = {
+            "planning_authority": "GRAPH_SCHEDULER",
+            "graph_revision": self.graph_scheduler.graph.revision,
+            "action_ids": [action.action_id for action in actions],
+            "executable_action_ids": [action.action_id for action in executable_actions],
+            "human_action_ids": [action.action_id for action in human_actions],
+            "legacy_shadow_unit_count": len(legacy_units),
+            "legacy_shadow_digest": legacy_digest,
+        }
+        if human_actions:
+            state.evidence.append(self._ev("graph_plan", plan_evidence))
+            state.human_action_required = True
+            raise _Blocked("GRAPH_HUMAN_APPROVAL_REQUIRED")
+        if not executable_actions:
+            state.evidence.append(self._ev("graph_plan", plan_evidence))
+            raise _Blocked("EMPTY_GRAPH_PLAN")
+
+        packages = []
+        package_statuses = []
+        for action in executable_actions:
+            package = self.graph_scheduler.project_work_package(action)
+            status = str(package.get("status", ""))
+            package_statuses.append(status)
+            if status not in {"READY_FOR_ROUTING", "READY_FOR_EXECUTION_GATE"}:
+                plan_evidence["package_statuses"] = package_statuses
+                state.evidence.append(self._ev("graph_plan", plan_evidence))
+                raise _Blocked("GRAPH_WORK_PACKAGE_NOT_EXECUTABLE:" + status)
+            packages.append(dict(package))
+        plan_evidence["package_statuses"] = package_statuses
+        state.evidence.append(self._ev("graph_plan", plan_evidence))
+        return packages
+
+    def _graph_plan_evidence(self, state) -> Mapping[str, Any] | None:
+        for item in reversed(state.evidence):
+            if item.get("kind") == "graph_plan" and isinstance(item.get("value"), Mapping):
+                return item["value"]
+        return None
+
+    def _validate_graph_plan_currentness(self, state, config):
+        if self._planning_authority(config) != "GRAPH_SCHEDULER":
+            return
+        if self.graph_scheduler is None:
+            raise _Blocked("GRAPH_SCHEDULER_REQUIRED")
+        evidence = self._graph_plan_evidence(state)
+        if evidence is None:
+            raise _Blocked("GRAPH_PLAN_EVIDENCE_MISSING")
+        planned_revision = evidence.get("graph_revision")
+        if planned_revision != self.graph_scheduler.graph.revision:
+            raise _Blocked("STALE_GRAPH_PLAN_REVISION")
+        current_actions = self.graph_scheduler.next_actions(config.project_id, run_id=state.run_id)
+        current_executable_ids = [
+            action.action_id
+            for action in current_actions
+            if ActionKind(str(action.kind)) != ActionKind.HUMAN_APPROVAL
+        ]
+        if current_executable_ids != list(evidence.get("executable_action_ids", ())):
+            raise _Blocked("GRAPH_ELIGIBILITY_CHANGED")
+
+    def _validate_graph_route_binding(self, config, unit, route):
+        if self._planning_authority(config) != "GRAPH_SCHEDULER":
+            return
+        route_plain = self._plain(route)
+        route_decision_id = route_plain.get("routing_decision_id") or route_plain.get("decision_id")
+        if not route_decision_id:
+            raise _Blocked("GRAPH_ROUTING_DECISION_ID_MISSING")
+        route_work_unit_id = route_plain.get("work_unit_id")
+        if not route_work_unit_id:
+            raise _Blocked("GRAPH_ROUTE_WORK_UNIT_ID_MISSING")
+        if route_work_unit_id != unit.get("work_unit_id"):
+            raise _Blocked("GRAPH_ROUTE_WORK_UNIT_MISMATCH")
+        if unit.get("routing_required") is False:
+            if route_plain.get("selected_model") != unit.get("selected_model"):
+                raise _Blocked("GRAPH_BOUND_MODEL_MISMATCH")
+            if route_plain.get("qualification_identity") != unit.get("qualification_identity"):
+                raise _Blocked("GRAPH_BOUND_QUALIFICATION_MISMATCH")
+            if route_decision_id != unit.get("routing_decision_id"):
+                raise _Blocked("GRAPH_BOUND_ROUTING_DECISION_MISMATCH")
+
     def _execute_and_verify(self, state, config, context):
+        self._validate_graph_plan_currentness(state, config)
         self._transition(state, TopLevelState.EXECUTING)
         for unit in state.units:
             if unit.get("status") == "PASS": continue
@@ -192,8 +317,10 @@ class PilotHarness:
                 self.receipt(state, "provider_authority", pre_gate)
                 if pre_gate.status != "PASS":
                     raise _Blocked("EXTERNAL_PROVIDER_AUTHORITY_GATE_HOLD:" + ",".join(pre_gate.reasons))
+            self._validate_graph_plan_currentness(state, config)
             route = self.adapters.route(unit)
             if not self._route_is_qualified(route): raise _Blocked("MODEL_QUALIFICATION_MISSING")
+            self._validate_graph_route_binding(config, unit, route)
             if provider_policy_required and unit.get("external_action_required") is not True:
                 route_plain_check = self._plain(route)
                 if any(route_plain_check.get(key) is not None for key in ("provider_id", "selected_provider", "endpoint_identity", "endpoint", "credential_source_id")):
@@ -219,6 +346,7 @@ class PilotHarness:
                 self.receipt(state, "provider_authority", runtime_gate)
                 if runtime_gate.status != "PASS":
                     raise _Blocked("EXTERNAL_PROVIDER_RUNTIME_IDENTITY_HOLD:" + ",".join(runtime_gate.reasons))
+            self._validate_graph_plan_currentness(state, config)
             execution = self.adapters.execute(unit, route, context)
             if self._get(execution, "execution_status") != "COMPLETED": raise _Blocked("EXECUTION_FAILED_OR_BLOCKED")
             unit.update({"route": self._plain(route), "execution": self._plain(execution), "status": "EXECUTED"})

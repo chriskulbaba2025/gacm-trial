@@ -275,22 +275,35 @@ That integration is not part of this tranche.
 
 ## Relationship to PilotHarness
 
-The existing `PilotHarness` remains the accepted lifecycle implementation in this tranche.
+`PilotHarness` remains the accepted lifecycle implementation. Graph Foundation 03B integrates `GraphScheduler` at the planning boundary without rewriting authority, execution, verification, repair, generalization, promotion, SETTLE, or rollback ownership.
 
-This foundation does not rewrite it.
+Planning authority is explicit:
+
+- omitted or `LEGACY_ADAPTER` keeps the existing procedural planner unchanged;
+- `GRAPH_SCHEDULER` requires an injected `GraphScheduler` and makes graph-derived eligibility the executable unit source;
+- the legacy planner still runs in graph mode only as a non-authoritative shadow and cannot add, remove, reorder, or broaden executable graph work;
+- any graph revision change caused by the shadow planner fails closed;
+- graph HOLD packages fail before routing;
+- any eligible graph `HUMAN_APPROVAL` action fails closed rather than falling back to legacy work;
+- graph revision and eligible action identities are frozen as planning evidence and rechecked before execution, after routing, and on resumed PLANNED state;
+- route receipts must name the exact graph-selected work unit;
+- a graph package with pre-bound model/qualification/routing identity cannot be silently replaced by the routing adapter;
+- non-secret external-provider request identity is carried from graph payload into the bounded work package so the existing external-provider authority gates remain active.
+
+The graph mode does not render prompts. Prompts remain downstream bounded renderings of machine state.
 
 The migration path is:
 
 1. graph kernel and deterministic scheduler — completed in Graph Foundation 01;
 2. graph-to-run-state / graph-to-GCU binder plus routing authority reconciliation — completed in Graph Foundation 02;
-3. replace procedural planning/next-step selection with graph scheduler output;
+3. graph scheduler to PilotHarness planning integration — implemented additively in Graph Foundation 03B;
 4. durable graph persistence/reconstruction;
 5. graph-aware CRIT questioning;
 6. bounded retrieval;
 7. convergence/shared-root detection;
 8. independently verified graph-derived release acceptance.
 
-At each step, existing accepted controls remain active until the replacement path is independently proven.
+The legacy planner is not removed by Foundation 03B. Existing accepted controls remain active until the graph-derived path is independently accepted.
 
 ## What prompts are still allowed to do
 
@@ -350,10 +363,15 @@ Those require separate governed tranches.
 
 ## Next owning boundary
 
-After Graph Foundation 02 is accepted, the next graph tranche should integrate:
+After Graph Foundation 03B is independently accepted, the next bounded graph tranche should implement durable governed graph persistence/reconstruction across process restart.
 
-`GovernedGraph + GraphScheduler → PilotHarness planning/next-step selection`
+That tranche must preserve:
 
-The replacement must be additive and fail-closed: the accepted PilotHarness lifecycle remains active until graph-derived scheduling is independently proven against equivalent and adversarial scenarios.
+- exact graph revision and mutation history;
+- project/run scope;
+- epistemic state and provenance;
+- authority references/digests;
+- replay/idempotency guarantees;
+- currentness checks before GraphScheduler output may govern work.
 
-Durable graph persistence/reconstruction is also still required before graph state can survive a process restart as an operational authority source.
+It must not silently combine persistence with retrieval, graph-aware CRIT, convergence, cross-project learning, legacy-planner removal, deployment, or production migration.

@@ -276,6 +276,9 @@ class GraphScheduler:
         qualification_identity = payload.get("qualification_identity")
         routing_decision_id = payload.get("routing_decision_id")
         external_action_required = payload.get("external_action_required")
+        external_provider_request = payload.get("external_provider_request")
+        if not isinstance(external_provider_request, Mapping):
+            external_provider_request = {}
         route_complete = bool(selected_model and qualification_identity and routing_decision_id)
         if not isinstance(external_action_required, bool):
             package_status = "HOLD_MISSING_EXTERNAL_ACTION_CLASSIFICATION"
@@ -302,6 +305,7 @@ class GraphScheduler:
             "routing_decision_id": routing_decision_id,
             "routing_required": not route_complete,
             "external_action_required": external_action_required,
+            "external_provider_request": dict(external_provider_request),
             "subagents_authorized": bool(payload.get("subagents_authorized", False)),
             "model_escalation_authorized": bool(payload.get("model_escalation_authorized", False)),
             "status": package_status,
