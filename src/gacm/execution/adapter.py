@@ -10,6 +10,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Callable, Mapping, Protocol
 
+from .action_authority import ActionAuthorizationGate
 from .models import (
     ExecutionPackage,
     ExecutionReceipt,
@@ -49,7 +50,7 @@ class GitExecutionStateReader:
 
 
 class Runner(Protocol):
-    def __call__(self, package: ExecutionPackage) -> RunnerResult: ...
+    def run(self, package: ExecutionPackage, authority_gate: ActionAuthorizationGate) -> RunnerResult: ...
 
 
 def _now() -> str:
@@ -102,13 +103,25 @@ class GCUExecutionAdapter:
             if state_failures:
                 return self._blocked_receipt(request, state_failures, started_at)
 
+        if not hasattr(runner, "run") or not callable(getattr(runner, "run")):
+            return self._blocked_receipt(
+                request,
+                ("executor does not support mandatory per-action authorization",),
+                started_at,
+            )
+        authority_gate = ActionAuthorizationGate(
+            request.contract.execution_recipe,
+            request.contract.work_unit_id,
+        )
         try:
-            result = runner(package)
+            result = runner.run(package, authority_gate)
         except Exception as error:
             return self._blocked_receipt(request, (f"executor invocation failed: {error}",), started_at, status="FAILED")
 
         failures = list(unauthorized_paths(result.files_changed, request))
-        validation_artifacts = []
+        validation_artifacts = [authority_gate.evidence()]
+        if result.status == "COMPLETED" and not authority_gate.complete():
+            failures.append("executor completed without satisfying the frozen per-action execution recipe")
         if self.identity_validator is not None:
             validation = self.identity_validator.validate(
                 operational_context=request.operational_context,

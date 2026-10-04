@@ -277,6 +277,7 @@ class GraphScheduler:
         routing_decision_id = payload.get("routing_decision_id")
         external_action_required = payload.get("external_action_required")
         external_provider_request = payload.get("external_provider_request")
+        execution_recipe = payload.get("execution_recipe")
         if not isinstance(external_provider_request, Mapping):
             external_provider_request = {}
         route_complete = bool(selected_model and qualification_identity and routing_decision_id)
@@ -284,6 +285,8 @@ class GraphScheduler:
             package_status = "HOLD_MISSING_EXTERNAL_ACTION_CLASSIFICATION"
         elif not route_complete:
             package_status = "READY_FOR_ROUTING"
+        elif not isinstance(execution_recipe, Mapping):
+            package_status = "HOLD_MISSING_EXECUTION_RECIPE"
         else:
             package_status = "READY_FOR_EXECUTION_GATE"
         return {
@@ -299,6 +302,7 @@ class GraphScheduler:
             "forbidden_surfaces": list(payload.get("forbidden_surfaces", ())),
             "test_contract": list(payload.get("test_contract", ())),
             "stop_conditions": list(payload.get("stop_conditions", ())),
+            "execution_recipe": dict(execution_recipe) if isinstance(execution_recipe, Mapping) else None,
             "authority_refs": list(action.authority_refs),
             "selected_model": selected_model,
             "qualification_identity": qualification_identity,

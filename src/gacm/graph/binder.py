@@ -5,6 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any, Mapping
 
+from gacm.execution.action_authority import recipe_digest
 from gacm.execution.models import WorkUnitContract
 from gacm.routing.models import RoutingDecision
 
@@ -19,9 +20,18 @@ class BoundGraphWorkUnit:
     graph_binding: Mapping[str, Any]
 
     def run_state_projection(self) -> dict[str, Any]:
+        recipe = self.contract.execution_recipe
         return {
             "unit_id": self.contract.work_unit_id,
             "graph_binding": dict(self.graph_binding),
+            "execution_authority": {
+                "state": "FROZEN",
+                "recipe_id": recipe["recipe_id"],
+                "recipe_version": recipe["version"],
+                "recipe_digest": recipe_digest(recipe),
+                "mutation_policy": recipe["mutation_policy"],
+                "inference_mode": "BOUNDED_ONLY_AFTER_FREEZE",
+            },
         }
 
     def current_state_binding(self) -> dict[str, Any]:
@@ -30,6 +40,8 @@ class BoundGraphWorkUnit:
             "graph_revision": self.contract.graph_revision,
             "graph_target_object_id": self.contract.graph_target_object_id,
             "graph_project_id": self.contract.graph_project_id,
+            "execution_authority_state": "EXECUTION",
+            "execution_recipe_digest": recipe_digest(self.contract.execution_recipe),
         }
 
 
@@ -83,8 +95,11 @@ class GraphWorkPackageBinder:
         forbidden = tuple(str(item) for item in work_package.get("forbidden_surfaces", ()))
         tests = tuple(str(item) for item in work_package.get("test_contract", ()))
         stops = tuple(str(item) for item in work_package.get("stop_conditions", ()))
+        execution_recipe = work_package.get("execution_recipe")
         if not allowed or not tests or not stops:
             raise GraphBindingError("graph work package lacks writable scope, tests, or STOP conditions")
+        if not isinstance(execution_recipe, Mapping):
+            raise GraphBindingError("graph work package lacks a frozen execution recipe")
 
         graph_binding = {
             "graph_action_id": str(work_package["graph_action_id"]),
@@ -116,6 +131,7 @@ class GraphWorkPackageBinder:
             evidence_requirements=evidence_requirements,
             stop_conditions=stops,
             broader_requalification_triggers=broader_requalification_triggers,
+            execution_recipe=dict(execution_recipe),
             dependencies=dependencies,
             routing_decision_id=routing_decision.decision_id,
             rollback_authority=rollback_authority,

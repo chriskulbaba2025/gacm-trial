@@ -116,9 +116,9 @@ The promoted SPEC identity is `30bfb0e78bab11c1e20cdc74b45530114c431654` on loca
 
 ## Next authorized action
 
-STOP at the Foundation 09 boundary. The accepted application candidate remains isolated in staging and is not promoted to qualification-app `main` by this tranche. Independently verified graph-derived release acceptance is the next roadmap capability only after a separate governed objective is opened.
+Complete and independently verify the cross-cutting `GACM Execution Authority and Inference State Contract v1` before opening Foundation 10. Every future execution-ready graph work package must carry a frozen execution recipe, exact recipe digest and explicit execution-authority state. Every material executor action must obtain deterministic `ALLOW` before execution; only declared bounded-judgment slots retain execution-time discretion. Recipe mutation requires governed re-freeze. Foundation 10 remains unopened until this invariant is accepted.
 
-Current execution state: `PASS - FOUNDATION_09_CONVERGENCE_ACCEPTED / STOP AT TRANCHE BOUNDARY`.
+Current execution state: `AUTHORIZED - EXECUTION_AUTHORITY_AND_INFERENCE_STATE_CORRECTION_IN_PROGRESS / FOUNDATION_10_NOT_OPENED`.
 
 ### Historical / deferred items
 
@@ -159,3 +159,19 @@ Future governed authenticated external actions must prove provider/service autho
 The gate must execute before parity/currentness so a self-consistent but unauthorized provider configuration cannot pass by internal consistency alone.
 
 Durable handoff/restart state must preserve the non-secret governed provider identity and authority reference.
+
+## Permanent governance correction - execution authority and inference state
+
+On 2026-10-04, human authority explicitly authorized an additive GACM-wide correction establishing the mandatory `GACM Execution Authority and Inference State Contract v1` and permanent control `CL-43`.
+
+Core invariant: unbounded inference is permitted during design. Once a work-unit execution recipe is frozen, unbounded inference is revoked. During execution, the executor may act only through machine-authorized actions and explicitly declared bounded-judgment slots.
+
+Canonical execution-authority states are `DESIGN -> FROZEN -> EXECUTION -> VERIFICATION`; any authority, recipe, identity, transition or action mismatch produces `BLOCKED`.
+
+Every future execution-ready work unit must bind a versioned `GACM_EXECUTION_RECIPE_V1` to work-unit/package/run-state identity. The GCU execution boundary must issue deterministic `ALLOW` or `DENY` before each material action based on the current frozen step, tool/action type, target, parameters, acceptable prior state, bounded judgment and expected evidence-bearing result transition.
+
+Availability never creates authority. An installed tool, command, credential, provider, model, dependency, environment variable or workaround is not executable merely because it exists.
+
+The executor may not edit its own recipe. Invalid or unexpected runtime state stops execution; any revised approach requires leaving EXECUTION, governed diagnosis, explicit re-authorization, a new frozen recipe digest/package identity, and only then resumed execution.
+
+The machine enforcement implementation lives in `src/gacm/execution/action_authority.py`, the GCU execution adapter, graph scheduler/binder, execution policy, durable run-state schema and associated negative-path tests. This correction is cross-cutting and precedes Foundation 10; it does not redefine Foundation 10 or reopen the closed MVP.

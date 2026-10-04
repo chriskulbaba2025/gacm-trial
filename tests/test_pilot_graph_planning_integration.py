@@ -138,6 +138,34 @@ def executable_payload(work_unit_id="graph-u1"):
         "test_contract": ["targeted"],
         "stop_conditions": ["scope change"],
         "external_action_required": False,
+        "execution_recipe": {
+            "schema": "GACM_EXECUTION_RECIPE_V1",
+            "recipe_id": "recipe-" + work_unit_id,
+            "version": "1",
+            "state": "FROZEN",
+            "work_unit_id": work_unit_id,
+            "mutation_policy": "GOVERNED_REFREEZE_REQUIRED",
+            "steps": [{
+                "step_id": "step-1",
+                "sequence": 1,
+                "allowed_actions": [{
+                    "action_kind": "COMMAND",
+                    "tools": ["python"],
+                    "target_patterns": ["work-unit"],
+                    "parameter_constraints": {
+                        "allowed_keys": ["command"],
+                        "required_keys": ["command"],
+                        "allowed_values": {"command": ["targeted"]},
+                    },
+                    "judgment_slot_id": None,
+                }],
+                "bounded_judgment_slots": [],
+                "acceptable_prior_states": ["EXECUTION"],
+                "expected_result_states": ["DONE"],
+                "evidence_requirements": ["targeted test evidence"],
+                "stop_conditions": ["scope change"],
+            }],
+        },
     }
 
 
