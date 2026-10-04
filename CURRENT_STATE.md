@@ -219,3 +219,10 @@ Foundation 13 objective is graph-aware repair planning plus the graph-integrity 
 Governance parent is 6df6e99e3cf896862f220d9f1320866a569a87ea. Application parent is f20cf367e8611025ffa1cb5e698db37350537c2c.
 
 Current execution state: FOUNDATION_13_CONTRACT_FROZEN_IMPLEMENTATION_PENDING.
+
+
+### Foundation 13 contract correction — verifier/repair authority
+
+Implementation diagnosis found a semantic contradiction in the initial Foundation 13 freeze: the existing `VerificationReceipt` contract permits `authoritative = true` only for an independent verifier `PASS`, so a repair-triggering `FAIL/BLOCKED/UNOBSERVABLE` receipt cannot truthfully be marked authoritative.
+
+The Foundation 13 contract is corrected without expanding scope: non-PASS receipts must preserve the existing independent-verifier semantics; the accepted Phase 9 `RepairScopePlanner` remains the repair-scope authority rather than being reimplemented; and Foundation 13 remains an internal component boundary with no untrusted public repair-planning endpoint before Foundation 14 supplies trusted execution/verification binding.

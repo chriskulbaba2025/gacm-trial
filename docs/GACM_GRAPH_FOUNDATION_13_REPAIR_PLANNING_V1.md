@@ -38,9 +38,10 @@ Every output must preserve:
 A repair plan may be generated only from a durable current verification receipt that proves:
 
 - exact idea/project identity;
-- exact application candidate identity;
-- independent verifier identity;
-- authoritative verification outcome of `FAIL` or `HOLD`;
+- exact application candidate/planning binding identity;
+- independent verifier identity and `INDEPENDENT_VERIFIER` issuer role;
+- a non-PASS verifier outcome of `FAIL`, `BLOCKED`, or `UNOBSERVABLE`, mapped to repair `FAIL/HOLD` semantics;
+- preservation of the existing verifier authority invariant: only independent `PASS` may carry `authoritative = true`; a repair-triggering non-PASS receipt must carry `authoritative = false`;
 - failed work-unit/tranche identity;
 - failed/affected surfaces;
 - defect-family identity;
@@ -51,6 +52,16 @@ A repair plan may be generated only from a durable current verification receipt 
 - prior assurance classifications potentially affected.
 
 Missing, stale, malformed, self-certified or cross-project verification input is HOLD.
+
+## 3A. Existing verifier and repair-scope authority
+
+Foundation 13 must compose the already accepted GACM controls rather than create parallel replacements.
+
+The existing `gacm-independent-verifier-v1` remains the issuer of verification decisions. Foundation 13 validates its non-PASS receipt identity and preserves its semantics; it does not redefine a failed verification as an authoritative PASS-equivalent receipt.
+
+The existing `gacm.repair.RepairScopePlanner` remains the deterministic repair-scope / dependency engine. Foundation 13 may bind graph currentness, diagnosis, convergence and historical-pattern context around its result, but may not duplicate or override its scope classification, assurance invalidation or requalification decisions.
+
+Because Foundation 14 has not yet created the trusted candidate-tranche execution bridge, Foundation 13 repair planning is an **internal governed component boundary**. It must not expose an unauthenticated/untrusted public HTTP endpoint that accepts caller-authored verification receipts. Foundation 14 will own durable trusted binding from execution/verification state into this component.
 
 ## 4. Repair-scope rules
 
@@ -174,7 +185,8 @@ Foundation 13 does not authorize:
 - generalized failure-pattern promotion;
 - production mutation or promotion;
 - either `main` merge;
-- Foundation 14 execution work.
+- Foundation 14 execution work;
+- an untrusted public/network repair-planning input surface.
 
 ## 10. Acceptance contract
 
