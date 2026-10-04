@@ -22,7 +22,7 @@ GACM v4.2.2 remains the frozen base methodology authority. Explicitly authorized
 
 ## Current phase
 
-**GACM-GRAPH-FOUNDATION-08 — BOUNDED RETRIEVAL**
+**GACM-GRAPH-FOUNDATION-08 — BOUNDED RETRIEVAL — PASS**
 
 Historical Phases 1–14 remain preserved as recorded below. GACM-MVP-CLOSURE-00 established the reconciled candidate authority at `0dd82e6176bd00e32fddfc975584a70773350b14`; Graph Foundation 01 established the graph kernel candidate at `150f895f4effa74dee116d51dd7fbee974445447`; Graph Foundation 03B established the graph-to-PilotHarness planning candidate at `25d67953c465abe91b2ad0f5e9378e24e78dcb45`; Graph Foundation 04 established durable graph persistence at `4ecc2ead93f185bb563b99ca87580c0d90a69e27`; Foundation 05 governance closed at `74b08065f138159f6e1d49841b7baf0e9e6fc534` and binds that exact engine to qualification-app candidate `19028a49b89a00be718ee017149a7615e966e4fd`.
 
@@ -48,13 +48,13 @@ On 2026-10-03 human authority instructed GACM to take the next action after Foun
 
 ## Current objective
 
-Foundation 07 remains the accepted parent at governance SHA `fe88539e82ac89f675ef4111a687f2bdbcffcb39` and application SHA `0ff481f0a6a84146fe3ac1c7fd759adb7e5b8e24`. Human authority has now opened Foundation 08 as the next separately governed objective: deterministic bounded retrieval for the graph-aware CRIT path. Foundation 08 is limited to same-idea/project lexical retrieval plus depth-1 traversal of the already-bounded governed graph context, with reproducible receipts and explicit data/authority metadata. Vector retrieval, embeddings, external retrieval providers/models, web retrieval, cross-project memory, convergence, planner removal, graph-triggered execution, production, and either `main` merge remain excluded. The governing contract is `docs/GACM_GRAPH_FOUNDATION_08_BOUNDED_RETRIEVAL_V1.md`.
+Foundation 08 bounded retrieval is accepted PASS on exact application candidate `c2b4f89d918dcf8c73bde8a490f6f42535f94038`, preserved on remote candidate branch and deployed only to isolated Railway staging as `c452c5ea-4850-4b36-9625-4efc0523598f`. Foundation 07 remains the accepted parent at governance SHA `fe88539e82ac89f675ef4111a687f2bdbcffcb39` and app SHA `0ff481f0a6a84146fe3ac1c7fd759adb7e5b8e24`. Qualification-app `main` remains `32d474fdb8fe0672d826ff434b4bfc94c9537407`. Deterministic same-project lexical + depth-1 graph retrieval is bounded to top 6 / 6,000 characters, preserves explicit DATA_ONLY and authority metadata, produces reproducible receipts, degrades explicitly only on clean unavailability, and fails closed on unsafe retrieval. Targeted 100/100 PASS, full regression 153/153 PASS, exact-SHA CI PASS, live currentness/browser/generalization PASS, restart/reopen PASS, and independent verification `verify-d52d595d6693ec66b7f101d1` is authoritative PASS. No vector/embedding provider, web retrieval, cross-project retrieval, production mutation, or `main` merge occurred.
 
 The reconciled authority set remains defined by `docs/GACM_MVP_AUTHORITY_MANIFEST_V1.md`. The graph-first operating contract is `docs/GACM_GRAPH_ENGINEERING_FOUNDATION_V1.md`; the Jev and graph-binding contract is `docs/GACM_JEV_CLASSIFICATION_AND_GRAPH_BINDING_V1.md`; the durable graph contract is `docs/GACM_GRAPH_DURABLE_PERSISTENCE_V1.md`; the application runtime contract is `docs/GACM_GRAPH_APPLICATION_RUNTIME_INTEGRATION_V1.md`; the Foundation 06 staging-authority contract is `docs/GACM_GRAPH_FOUNDATION_06_HOSTED_STAGING_AUTHORITY_V1.md`.
 
 The authoritative SPEC `main` identity remains `30bfb0e78bab11c1e20cdc74b45530114c431654`. The authoritative CRIT `main` identity remains `187b7f7d3d63025f98386da09255942d6693303d`. Foundation 05 and Foundation 06 identities remain preserved as historical parents/evidence; the exact final MVP application candidate is now `32d474fdb8fe0672d826ff434b4bfc94c9537407`.
 
-Foundation 08 bounded retrieval is now the only authorized implementation tranche. Its retriever has no provider, model, secret, network, vector index, or embedding call. Convergence/shared-root detection, embeddings/vector retrieval, legacy-planner removal, cross-project learning, graph-triggered execution, provider/model changes, and production migration remain excluded.
+Foundation 08 bounded retrieval is now accepted at the staging-candidate boundary. Convergence/shared-root detection is the next roadmap capability, but no convergence tranche is opened by this record. Embeddings/vector retrieval, legacy-planner removal, cross-project learning, graph-triggered execution, provider/model changes, and production migration remain excluded.
 
 ## Completed phases
 
@@ -116,20 +116,9 @@ The promoted SPEC identity is `30bfb0e78bab11c1e20cdc74b45530114c431654` on loca
 
 ## Next authorized action
 
-Complete `GACM-GRAPH-FOUNDATION-08` only:
+STOP at the Foundation 08 boundary. The accepted application candidate remains isolated in staging and is not promoted to qualification-app `main` by this tranche. Convergence/shared-root detection is the next roadmap capability only after a separate governed objective is opened.
 
-1. preserve Foundation 07 governance parent `fe88539e82ac89f675ef4111a687f2bdbcffcb39` and app parent `0ff481f0a6a84146fe3ac1c7fd759adb7e5b8e24`;
-2. add deterministic same-idea/project lexical retrieval over current durable application state;
-3. combine it with depth-1 traversal of the already-bounded Foundation 07 graph context;
-4. emit reproducible retrieval receipts with query, corpus, graph, ranking and budget identities;
-5. preserve source/trust/authority/data/instruction metadata and treat retrieved content as data only;
-6. feed bounded retrieval context into CRIT without expanding the authorized question universe or creating authority;
-7. persist compact retrieval-receipt identity on selected questions and saved answers;
-8. degrade explicitly only on clean retriever unavailability; fail closed on malformed, stale, cross-project or over-budget retrieval;
-9. prove deterministic ranking, prompt-injection resistance, strong/mixed/weak generalization, persistence/reopen, full regression and independent verification;
-10. deploy only the exact candidate to isolated Railway staging after local acceptance and stop before convergence, vector retrieval, production or another tranche.
-
-Current execution state: `AUTHORIZED — FOUNDATION_08_IMPLEMENTATION_BOUNDARY_FROZEN`.
+Current execution state: `PASS — FOUNDATION_08_BOUNDED_RETRIEVAL_ACCEPTED / STOP AT TRANCHE BOUNDARY`.
 
 ### Historical / deferred items
 

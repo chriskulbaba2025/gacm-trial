@@ -1,6 +1,6 @@
 ﻿# GACM Graph Foundation 08 â€” Bounded Retrieval v1
 
-**Status:** AUTHORIZED IMPLEMENTATION BOUNDARY
+**Status:** PASS — ACCEPTED STAGING CANDIDATE / STOP AT FOUNDATION 08 BOUNDARY
 **Opened:** 2026-10-04
 **Governance parent:** `fe88539e82ac89f675ef4111a687f2bdbcffcb39`
 **Application parent:** `0ff481f0a6a84146fe3ac1c7fd759adb7e5b8e24`
@@ -242,3 +242,77 @@ Foundation 08 does not authorize:
 Stop at the Foundation 08 acceptance boundary.
 
 Convergence/shared-root detection remains the next roadmap capability after bounded retrieval is independently accepted. Vector retrieval remains a separately governed retrieval extension because it requires additional provider/model/data-transfer authority.
+
+## Acceptance result
+
+Foundation 08 is accepted on exact application candidate:
+
+`c2b4f89d918dcf8c73bde8a490f6f42535f94038`
+
+with Foundation 07 application parent:
+
+`0ff481f0a6a84146fe3ac1c7fd759adb7e5b8e24`
+
+The candidate is preserved on remote branch `candidate/foundation08-bounded-retrieval-20261004`. Qualification-app `main` remains unchanged at `32d474fdb8fe0672d826ff434b4bfc94c9537407`.
+
+Accepted Railway staging deployment:
+
+`c452c5ea-4850-4b36-9625-4efc0523598f`
+
+The live deployment is SUCCESS and online with one running replica, zero crashed replicas, zero warnings, zero critical issues, and the persistent volume still present.
+
+### Accepted retrieval mechanism
+
+Foundation 08 accepts:
+
+`DETERMINISTIC_LEXICAL_V1+GOVERNED_GRAPH_DEPTH_1`
+
+with:
+
+- same-idea/project scope before ranking;
+- `top_k = 6`;
+- aggregate returned text budget <= 6,000 characters;
+- deterministic lexical ranking and object-ID tie-breaking;
+- depth-1 use of the already-bounded Foundation 07 graph context;
+- `gacm-lexical-v1` index identity;
+- explicit source/trust/authority/data/instruction metadata;
+- `DATA_ONLY` instruction status for retrieved content;
+- reproducible receipt identity containing query, corpus, graph, index and returned-object identities.
+
+No vector model, embedding call, external retrieval provider, retrieval secret, web retrieval, external index, or cross-project retrieval exists in this candidate.
+
+### Verification evidence
+
+- targeted retrieval/CRIT acceptance: **100/100 PASS**;
+- full application regression: **153/153 PASS**;
+- exact-SHA application CI: **PASS** on `c2b4f89...`;
+- candidate audit: six expected files only, zero unexpected files, zero secret literal hits;
+- live strong/mixed/weak hosted behavior: **PASS**;
+- live strong case retrieval receipt returned six bounded same-project objects and was preserved exactly on the saved answer;
+- mixed case remained `NEEDS_FOLLOWUP` and not ready;
+- weak hostile-looking input remained `UNANSWERED` and not ready;
+- prompt-injection-like content remained `DATA_ONLY`;
+- clean retrieval unavailability degrades explicitly to Foundation 07 graph-aware CRIT;
+- malformed, stale, cross-project and over-budget retrieval negative controls: **PASS / rejected**;
+- exact process restart/reopen reconstructed the same question ID and same retrieval receipt identity from durable SQLite + graph state;
+- real Microsoft Edge browser acceptance: **PASS**, showing bounded retrieval, deterministic mechanism, advisory-only authority, exact receipt digest and lexical index identity;
+- local SHA == remote candidate SHA == Railway commit == served runtime SHA;
+- canonical local source-tree SHA-256 == served SHA-256: `22e1f40c0a20aea8fbcd4445fb865958fd94f769dfc18beff5b545dc9fa3c6a3`;
+- live CRIT provider/model remained `openai_api / gpt-6-luna`;
+- production mutation: **NONE**.
+
+### Independent verification
+
+GACM verifier `gacm-independent-verifier-v1` issued authoritative **PASS**:
+
+`verify-d52d595d6693ec66b7f101d1`
+
+The exact delta is correctly classified `MODEL_BEARING` because the CRIT selection prompt changed. Broader requalification was required and completed with the 153/153 full regression, 100/100 targeted retrieval/CRIT suite, live strong/mixed/weak OpenAI `gpt-6-luna` behavior, retrieval safety negative controls, process restart/reopen proof, exact currentness proof, and real Edge acceptance.
+
+### Acceptance decision
+
+All 24 Foundation 08 definition-of-done items are satisfied.
+
+Foundation 08 therefore closes **PASS** at the accepted staging-candidate boundary.
+
+Convergence/shared-root detection is the next roadmap capability. It is not opened by this acceptance. Vector/embedding retrieval also remains a separate governed extension requiring explicit provider/model/data-transfer authority.
