@@ -22,7 +22,7 @@ GACM v4.2.2 remains the frozen base methodology authority. Explicitly authorized
 
 ## Current phase
 
-**GACM-GRAPH-FOUNDATION-09 â€” CONVERGENCE / SHARED-ROOT DETECTION**
+**GACM-GRAPH-FOUNDATION-09 - CONVERGENCE / SHARED-ROOT DETECTION - PASS**
 
 Historical Phases 1â€“14 remain preserved as recorded below. GACM-MVP-CLOSURE-00 established the reconciled candidate authority at `0dd82e6176bd00e32fddfc975584a70773350b14`; Graph Foundation 01 established the graph kernel candidate at `150f895f4effa74dee116d51dd7fbee974445447`; Graph Foundation 03B established the graph-to-PilotHarness planning candidate at `25d67953c465abe91b2ad0f5e9378e24e78dcb45`; Graph Foundation 04 established durable graph persistence at `4ecc2ead93f185bb563b99ca87580c0d90a69e27`; Foundation 05 governance closed at `74b08065f138159f6e1d49841b7baf0e9e6fc534` and binds that exact engine to qualification-app candidate `19028a49b89a00be718ee017149a7615e966e4fd`.
 
@@ -48,13 +48,13 @@ On 2026-10-03 human authority instructed GACM to take the next action after Foun
 
 ## Current objective
 
-Foundation 08 remains accepted at governance SHA `40ec4c4a063f6e03e1e182a9627b7ceec880942c` and application SHA `c2b4f89d918dcf8c73bde8a490f6f42535f94038`. Foundation 09 is now the separately governed objective: deterministic same-project convergence/shared-root candidate detection. It may emit only `POSSIBLE_SHARED_ROOT_CAUSE` when supported by an explicit current `converges_with` relationship or by at least two exact shared evidence-requirement IDs. Lexical/vector similarity, graph proximity, model judgment, common vocabulary, and object type alone are insufficient. The detector is advisory, read-only, same-project, and does not mutate graph/application state or expand repair scope automatically. The governing contract is `docs/GACM_GRAPH_FOUNDATION_09_CONVERGENCE_V1.md`.
+Foundation 09 convergence/shared-root detection is accepted PASS on exact application candidate `85944f28dfbc3eeffce152a2ee022d52a0b4f41c`, preserved on remote candidate branch and deployed only to isolated Railway staging as `7bf642a9-ff27-4efa-9570-6c8d6adb5f1e`. Foundation 08 remains the accepted parent at governance SHA `40ec4c4a063f6e03e1e182a9627b7ceec880942c` and app SHA `c2b4f89d918dcf8c73bde8a490f6f42535f94038`. Qualification-app `main` remains `32d474fdb8fe0672d826ff434b4bfc94c9537407`. Detector `gacm-deterministic-convergence-v1` emits only `POSSIBLE_SHARED_ROOT_CAUSE` from explicit `converges_with` or >=2 exact shared evidence IDs, while rejecting superficial vocabulary, one-evidence overlap and graph proximity alone. Targeted 58/58 PASS, full regression 163/163 PASS, exact-SHA CI PASS, live API/currentness/browser/reopen PASS, and independent verification `verify-cf8f3cf56c6041bfeb5465ea` is authoritative PASS. No model/provider change, causal-truth promotion, graph mutation, production mutation, or `main` merge occurred.
 
 The reconciled authority set remains defined by `docs/GACM_MVP_AUTHORITY_MANIFEST_V1.md`. The graph-first operating contract is `docs/GACM_GRAPH_ENGINEERING_FOUNDATION_V1.md`; the Jev and graph-binding contract is `docs/GACM_JEV_CLASSIFICATION_AND_GRAPH_BINDING_V1.md`; the durable graph contract is `docs/GACM_GRAPH_DURABLE_PERSISTENCE_V1.md`; the application runtime contract is `docs/GACM_GRAPH_APPLICATION_RUNTIME_INTEGRATION_V1.md`; the Foundation 06 staging-authority contract is `docs/GACM_GRAPH_FOUNDATION_06_HOSTED_STAGING_AUTHORITY_V1.md`.
 
 The authoritative SPEC `main` identity remains `30bfb0e78bab11c1e20cdc74b45530114c431654`. The authoritative CRIT `main` identity remains `187b7f7d3d63025f98386da09255942d6693303d`. Foundation 05 and Foundation 06 identities remain preserved as historical parents/evidence; the exact final MVP application candidate is now `32d474fdb8fe0672d826ff434b4bfc94c9537407`.
 
-Foundation 09 convergence/shared-root detection is now the only authorized implementation tranche. Authoritative causal claims, model/vector convergence, cross-project convergence/learning, automatic repair-scope expansion, graph mutation, legacy-planner removal, graph-triggered execution, provider/model changes, and production migration remain excluded.
+Foundation 09 convergence/shared-root detection is now accepted at the staging-candidate boundary. Independently verified graph-derived release acceptance is the next roadmap capability, but no release-acceptance tranche is opened by this record. Authoritative causal claims, model/vector convergence, cross-project learning, automatic repair-scope expansion, graph mutation from convergence, legacy-planner removal, graph-triggered execution, provider/model changes, and production migration remain excluded.
 
 ## Completed phases
 
@@ -116,19 +116,9 @@ The promoted SPEC identity is `30bfb0e78bab11c1e20cdc74b45530114c431654` on loca
 
 ## Next authorized action
 
-Complete `GACM-GRAPH-FOUNDATION-09` only:
+STOP at the Foundation 09 boundary. The accepted application candidate remains isolated in staging and is not promoted to qualification-app `main` by this tranche. Independently verified graph-derived release acceptance is the next roadmap capability only after a separate governed objective is opened.
 
-1. preserve governance parent `40ec4c4a063f6e03e1e182a9627b7ceec880942c` and application parent `c2b4f89d918dcf8c73bde8a490f6f42535f94038`;
-2. add deterministic same-project convergence candidate detection using explicit `converges_with` and exact multi-evidence-lineage signals only;
-3. emit `POSSIBLE_SHARED_ROOT_CAUSE` with exact reason/provenance and current graph/artifact identities;
-4. reject superficial vocabulary/common-type/single-evidence overlap false positives;
-5. keep detector read-only and advisory; do not mutate graph, readiness, CRIT, PRD, routing, execution or release authority;
-6. expose exact convergence output through API/browser audit;
-7. prove true-positive and false-positive controls, currentness, process reopen, full regression and independent verification;
-8. deploy only the exact candidate to isolated Railway staging after local acceptance;
-9. stop before graph-derived release acceptance, cross-project learning, model/vector convergence, production or another tranche.
-
-Current execution state: `AUTHORIZED â€” FOUNDATION_09_IMPLEMENTATION_BOUNDARY_FROZEN`.
+Current execution state: `PASS - FOUNDATION_09_CONVERGENCE_ACCEPTED / STOP AT TRANCHE BOUNDARY`.
 
 ### Historical / deferred items
 
