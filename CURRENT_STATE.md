@@ -116,9 +116,9 @@ The promoted SPEC identity is `30bfb0e78bab11c1e20cdc74b45530114c431654` on loca
 
 ## Next authorized action
 
-Complete and independently verify the cross-cutting `GACM Execution Authority and Inference State Contract v1` before opening Foundation 10. Every future execution-ready graph work package must carry a frozen execution recipe, exact recipe digest and explicit execution-authority state. Every material executor action must obtain deterministic `ALLOW` before execution; only declared bounded-judgment slots retain execution-time discretion. Recipe mutation requires governed re-freeze. Foundation 10 remains unopened until this invariant is accepted.
+The cross-cutting `GACM Execution Authority and Inference State Contract v1` is accepted and mandatory. Foundation 10 may now be opened as a separate governed objective, and must inherit CL-43 without weakening or bypassing it. This acceptance does not itself open Foundation 10, promote either `main`, mutate the qualification application, or touch production.
 
-Current execution state: `AUTHORIZED - EXECUTION_AUTHORITY_AND_INFERENCE_STATE_CORRECTION_IN_PROGRESS / FOUNDATION_10_NOT_OPENED`.
+Current execution state: `PASS - EXECUTION_AUTHORITY_AND_INFERENCE_STATE_ACCEPTED / FOUNDATION_10_NOT_OPENED`.
 
 ### Historical / deferred items
 
@@ -175,3 +175,5 @@ Availability never creates authority. An installed tool, command, credential, pr
 The executor may not edit its own recipe. Invalid or unexpected runtime state stops execution; any revised approach requires leaving EXECUTION, governed diagnosis, explicit re-authorization, a new frozen recipe digest/package identity, and only then resumed execution.
 
 The machine enforcement implementation lives in `src/gacm/execution/action_authority.py`, the GCU execution adapter, graph scheduler/binder, execution policy, durable run-state schema and associated negative-path tests. This correction is cross-cutting and precedes Foundation 10; it does not redefine Foundation 10 or reopen the closed MVP.
+
+Acceptance identity: implementation candidate `8ae0eb6779972d5da0c326e6820f6704aa209877`; independent verification `verify-4ea554fa7257310fe0a81c03` authoritative PASS; scope classification `AUTHORITY_BEARING`; targeted 85/85 PASS; full governance regression 258/258 PASS; exact-SHA CI PASS.

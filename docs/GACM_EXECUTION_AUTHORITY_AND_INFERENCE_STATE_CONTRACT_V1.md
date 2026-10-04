@@ -1,6 +1,6 @@
 ﻿# GACM Execution Authority and Inference State Contract v1
 
-**Status:** MANDATORY CROSS-CUTTING GOVERNANCE INVARIANT
+**Status:** PASS — MANDATORY CROSS-CUTTING GOVERNANCE INVARIANT ACCEPTED
 **Effective boundary:** Before Foundation 10 and every future governed execution
 **Scope:** GACM-wide
 **Core principle:** Correct execution must not depend on an executor voluntarily respecting prose instructions.
@@ -338,3 +338,49 @@ A model may recommend an action.
 Only GACM authority may permit it.
 
 An executor must never be able to turn its own inference, convenience, availability, or workaround into execution authority.
+
+## Acceptance result
+
+Accepted on implementation candidate:
+
+`8ae0eb6779972d5da0c326e6820f6704aa209877`
+
+Parent authority:
+
+`4d82190d5b7f3bbc187740578bb119f3768f2c33`
+
+Verification evidence:
+
+- targeted execution-authority stack: **85/85 PASS**;
+- full GACM governance regression: **258/258 PASS**;
+- exact-SHA GitHub CI: **PASS**;
+- candidate audit: **18 expected files, zero unexpected files, zero secret literal hits**;
+- frozen recipe required before routed graph work reaches the execution gate: **PASS**;
+- recipe digest bound to work-unit/package/current-state identity: **PASS**;
+- durable run-state execution-authority projection: **PASS**;
+- unguarded legacy runner denied before invocation: **PASS**;
+- wrong step/tool/target/parameter/judgment controls: **PASS**;
+- missing evidence and unexpected result transition fail closed: **PASS**;
+- original recipe mutation cannot expand a live authority gate: **PASS**;
+- self-mutable recipe policy rejected: **PASS**;
+- action-authorization receipt preserved as non-authoritative execution evidence: **PASS**;
+- Foundation 10 remained unopened during this correction;
+- qualification application repository, Railway staging, application `main`, GACM `main`, and production were not mutated by this correction.
+
+Independent verifier:
+
+`gacm-independent-verifier-v1`
+
+Verification ID:
+
+`verify-4ea554fa7257310fe0a81c03`
+
+Outcome: **authoritative PASS**.
+
+Scope classification: **AUTHORITY_BEARING**. Broader requalification was required and completed by the exact targeted/full-regression/CI/durable-state/negative-path evidence above.
+
+### Acceptance decision
+
+`CL-43 — EXECUTION AUTHORITY AND INFERENCE STATE` is now a permanent mandatory GACM control.
+
+Future governed execution-ready work units must satisfy this contract. Foundation 10 may be opened only after inheriting this invariant; Foundation 10 was not opened by this acceptance.
