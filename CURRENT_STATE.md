@@ -22,7 +22,7 @@ GACM v4.2.2 remains the frozen base methodology authority. Explicitly authorized
 
 ## Current phase
 
-**GACM MVP — CLOSED / PROMOTED / SETTLED**
+**GACM-GRAPH-FOUNDATION-07 — GRAPH-AWARE CRIT**
 
 Historical Phases 1–14 remain preserved as recorded below. GACM-MVP-CLOSURE-00 established the reconciled candidate authority at `0dd82e6176bd00e32fddfc975584a70773350b14`; Graph Foundation 01 established the graph kernel candidate at `150f895f4effa74dee116d51dd7fbee974445447`; Graph Foundation 03B established the graph-to-PilotHarness planning candidate at `25d67953c465abe91b2ad0f5e9378e24e78dcb45`; Graph Foundation 04 established durable graph persistence at `4ecc2ead93f185bb563b99ca87580c0d90a69e27`; Foundation 05 governance closed at `74b08065f138159f6e1d49841b7baf0e9e6fc534` and binds that exact engine to qualification-app candidate `19028a49b89a00be718ee017149a7615e966e4fd`.
 
@@ -48,13 +48,13 @@ On 2026-10-03 human authority instructed GACM to take the next action after Foun
 
 ## Current objective
 
-GACM MVP closure is complete. Qualification-app `main` is exact SHA `32d474fdb8fe0672d826ff434b4bfc94c9537407`; rollback target is preserved at `8f070ff4419c2d0318356b13f656bf4f0de21021`; Railway staging deployment `3753fec4-9746-4bef-aa07-7c433d8704f6` is SUCCESS on the same SHA. Deterministic acceptance, strong/mixed/weak generalization, whole-system tests, full regression, exact-SHA CI, live runtime behavior, PRD gates, browser acceptance, release currentness, rollback, and authoritative independent verification all PASS. Formal promotion `promotion-bb51ab895f3b78c9a710879b` completed; SETTLE `settle-abc7aaf62f2c260f7e83d78c` PASSed two mandatory observations and promotion state is STABLE. Durable closure record is `docs/GACM_MVP_FINAL_CLOSURE_V1.md`.
+The MVP remains closed at GACM `main` `c50ba6e5f5382b3460f0ab1de7d508f330ced800` and qualification-app `main` `32d474fdb8fe0672d826ff434b4bfc94c9537407`. Foundation 07 is a new post-MVP governed objective: make CRIT questioning consume a bounded, current, identity-stamped projection of the already-governed per-idea graph. The graph remains context only; SQLite remains application authority; CRIT may choose only among existing `PRODUCT_QUESTIONS`; unavailable or stale graph context must fail closed. The governing contract is `docs/GACM_GRAPH_FOUNDATION_07_GRAPH_AWARE_CRIT_V1.md`.
 
 The reconciled authority set remains defined by `docs/GACM_MVP_AUTHORITY_MANIFEST_V1.md`. The graph-first operating contract is `docs/GACM_GRAPH_ENGINEERING_FOUNDATION_V1.md`; the Jev and graph-binding contract is `docs/GACM_JEV_CLASSIFICATION_AND_GRAPH_BINDING_V1.md`; the durable graph contract is `docs/GACM_GRAPH_DURABLE_PERSISTENCE_V1.md`; the application runtime contract is `docs/GACM_GRAPH_APPLICATION_RUNTIME_INTEGRATION_V1.md`; the Foundation 06 staging-authority contract is `docs/GACM_GRAPH_FOUNDATION_06_HOSTED_STAGING_AUTHORITY_V1.md`.
 
 The authoritative SPEC `main` identity remains `30bfb0e78bab11c1e20cdc74b45530114c431654`. The authoritative CRIT `main` identity remains `187b7f7d3d63025f98386da09255942d6693303d`. Foundation 05 and Foundation 06 identities remain preserved as historical parents/evidence; the exact final MVP application candidate is now `32d474fdb8fe0672d826ff434b4bfc94c9537407`.
 
-Retrieval, graph-aware CRIT, convergence, removal of the legacy planner, cross-project learning, and production migration remain outside MVP closure. Qualification-app `main` promotion and final GACM closure-record `main` promotion are now authorized only as the final closure steps after all frozen gates PASS.
+Graph-aware CRIT is now the only authorized post-MVP implementation tranche. Retrieval, embeddings, convergence/shared-root detection, legacy-planner removal, cross-project learning, graph-triggered execution, provider/model changes, and production migration remain excluded.
 
 ## Completed phases
 
@@ -116,9 +116,20 @@ The promoted SPEC identity is `30bfb0e78bab11c1e20cdc74b45530114c431654` on loca
 
 ## Next authorized action
 
-STOP. The frozen MVP closure sequence is complete after the durable closure record itself passes final governance regression/CI and is fast-forwarded to GACM `main`. Any new implementation objective is a new governed program. Production and post-MVP V2 work remain unmodified and unauthorized by this closure.
+Complete `GACM-GRAPH-FOUNDATION-07` only:
 
-Current execution state: `PASS — GACM_MVP_CLOSED_AND_SETTLED`.
+1. preserve governance parent `c50ba6e5f5382b3460f0ab1de7d508f330ced800` and application parent `32d474fdb8fe0672d826ff434b4bfc94c9537407`;
+2. add a bounded graph-to-CRIT context projection with exact graph currentness identity;
+3. wire that context into CRIT question selection and CRIT-generated follow-up review without changing the authorized question universe;
+4. persist graph-context identity on generated questions and saved answers;
+5. fail closed when graph context is unavailable, malformed, stale, or cross-project;
+6. prove human answers remain durable when graph/semantic review is unavailable;
+7. run targeted graph/CRIT tests, fresh strong/mixed/weak generalization, then full regression;
+8. deploy only to the existing isolated Railway staging environment after exact-candidate verification;
+9. prove live question provenance, persistence/reopen, currentness, and real browser behavior;
+10. stop before retrieval, convergence, legacy-planner removal, production, or the next roadmap tranche.
+
+Current execution state: `AUTHORIZED — FOUNDATION_07_IMPLEMENTATION_BOUNDARY_FROZEN`.
 
 ### Historical / deferred items
 
