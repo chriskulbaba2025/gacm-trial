@@ -1,6 +1,6 @@
 # GACM Graph Foundation 11 â€” Historical Failure-Pattern Retrieval v1
 
-**Status:** AUTHORIZED IMPLEMENTATION BOUNDARY
+**Status:** PASS — FOUNDATION 11 ACCEPTED
 **Opened:** 2026-10-04
 **Governance parent:** `e93a1f2b50feff47490dde4e99236d2a2f55b209`
 **Application parent:** `85944f28dfbc3eeffce152a2ee022d52a0b4f41c`
@@ -213,3 +213,72 @@ PRD/tranche generation from graph remains a separately governed roadmap capabili
 Canonical registry SHA-256: `9e0d22671581fa2086e78505e5f7032e3d28309591ac7cbe1713e1b54dea599d`.
 
 This digest covers canonical JSON content, not platform-specific line endings.
+
+
+## Acceptance result
+
+Foundation 11 is accepted on exact application candidate:
+
+`0f8d226b8bb28c90abf57ce5ba4f275df0d875c3`
+
+Application parent:
+
+`85944f28dfbc3eeffce152a2ee022d52a0b4f41c`
+
+Governance authority freeze:
+
+`39af22b29b77adecd0e2190c3eae4b07840f86fa`
+
+Authoritative registry canonical SHA-256:
+
+`9e0d22671581fa2086e78505e5f7032e3d28309591ac7cbe1713e1b54dea599d`
+
+Accepted Railway staging deployment:
+
+`daa1b9bf-0d42-4ccf-90a2-5a6e4e16b844`
+
+Verification evidence:
+
+- targeted F11 retrieval / CRIT / convergence tests: **44/44 PASS**;
+- full application regression: **174/174 PASS**;
+- exact-SHA application CI: **PASS**;
+- candidate audit: **8 expected files, zero unexpected files, zero secret literal hits**;
+- vendored registry canonical digest equals governance manifest: **PASS**;
+- only current `GENERALIZED`, `GOVERNANCE_GENERALIZED`, cross-project-safe patterns are exposed: **PASS**;
+- project-local, candidate-generalized, superseded and private patterns are filtered before ranking: **PASS**;
+- anti-signal suppression: **PASS**;
+- returned content is cryptographically bound into retrieval receipt: **PASS**;
+- `NO_MATCH != ABSENT`: **PASS**;
+- live matched historical-pattern retrieval: **PASS**;
+- live unrelated idea `NO_MATCH`: **PASS**;
+- historical context did not alter readiness or become current-project evidence: **PASS**;
+- live CRIT remained `openai_api / gpt-6-luna`: **PASS**;
+- live application identity equals exact candidate SHA: **PASS**;
+- real Microsoft Edge acceptance: **PASS**;
+- restart/reopen reconstructed identical registry and receipt identities: **PASS**;
+- Foundation 08 same-project retrieval remains intact: **PASS**;
+- Foundation 09 convergence remains advisory and intact: **PASS**;
+- Foundation 10 graph-release verification remains intact: **PASS**;
+- CL-43 remains inherited and mandatory: **PASS**;
+- governance and application `main` branches remain untouched;
+- production remains untouched.
+
+Independent verifier:
+
+`gacm-independent-verifier-v1`
+
+Verification ID:
+
+`verify-a7f2c324ad6545e8a63e6a9b`
+
+Outcome: **authoritative PASS**.
+
+Scope classification: **AUTHORITY_BEARING**. Broader requalification was required and completed by the targeted/full-regression/CI/live/browser/restart evidence above.
+
+### Acceptance decision
+
+All Foundation 11 definition-of-done items are satisfied.
+
+Foundation 11 closes **PASS** at the isolated staging-candidate boundary.
+
+Graph-derived PRD/tranche generation is the next roadmap capability. It is not opened by this acceptance.

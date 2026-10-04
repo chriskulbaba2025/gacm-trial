@@ -116,9 +116,9 @@ The promoted SPEC identity is `30bfb0e78bab11c1e20cdc74b45530114c431654` on loca
 
 ## Next authorized action
 
-Complete `GACM-GRAPH-FOUNDATION-11 — HISTORICAL FAILURE-PATTERN RETRIEVAL` only. Retrieve only already-governed, current `GENERALIZED`, cross-project-safe governance patterns. Historical pattern context remains advisory and cannot become current-project evidence, causal truth, readiness, PRD approval, repair scope, execution authority, or release authority. Creation/promotion of new patterns, raw cross-project evidence, cross-project learning writes, PRD/tranche generation, graph-aware repair planning, provider/model changes, production mutation, and either `main` merge remain excluded.
+STOP at the Foundation 11 boundary. Historical failure-pattern retrieval is accepted as governed advisory context only. Graph-derived PRD/tranche generation is the next roadmap capability, but it is not opened by this acceptance. Creation/promotion of new generalized patterns, raw cross-project evidence, cross-project learning writes, graph-aware repair planning, provider/model changes, production mutation, and either `main` merge remain excluded until separately governed.
 
-Current execution state: `AUTHORIZED - FOUNDATION_11_FAILURE_PATTERN_RETRIEVAL_BOUNDARY_FROZEN`.
+Current execution state: `PASS - FOUNDATION_11_FAILURE_PATTERN_RETRIEVAL_ACCEPTED / STOP AT TRANCHE BOUNDARY`.
 
 ### Historical / deferred items
 
@@ -187,3 +187,5 @@ Foundation 10 acceptance identity: governance implementation `5dcaa68227169e0db7
 ## Foundation 11 authority
 
 Foundation 11 opened on 2026-10-04 from accepted Foundation 10 governance SHA `e93a1f2b50feff47490dde4e99236d2a2f55b209` and accepted Foundation 09 application SHA `85944f28dfbc3eeffce152a2ee022d52a0b4f41c`. The governing contract is `docs/GACM_GRAPH_FOUNDATION_11_FAILURE_PATTERN_RETRIEVAL_V1.md`. The authoritative initial registry is `docs/GACM_FAILURE_PATTERN_REGISTRY_V1.json`. Only patterns already explicitly governed as `GENERALIZED` may be exposed across project boundaries; no new generalization authority is created by this tranche. CL-43 remains mandatory.
+
+Foundation 11 acceptance identity: app candidate `0f8d226b8bb28c90abf57ce5ba4f275df0d875c3`; Railway staging deployment `daa1b9bf-0d42-4ccf-90a2-5a6e4e16b844`; registry SHA-256 `9e0d22671581fa2086e78505e5f7032e3d28309591ac7cbe1713e1b54dea599d`; independent verification `verify-a7f2c324ad6545e8a63e6a9b` authoritative PASS; targeted 44/44 PASS; full app regression 174/174 PASS; exact-SHA app CI, live API, Edge browser, restart/reopen and currentness PASS.
