@@ -116,9 +116,9 @@ The promoted SPEC identity is `30bfb0e78bab11c1e20cdc74b45530114c431654` on loca
 
 ## Next authorized action
 
-Complete `GACM-GRAPH-FOUNDATION-10 — INDEPENDENTLY VERIFIED GRAPH-DERIVED RELEASE ACCEPTANCE` only. Foundation 10 inherits CL-43 without weakening it. The graph may contribute release evidence but may not become release authority; only the independent verifier may issue authoritative PASS after independently checking exact candidate/runtime identity, graph currentness, retrieval/convergence provenance, qualifying epistemic state, evidence/provenance, and release-currentness. Promotion, production, `main` merges, app-code changes, Railway changes, provider/model changes, graph-triggered release, and autonomous release remain excluded.
+STOP at the Foundation 10 boundary. Independently verified graph-derived release acceptance is accepted and mandatory for graph-backed release evidence. The graph remains evidence/context, never release authority. Promotion, production, SETTLE, reusable learning, cross-project learning, provider/model changes, application mutation, Railway mutation, and either `main` merge require separate governed objectives.
 
-Current execution state: `AUTHORIZED - FOUNDATION_10_IMPLEMENTATION_BOUNDARY_FROZEN`.
+Current execution state: `PASS - FOUNDATION_10_GRAPH_DERIVED_RELEASE_ACCEPTANCE_ACCEPTED / STOP AT TRANCHE BOUNDARY`.
 
 ### Historical / deferred items
 
@@ -181,3 +181,5 @@ Acceptance identity: implementation candidate `8ae0eb6779972d5da0c326e6820f6704a
 ## Foundation 10 authority
 
 Foundation 10 opened on 2026-10-04 from governance parent `4bd875e268fa2700e5aa945711ebe65213adc587`. The governing contract is `docs/GACM_GRAPH_FOUNDATION_10_RELEASE_ACCEPTANCE_V1.md`. The accepted qualification-app staging candidate under live proof remains `85944f28dfbc3eeffce152a2ee022d52a0b4f41c`; this tranche does not authorize promoting it. CL-43 remains mandatory for every execution-ready work unit.
+
+Foundation 10 acceptance identity: governance implementation `5dcaa68227169e0db7c857251748205ac7e1e5d1`; independent verification `verify-2404d6cc5f582031022df0f8` authoritative PASS; live graph-release evidence digest `ff06d747878542687aa9f39fb9c5c883751b4d44806b9c1a4fd6911f28fc21a5`; targeted 60/60 PASS; full governance regression 274/274 PASS; exact implementation CI PASS; application/Railway/production unchanged.

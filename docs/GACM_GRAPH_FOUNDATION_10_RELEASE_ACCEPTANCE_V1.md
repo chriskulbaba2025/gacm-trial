@@ -1,6 +1,6 @@
 ﻿# GACM Graph Foundation 10 â€” Independently Verified Graph-Derived Release Acceptance v1
 
-**Status:** AUTHORIZED IMPLEMENTATION BOUNDARY
+**Status:** PASS — ACCEPTED GOVERNANCE CANDIDATE / STOP AT FOUNDATION 10 BOUNDARY
 **Opened:** 2026-10-04
 **Governance parent:** `4bd875e268fa2700e5aa945711ebe65213adc587`
 **Accepted application staging candidate under proof:** `85944f28dfbc3eeffce152a2ee022d52a0b4f41c`
@@ -287,3 +287,90 @@ Foundation 10 does not authorize:
 Stop at the Foundation 10 acceptance boundary.
 
 Any subsequent promotion or production work requires a separate governed objective and explicit release authority.
+
+## Acceptance result
+
+Foundation 10 is accepted on exact governance implementation candidate:
+
+`5dcaa68227169e0db7c857251748205ac7e1e5d1`
+
+with frozen authority parent:
+
+`d9ce4aad78dce554c110552afd989be7ad525981`
+
+The live application evidence target remained the unchanged Foundation 09 Railway staging deployment:
+
+- application SHA: `85944f28dfbc3eeffce152a2ee022d52a0b4f41c`;
+- deployment: `7bf642a9-ff27-4efa-9570-6c8d6adb5f1e`;
+- source-tree SHA-256: `ca63407502d8f36bf43772206a0b0a0e375c9ee50e4a1ae5c59bba46b45b5d3a`.
+
+No application or Railway mutation was required.
+
+### Verification evidence
+
+- targeted graph-release / independent-verification / promotion / schema suite: **60/60 PASS**;
+- full GACM governance regression: **274/274 PASS**;
+- authority-freeze CI on `d9ce4aa...`: **PASS**;
+- exact implementation CI on `5dcaa68...`: **PASS**;
+- implementation candidate audit: nine expected files only, zero unexpected files, zero secret literal hits;
+- non-graph independent verification remains backward compatible: **PASS**;
+- graph-backed verification without raw graph evidence becomes UNOBSERVABLE: **PASS**;
+- exact candidate = remote candidate = deployed artifact = served runtime enforcement: **PASS**;
+- exact graph schema/revision/projection/source-event/engine/manifest binding: **PASS**;
+- qualifying EVIDENCED/ACCEPTED + VERIFIED assertion rule: **PASS**;
+- non-qualifying epistemic-state negative controls: **PASS**;
+- convergence remains `POSSIBLE_SHARED_ROOT_CAUSE / ADVISORY_DIAGNOSTIC_ONLY`: **PASS**;
+- promotion eligibility requires matching independent graph-release PASS/digest/verification-receipt binding: **PASS**;
+- promotion receipt preserves graph-release evidence digest and verification ID: **PASS**;
+- promotion itself was **not executed**.
+
+### Live staging proof
+
+Current live graph release evidence independently evaluates:
+
+`PASS`
+
+with evidence digest:
+
+`ff06d747878542687aa9f39fb9c5c883751b4d44806b9c1a4fd6911f28fc21a5`
+
+Live current graph revision:
+
+`4`
+
+A persisted CRIT/retrieval receipt from graph revision:
+
+`3`
+
+was deliberately evaluated as materially release-relevant and correctly returned:
+
+`FAIL — material retrieval evidence is stale relative to release graph`
+
+This proves the gate rejects stale graph-derived release context rather than relying on prior acceptance or conversation memory.
+
+### Independent verification
+
+GACM verifier `gacm-independent-verifier-v1` issued authoritative **PASS**:
+
+`verify-2404d6cc5f582031022df0f8`
+
+The verification receipt itself records:
+
+- `graph_release_result = PASS`;
+- exact live graph-release evidence digest `ff06d747878542687aa9f39fb9c5c883751b4d44806b9c1a4fd6911f28fc21a5`.
+
+The Foundation 10 implementation is correctly classified:
+
+`AUTHORITY_BEARING`
+
+Broader requalification was required and completed using the 60/60 targeted suite, 274/274 full governance regression, exact-SHA CI, live current graph-release PASS, live stale-retrieval FAIL negative control, promotion-binding tests, and preserved CL-43 controls.
+
+### Acceptance decision
+
+All 25 Foundation 10 definition-of-done items are satisfied.
+
+Foundation 10 therefore closes **PASS** at the governance-candidate boundary.
+
+This acceptance does not promote the application, mutate Railway, merge either `main`, or touch production.
+
+Any subsequent promotion/release/SETTLE or reusable-learning work requires a separate governed objective.
