@@ -22,7 +22,7 @@ GACM v4.2.2 remains the frozen base methodology authority. Explicitly authorized
 
 ## Current phase
 
-**GACM-MVP-FINAL-CLOSURE — PRE-PROMOTION**
+**GACM MVP — CLOSED / PROMOTED / SETTLED**
 
 Historical Phases 1–14 remain preserved as recorded below. GACM-MVP-CLOSURE-00 established the reconciled candidate authority at `0dd82e6176bd00e32fddfc975584a70773350b14`; Graph Foundation 01 established the graph kernel candidate at `150f895f4effa74dee116d51dd7fbee974445447`; Graph Foundation 03B established the graph-to-PilotHarness planning candidate at `25d67953c465abe91b2ad0f5e9378e24e78dcb45`; Graph Foundation 04 established durable graph persistence at `4ecc2ead93f185bb563b99ca87580c0d90a69e27`; Foundation 05 governance closed at `74b08065f138159f6e1d49841b7baf0e9e6fc534` and binds that exact engine to qualification-app candidate `19028a49b89a00be718ee017149a7615e966e4fd`.
 
@@ -48,7 +48,7 @@ On 2026-10-03 human authority instructed GACM to take the next action after Foun
 
 ## Current objective
 
-Final MVP application candidate `32d474fdb8fe0672d826ff434b4bfc94c9537407` is preserved on `candidate/mvp-final-closure-20261003` and deployed to Railway staging as `3753fec4-9746-4bef-aa07-7c433d8704f6` with status SUCCESS. The deterministic acceptance entrypoint PASSes on the exact candidate; explicit strong/mixed/weak generalization, whole-system targeted tests, full regression, exact-SHA CI, live strong/mixed/weak runtime behavior, PRD gating/human override, real Edge rendering, release currentness, rollback identity, and GACM independent verification all PASS. Qualification-app `main` remains the pre-promotion rollback SHA `8f070ff4419c2d0318356b13f656bf4f0de21021`. Next action is promotion, then SETTLE and durable closure.
+GACM MVP closure is complete. Qualification-app `main` is exact SHA `32d474fdb8fe0672d826ff434b4bfc94c9537407`; rollback target is preserved at `8f070ff4419c2d0318356b13f656bf4f0de21021`; Railway staging deployment `3753fec4-9746-4bef-aa07-7c433d8704f6` is SUCCESS on the same SHA. Deterministic acceptance, strong/mixed/weak generalization, whole-system tests, full regression, exact-SHA CI, live runtime behavior, PRD gates, browser acceptance, release currentness, rollback, and authoritative independent verification all PASS. Formal promotion `promotion-bb51ab895f3b78c9a710879b` completed; SETTLE `settle-abc7aaf62f2c260f7e83d78c` PASSed two mandatory observations and promotion state is STABLE. Durable closure record is `docs/GACM_MVP_FINAL_CLOSURE_V1.md`.
 
 The reconciled authority set remains defined by `docs/GACM_MVP_AUTHORITY_MANIFEST_V1.md`. The graph-first operating contract is `docs/GACM_GRAPH_ENGINEERING_FOUNDATION_V1.md`; the Jev and graph-binding contract is `docs/GACM_JEV_CLASSIFICATION_AND_GRAPH_BINDING_V1.md`; the durable graph contract is `docs/GACM_GRAPH_DURABLE_PERSISTENCE_V1.md`; the application runtime contract is `docs/GACM_GRAPH_APPLICATION_RUNTIME_INTEGRATION_V1.md`; the Foundation 06 staging-authority contract is `docs/GACM_GRAPH_FOUNDATION_06_HOSTED_STAGING_AUTHORITY_V1.md`.
 
@@ -116,19 +116,9 @@ The promoted SPEC identity is `30bfb0e78bab11c1e20cdc74b45530114c431654` on loca
 
 ## Next authorized action
 
-Complete the frozen MVP closure sequence only:
+STOP. The frozen MVP closure sequence is complete after the durable closure record itself passes final governance regression/CI and is fast-forwarded to GACM `main`. Any new implementation objective is a new governed program. Production and post-MVP V2 work remain unmodified and unauthorized by this closure.
 
-1. commit and verify the reconciled final authority manifest on the final-closure governance branch;
-2. verify qualification-app `main` still equals rollback target `8f070ff4419c2d0318356b13f656bf4f0de21021`;
-3. promote exact application candidate `32d474fdb8fe0672d826ff434b4bfc94c9537407` to qualification-app `main` by fast-forward only;
-4. prove post-promotion currentness: app `main` == remote candidate == Railway deployment == served runtime identity;
-5. run post-promotion SETTLE observations including HTTP/browser health, persisted strong/weak records, graph PASS, provider/model continuity, and rollback availability;
-6. write the durable MVP closure record;
-7. run final GACM governance regression/currentness;
-8. promote only the final durable GACM closure record to GACM `main` by fast-forward if its exact candidate remains verified;
-9. STOP with production untouched and post-MVP V2 work deferred.
-
-Current execution state: `READY_FOR_PROMOTION — ALL PRE-PROMOTION MVP GATES PASS`.
+Current execution state: `PASS — GACM_MVP_CLOSED_AND_SETTLED`.
 
 ### Historical / deferred items
 

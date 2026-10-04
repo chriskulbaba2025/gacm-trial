@@ -1,6 +1,6 @@
 # GACM MVP Authority Manifest v1
 
-**Status:** FINAL MVP CLOSURE AUTHORITY — PRE-PROMOTION
+**Status:** MVP CLOSED / PROMOTED / SETTLED
 **Captured:** 2026-10-03
 **Purpose:** Establish one reproducible authority set before additional GACM MVP implementation or promotion.
 
@@ -16,8 +16,9 @@ Every governed closure run must resolve this manifest against live repository st
 |---|---|---|---|
 | GACM governance | `chriskulbaba2025/gacm-trial` / `main` | `786313066f3623806fd477dd12d183be1242699d` | governing baseline |
 | GACM final closure candidate | `governance/gacm-mvp-final-closure-20261003` | resolve from Git at each closure step | candidate; final durable record pending SETTLE |
-| Qualification app rollback baseline | `chriskulbaba2025/gacm-qualification-sandbox` / `main` | `8f070ff4419c2d0318356b13f656bf4f0de21021` | current remote main before promotion; protected rollback target |
-| Final MVP application candidate | `candidate/mvp-final-closure-20261003` | `32d474fdb8fe0672d826ff434b4bfc94c9537407` | exact-SHA CI PASS; staged deployment `3753fec4-9746-4bef-aa07-7c433d8704f6` SUCCESS; independent verification PASS; promotion pending |
+| Qualification app rollback baseline | `chriskulbaba2025/gacm-qualification-sandbox` | `8f070ff4419c2d0318356b13f656bf4f0de21021` | protected rollback target |
+| Qualification app promoted authority | `chriskulbaba2025/gacm-qualification-sandbox` / `main` | `32d474fdb8fe0672d826ff434b4bfc94c9537407` | promoted by fast-forward; SETTLE PASS; STABLE |
+| Final MVP application candidate | `candidate/mvp-final-closure-20261003` | `32d474fdb8fe0672d826ff434b4bfc94c9537407` | matches promoted `main`; Railway deployment `3753fec4-9746-4bef-aa07-7c433d8704f6` SUCCESS |
 | SPEC | `chriskulbaba2025/spec-skill` / `main` | `30bfb0e78bab11c1e20cdc74b45530114c431654` | upstream authority |
 | CRIT | `chriskulbaba2025/crit-universal-skill` / `main` | `187b7f7d3d63025f98386da09255942d6693303d` | upstream authority |
 
@@ -62,14 +63,16 @@ V2 graph memory, graph-aware CRIT, retrieval, convergence, and related architect
 ## Current closure authority and currentness facts
 
 - GACM governance final-closure work is isolated on `governance/gacm-mvp-final-closure-20261003`; `gacm-trial/main` remains unchanged before final durable closure promotion.
-- Qualification-app `main` remains `8f070ff4419c2d0318356b13f656bf4f0de21021` before promotion and is the protected rollback target.
-- Final application candidate `32d474fdb8fe0672d826ff434b4bfc94c9537407` is preserved on remote branch `candidate/mvp-final-closure-20261003`.
+- Qualification-app `main` is promoted to exact candidate `32d474fdb8fe0672d826ff434b4bfc94c9537407`; prior `main` `8f070ff4419c2d0318356b13f656bf4f0de21021` remains the protected rollback target.
+- Final application candidate `32d474fdb8fe0672d826ff434b4bfc94c9537407` remains preserved on remote branch `candidate/mvp-final-closure-20261003` and equals promoted `main`.
 - The deterministic MVP acceptance entrypoint PASSes on that exact SHA: compile PASS; strong/mixed/weak generalization 3/3 PASS; whole-system targeted 87/87 PASS; full regression 136/136 PASS.
 - Exact-SHA application CI PASSes on `32d474fdb8fe0672d826ff434b4bfc94c9537407`.
 - Railway staging deployment `3753fec4-9746-4bef-aa07-7c433d8704f6` is SUCCESS at that exact SHA; served runtime `git_head` matches; governed graph status PASS; Fast Filter AVAILABLE; Human CRIT READY.
 - Fresh live strong/mixed/weak scenarios preserve resolved strengths, material follow-up gaps, and unknown state respectively; weak input remains PRD-gated, while explicit human `PROCEED_WITH_GAPS` authority permits PRD generation/approval without hiding the recorded gap.
 - Real Microsoft Edge browser acceptance PASSes on both approved-PRD and weak/unknown states with no request-failure or `REVIEW_UNAVAILABLE` text.
 - GACM `gacm-independent-verifier-v1` issued authoritative PASS for the exact final closure delta and reviewed currentness/browser/rollback/production-unchanged outcomes.
+- Formal promotion `promotion-bb51ab895f3b78c9a710879b` required SETTLE; formal SETTLE `settle-abc7aaf62f2c260f7e83d78c` passed two complete observations and reached STABLE.
+- Durable closure record: `docs/GACM_MVP_FINAL_CLOSURE_V1.md`.
 - SPEC `main` remains `30bfb0e78bab11c1e20cdc74b45530114c431654`; CRIT `main` remains `187b7f7d3d63025f98386da09255942d6693303d`.
 - Production remains untouched.
 
