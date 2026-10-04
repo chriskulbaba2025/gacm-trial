@@ -22,7 +22,7 @@ GACM v4.2.2 remains the frozen base methodology authority. Explicitly authorized
 
 ## Current phase
 
-**GACM-GRAPH-FOUNDATION-09 - CONVERGENCE / SHARED-ROOT DETECTION - PASS**
+**GACM-GRAPH-FOUNDATION-12 — GRAPH-GOVERNED PRD / TRANCHE GENERATION — PASS**
 
 Historical Phases 1â€“14 remain preserved as recorded below. GACM-MVP-CLOSURE-00 established the reconciled candidate authority at `0dd82e6176bd00e32fddfc975584a70773350b14`; Graph Foundation 01 established the graph kernel candidate at `150f895f4effa74dee116d51dd7fbee974445447`; Graph Foundation 03B established the graph-to-PilotHarness planning candidate at `25d67953c465abe91b2ad0f5e9378e24e78dcb45`; Graph Foundation 04 established durable graph persistence at `4ecc2ead93f185bb563b99ca87580c0d90a69e27`; Foundation 05 governance closed at `74b08065f138159f6e1d49841b7baf0e9e6fc534` and binds that exact engine to qualification-app candidate `19028a49b89a00be718ee017149a7615e966e4fd`.
 
@@ -48,7 +48,7 @@ On 2026-10-03 human authority instructed GACM to take the next action after Foun
 
 ## Current objective
 
-Foundation 09 convergence/shared-root detection is accepted PASS on exact application candidate `85944f28dfbc3eeffce152a2ee022d52a0b4f41c`, preserved on remote candidate branch and deployed only to isolated Railway staging as `7bf642a9-ff27-4efa-9570-6c8d6adb5f1e`. Foundation 08 remains the accepted parent at governance SHA `40ec4c4a063f6e03e1e182a9627b7ceec880942c` and app SHA `c2b4f89d918dcf8c73bde8a490f6f42535f94038`. Qualification-app `main` remains `32d474fdb8fe0672d826ff434b4bfc94c9537407`. Detector `gacm-deterministic-convergence-v1` emits only `POSSIBLE_SHARED_ROOT_CAUSE` from explicit `converges_with` or >=2 exact shared evidence IDs, while rejecting superficial vocabulary, one-evidence overlap and graph proximity alone. Targeted 58/58 PASS, full regression 163/163 PASS, exact-SHA CI PASS, live API/currentness/browser/reopen PASS, and independent verification `verify-cf8f3cf56c6041bfeb5465ea` is authoritative PASS. No model/provider change, causal-truth promotion, graph mutation, production mutation, or `main` merge occurred.
+Foundation 12 graph-governed PRD / tranche generation is accepted PASS on exact application candidate `f20cf367e8611025ffa1cb5e698db37350537c2c`, derived from accepted Foundation 11 application parent `0f8d226b8bb28c90abf57ce5ba4f275df0d875c3`. The exact candidate is preserved on remote branch `candidate/foundation12-graph-prd-tranche-20261004` and deployed only to isolated Railway staging as `4f84c4a9-e3f7-4e39-a41f-1f9adc5b2ed4`. Deterministic planning remains `CANDIDATE_PLANNING_ONLY`; it binds current PRD, graph, evidence, scheduler and application identities, preserves inherited forbidden surfaces, and never creates execution authority. Targeted planning 9/9 PASS, graph/retrieval/convergence regression 62/62 PASS, full application regression 183/183 PASS, exact-SHA application CI PASS, live API/currentness PASS, real Microsoft Edge acceptance PASS, restart/reopen identity PASS, and independent verification `verify-7b8c71d8a5775bd9195a55c0` is authoritative PASS. Provider/model remains `openai_api / gpt-6-luna`. Both `main` branches and production remain untouched.
 
 The reconciled authority set remains defined by `docs/GACM_MVP_AUTHORITY_MANIFEST_V1.md`. The graph-first operating contract is `docs/GACM_GRAPH_ENGINEERING_FOUNDATION_V1.md`; the Jev and graph-binding contract is `docs/GACM_JEV_CLASSIFICATION_AND_GRAPH_BINDING_V1.md`; the durable graph contract is `docs/GACM_GRAPH_DURABLE_PERSISTENCE_V1.md`; the application runtime contract is `docs/GACM_GRAPH_APPLICATION_RUNTIME_INTEGRATION_V1.md`; the Foundation 06 staging-authority contract is `docs/GACM_GRAPH_FOUNDATION_06_HOSTED_STAGING_AUTHORITY_V1.md`.
 
@@ -116,9 +116,9 @@ The promoted SPEC identity is `30bfb0e78bab11c1e20cdc74b45530114c431654` on loca
 
 ## Next authorized action
 
-Complete `GACM-GRAPH-FOUNDATION-12 — GRAPH-GOVERNED PRD / TRANCHE GENERATION` only. Preserve the existing human PRD generator. Add deterministic candidate planning from the current PRD plus current governed graph. Generated tranche planning remains candidate-only and cannot approve or execute work. Graph-aware repair planning, execution, provider/model changes, production mutation, and either `main` merge remain excluded.
+**STOP at the accepted Foundation 12 boundary.** Do not open graph-aware repair planning or any later tranche without new explicit human authority. Production mutation and either `main` merge remain excluded.
 
-Current execution state: `AUTHORIZED - FOUNDATION_12_PRD_TRANCHE_GENERATION_BOUNDARY_FROZEN`.
+Current execution state: `PASS - FOUNDATION_12_ACCEPTED_STOP_BOUNDARY`.
 
 ### Historical / deferred items
 
@@ -193,3 +193,5 @@ Foundation 11 acceptance identity: app candidate `0f8d226b8bb28c90abf57ce5ba4f27
 ## Foundation 12 authority
 
 Foundation 12 opened on 2026-10-04 from accepted Foundation 11 governance SHA `0e0195265dd04cbbc2c4a8572663e824e3639c35` and accepted Foundation 11 application SHA `0f8d226b8bb28c90abf57ce5ba4f275df0d875c3`. Governing contract: `docs/GACM_GRAPH_FOUNDATION_12_PRD_TRANCHE_GENERATION_V1.md`. Existing human PRD semantics are frozen; graph output may govern candidate planning/currentness but cannot create product truth or execution authority.
+
+Foundation 12 acceptance identity: application candidate `f20cf367e8611025ffa1cb5e698db37350537c2c`; Railway staging deployment `4f84c4a9-e3f7-4e39-a41f-1f9adc5b2ed4`; independent verification `verify-7b8c71d8a5775bd9195a55c0` authoritative PASS; targeted planning 9/9 PASS; graph/retrieval/convergence regression 62/62 PASS; full application regression 183/183 PASS; exact-SHA app CI, live API/currentness, real Edge browser and restart/reopen identity PASS. No production mutation or `main` merge occurred.

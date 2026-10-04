@@ -179,3 +179,67 @@ Foundation 12 does not authorize:
 Stop at Foundation 12 acceptance boundary.
 
 Graph-aware repair planning remains a separately governed roadmap capability after Foundation 12.
+
+## Acceptance result
+
+Foundation 12 is accepted on exact application candidate:
+
+`f20cf367e8611025ffa1cb5e698db37350537c2c`
+
+Application parent:
+
+`0f8d226b8bb28c90abf57ce5ba4f275df0d875c3`
+
+Governance authority freeze:
+
+`44bee621829238a8f05cacc26d94d79a635ebb44`
+
+Accepted Railway staging deployment:
+
+`4f84c4a9-e3f7-4e39-a41f-1f9adc5b2ed4`
+
+Verification evidence:
+
+- Foundation 12 targeted planning tests: **9/9 PASS**;
+- graph/retrieval/convergence regression: **62/62 PASS**;
+- full application regression: **183/183 PASS**;
+- exact-SHA application CI: **PASS**;
+- exact application SHA equals remote candidate branch and Railway source pin: **PASS**;
+- live application identity equals exact candidate SHA: **PASS**;
+- live PRD + graph planning generation/currentness: **PASS**;
+- positive `READY_FOR_HUMAN_TRANCHE_REVIEW` branch requires PRD approval plus graph eligibility: **PASS**;
+- ready-for-review remains non-executable and explicitly requires human tranche review: **PASS**;
+- open graph gaps remain blockers and PRD approval alone cannot bypass them: **PASS**;
+- PRD, graph, evidence and candidate planning identities are receipt-bound: **PASS**;
+- inherited forbidden surfaces include `production` and `release-authority`: **PASS**;
+- planning generation is deterministic and read-only with no graph mutation: **PASS**;
+- stale graph and cross-project graph state fail closed: **PASS**;
+- restart/reopen reconstructs identical planning identity: **PASS**;
+- Foundation 08 retrieval remains intact: **PASS**;
+- Foundation 09 convergence remains intact: **PASS**;
+- Foundation 10 graph-release verification remains intact: **PASS**;
+- Foundation 11 historical failure-pattern retrieval remains intact: **PASS**;
+- live provider/model remains `openai_api / gpt-6-luna`: **PASS**;
+- real Microsoft Edge candidate-planning/authority-warning acceptance: **PASS**;
+- application and governance `main` branches remain untouched;
+- production remains untouched.
+
+Independent verifier:
+
+`gacm-independent-verifier-v1`
+
+Verification ID:
+
+`verify-7b8c71d8a5775bd9195a55c0`
+
+Outcome: **authoritative PASS**.
+
+Scope classification: **ARCHITECTURE_BEARING**. Broader requalification was required and completed through the targeted, regression, CI, staging, live-currentness, browser and restart/reopen evidence above.
+
+### Acceptance decision
+
+All Foundation 12 definition-of-done items are satisfied subject to final governance regression and exact-SHA governance CI on this acceptance record.
+
+Foundation 12 closes **PASS** at the isolated staging-candidate boundary once those governance gates pass.
+
+The mandatory stop rule applies: graph-aware repair planning and every later tranche remain **not opened**.
