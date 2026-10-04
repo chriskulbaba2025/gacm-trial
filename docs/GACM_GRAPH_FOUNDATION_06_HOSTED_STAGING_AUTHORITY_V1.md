@@ -286,7 +286,55 @@ Observed live behavior:
 - persistent SQLite/graph continuity therefore remained intact across the final deployment transition;
 - production and both `main` branches remained untouched.
 
-Foundation 06 hosted-staging acceptance is therefore PASS. This accepts only the bounded staging architecture and live hosted CRIT provider path described in this contract. It does not authorize production promotion, any `main` merge, retrieval, graph-aware CRIT, convergence, planner removal, cross-project learning, or additional provider/model changes.
+Foundation 06 hosted-staging acceptance was initially recorded PASS on deployment `874479f2-1360-4d1f-8025-89862e11313b` / app SHA `7da781a4e4279082c117442b52a9d70abad2a9c2`. Additional live acceptance then exposed an intermittent answer-review validator fallback, so that earlier acceptance evidence is superseded by the repair evidence below.
+
+## Superseding live answer-review contract repair
+
+A stale-client `ANSWER_REVISION_MUST_BE_REQUESTED` response observed during testing was correct fail-closed behavior: the tested idea had already advanced to newer persisted answers before the stale submission arrived. It did not mutate or overwrite the newer state.
+
+The actual defect was separate. OpenAI answer-review calls were completing successfully, but the original strict JSON schema guaranteed field shapes without encoding all GACM CRIT cross-field invariants. This allowed occasional schema-valid review objects that the downstream GACM validator correctly rejected, producing fail-closed `REVIEW_PENDING`.
+
+The bounded diagnostic candidate `2cee8eab46a62e7ec16b8357d44b00558c8e19ff` added only a sanitized validator error-code field to fail-closed review quality. No prompt, answer, credential, raw provider response, or provider diagnostic is persisted by that field. Evidence: 40/40 targeted PASS, 133/133 full regression PASS, exact-SHA application CI PASS.
+
+The final repair candidate `d8452cdf040d75360e711c994c2b911189d4842c` is the accepted Foundation 06 application candidate. Relative to the diagnostic candidate it changes only `crit_review.py` and `tests/test_crit_review_provider.py`.
+
+The OpenAI-only answer-review schema now structurally enforces the same resolution-state invariants already enforced by GACM post-validation. It uses a supported nested `anyOf` shape and preserves the local Codex CLI contract unchanged. It requires the exact current answer reference and constrains model references to supplied governed references. It binds:
+
+- `RESOLVED` to no material gap, follow-up, or contradiction reference;
+- `NEEDS_FOLLOWUP` to a material gap and one follow-up;
+- `CONTRADICTED` to a material gap and contradiction reference;
+- `INSUFFICIENT_EVIDENCE` to a material gap with no follow-up;
+- `UNANSWERED` to no follow-up.
+
+Final repair evidence:
+
+- targeted provider/validator/interview tests: 42/42 PASS;
+- complete application regression: 133/133 PASS;
+- exact-SHA application CI: PASS for `d8452cdf040d75360e711c994c2b911189d4842c`;
+- Railway deployment: `533ddf19-a148-49dd-8574-30a75e5e15e1` — SUCCESS;
+- Railway source commit: `d8452cdf040d75360e711c994c2b911189d4842c`;
+- local app SHA == remote app SHA == Railway deployment SHA == served runtime git SHA;
+- local and hosted canonical source-tree SHA-256: `a02e4bddbb7b3b68b661c7ce566c104f97ecc4e054bca5e5ebc5a7c6e30d36de`;
+- graph status: PASS;
+- Fast Filter: AVAILABLE;
+- Human CRIT question status: READY;
+- provider: `openai_api`;
+- requested/resolved model: `gpt-6-luna`;
+- `tools=false`;
+- `store=false`;
+- 3/3 fresh isolated live question-to-answer transactions completed without validator fallback;
+- validator error code: null in all 3;
+- valid live answer outcomes included both `RESOLVED` and `NEEDS_FOLLOWUP`;
+- real Microsoft Edge render: PASS;
+- live current question visible;
+- resolved feedback visible;
+- governed graph revision visible;
+- `Request failed`: absent;
+- `REVIEW_UNAVAILABLE`: absent;
+- persistent Railway volume remains mounted at `/data`;
+- production and both `main` branches remain untouched.
+
+Foundation 06 hosted-staging acceptance is therefore PASS on the superseding exact candidate `d8452cdf040d75360e711c994c2b911189d4842c`. This accepts only the bounded staging architecture and live hosted CRIT provider path described in this contract. It does not authorize production promotion, any `main` merge, retrieval, graph-aware CRIT, convergence, planner removal, cross-project learning, or additional provider/model changes.
 
 This authorization does not change Jev's advisory-only boundary and does not authorize retrieval, web search, external tools, autonomous execution, provider/model fallback, model escalation, production deployment, or either `main` merge.
 
@@ -310,4 +358,4 @@ Foundation 06 does not authorize:
 
 `PASS — FOUNDATION_06_HOSTED_STAGING_ACCEPTED`
 
-Railway hosting, exact release identity, provider/model authority, live OpenAI CRIT semantic review, Fast Filter advisory boundary, persistence, browser rendering, and post-secret redeploy continuity are accepted. Foundation 06 is closed at this tranche boundary. No next tranche, production promotion, or `main` merge is authorized by this PASS.
+Railway hosting, exact release identity, provider/model authority, live OpenAI CRIT semantic review, hardened answer-review contract, Fast Filter advisory boundary, persistence, browser rendering, and final deployment currentness are accepted on exact candidate `d8452cdf040d75360e711c994c2b911189d4842c` / deployment `533ddf19-a148-49dd-8574-30a75e5e15e1`. Foundation 06 is closed at this tranche boundary. No next tranche, production promotion, or `main` merge is authorized by this PASS.
