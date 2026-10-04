@@ -48,7 +48,7 @@ On 2026-10-03 human authority instructed GACM to take the next action after Foun
 
 ## Current objective
 
-Foundation 12 graph-governed PRD / tranche generation is accepted PASS on exact application candidate `f20cf367e8611025ffa1cb5e698db37350537c2c`, derived from accepted Foundation 11 application parent `0f8d226b8bb28c90abf57ce5ba4f275df0d875c3`. The exact candidate is preserved on remote branch `candidate/foundation12-graph-prd-tranche-20261004` and deployed only to isolated Railway staging as `4f84c4a9-e3f7-4e39-a41f-1f9adc5b2ed4`. Deterministic planning remains `CANDIDATE_PLANNING_ONLY`; it binds current PRD, graph, evidence, scheduler and application identities, preserves inherited forbidden surfaces, and never creates execution authority. Targeted planning 9/9 PASS, graph/retrieval/convergence regression 62/62 PASS, full application regression 183/183 PASS, exact-SHA application CI PASS, live API/currentness PASS, real Microsoft Edge acceptance PASS, restart/reopen identity PASS, and independent verification `verify-7b8c71d8a5775bd9195a55c0` is authoritative PASS. Provider/model remains `openai_api / gpt-6-luna`. Both `main` branches and production remain untouched.
+Foundation 13 graph-aware repair planning and graph-integrity preconditions are accepted PASS on exact application candidate `df2ede96481f13905fe1dc9459a096cbebe329cc`, derived from accepted Foundation 12 application parent `f20cf367e8611025ffa1cb5e698db37350537c2c`. The exact candidate is preserved on remote branch `candidate/foundation13-graph-repair-planning-20261004`. Foundation 13 composes the accepted independent verifier and Phase 9 `RepairScopePlanner`, binds them to current graph/planning identity, preserves non-PASS verifier authority semantics, enforces graph identity/conflict/negative-retrieval controls, and emits only `CANDIDATE_REPAIR_PLANNING_ONLY` with `execution_authorized = false`. Targeted Foundation 08-13 regression 58/58 PASS, full application regression 202 tests plus 28 subtests PASS, compile/diff/secret/scope gates PASS, exact-SHA application CI run `37233740601` / job `111528636745` PASS, restart/reopen determinism PASS, and independent verification `verify-43b43a36f351086146238c5b` is authoritative PASS with `ARCHITECTURE_BEARING` scope and required broader requalification completed. Foundation 13 deliberately exposes no public repair-planning API; hosted staging/browser acceptance for the new internal component is `NOT_APPLICABLE`, while existing browser/runtime surfaces remain covered by the full regression. Both `main` branches and production remain untouched.
 
 The reconciled authority set remains defined by `docs/GACM_MVP_AUTHORITY_MANIFEST_V1.md`. The graph-first operating contract is `docs/GACM_GRAPH_ENGINEERING_FOUNDATION_V1.md`; the Jev and graph-binding contract is `docs/GACM_JEV_CLASSIFICATION_AND_GRAPH_BINDING_V1.md`; the durable graph contract is `docs/GACM_GRAPH_DURABLE_PERSISTENCE_V1.md`; the application runtime contract is `docs/GACM_GRAPH_APPLICATION_RUNTIME_INTEGRATION_V1.md`; the Foundation 06 staging-authority contract is `docs/GACM_GRAPH_FOUNDATION_06_HOSTED_STAGING_AUTHORITY_V1.md`.
 
@@ -116,9 +116,9 @@ The promoted SPEC identity is `30bfb0e78bab11c1e20cdc74b45530114c431654` on loca
 
 ## Next authorized action
 
-**STOP at the accepted Foundation 12 boundary.** Do not open graph-aware repair planning or any later tranche without new explicit human authority. Production mutation and either `main` merge remain excluded.
+**STOP at the accepted Foundation 13 boundary.** Foundation 14 - Governed Candidate-Tranche Execution Bridge - is the next frozen-roadmap stage but is not opened by this acceptance. Production mutation and either `main` merge remain excluded.
 
-Current execution state: `PASS - FOUNDATION_12_ACCEPTED_STOP_BOUNDARY`.
+Current execution state: `PASS - FOUNDATION_13_ACCEPTED_STOP_BOUNDARY`.
 
 ### Historical / deferred items
 
@@ -218,7 +218,9 @@ Foundation 13 objective is graph-aware repair planning plus the graph-integrity 
 
 Governance parent is 6df6e99e3cf896862f220d9f1320866a569a87ea. Application parent is f20cf367e8611025ffa1cb5e698db37350537c2c.
 
-Current execution state: FOUNDATION_13_CONTRACT_FROZEN_IMPLEMENTATION_PENDING.
+Foundation 13 acceptance identity: application candidate `df2ede96481f13905fe1dc9459a096cbebe329cc`; application parent `f20cf367e8611025ffa1cb5e698db37350537c2c`; exact-SHA application CI run `37233740601` / job `111528636745` PASS; targeted regression 58/58 PASS; full application regression 202 tests plus 28 subtests PASS; independent verification `verify-43b43a36f351086146238c5b` authoritative PASS; scope `ARCHITECTURE_BEARING`; broader requalification required and completed. Hosted staging/browser proof for the Foundation 13 internal-only component is `NOT_APPLICABLE`; no public repair-planning endpoint exists. Production and both `main` branches remain untouched.
+
+Current execution state: `PASS - FOUNDATION_13_ACCEPTED_STOP_BOUNDARY`.
 
 
 ### Foundation 13 contract correction — verifier/repair authority

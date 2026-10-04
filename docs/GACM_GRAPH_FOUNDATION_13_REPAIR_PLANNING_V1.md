@@ -223,3 +223,53 @@ Foundation 13 may close PASS only when the exact application candidate proves:
 Stop at Foundation 13 acceptance boundary.
 
 Foundation 14 — Governed Candidate-Tranche Execution Bridge — remains planned but not opened by Foundation 13 acceptance.
+
+## 12. Acceptance result
+
+Foundation 13 is accepted on exact application candidate:
+
+`df2ede96481f13905fe1dc9459a096cbebe329cc`
+
+Application parent:
+
+`f20cf367e8611025ffa1cb5e698db37350537c2c`
+
+Governance authority before this acceptance record:
+
+`84957631bccbc0c917a359ea2a5451e21082562f`
+
+Verification evidence:
+
+- Foundation 13 direct repair-planning tests: **19/19 PASS**;
+- Foundation 08-13 targeted retrieval/convergence/failure-pattern/planning/repair regression: **58/58 PASS**;
+- full application regression: **202 tests + 28 subtests PASS**;
+- compileall: **PASS**;
+- `git diff --check`: **PASS**;
+- changed-path scope check: **PASS** - exactly `app.py`, `graph_runtime.py`, `repair_planning.py`, `tests/test_repair_planning.py`;
+- staged secret scan: **PASS**;
+- untrusted public repair-planning endpoint absent: **PASS**;
+- exact-SHA application CI: **PASS**, run `37233740601`, job `111528636745`, exact SHA `df2ede96481f13905fe1dc9459a096cbebe329cc`;
+- deterministic candidate repair planning from an existing independent non-PASS verifier receipt: **PASS**;
+- accepted `RepairScopePlanner` remains repair-scope authority: **PASS**;
+- repair output remains `CANDIDATE_REPAIR_PLANNING_ONLY` and `execution_authorized = false`: **PASS**;
+- inferred/unsupported diagnosis remains HOLD: **PASS**;
+- three failed attempts require diagnosis reset: **PASS**;
+- stale application/planning/project binding fails closed: **PASS**;
+- forbidden/out-of-scope repair surfaces fail closed: **PASS**;
+- convergence cannot create causal truth: **PASS**;
+- historical `NO_MATCH` cannot become absence: **PASS**;
+- unresolved graph conflict and identity-resolution requirements fail closed: **PASS**;
+- graph repair context is read-only and performs no graph mutation: **PASS**;
+- restart/reopen reproduces the same repair-planning identity: **PASS**;
+- independent verification `verify-43b43a36f351086146238c5b`: **authoritative PASS**;
+- independent scope classification: **ARCHITECTURE_BEARING**;
+- broader requalification required: **true** and completed through the 58-test targeted suite, complete application regression, static gates and exact-SHA CI;
+- hosted staging/browser proof for this new Foundation 13 component: **NOT_APPLICABLE** because the frozen contract deliberately prohibits a public/untrusted repair-planning input surface; no deployment was required to prove the internal component;
+- production remains untouched;
+- application and governance `main` remain untouched.
+
+### Acceptance decision
+
+Foundation 13 closes **PASS** at the isolated candidate boundary once the final governance regression and exact-SHA governance CI on this acceptance record pass.
+
+The mandatory stop rule applies: Foundation 14 and every later stage remain **not opened**.
