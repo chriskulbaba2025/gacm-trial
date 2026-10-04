@@ -1,6 +1,6 @@
 # GACM MVP Authority Manifest v1
 
-**Status:** FROZEN CANDIDATE AUTHORITY FOR MVP CLOSURE
+**Status:** FINAL MVP CLOSURE AUTHORITY — PRE-PROMOTION
 **Captured:** 2026-10-03
 **Purpose:** Establish one reproducible authority set before additional GACM MVP implementation or promotion.
 
@@ -15,13 +15,13 @@ Every governed closure run must resolve this manifest against live repository st
 | Authority | Repository / ref | Frozen identity | State |
 |---|---|---|---|
 | GACM governance | `chriskulbaba2025/gacm-trial` / `main` | `786313066f3623806fd477dd12d183be1242699d` | governing baseline |
-| GACM closure candidate | `governance/gacm-mvp-closure-00-20261003` | must be resolved from Git after this tranche commit | candidate only |
-| Qualification app baseline | `chriskulbaba2025/gacm-qualification-sandbox` / `main` | `8f070ff4419c2d0318356b13f656bf4f0de21021` | current remote main |
-| Recovered Human CRIT MVP candidate | `candidate/phase16-human-crit-mvp` | `132cff6d3280e3fe8f86b23a0113cab986df03e3` | recovered candidate; not promoted |
+| GACM final closure candidate | `governance/gacm-mvp-final-closure-20261003` | resolve from Git at each closure step | candidate; final durable record pending SETTLE |
+| Qualification app rollback baseline | `chriskulbaba2025/gacm-qualification-sandbox` / `main` | `8f070ff4419c2d0318356b13f656bf4f0de21021` | current remote main before promotion; protected rollback target |
+| Final MVP application candidate | `candidate/mvp-final-closure-20261003` | `32d474fdb8fe0672d826ff434b4bfc94c9537407` | exact-SHA CI PASS; staged deployment `3753fec4-9746-4bef-aa07-7c433d8704f6` SUCCESS; independent verification PASS; promotion pending |
 | SPEC | `chriskulbaba2025/spec-skill` / `main` | `30bfb0e78bab11c1e20cdc74b45530114c431654` | upstream authority |
 | CRIT | `chriskulbaba2025/crit-universal-skill` / `main` | `187b7f7d3d63025f98386da09255942d6693303d` | upstream authority |
 
-## Recovered candidate proof
+## Historical recovered candidate proof
 
 The recovered Human CRIT MVP candidate was re-verified on 2026-10-03:
 
@@ -35,7 +35,7 @@ The recovered Human CRIT MVP candidate was re-verified on 2026-10-03:
 
 This proves recoverability and local regression identity. It does not by itself prove staging, production, release currentness, browser acceptance, independent verification, or SETTLE.
 
-## Candidate scope actually present
+## Historical recovered candidate scope
 
 The recovered candidate adds or changes the Human CRIT application path, including:
 
@@ -59,13 +59,19 @@ That score is not runtime completion.
 
 V2 graph memory, graph-aware CRIT, retrieval, convergence, and related architecture work are outside the recovered MVP closure boundary unless separately authorized.
 
-## Known currentness facts
+## Current closure authority and currentness facts
 
-- `gacm-trial/main` contains governance work later than the historical Phase 14 state recorded in the pre-reconciliation `CURRENT_STATE.md`.
-- The recovered Human CRIT candidate was previously local-only and is now preserved as a remote candidate branch.
-- The recovered candidate has not been promoted to qualification-app `main`.
-- GACM `main` is not branch-protected as of this authority freeze.
-- No production mutation is authorized by this manifest.
+- GACM governance final-closure work is isolated on `governance/gacm-mvp-final-closure-20261003`; `gacm-trial/main` remains unchanged before final durable closure promotion.
+- Qualification-app `main` remains `8f070ff4419c2d0318356b13f656bf4f0de21021` before promotion and is the protected rollback target.
+- Final application candidate `32d474fdb8fe0672d826ff434b4bfc94c9537407` is preserved on remote branch `candidate/mvp-final-closure-20261003`.
+- The deterministic MVP acceptance entrypoint PASSes on that exact SHA: compile PASS; strong/mixed/weak generalization 3/3 PASS; whole-system targeted 87/87 PASS; full regression 136/136 PASS.
+- Exact-SHA application CI PASSes on `32d474fdb8fe0672d826ff434b4bfc94c9537407`.
+- Railway staging deployment `3753fec4-9746-4bef-aa07-7c433d8704f6` is SUCCESS at that exact SHA; served runtime `git_head` matches; governed graph status PASS; Fast Filter AVAILABLE; Human CRIT READY.
+- Fresh live strong/mixed/weak scenarios preserve resolved strengths, material follow-up gaps, and unknown state respectively; weak input remains PRD-gated, while explicit human `PROCEED_WITH_GAPS` authority permits PRD generation/approval without hiding the recorded gap.
+- Real Microsoft Edge browser acceptance PASSes on both approved-PRD and weak/unknown states with no request-failure or `REVIEW_UNAVAILABLE` text.
+- GACM `gacm-independent-verifier-v1` issued authoritative PASS for the exact final closure delta and reviewed currentness/browser/rollback/production-unchanged outcomes.
+- SPEC `main` remains `30bfb0e78bab11c1e20cdc74b45530114c431654`; CRIT `main` remains `187b7f7d3d63025f98386da09255942d6693303d`.
+- Production remains untouched.
 
 ## Executor authority
 
@@ -86,18 +92,11 @@ A different model requires explicit human authorization recorded in durable run 
 
 ## Promotion boundary
 
-This manifest authorizes reconciliation and proof only.
+On 2026-10-03, after Foundation 06 acceptance, human authority explicitly instructed GACM to continue to the end, stop requesting tranche-by-tranche authorization, and finish the MVP. Within the frozen `GACM_MVP_CLOSURE_CONTRACT_V1.md`, this is standing human authority for the remaining MVP closure sequence: final audit, exact-candidate verification, qualification-app `main` promotion, post-promotion SETTLE, durable closure record, and final GACM closure-record promotion.
 
-It does not authorize:
+This standing authority does not expand the frozen MVP definition of done. It does not authorize production mutation, provider/model substitution, retrieval, graph-aware CRIT, convergence, autonomous learning, or other post-MVP V2 implementation.
 
-- merge to GACM `main`;
-- promotion of `132cff6d...` to qualification-app `main`;
-- staging deployment;
-- production deployment;
-- provider/model substitution;
-- V2 implementation.
-
-Promotion requires the GACM MVP Closure Contract, exact-head verification, release-currentness proof, and explicit human promotion authority.
+Promotion is permitted only if exact-head verification, release-currentness, real runtime/browser acceptance, rollback proof, whole-system/generalization proof, and independent verification are all PASS on the exact candidate. Any mismatch remains HOLD.
 
 ## Fail-closed rule
 

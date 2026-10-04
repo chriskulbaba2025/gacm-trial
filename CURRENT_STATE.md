@@ -22,11 +22,11 @@ GACM v4.2.2 remains the frozen base methodology authority. Explicitly authorized
 
 ## Current phase
 
-**GACM-GRAPH-FOUNDATION-06 — HOSTED STAGING AUTHORITY / DEPLOYMENT BOUNDARY**
+**GACM-MVP-FINAL-CLOSURE — PRE-PROMOTION**
 
 Historical Phases 1–14 remain preserved as recorded below. GACM-MVP-CLOSURE-00 established the reconciled candidate authority at `0dd82e6176bd00e32fddfc975584a70773350b14`; Graph Foundation 01 established the graph kernel candidate at `150f895f4effa74dee116d51dd7fbee974445447`; Graph Foundation 03B established the graph-to-PilotHarness planning candidate at `25d67953c465abe91b2ad0f5e9378e24e78dcb45`; Graph Foundation 04 established durable graph persistence at `4ecc2ead93f185bb563b99ca87580c0d90a69e27`; Foundation 05 governance closed at `74b08065f138159f6e1d49841b7baf0e9e6fc534` and binds that exact engine to qualification-app candidate `19028a49b89a00be718ee017149a7615e966e4fd`.
 
-On 2026-10-03 human authority instructed GACM to take the next action after Foundation 05 passed. Foundation 06 is therefore authorized as the separately governed hosted-staging boundary. This authorization permits authority resolution and bounded staging work only after provider/account/project/environment identity is explicit. It does not authorize GACM to infer a provider from accessible accounts or tools, incur provider cost, create a cloud project, deploy, merge either `main`, mutate production, or absorb retrieval, convergence, graph-aware CRIT, or legacy-planner removal.
+On 2026-10-03 human authority instructed GACM to take the next action after Foundation 05 passed. Foundation 06 was therefore opened as the separately governed hosted-staging boundary and is now accepted. After that acceptance, human authority explicitly instructed GACM to continue to the end without tranche-by-tranche authorization and finish the MVP. Under the frozen MVP closure contract, that standing authority covers final audit, exact-candidate verification, qualification-app `main` promotion, post-promotion SETTLE, durable closure record, and final GACM closure-record promotion. Production mutation and post-MVP V2 expansion remain excluded.
 
 ## Phase history
 
@@ -48,13 +48,13 @@ On 2026-10-03 human authority instructed GACM to take the next action after Foun
 
 ## Current objective
 
-Foundation 06 hosted staging is accepted at final Railway deployment `533ddf19-a148-49dd-8574-30a75e5e15e1`, exact app SHA `d8452cdf040d75360e711c994c2b911189d4842c`. Live OpenAI CRIT using `gpt-6-luna` is proven end-to-end for question selection, semantic answer review, follow-up handling, next-question advancement, Fast Filter advisory classification, persistence, exact runtime/source currentness, and real browser rendering. The final repair hardened the OpenAI structured answer-review contract after an intermittent validator fallback was discovered in additional live acceptance. Preserve this accepted staging boundary and stop before any next tranche, production promotion, or `main` merge.
+Final MVP application candidate `32d474fdb8fe0672d826ff434b4bfc94c9537407` is preserved on `candidate/mvp-final-closure-20261003` and deployed to Railway staging as `3753fec4-9746-4bef-aa07-7c433d8704f6` with status SUCCESS. The deterministic acceptance entrypoint PASSes on the exact candidate; explicit strong/mixed/weak generalization, whole-system targeted tests, full regression, exact-SHA CI, live strong/mixed/weak runtime behavior, PRD gating/human override, real Edge rendering, release currentness, rollback identity, and GACM independent verification all PASS. Qualification-app `main` remains the pre-promotion rollback SHA `8f070ff4419c2d0318356b13f656bf4f0de21021`. Next action is promotion, then SETTLE and durable closure.
 
 The reconciled authority set remains defined by `docs/GACM_MVP_AUTHORITY_MANIFEST_V1.md`. The graph-first operating contract is `docs/GACM_GRAPH_ENGINEERING_FOUNDATION_V1.md`; the Jev and graph-binding contract is `docs/GACM_JEV_CLASSIFICATION_AND_GRAPH_BINDING_V1.md`; the durable graph contract is `docs/GACM_GRAPH_DURABLE_PERSISTENCE_V1.md`; the application runtime contract is `docs/GACM_GRAPH_APPLICATION_RUNTIME_INTEGRATION_V1.md`; the Foundation 06 staging-authority contract is `docs/GACM_GRAPH_FOUNDATION_06_HOSTED_STAGING_AUTHORITY_V1.md`.
 
-The authoritative SPEC `main` identity remains `30bfb0e78bab11c1e20cdc74b45530114c431654`. The authoritative CRIT `main` identity remains `187b7f7d3d63025f98386da09255942d6693303d`. The accepted Foundation 05 qualification-app candidate remains `19028a49b89a00be718ee017149a7615e966e4fd` and is the only authorized Foundation 06 application parent.
+The authoritative SPEC `main` identity remains `30bfb0e78bab11c1e20cdc74b45530114c431654`. The authoritative CRIT `main` identity remains `187b7f7d3d63025f98386da09255942d6693303d`. Foundation 05 and Foundation 06 identities remain preserved as historical parents/evidence; the exact final MVP application candidate is now `32d474fdb8fe0672d826ff434b4bfc94c9537407`.
 
-Retrieval, graph-aware CRIT, convergence, removal of the legacy planner, application `main` merge, GACM `main` merge, and production migration remain outside this tranche.
+Retrieval, graph-aware CRIT, convergence, removal of the legacy planner, cross-project learning, and production migration remain outside MVP closure. Qualification-app `main` promotion and final GACM closure-record `main` promotion are now authorized only as the final closure steps after all frozen gates PASS.
 
 ## Completed phases
 
@@ -116,22 +116,21 @@ The promoted SPEC identity is `30bfb0e78bab11c1e20cdc74b45530114c431654` on loca
 
 ## Next authorized action
 
-Complete `GACM-GRAPH-FOUNDATION-06` only:
+Complete the frozen MVP closure sequence only:
 
-1. preserve governance parent `74b08065f138159f6e1d49841b7baf0e9e6fc534` and application parent `19028a49b89a00be718ee017149a7615e966e4fd`;
-2. resolve hosting provider, account/workspace/team, provider project, staging environment, credential provenance, deployment target/service, durable-storage identity, staging URL/currentness, rollback, and hosted-browser acceptance authority;
-3. treat accessible provider accounts/projects and compatibility evidence as discovery only, never authority;
-4. make no provider mutation while any required authority field is missing;
-5. once authority is complete, add only the minimum staging configuration required for the accepted application;
-6. preserve SQLite/application authority, durable graph behavior, vendored engine identity, and all Foundation 05 semantics;
-7. run targeted staging tests and complete application regression after any app/config change;
-8. deploy the exact candidate only to the explicitly authorized staging target;
-9. prove deployment identity, served-candidate currentness, durable restart/redeploy continuity, rollback boundary, and real hosted browser acceptance;
-10. STOP before retrieval, graph-aware CRIT, convergence, legacy-planner removal, either `main` merge, production deployment, or production promotion.
+1. commit and verify the reconciled final authority manifest on the final-closure governance branch;
+2. verify qualification-app `main` still equals rollback target `8f070ff4419c2d0318356b13f656bf4f0de21021`;
+3. promote exact application candidate `32d474fdb8fe0672d826ff434b4bfc94c9537407` to qualification-app `main` by fast-forward only;
+4. prove post-promotion currentness: app `main` == remote candidate == Railway deployment == served runtime identity;
+5. run post-promotion SETTLE observations including HTTP/browser health, persisted strong/weak records, graph PASS, provider/model continuity, and rollback availability;
+6. write the durable MVP closure record;
+7. run final GACM governance regression/currentness;
+8. promote only the final durable GACM closure record to GACM `main` by fast-forward if its exact candidate remains verified;
+9. STOP with production untouched and post-MVP V2 work deferred.
 
-Current execution state: `PASS — FOUNDATION_06_HOSTED_STAGING_ACCEPTED / STOP AT TRANCHE BOUNDARY`.
+Current execution state: `READY_FOR_PROMOTION — ALL PRE-PROMOTION MVP GATES PASS`.
 
-### Current HOLD items
+### Historical / deferred items
 
 - qualification-app Foundation 05 candidate `19028a49b89a00be718ee017149a7615e966e4fd` is remotely preserved and exact-SHA CI/browser accepted but is not merged to app `main`;
 - GACM `main` remains unprotected;
@@ -142,7 +141,7 @@ Current execution state: `PASS — FOUNDATION_06_HOSTED_STAGING_ACCEPTED / STOP 
 - PilotHarness remains the accepted lifecycle owner; Graph Foundation 03B adds an explicit graph-authoritative planning mode while preserving the legacy planner as the default/shadow path until graph scheduling is independently accepted;
 - TypeSafe Jev remains an advisory classifier boundary; Foundation 03A proved one live authenticated governed `POST /v1/systemone` path, with `jev-latest` resolving to `jev-1.13.0`, projection only as `INFERRED`, and GraphScheduler returning `COLLECT_EVIDENCE`; Jev is not graph truth;
 - `jev-latest` is a provider alias, so the runtime records requested/resolved model and request/result digests; immutable provider-version currentness remains a future hardening item if TypeSafe exposes a durable version identity;
-- Railway final Foundation 06 deployment `533ddf19-a148-49dd-8574-30a75e5e15e1` is SUCCESS at exact app SHA `d8452cdf040d75360e711c994c2b911189d4842c`; live OpenAI `gpt-6-luna` CRIT is READY, Fast Filter is AVAILABLE/ADVISORY_ONLY, the final OpenAI review schema enforces CRIT cross-field invariants and the exact current-answer reference, 3/3 fresh hosted answer reviews completed with zero validator errors, valid outcomes included RESOLVED and NEEDS_FOLLOWUP, local/remote/Railway/served identity matched with canonical source hash `a02e4bddbb7b3b68b661c7ce566c104f97ecc4e054bca5e5ebc5a7c6e30d36de`, real Edge browser rendering PASS with no REVIEW_UNAVAILABLE or request-failure text, credential value was never retrieved or persisted, and production/main remain untouched;
+- Foundation 06 final deployment `533ddf19-a148-49dd-8574-30a75e5e15e1` / app SHA `d8452cdf040d75360e711c994c2b911189d4842c` remains preserved as the accepted parent. Final MVP closure supersedes it only by adding the deterministic acceptance entrypoint/generalization closure proof on app SHA `32d474fdb8fe0672d826ff434b4bfc94c9537407`, deployed as `3753fec4-9746-4bef-aa07-7c433d8704f6`; all pre-promotion closure gates PASS and production remains untouched;
 - production remains untouched.
 
 
