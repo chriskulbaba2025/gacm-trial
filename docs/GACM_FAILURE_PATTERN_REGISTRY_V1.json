@@ -1,0 +1,102 @@
+{
+  "schema": "GACM_FAILURE_PATTERN_REGISTRY_V1",
+  "version": "1",
+  "authority_scope": "GACM_GENERALIZED_GOVERNANCE_PATTERNS",
+  "completeness_semantics": "NO_MATCH_IS_NOT_ABSENT",
+  "patterns": [
+    {
+      "pattern_id": "EXTERNAL_PROVIDER_AUTHORITY_UNDER_SPECIFICATION",
+      "version": "1",
+      "title": "External provider authority under-specification",
+      "scope": [
+        "authenticated external actions",
+        "provider/service selection"
+      ],
+      "signals": [
+        "provider inferred from availability",
+        "compatible provider substituted",
+        "provider chosen from ambient configuration",
+        "provider identity not proven from governing project authority"
+      ],
+      "anti_signals": [
+        "provider identity explicitly named by accepted project configuration",
+        "governed provider manifest proves provider/account/environment scope"
+      ],
+      "known_mechanisms": [
+        "ambient credentials",
+        "installed SDK or CLI",
+        "API compatibility",
+        "cost or popularity substitution",
+        "unrelated project configuration"
+      ],
+      "prevention_guidance": [
+        "resolve authoritative provider identity before credential selection or network execution",
+        "treat discovered providers as unavailable for execution until authorized"
+      ],
+      "detecting_tests": [
+        "unknown provider negative control",
+        "compatible alternate provider negative control",
+        "multiple discovered providers negative control",
+        "matching but unauthorized runtime manifest negative control"
+      ],
+      "known_false_positives": [
+        "a discovered provider that exactly matches a separately proven authoritative provider identity"
+      ],
+      "provenance_refs": [
+        "docs/GACM_EXTERNAL_PROVIDER_AUTHORITY_AND_CREDENTIAL_PROVENANCE_GATE_V1.md",
+        "docs/GACM_DEFECT_ESCAPE_TAXONOMY_V1.md"
+      ],
+      "currentness": "CURRENT",
+      "generalization_status": "GENERALIZED",
+      "data_classification": "GOVERNANCE_GENERALIZED",
+      "cross_project_safe": true
+    },
+    {
+      "pattern_id": "CREDENTIAL_PROVENANCE_UNDER_SPECIFICATION",
+      "version": "1",
+      "title": "Credential provenance under-specification",
+      "scope": [
+        "authenticated external actions",
+        "credential selection"
+      ],
+      "signals": [
+        "credential chosen because it is available",
+        "credential scope or environment not proven",
+        "global credential reused for governed project",
+        "provider identity proven but credential source unproven"
+      ],
+      "anti_signals": [
+        "non-secret credential provenance proves project/provider/environment/account scope",
+        "credential source is explicitly authorized by governing project configuration"
+      ],
+      "known_mechanisms": [
+        "global environment variables",
+        "authenticated CLI sessions",
+        "shared machine credentials",
+        "unrelated project secrets",
+        "multiple discovered credentials"
+      ],
+      "prevention_guidance": [
+        "prove non-secret credential provenance before authenticated network execution",
+        "bind credential source to governed provider/project/environment/account scope"
+      ],
+      "detecting_tests": [
+        "unrelated global token negative control",
+        "wrong account or environment negative control",
+        "wrong credential-source negative control",
+        "multiple credential negative control"
+      ],
+      "known_false_positives": [
+        "an available credential whose provenance is independently proven for the exact governed scope"
+      ],
+      "provenance_refs": [
+        "docs/GACM_EXTERNAL_PROVIDER_AUTHORITY_AND_CREDENTIAL_PROVENANCE_GATE_V1.md",
+        "docs/GACM_DEFECT_ESCAPE_TAXONOMY_V1.md"
+      ],
+      "currentness": "CURRENT",
+      "generalization_status": "GENERALIZED",
+      "data_classification": "GOVERNANCE_GENERALIZED",
+      "cross_project_safe": true
+    }
+  ]
+}

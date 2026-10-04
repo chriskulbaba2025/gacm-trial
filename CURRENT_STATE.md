@@ -116,9 +116,9 @@ The promoted SPEC identity is `30bfb0e78bab11c1e20cdc74b45530114c431654` on loca
 
 ## Next authorized action
 
-STOP at the Foundation 10 boundary. Independently verified graph-derived release acceptance is accepted and mandatory for graph-backed release evidence. The graph remains evidence/context, never release authority. Promotion, production, SETTLE, reusable learning, cross-project learning, provider/model changes, application mutation, Railway mutation, and either `main` merge require separate governed objectives.
+Complete `GACM-GRAPH-FOUNDATION-11 — HISTORICAL FAILURE-PATTERN RETRIEVAL` only. Retrieve only already-governed, current `GENERALIZED`, cross-project-safe governance patterns. Historical pattern context remains advisory and cannot become current-project evidence, causal truth, readiness, PRD approval, repair scope, execution authority, or release authority. Creation/promotion of new patterns, raw cross-project evidence, cross-project learning writes, PRD/tranche generation, graph-aware repair planning, provider/model changes, production mutation, and either `main` merge remain excluded.
 
-Current execution state: `PASS - FOUNDATION_10_GRAPH_DERIVED_RELEASE_ACCEPTANCE_ACCEPTED / STOP AT TRANCHE BOUNDARY`.
+Current execution state: `AUTHORIZED - FOUNDATION_11_FAILURE_PATTERN_RETRIEVAL_BOUNDARY_FROZEN`.
 
 ### Historical / deferred items
 
@@ -183,3 +183,7 @@ Acceptance identity: implementation candidate `8ae0eb6779972d5da0c326e6820f6704a
 Foundation 10 opened on 2026-10-04 from governance parent `4bd875e268fa2700e5aa945711ebe65213adc587`. The governing contract is `docs/GACM_GRAPH_FOUNDATION_10_RELEASE_ACCEPTANCE_V1.md`. The accepted qualification-app staging candidate under live proof remains `85944f28dfbc3eeffce152a2ee022d52a0b4f41c`; this tranche does not authorize promoting it. CL-43 remains mandatory for every execution-ready work unit.
 
 Foundation 10 acceptance identity: governance implementation `5dcaa68227169e0db7c857251748205ac7e1e5d1`; independent verification `verify-2404d6cc5f582031022df0f8` authoritative PASS; live graph-release evidence digest `ff06d747878542687aa9f39fb9c5c883751b4d44806b9c1a4fd6911f28fc21a5`; targeted 60/60 PASS; full governance regression 274/274 PASS; exact implementation CI PASS; application/Railway/production unchanged.
+
+## Foundation 11 authority
+
+Foundation 11 opened on 2026-10-04 from accepted Foundation 10 governance SHA `e93a1f2b50feff47490dde4e99236d2a2f55b209` and accepted Foundation 09 application SHA `85944f28dfbc3eeffce152a2ee022d52a0b4f41c`. The governing contract is `docs/GACM_GRAPH_FOUNDATION_11_FAILURE_PATTERN_RETRIEVAL_V1.md`. The authoritative initial registry is `docs/GACM_FAILURE_PATTERN_REGISTRY_V1.json`. Only patterns already explicitly governed as `GENERALIZED` may be exposed across project boundaries; no new generalization authority is created by this tranche. CL-43 remains mandatory.
