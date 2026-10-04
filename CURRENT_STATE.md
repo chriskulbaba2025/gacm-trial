@@ -116,9 +116,9 @@ The promoted SPEC identity is `30bfb0e78bab11c1e20cdc74b45530114c431654` on loca
 
 ## Next authorized action
 
-The cross-cutting `GACM Execution Authority and Inference State Contract v1` is accepted and mandatory. Foundation 10 may now be opened as a separate governed objective, and must inherit CL-43 without weakening or bypassing it. This acceptance does not itself open Foundation 10, promote either `main`, mutate the qualification application, or touch production.
+Complete `GACM-GRAPH-FOUNDATION-10 — INDEPENDENTLY VERIFIED GRAPH-DERIVED RELEASE ACCEPTANCE` only. Foundation 10 inherits CL-43 without weakening it. The graph may contribute release evidence but may not become release authority; only the independent verifier may issue authoritative PASS after independently checking exact candidate/runtime identity, graph currentness, retrieval/convergence provenance, qualifying epistemic state, evidence/provenance, and release-currentness. Promotion, production, `main` merges, app-code changes, Railway changes, provider/model changes, graph-triggered release, and autonomous release remain excluded.
 
-Current execution state: `PASS - EXECUTION_AUTHORITY_AND_INFERENCE_STATE_ACCEPTED / FOUNDATION_10_NOT_OPENED`.
+Current execution state: `AUTHORIZED - FOUNDATION_10_IMPLEMENTATION_BOUNDARY_FROZEN`.
 
 ### Historical / deferred items
 
@@ -177,3 +177,7 @@ The executor may not edit its own recipe. Invalid or unexpected runtime state st
 The machine enforcement implementation lives in `src/gacm/execution/action_authority.py`, the GCU execution adapter, graph scheduler/binder, execution policy, durable run-state schema and associated negative-path tests. This correction is cross-cutting and precedes Foundation 10; it does not redefine Foundation 10 or reopen the closed MVP.
 
 Acceptance identity: implementation candidate `8ae0eb6779972d5da0c326e6820f6704aa209877`; independent verification `verify-4ea554fa7257310fe0a81c03` authoritative PASS; scope classification `AUTHORITY_BEARING`; targeted 85/85 PASS; full governance regression 258/258 PASS; exact-SHA CI PASS.
+
+## Foundation 10 authority
+
+Foundation 10 opened on 2026-10-04 from governance parent `4bd875e268fa2700e5aa945711ebe65213adc587`. The governing contract is `docs/GACM_GRAPH_FOUNDATION_10_RELEASE_ACCEPTANCE_V1.md`. The accepted qualification-app staging candidate under live proof remains `85944f28dfbc3eeffce152a2ee022d52a0b4f41c`; this tranche does not authorize promoting it. CL-43 remains mandatory for every execution-ready work unit.
