@@ -195,3 +195,15 @@ Foundation 11 acceptance identity: app candidate `0f8d226b8bb28c90abf57ce5ba4f27
 Foundation 12 opened on 2026-10-04 from accepted Foundation 11 governance SHA `0e0195265dd04cbbc2c4a8572663e824e3639c35` and accepted Foundation 11 application SHA `0f8d226b8bb28c90abf57ce5ba4f275df0d875c3`. Governing contract: `docs/GACM_GRAPH_FOUNDATION_12_PRD_TRANCHE_GENERATION_V1.md`. Existing human PRD semantics are frozen; graph output may govern candidate planning/currentness but cannot create product truth or execution authority.
 
 Foundation 12 acceptance identity: application candidate `f20cf367e8611025ffa1cb5e698db37350537c2c`; Railway staging deployment `4f84c4a9-e3f7-4e39-a41f-1f9adc5b2ed4`; independent verification `verify-7b8c71d8a5775bd9195a55c0` authoritative PASS; targeted planning 9/9 PASS; graph/retrieval/convergence regression 62/62 PASS; full application regression 183/183 PASS; exact-SHA app CI, live API/currentness, real Edge browser and restart/reopen identity PASS. No production mutation or `main` merge occurred.
+
+## Foundation completion roadmap authority
+
+On 2026-10-04, human authority explicitly instructed GACM to freeze and audit the remaining Foundation roadmap so the completion target cannot continue moving.
+
+The frozen roadmap is `docs/GACM_FOUNDATION_COMPLETION_ROADMAP_V1.md`.
+
+The accepted Foundation 12 boundary remains unchanged. The fixed remaining sequence is Foundation 13 through Foundation 18, with Foundation 18 defined as capability-free whole-foundation closure. There is no implied Foundation 19.
+
+Foundation 13 is the next planned capability: graph-aware repair planning. This roadmap does not open Foundation 13 or any later implementation tranche. A later capability may enter or alter the frozen Foundation sequence only through an explicit human-authorized roadmap amendment proving that the change is required to satisfy the frozen Foundation Complete definition.
+
+Production mutation and either `main` merge remain outside this roadmap authority.
