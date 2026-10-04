@@ -1,4 +1,4 @@
-# GACM Trial — Current State
+# GACM Trial â€” Current State
 
 ## Authoritative repository
 
@@ -22,39 +22,39 @@ GACM v4.2.2 remains the frozen base methodology authority. Explicitly authorized
 
 ## Current phase
 
-**GACM-GRAPH-FOUNDATION-08 — BOUNDED RETRIEVAL — PASS**
+**GACM-GRAPH-FOUNDATION-09 â€” CONVERGENCE / SHARED-ROOT DETECTION**
 
-Historical Phases 1–14 remain preserved as recorded below. GACM-MVP-CLOSURE-00 established the reconciled candidate authority at `0dd82e6176bd00e32fddfc975584a70773350b14`; Graph Foundation 01 established the graph kernel candidate at `150f895f4effa74dee116d51dd7fbee974445447`; Graph Foundation 03B established the graph-to-PilotHarness planning candidate at `25d67953c465abe91b2ad0f5e9378e24e78dcb45`; Graph Foundation 04 established durable graph persistence at `4ecc2ead93f185bb563b99ca87580c0d90a69e27`; Foundation 05 governance closed at `74b08065f138159f6e1d49841b7baf0e9e6fc534` and binds that exact engine to qualification-app candidate `19028a49b89a00be718ee017149a7615e966e4fd`.
+Historical Phases 1â€“14 remain preserved as recorded below. GACM-MVP-CLOSURE-00 established the reconciled candidate authority at `0dd82e6176bd00e32fddfc975584a70773350b14`; Graph Foundation 01 established the graph kernel candidate at `150f895f4effa74dee116d51dd7fbee974445447`; Graph Foundation 03B established the graph-to-PilotHarness planning candidate at `25d67953c465abe91b2ad0f5e9378e24e78dcb45`; Graph Foundation 04 established durable graph persistence at `4ecc2ead93f185bb563b99ca87580c0d90a69e27`; Foundation 05 governance closed at `74b08065f138159f6e1d49841b7baf0e9e6fc534` and binds that exact engine to qualification-app candidate `19028a49b89a00be718ee017149a7615e966e4fd`.
 
 On 2026-10-03 human authority instructed GACM to take the next action after Foundation 05 passed. Foundation 06 was therefore opened as the separately governed hosted-staging boundary and is now accepted. After that acceptance, human authority explicitly instructed GACM to continue to the end without tranche-by-tranche authorization and finish the MVP. Under the frozen MVP closure contract, that standing authority covers final audit, exact-candidate verification, qualification-app `main` promotion, post-promotion SETTLE, durable closure record, and final GACM closure-record promotion. Production mutation and post-MVP V2 expansion remain excluded.
 
 ## Phase history
 
-- Phase 1 — Control-Layer Audit: **PASS** — commit `efc2622fdc46310c2aae7c12c6cb2e6291848aa4`
-- Phase 2 — Durable Run-State Schema: **PASS** — commit `35f74bc84209591ccb19dec67fbeadb8e04779c2`
-- Phase 3 — GitHub Authority Resolver: **PASS** — commit `cc9fb773aa31324a2f8e764e482de0516783ace5`
-- Phase 4 — Graphify Discovery Adapter: **PASS** — commit `95f7d599c4ebc85fccfcbfce5522eeb14e17fd8f`
-- Phase 5 — Authoritative Operational Context Resolver: **PASS** — commit `575315bab2cb5cc120af232a15597d36fb8ff4b7`
-- Phase 6 — Deterministic Model Router: **PASS** — commit `cf53ee63fa6888b89cfbdff0e718405c26d7f5cb`
-- Phase 7 — GCU Execution Adapter: **PASS** — commit `2277d3a`
-- Phase 8 — Independent Verification Engine: **PASS** — commit `25d5c65`
-- Phase 9 — Repair-Scope / Dependency Logic: **PASS** — commit `1998bea`
-- Phase 10 — Placeholder and Identity Validator: **PASS** — commit `316e6e2f79dabb7a1a65a6acf569d32042b06e19`
-- Phase 11 — Promotion / Rollback State Machine: **PASS** — commit `9c5fdc0eab0d22a4066a4f1d4cfb72b231901c53`
-- Phase 12 — Post-Promotion Settle / Observation Gate: **PASS**
-- Phase 13 — Pilot Harness: **PASS**
-- Phase 14 — Real Project Pilot: **BLOCKED (historical)** — the former authoritative spec-skill baseline lacked the existing validators required by the selected work unit; that authority discrepancy is now resolved.
-- Phase 14 — Real Project Pilot: **PASS** — exact SPEC candidate `30bfb0e78bab11c1e20cdc74b45530114c431654` was explicitly approved by Chris Kulbaba, promoted to SPEC `main`, independently verified, and SETTLED. Product repair cycles: 0; repair-process findings: 0.
+- Phase 1 â€” Control-Layer Audit: **PASS** â€” commit `efc2622fdc46310c2aae7c12c6cb2e6291848aa4`
+- Phase 2 â€” Durable Run-State Schema: **PASS** â€” commit `35f74bc84209591ccb19dec67fbeadb8e04779c2`
+- Phase 3 â€” GitHub Authority Resolver: **PASS** â€” commit `cc9fb773aa31324a2f8e764e482de0516783ace5`
+- Phase 4 â€” Graphify Discovery Adapter: **PASS** â€” commit `95f7d599c4ebc85fccfcbfce5522eeb14e17fd8f`
+- Phase 5 â€” Authoritative Operational Context Resolver: **PASS** â€” commit `575315bab2cb5cc120af232a15597d36fb8ff4b7`
+- Phase 6 â€” Deterministic Model Router: **PASS** â€” commit `cf53ee63fa6888b89cfbdff0e718405c26d7f5cb`
+- Phase 7 â€” GCU Execution Adapter: **PASS** â€” commit `2277d3a`
+- Phase 8 â€” Independent Verification Engine: **PASS** â€” commit `25d5c65`
+- Phase 9 â€” Repair-Scope / Dependency Logic: **PASS** â€” commit `1998bea`
+- Phase 10 â€” Placeholder and Identity Validator: **PASS** â€” commit `316e6e2f79dabb7a1a65a6acf569d32042b06e19`
+- Phase 11 â€” Promotion / Rollback State Machine: **PASS** â€” commit `9c5fdc0eab0d22a4066a4f1d4cfb72b231901c53`
+- Phase 12 â€” Post-Promotion Settle / Observation Gate: **PASS**
+- Phase 13 â€” Pilot Harness: **PASS**
+- Phase 14 â€” Real Project Pilot: **BLOCKED (historical)** â€” the former authoritative spec-skill baseline lacked the existing validators required by the selected work unit; that authority discrepancy is now resolved.
+- Phase 14 â€” Real Project Pilot: **PASS** â€” exact SPEC candidate `30bfb0e78bab11c1e20cdc74b45530114c431654` was explicitly approved by Chris Kulbaba, promoted to SPEC `main`, independently verified, and SETTLED. Product repair cycles: 0; repair-process findings: 0.
 
 ## Current objective
 
-Foundation 08 bounded retrieval is accepted PASS on exact application candidate `c2b4f89d918dcf8c73bde8a490f6f42535f94038`, preserved on remote candidate branch and deployed only to isolated Railway staging as `c452c5ea-4850-4b36-9625-4efc0523598f`. Foundation 07 remains the accepted parent at governance SHA `fe88539e82ac89f675ef4111a687f2bdbcffcb39` and app SHA `0ff481f0a6a84146fe3ac1c7fd759adb7e5b8e24`. Qualification-app `main` remains `32d474fdb8fe0672d826ff434b4bfc94c9537407`. Deterministic same-project lexical + depth-1 graph retrieval is bounded to top 6 / 6,000 characters, preserves explicit DATA_ONLY and authority metadata, produces reproducible receipts, degrades explicitly only on clean unavailability, and fails closed on unsafe retrieval. Targeted 100/100 PASS, full regression 153/153 PASS, exact-SHA CI PASS, live currentness/browser/generalization PASS, restart/reopen PASS, and independent verification `verify-d52d595d6693ec66b7f101d1` is authoritative PASS. No vector/embedding provider, web retrieval, cross-project retrieval, production mutation, or `main` merge occurred.
+Foundation 08 remains accepted at governance SHA `40ec4c4a063f6e03e1e182a9627b7ceec880942c` and application SHA `c2b4f89d918dcf8c73bde8a490f6f42535f94038`. Foundation 09 is now the separately governed objective: deterministic same-project convergence/shared-root candidate detection. It may emit only `POSSIBLE_SHARED_ROOT_CAUSE` when supported by an explicit current `converges_with` relationship or by at least two exact shared evidence-requirement IDs. Lexical/vector similarity, graph proximity, model judgment, common vocabulary, and object type alone are insufficient. The detector is advisory, read-only, same-project, and does not mutate graph/application state or expand repair scope automatically. The governing contract is `docs/GACM_GRAPH_FOUNDATION_09_CONVERGENCE_V1.md`.
 
 The reconciled authority set remains defined by `docs/GACM_MVP_AUTHORITY_MANIFEST_V1.md`. The graph-first operating contract is `docs/GACM_GRAPH_ENGINEERING_FOUNDATION_V1.md`; the Jev and graph-binding contract is `docs/GACM_JEV_CLASSIFICATION_AND_GRAPH_BINDING_V1.md`; the durable graph contract is `docs/GACM_GRAPH_DURABLE_PERSISTENCE_V1.md`; the application runtime contract is `docs/GACM_GRAPH_APPLICATION_RUNTIME_INTEGRATION_V1.md`; the Foundation 06 staging-authority contract is `docs/GACM_GRAPH_FOUNDATION_06_HOSTED_STAGING_AUTHORITY_V1.md`.
 
 The authoritative SPEC `main` identity remains `30bfb0e78bab11c1e20cdc74b45530114c431654`. The authoritative CRIT `main` identity remains `187b7f7d3d63025f98386da09255942d6693303d`. Foundation 05 and Foundation 06 identities remain preserved as historical parents/evidence; the exact final MVP application candidate is now `32d474fdb8fe0672d826ff434b4bfc94c9537407`.
 
-Foundation 08 bounded retrieval is now accepted at the staging-candidate boundary. Convergence/shared-root detection is the next roadmap capability, but no convergence tranche is opened by this record. Embeddings/vector retrieval, legacy-planner removal, cross-project learning, graph-triggered execution, provider/model changes, and production migration remain excluded.
+Foundation 09 convergence/shared-root detection is now the only authorized implementation tranche. Authoritative causal claims, model/vector convergence, cross-project convergence/learning, automatic repair-scope expansion, graph mutation, legacy-planner removal, graph-triggered execution, provider/model changes, and production migration remain excluded.
 
 ## Completed phases
 
@@ -116,9 +116,19 @@ The promoted SPEC identity is `30bfb0e78bab11c1e20cdc74b45530114c431654` on loca
 
 ## Next authorized action
 
-STOP at the Foundation 08 boundary. The accepted application candidate remains isolated in staging and is not promoted to qualification-app `main` by this tranche. Convergence/shared-root detection is the next roadmap capability only after a separate governed objective is opened.
+Complete `GACM-GRAPH-FOUNDATION-09` only:
 
-Current execution state: `PASS — FOUNDATION_08_BOUNDED_RETRIEVAL_ACCEPTED / STOP AT TRANCHE BOUNDARY`.
+1. preserve governance parent `40ec4c4a063f6e03e1e182a9627b7ceec880942c` and application parent `c2b4f89d918dcf8c73bde8a490f6f42535f94038`;
+2. add deterministic same-project convergence candidate detection using explicit `converges_with` and exact multi-evidence-lineage signals only;
+3. emit `POSSIBLE_SHARED_ROOT_CAUSE` with exact reason/provenance and current graph/artifact identities;
+4. reject superficial vocabulary/common-type/single-evidence overlap false positives;
+5. keep detector read-only and advisory; do not mutate graph, readiness, CRIT, PRD, routing, execution or release authority;
+6. expose exact convergence output through API/browser audit;
+7. prove true-positive and false-positive controls, currentness, process reopen, full regression and independent verification;
+8. deploy only the exact candidate to isolated Railway staging after local acceptance;
+9. stop before graph-derived release acceptance, cross-project learning, model/vector convergence, production or another tranche.
+
+Current execution state: `AUTHORIZED â€” FOUNDATION_09_IMPLEMENTATION_BOUNDARY_FROZEN`.
 
 ### Historical / deferred items
 
@@ -135,7 +145,7 @@ Current execution state: `PASS — FOUNDATION_08_BOUNDED_RETRIEVAL_ACCEPTED / ST
 - production remains untouched.
 
 
-## Permanent governance correction — generalization
+## Permanent governance correction â€” generalization
 
 On 2026-09-20, human authority explicitly authorized a governance-system correction establishing `GACM-GENERALIZATION-AND-WHOLE-SYSTEM-GATE`. This authorization is additive to the historical phase record and supersedes the prior methodology freeze only for this control correction.
 
@@ -145,7 +155,7 @@ Permanent escape classes: `FIXTURE_TARGET_COLLAPSE` and `SEQUENTIAL_BLOCKER_TUNN
 
 The machine enforcement implementation lives in `src/gacm/generalization/`, the Pilot Harness pre-execution and pre-promotion gates, PromotionEligibility, and the durable run-state schema release 1.1.0 controls.
 
-## Permanent governance correction — external provider authority
+## Permanent governance correction â€” external provider authority
 
 On 2026-09-30, human authority explicitly authorized an additive universal governance correction establishing `GACM-EXTERNAL-PROVIDER-AUTHORITY-AND-CREDENTIAL-PROVENANCE-GATE`.
 
