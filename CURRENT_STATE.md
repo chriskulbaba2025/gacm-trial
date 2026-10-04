@@ -116,9 +116,9 @@ The promoted SPEC identity is `30bfb0e78bab11c1e20cdc74b45530114c431654` on loca
 
 ## Next authorized action
 
-STOP at the Foundation 11 boundary. Historical failure-pattern retrieval is accepted as governed advisory context only. Graph-derived PRD/tranche generation is the next roadmap capability, but it is not opened by this acceptance. Creation/promotion of new generalized patterns, raw cross-project evidence, cross-project learning writes, graph-aware repair planning, provider/model changes, production mutation, and either `main` merge remain excluded until separately governed.
+Complete `GACM-GRAPH-FOUNDATION-12 — GRAPH-GOVERNED PRD / TRANCHE GENERATION` only. Preserve the existing human PRD generator. Add deterministic candidate planning from the current PRD plus current governed graph. Generated tranche planning remains candidate-only and cannot approve or execute work. Graph-aware repair planning, execution, provider/model changes, production mutation, and either `main` merge remain excluded.
 
-Current execution state: `PASS - FOUNDATION_11_FAILURE_PATTERN_RETRIEVAL_ACCEPTED / STOP AT TRANCHE BOUNDARY`.
+Current execution state: `AUTHORIZED - FOUNDATION_12_PRD_TRANCHE_GENERATION_BOUNDARY_FROZEN`.
 
 ### Historical / deferred items
 
@@ -189,3 +189,7 @@ Foundation 10 acceptance identity: governance implementation `5dcaa68227169e0db7
 Foundation 11 opened on 2026-10-04 from accepted Foundation 10 governance SHA `e93a1f2b50feff47490dde4e99236d2a2f55b209` and accepted Foundation 09 application SHA `85944f28dfbc3eeffce152a2ee022d52a0b4f41c`. The governing contract is `docs/GACM_GRAPH_FOUNDATION_11_FAILURE_PATTERN_RETRIEVAL_V1.md`. The authoritative initial registry is `docs/GACM_FAILURE_PATTERN_REGISTRY_V1.json`. Only patterns already explicitly governed as `GENERALIZED` may be exposed across project boundaries; no new generalization authority is created by this tranche. CL-43 remains mandatory.
 
 Foundation 11 acceptance identity: app candidate `0f8d226b8bb28c90abf57ce5ba4f275df0d875c3`; Railway staging deployment `daa1b9bf-0d42-4ccf-90a2-5a6e4e16b844`; registry SHA-256 `9e0d22671581fa2086e78505e5f7032e3d28309591ac7cbe1713e1b54dea599d`; independent verification `verify-a7f2c324ad6545e8a63e6a9b` authoritative PASS; targeted 44/44 PASS; full app regression 174/174 PASS; exact-SHA app CI, live API, Edge browser, restart/reopen and currentness PASS.
+
+## Foundation 12 authority
+
+Foundation 12 opened on 2026-10-04 from accepted Foundation 11 governance SHA `0e0195265dd04cbbc2c4a8572663e824e3639c35` and accepted Foundation 11 application SHA `0f8d226b8bb28c90abf57ce5ba4f275df0d875c3`. Governing contract: `docs/GACM_GRAPH_FOUNDATION_12_PRD_TRANCHE_GENERATION_V1.md`. Existing human PRD semantics are frozen; graph output may govern candidate planning/currentness but cannot create product truth or execution authority.
