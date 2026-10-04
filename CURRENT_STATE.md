@@ -48,7 +48,7 @@ On 2026-10-03 human authority instructed GACM to take the next action after Foun
 
 ## Current objective
 
-Preserve Railway deployment `62f90b69-5b92-47ac-b239-1fc49aac254f` at exact OpenAI hosted-CRIT candidate `7da781a4e4279082c117442b52a9d70abad2a9c2`. Provider selection, `gpt-6-luna` model lock, exact runtime/source identity, and missing-secret fail-closed behavior are proven. Stop until the dedicated OpenAI API credential is supplied for direct storage as Railway `OPENAI_API_KEY`; then perform the live bounded provider acceptance only.
+Foundation 06 hosted staging is accepted at Railway deployment `874479f2-1360-4d1f-8025-89862e11313b`, exact app SHA `7da781a4e4279082c117442b52a9d70abad2a9c2`. Live OpenAI CRIT using `gpt-6-luna` is proven end-to-end for question selection, semantic answer review, follow-up resolution, next-question advancement, Fast Filter advisory classification, persistence, and real browser rendering. Preserve this accepted staging boundary and stop before any next tranche, production promotion, or `main` merge.
 
 The reconciled authority set remains defined by `docs/GACM_MVP_AUTHORITY_MANIFEST_V1.md`. The graph-first operating contract is `docs/GACM_GRAPH_ENGINEERING_FOUNDATION_V1.md`; the Jev and graph-binding contract is `docs/GACM_JEV_CLASSIFICATION_AND_GRAPH_BINDING_V1.md`; the durable graph contract is `docs/GACM_GRAPH_DURABLE_PERSISTENCE_V1.md`; the application runtime contract is `docs/GACM_GRAPH_APPLICATION_RUNTIME_INTEGRATION_V1.md`; the Foundation 06 staging-authority contract is `docs/GACM_GRAPH_FOUNDATION_06_HOSTED_STAGING_AUTHORITY_V1.md`.
 
@@ -129,7 +129,7 @@ Complete `GACM-GRAPH-FOUNDATION-06` only:
 9. prove deployment identity, served-candidate currentness, durable restart/redeploy continuity, rollback boundary, and real hosted browser acceptance;
 10. STOP before retrieval, graph-aware CRIT, convergence, legacy-planner removal, either `main` merge, production deployment, or production promotion.
 
-Current execution state: `HOLD — DEDICATED_OPENAI_API_CREDENTIAL_MISSING`.
+Current execution state: `PASS — FOUNDATION_06_HOSTED_STAGING_ACCEPTED / STOP AT TRANCHE BOUNDARY`.
 
 ### Current HOLD items
 
@@ -142,7 +142,7 @@ Current execution state: `HOLD — DEDICATED_OPENAI_API_CREDENTIAL_MISSING`.
 - PilotHarness remains the accepted lifecycle owner; Graph Foundation 03B adds an explicit graph-authoritative planning mode while preserving the legacy planner as the default/shadow path until graph scheduling is independently accepted;
 - TypeSafe Jev remains an advisory classifier boundary; Foundation 03A proved one live authenticated governed `POST /v1/systemone` path, with `jev-latest` resolving to `jev-1.13.0`, projection only as `INFERRED`, and GraphScheduler returning `COLLECT_EVIDENCE`; Jev is not graph truth;
 - `jev-latest` is a provider alias, so the runtime records requested/resolved model and request/result digests; immutable provider-version currentness remains a future hardening item if TypeSafe exposes a durable version identity;
-- Railway deployment `62f90b69-5b92-47ac-b239-1fc49aac254f` is SUCCESS at exact OpenAI hosted-CRIT candidate `7da781a4e4279082c117442b52a9d70abad2a9c2`; hosted/local canonical source hash matches `dc2f59d0672c7de4a31dd2c876ebfaa532b0dcfefffcc2390d3721b85e044f50`; provider/model selectors are active; `OPENAI_API_KEY` is absent; Human CRIT remains correctly `REVIEW_UNAVAILABLE`; DNS evidence shows no OpenAI lookup; live provider calls remain 0; only the dedicated Railway secret is now missing;
+- Railway final Foundation 06 deployment `874479f2-1360-4d1f-8025-89862e11313b` is SUCCESS at exact app SHA `7da781a4e4279082c117442b52a9d70abad2a9c2`; live OpenAI `gpt-6-luna` CRIT is READY, Fast Filter is AVAILABLE/ADVISORY_ONLY, answer review produced governed NEEDS_FOLLOWUP then RESOLVED, CRIT advanced to a new feasibility question, real Edge browser rendering PASS, post-secret redeploy persistence PASS, credential value was never retrieved or persisted, and production/main remain untouched;
 - production remains untouched.
 
 

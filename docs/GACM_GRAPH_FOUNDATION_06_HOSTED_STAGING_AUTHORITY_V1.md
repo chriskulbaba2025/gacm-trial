@@ -1,6 +1,6 @@
 # GACM Graph Foundation 06 — Hosted Staging Authority v1
 
-**Status:** HOLD — OPENAI HOSTED CRIT CANDIDATE DEPLOYED / DEDICATED CREDENTIAL PENDING
+**Status:** ACCEPTED — FOUNDATION 06 HOSTED STAGING / LIVE OPENAI CRIT
 **Authorized:** 2026-10-03
 **Provider authority resolved:** 2026-10-03
 **Production authority:** NOT GRANTED
@@ -254,7 +254,39 @@ That deployment is now complete:
 - Railway DNS log entries for this no-secret acceptance: none;
 - live OpenAI provider calls: 0.
 
-This proves the provider selector is active, exact runtime identity is current, and the credential gate fails closed before a provider request. End-to-end CRIT acceptance remains prohibited until the dedicated Railway secret is installed.
+This proved the provider selector was active, exact runtime identity was current, and the credential gate failed closed before a provider request.
+
+## Live OpenAI CRIT acceptance
+
+Human authority reported the dedicated API key installed directly in Railway as `OPENAI_API_KEY`. The credential value was never retrieved by GACM, never written to repository or proof artifacts, and never exposed in persisted API output.
+
+Railway automatically created deployment `874479f2-1360-4d1f-8025-89862e11313b`, which reached terminal `SUCCESS` while remaining pinned to exact source commit `7da781a4e4279082c117442b52a9d70abad2a9c2`.
+
+Live governed acceptance used fresh idea `idea-7d5a15bd91a84b8da1c37a6ae45b33b9`.
+
+Observed live behavior:
+
+- initial Human CRIT interview status: `READY`;
+- Fast Filter status: `AVAILABLE`;
+- Fast Filter authority: `ADVISORY_ONLY`;
+- Fast Filter provenance: provider `openai_api`, requested/resolved model `gpt-6-luna`, Responses API, `tools=false`, `store=false`;
+- CRIT selected a context-specific evidence question rather than a fixture-specific question;
+- first answer review returned `NEEDS_FOLLOWUP` with a material gap and one neutral follow-up;
+- the follow-up answer returned `RESOLVED`;
+- CRIT advanced from evidence dimension `evidence_plan` to feasibility dimension `access_limits`;
+- all persisted semantic-review provenance records retained `openai_api / gpt-6-luna`, response IDs, `tools=false`, and `store=false`;
+- browser rendering of the live state passed in real Microsoft Edge;
+- rendered UI showed the live feasibility question, resolved feedback, and persisted answer;
+- rendered UI contained no `REVIEW_UNAVAILABLE` and no request-failure text;
+- Railway DNS evidence showed only the authorized OpenAI endpoint `api.openai.com` for semantic-review calls;
+- no credential value appeared in persisted API output or deploy logs examined during acceptance;
+- exact served runtime git identity remained `7da781a4e4279082c117442b52a9d70abad2a9c2`;
+- local and hosted canonical source-tree SHA-256 remained `dc2f59d0672c7de4a31dd2c876ebfaa532b0dcfefffcc2390d3721b85e044f50`;
+- the idea created before credential installation remained readable after the secret-triggered redeploy, with graph status PASS and current exact application identity;
+- persistent SQLite/graph continuity therefore remained intact across the final deployment transition;
+- production and both `main` branches remained untouched.
+
+Foundation 06 hosted-staging acceptance is therefore PASS. This accepts only the bounded staging architecture and live hosted CRIT provider path described in this contract. It does not authorize production promotion, any `main` merge, retrieval, graph-aware CRIT, convergence, planner removal, cross-project learning, or additional provider/model changes.
 
 This authorization does not change Jev's advisory-only boundary and does not authorize retrieval, web search, external tools, autonomous execution, provider/model fallback, model escalation, production deployment, or either `main` merge.
 
@@ -276,6 +308,6 @@ Foundation 06 does not authorize:
 
 ## Current execution gate
 
-`HOLD — DEDICATED_OPENAI_API_CREDENTIAL_MISSING`
+`PASS — FOUNDATION_06_HOSTED_STAGING_ACCEPTED`
 
-Railway hosting, candidate deployment, exact runtime identity, provider selection, model lock, and missing-secret fail-closed behavior are accepted. The next mutation is forbidden until the dedicated OpenAI API credential is supplied for storage directly as Railway secret `OPENAI_API_KEY`. No other provider/model/configuration change is required or authorized.
+Railway hosting, exact release identity, provider/model authority, live OpenAI CRIT semantic review, Fast Filter advisory boundary, persistence, browser rendering, and post-secret redeploy continuity are accepted. Foundation 06 is closed at this tranche boundary. No next tranche, production promotion, or `main` merge is authorized by this PASS.
