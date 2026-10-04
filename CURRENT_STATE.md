@@ -207,3 +207,15 @@ The accepted Foundation 12 boundary remains unchanged. The fixed remaining seque
 Foundation 13 is the next planned capability: graph-aware repair planning. This roadmap does not open Foundation 13 or any later implementation tranche. A later capability may enter or alter the frozen Foundation sequence only through an explicit human-authorized roadmap amendment proving that the change is required to satisfy the frozen Foundation Complete definition.
 
 Production mutation and either `main` merge remain outside this roadmap authority.
+
+## Foundation 13 authority
+
+On 2026-10-04, human authority explicitly opened Graph Foundation 13 from the frozen completion roadmap.
+
+Foundation 13 governing contract: docs/GACM_GRAPH_FOUNDATION_13_REPAIR_PLANNING_V1.md.
+
+Foundation 13 objective is graph-aware repair planning plus the graph-integrity preconditions required before graph-derived reasoning can influence repair scope. Output authority is CANDIDATE_REPAIR_PLANNING_ONLY; repair execution, execution-recipe creation, automatic approval, scope expansion, provider/model/tool selection, production mutation, either main merge, and Foundation 14 remain excluded.
+
+Governance parent is 6df6e99e3cf896862f220d9f1320866a569a87ea. Application parent is f20cf367e8611025ffa1cb5e698db37350537c2c.
+
+Current execution state: FOUNDATION_13_CONTRACT_FROZEN_IMPLEMENTATION_PENDING.
