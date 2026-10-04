@@ -33,9 +33,25 @@ class PromotionRollbackStateMachine:
         if not result.eligible: raise PromotionTransitionError("candidate is not eligible: " + ", ".join(result.reasons))
         prior = evidence.get("current_authoritative_sha")
         if not prior or evidence.get("authority_continuity") is False: self.state = PromotionState.BLOCKED.value; raise PromotionTransitionError("current authoritative identity is not continuous")
-        material = {"run_id": evidence.get("run_id"), "candidate_sha": evidence.get("candidate_sha"), "prior": prior, "verifications": sorted(evidence.get("verification_receipt_ids", ())), "context": evidence.get("operational_context_id")}
+        material = {
+            "run_id": evidence.get("run_id"),
+            "candidate_sha": evidence.get("candidate_sha"),
+            "prior": prior,
+            "verifications": sorted(evidence.get("verification_receipt_ids", ())),
+            "context": evidence.get("operational_context_id"),
+            "graph_release_evidence_digest": evidence.get("graph_release_evidence_digest"),
+        }
         promotion_id = "promotion-" + hashlib.sha256(canonical(material).encode()).hexdigest()[:24]
-        receipt = PromotionReceipt(str(evidence.get("run_id", "")), promotion_id, PromotionState.PROMOTION_PENDING.value, str(evidence["candidate_sha"]), str(evidence["candidate_artifact_identity"]), str(prior), str(evidence["rollback_target_sha"]), tuple(sorted(map(str, evidence.get("verification_receipt_ids", ())))), tuple(sorted(map(str, evidence.get("required_approvals", ())))), evidence.get("operational_context_id"), self.clock(), "durable promotion intent recorded before authority mutation")
+        verifier = evidence.get("verification", {})
+        receipt = PromotionReceipt(
+            str(evidence.get("run_id", "")), promotion_id, PromotionState.PROMOTION_PENDING.value,
+            str(evidence["candidate_sha"]), str(evidence["candidate_artifact_identity"]), str(prior),
+            str(evidence["rollback_target_sha"]), tuple(sorted(map(str, evidence.get("verification_receipt_ids", ())))),
+            tuple(sorted(map(str, evidence.get("required_approvals", ())))), evidence.get("operational_context_id"),
+            self.clock(), "durable promotion intent recorded before authority mutation",
+            graph_release_evidence_digest=evidence.get("graph_release_evidence_digest"),
+            graph_release_verification_id=verifier.get("verification_id") if isinstance(verifier, Mapping) else None,
+        )
         self.intent = dict(evidence, promotion_id=promotion_id, prior_authoritative_sha=prior)
         self.state = PromotionState.PROMOTION_PENDING.value
         self.promotion_history.append(receipt)
@@ -48,7 +64,17 @@ class PromotionRollbackStateMachine:
         self.current_authority_sha = str(self.intent["candidate_sha"])
         settle = bool(self.intent.get("settle_required", False))
         self.state = PromotionState.SETTLE_REQUIRED.value if settle else PromotionState.PROMOTED.value
-        receipt = PromotionReceipt(str(self.intent.get("run_id", "")), str(self.intent["promotion_id"]), self.state, str(self.intent["candidate_sha"]), str(self.intent["candidate_artifact_identity"]), str(self.intent["prior_authoritative_sha"]), str(self.intent["rollback_target_sha"]), tuple(sorted(map(str, self.intent.get("verification_receipt_ids", ())))), tuple(sorted(map(str, self.intent.get("required_approvals", ())))), self.intent.get("operational_context_id"), self.clock(), "candidate promoted by GACM governance", settle)
+        verifier = self.intent.get("verification", {})
+        receipt = PromotionReceipt(
+            str(self.intent.get("run_id", "")), str(self.intent["promotion_id"]), self.state,
+            str(self.intent["candidate_sha"]), str(self.intent["candidate_artifact_identity"]),
+            str(self.intent["prior_authoritative_sha"]), str(self.intent["rollback_target_sha"]),
+            tuple(sorted(map(str, self.intent.get("verification_receipt_ids", ())))),
+            tuple(sorted(map(str, self.intent.get("required_approvals", ())))),
+            self.intent.get("operational_context_id"), self.clock(), "candidate promoted by GACM governance", settle,
+            graph_release_evidence_digest=self.intent.get("graph_release_evidence_digest"),
+            graph_release_verification_id=verifier.get("verification_id") if isinstance(verifier, Mapping) else None,
+        )
         self.promotion_history.append(receipt)
         return receipt
 
