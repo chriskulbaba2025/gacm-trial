@@ -1,6 +1,6 @@
 # GACM Graph Foundation 07 — Graph-Aware CRIT v1
 
-**Status:** AUTHORIZED IMPLEMENTATION BOUNDARY
+**Status:** PASS — ACCEPTED STAGING CANDIDATE / STOP AT FOUNDATION 07 BOUNDARY
 **Opened:** 2026-10-03
 **Governance parent:** `c50ba6e5f5382b3460f0ab1de7d508f330ced800`
 **Application parent:** `32d474fdb8fe0672d826ff434b4bfc94c9537407`
@@ -147,3 +147,59 @@ Foundation 07 does not authorize:
 ## Stop rule
 
 Stop at the Foundation 07 acceptance boundary. Bounded retrieval is the next roadmap item only after Foundation 07 independently passes.
+
+## Acceptance result
+
+Foundation 07 is accepted on exact application candidate:
+
+`0ff481f0a6a84146fe3ac1c7fd759adb7e5b8e24`
+
+Application parent remains promoted MVP `main` SHA:
+
+`32d474fdb8fe0672d826ff434b4bfc94c9537407`
+
+The candidate is preserved on remote branch `candidate/foundation07-graph-aware-crit-20261003`. Qualification-app `main` remains unchanged at the MVP authority SHA; Foundation 07 is an accepted isolated staging candidate, not a new application promotion.
+
+Accepted Railway staging deployment:
+
+`65dbc434-cdcb-461d-8805-80612bce29d4`
+
+Provider/model remained unchanged: OpenAI API direct / `gpt-6-luna`. No credential, domain, volume, resource-limit, start-command, production, retrieval, convergence, or execution-authority change occurred.
+
+### Verification evidence
+
+- targeted graph/CRIT acceptance: **90/90 PASS**;
+- explicit Foundation 07 graph-aware tests including fresh strong/mixed/weak path: **8/8 PASS**;
+- full application regression: **144/144 PASS**;
+- exact-SHA application CI: **PASS** on `0ff481f0...`;
+- Railway deployment: **SUCCESS**, online, 1/1 running, zero crashes, zero warnings/criticals, persistent volume present;
+- local SHA == remote candidate SHA == Railway commit == served runtime SHA;
+- local canonical source-tree SHA-256 == served SHA-256: `9fb5d0f5afa27aca65e7068bc9da41b092a5c64a350597526511a433f95838f8`;
+- hosted graph status: **PASS**;
+- hosted CRIT graph context: **AVAILABLE**;
+- hosted question status: **READY**;
+- live reviewer provider/model: `openai_api / gpt-6-luna`, tools false, store false;
+- real Microsoft Edge acceptance: **PASS** with CRIT graph context, advisory authority, graph revision and exact projection digest visible; no request-failure or `REVIEW_UNAVAILABLE` text;
+- production mutation: **NONE**.
+
+### Live graph-aware evidence
+
+Fresh hosted strong, mixed, and weak ideas all traversed the graph-aware CRIT path.
+
+The strong case selected `evidence_plan` rather than mechanically starting at `first_user`, demonstrating that CRIT can reprioritize within the existing authorized candidate universe. Its selected question persisted graph revision 3, exact projection digest, source event hash, and engine authority SHA; the same identity was preserved on the saved answer. The real semantic reviewer returned `NEEDS_FOLLOWUP`; that result is preserved rather than forced to a desired classification.
+
+The mixed case remained `NEEDS_FOLLOWUP` and not ready. The weak case preserved `UNANSWERED`, “I don't know yet.”, and not-ready state. All reopened with graph context AVAILABLE.
+
+### Independent verification and broader requalification
+
+GACM verifier `gacm-independent-verifier-v1` issued authoritative **PASS**:
+
+`verify-d7575320fe6573daa44cbe7f`
+
+The exact delta was correctly classified `MODEL_BEARING` because `crit_review.py` changed. Broader requalification was therefore required. It was completed using the full 144/144 regression, 8/8 fresh graph-aware generalization, live OpenAI `gpt-6-luna` graph-context provenance, release-currentness identity proof, and real Edge acceptance. No model or provider identity changed.
+
+### Acceptance decision
+
+All 18 Foundation 07 definition-of-done items are satisfied. Foundation 07 therefore closes **PASS** at the accepted staging-candidate boundary.
+
+Bounded retrieval remains the next roadmap item, but it is not part of Foundation 07 and is not implicitly started by this acceptance.
