@@ -10,6 +10,7 @@ For each Foundation N, record one exact candidate and one exact governance accep
 - [ ] Active Foundation/tranche, authorized change, prohibited change, and expected end state are explicit.
 - [ ] All 27 instruction/authority drift fields have an explicit ledger row.
 - [ ] No blocking drift class exists.
+- [ ] Exactly one authoritative application candidate is declared; no second unaccepted candidate exists.
 
 ## Qualification
 
@@ -19,6 +20,7 @@ For each Foundation N, record one exact candidate and one exact governance accep
 - [ ] Previously accepted capabilities remain PASS.
 - [ ] Whole-machine regression passes on the exact candidate.
 - [ ] Independent verification does not trust executor PASS claims.
+- [ ] Progression/synchronization gate passes for the exact qualified candidate.
 
 ## Close
 
@@ -27,3 +29,4 @@ For each Foundation N, record one exact candidate and one exact governance accep
 - [ ] Main branches and production satisfy their protected-state assertions.
 - [ ] Governance acceptance records the whole-machine result and both gate receipts.
 - [ ] New application/governance pair is frozen before the next Foundation begins.
+- [ ] No application mutation occurred after qualification; any supersession invalidated prior evidence.

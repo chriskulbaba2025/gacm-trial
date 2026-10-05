@@ -11,10 +11,12 @@ sys.path.insert(0, str(ROOT / "src"))
 from gacm.governance import (  # noqa: E402
     DRIFT_FIELDS,
     DRIFT_GATE_ID,
+    PROGRESSION_GATE_ID,
     WHOLE_MACHINE_GATE_ID,
     acceptance_readiness,
     check_frozen_start,
     evaluate_instruction_authority_drift,
+    evaluate_progression_synchronization,
     evaluate_whole_machine_integrity,
 )
 
@@ -71,6 +73,28 @@ def drift_inputs():
     observed = copy.deepcopy(frozen)
     ledger = {field: {"frozen_value": frozen[field], "observed_value": observed[field], "classification": "NO_DRIFT", "evidence_ids": [f"ev-{field}"]} for field in DRIFT_FIELDS}
     return frozen, observed, ledger
+
+
+def progression_inputs():
+    previous = {
+        "application_sha": "1" * 40,
+        "governance_sha": "2" * 40,
+        "application_repository": "application/repo",
+        "governance_repository": "governance/repo",
+        "acceptance_status": "ACCEPTED",
+    }
+    candidate = {
+        "foundation_id": "F16",
+        "application_repository": "application/repo",
+        "application_branch": "candidate/f16",
+        "application_sha": "3" * 40,
+        "status": "AUTHORITATIVE",
+        "superseded": False,
+    }
+    qualification = {"candidate_sha": "3" * 40, "status": "PASS", "invalidated": False, "mutation_after_qualification": False, "superseded": False, "evidence_current": True}
+    acceptance = {"status": "ACCEPTED", "application_sha": "3" * 40, "governance_sha": "4" * 40, "exact_sha_binding": True}
+    currentness = {"application_local_equals_remote": True, "governance_local_equals_remote": True}
+    return previous, [candidate], qualification, acceptance, currentness
 
 
 class CumulativeGovernanceGateTests(unittest.TestCase):
@@ -147,15 +171,80 @@ class CumulativeGovernanceGateTests(unittest.TestCase):
         ledger["foundation_id"]["observed_value"] = "F14"
         ledger["foundation_id"]["classification"] = "CONTRADICTION"
         drift = evaluate_instruction_authority_drift(frozen, observed, ledger).decision
-        result = acceptance_readiness(machine, drift, True, True)
+        previous, candidates, qualification, acceptance, currentness = progression_inputs()
+        progression = evaluate_progression_synchronization(previous, candidates, qualification, acceptance, currentness)
+        result = acceptance_readiness(machine, drift, True, True, progression)
         self.assertEqual("HOLD", result.status)
 
     def test_next_foundation_pending_acceptance_is_not_authorized(self):
         machine = evaluate_whole_machine_integrity(expected(), machine_evidence(), ["authority"], ["authority-to-currentness"])
         frozen, observed, ledger = drift_inputs()
         drift = evaluate_instruction_authority_drift(frozen, observed, ledger).decision
-        result = acceptance_readiness(machine, drift, True, False)
+        previous, candidates, qualification, acceptance, currentness = progression_inputs()
+        progression = evaluate_progression_synchronization(previous, candidates, qualification, acceptance, currentness)
+        result = acceptance_readiness(machine, drift, True, False, progression)
         self.assertEqual("HOLD", result.status)
+
+    def test_progression_exact_candidate_and_acceptance_pass(self):
+        previous, candidates, qualification, acceptance, currentness = progression_inputs()
+        result = evaluate_progression_synchronization(previous, candidates, qualification, acceptance, currentness)
+        self.assertEqual(PROGRESSION_GATE_ID, result.gate_id)
+        self.assertEqual("PASS", result.status)
+
+    def test_candidate_b_while_candidate_a_unaccepted_holds(self):
+        previous, candidates, qualification, acceptance, currentness = progression_inputs()
+        candidates.append({**candidates[0], "application_sha": "5" * 40})
+        result = evaluate_progression_synchronization(previous, candidates, qualification, acceptance, currentness)
+        self.assertEqual("HOLD", result.status)
+
+    def test_acceptance_remote_candidate_mismatch_holds(self):
+        previous, candidates, qualification, acceptance, currentness = progression_inputs()
+        candidates[0]["application_sha"] = "5" * 40
+        result = evaluate_progression_synchronization(previous, candidates, qualification, acceptance, currentness)
+        self.assertEqual("HOLD", result.status)
+
+    def test_post_qualification_mutation_invalidates_old_proof(self):
+        previous, candidates, qualification, acceptance, currentness = progression_inputs()
+        qualification["mutation_after_qualification"] = True
+        result = evaluate_progression_synchronization(previous, candidates, qualification, acceptance, currentness)
+        self.assertEqual("HOLD", result.status)
+
+    def test_superseded_candidate_cannot_be_accepted(self):
+        previous, candidates, qualification, acceptance, currentness = progression_inputs()
+        candidates[0]["status"] = "SUPERSEDED"
+        qualification["superseded"] = True
+        result = evaluate_progression_synchronization(previous, candidates, qualification, acceptance, currentness)
+        self.assertEqual("HOLD", result.status)
+
+    def test_pending_previous_acceptance_blocks_next_foundation(self):
+        previous, candidates, qualification, acceptance, currentness = progression_inputs()
+        previous["acceptance_status"] = "PENDING"
+        result = evaluate_progression_synchronization(previous, candidates, qualification, acceptance, currentness)
+        self.assertEqual("HOLD", result.status)
+
+    def test_branch_name_without_exact_sha_binding_holds(self):
+        previous, candidates, qualification, acceptance, currentness = progression_inputs()
+        acceptance["exact_sha_binding"] = False
+        result = evaluate_progression_synchronization(previous, candidates, qualification, acceptance, currentness)
+        self.assertEqual("HOLD", result.status)
+
+    def test_next_foundation_before_acceptance_holds(self):
+        previous, candidates, qualification, acceptance, currentness = progression_inputs()
+        acceptance["status"] = "PENDING"
+        result = evaluate_progression_synchronization(previous, candidates, qualification, acceptance, currentness, next_foundation_started=True)
+        self.assertEqual("HOLD", result.status)
+
+    def test_local_remote_mismatch_holds(self):
+        previous, candidates, qualification, acceptance, currentness = progression_inputs()
+        currentness["application_local_equals_remote"] = False
+        result = evaluate_progression_synchronization(previous, candidates, qualification, acceptance, currentness)
+        self.assertEqual("HOLD", result.status)
+
+    def test_two_authoritative_statuses_hold(self):
+        previous, candidates, qualification, acceptance, currentness = progression_inputs()
+        candidates.append({**candidates[0], "application_sha": "6" * 40})
+        result = evaluate_progression_synchronization(previous, candidates, qualification, acceptance, currentness)
+        self.assertIn("more than one authoritative application candidate exists", result.reasons)
 
 
 if __name__ == "__main__":

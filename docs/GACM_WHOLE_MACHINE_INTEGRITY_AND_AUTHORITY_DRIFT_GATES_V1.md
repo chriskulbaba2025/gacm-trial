@@ -8,6 +8,7 @@ Gate IDs:
 
 - `GACM-WHOLE-MACHINE-INTEGRITY-GATE`
 - `GACM-INSTRUCTION-AND-AUTHORITY-DRIFT-GATE`
+- `GACM-FOUNDATION-PROGRESSION-AND-ACCEPTANCE-SYNCHRONIZATION-GATE`
 
 Machine enforcement is owned by `src/gacm/governance/gates.py`.
 
@@ -36,7 +37,7 @@ Equal values require explicit `NO_DRIFT`. Changed values must carry one of the a
 
 ## Acceptance and transition ordering
 
-`acceptance_readiness` requires both gates PASS, an exact candidate, and an acceptance-pending state. A next Foundation cannot begin unless the previous acceptance is already `ACCEPTED` and its exact application/governance pair matches the frozen start. A pending acceptance or post-qualification identity change is HOLD.
+`acceptance_readiness` requires all three gates PASS, an exact candidate, and an acceptance-pending state. The progression gate additionally requires one authoritative candidate, exact qualification/acceptance SHA binding, currentness, and no post-qualification mutation. A next Foundation cannot begin unless the previous acceptance is already `ACCEPTED` and its exact application/governance pair matches the frozen start. A pending acceptance, supersession, second candidate, or post-qualification identity change is HOLD.
 
 ## Required evidence
 

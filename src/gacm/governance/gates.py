@@ -14,6 +14,7 @@ from typing import Any, Mapping, Sequence
 
 WHOLE_MACHINE_GATE_ID = "GACM-WHOLE-MACHINE-INTEGRITY-GATE"
 DRIFT_GATE_ID = "GACM-INSTRUCTION-AND-AUTHORITY-DRIFT-GATE"
+PROGRESSION_GATE_ID = "GACM-FOUNDATION-PROGRESSION-AND-ACCEPTANCE-SYNCHRONIZATION-GATE"
 GATE_SCHEMA = "GACM_CUMULATIVE_GATES_V1"
 
 DRIFT_FIELDS = (
@@ -310,15 +311,103 @@ def acceptance_readiness(
     drift: GateDecision,
     exact_candidate: bool,
     acceptance_pending: bool,
+    progression: GateDecision | None = None,
 ) -> GateDecision:
-    """Prevent acceptance or the next foundation from bypassing either gate."""
+    """Prevent acceptance or the next foundation from bypassing any mandatory gate."""
     reasons: list[str] = []
     if whole_machine.gate_id != WHOLE_MACHINE_GATE_ID or whole_machine.status != "PASS":
         reasons.append("whole-machine integrity gate is not PASS")
     if drift.gate_id != DRIFT_GATE_ID or drift.status != "PASS":
         reasons.append("instruction and authority drift gate is not PASS")
+    if progression is None or progression.gate_id != PROGRESSION_GATE_ID or progression.status != "PASS":
+        reasons.append("foundation progression and acceptance synchronization gate is not PASS")
     if exact_candidate is not True:
         reasons.append("candidate identity is not exact")
     if acceptance_pending is not True:
         reasons.append("acceptance state is not pending before closure")
-    return _decision("GACM-FOUNDATION-ACCEPTANCE-READINESS-GATE", "PASS" if not reasons else "HOLD", reasons, {"whole_machine": whole_machine.to_dict(), "drift": drift.to_dict(), "exact_candidate": exact_candidate, "acceptance_pending": acceptance_pending})
+    return _decision("GACM-FOUNDATION-ACCEPTANCE-READINESS-GATE", "PASS" if not reasons else "HOLD", reasons, {"whole_machine": whole_machine.to_dict(), "drift": drift.to_dict(), "progression": None if progression is None else progression.to_dict(), "exact_candidate": exact_candidate, "acceptance_pending": acceptance_pending})
+
+
+def evaluate_progression_synchronization(
+    previous_frozen_pair: Mapping[str, Any] | None,
+    active_candidates: Sequence[Mapping[str, Any]] | None,
+    qualification: Mapping[str, Any] | None,
+    acceptance: Mapping[str, Any] | None,
+    currentness: Mapping[str, Any] | None,
+    next_foundation_started: bool = False,
+) -> GateDecision:
+    """Enforce one candidate, exact qualification/acceptance binding, and sequencing.
+
+    This gate is deliberately receipt-oriented. It never treats a branch name,
+    local working tree, or caller assertion as an application authority.
+    """
+    reasons: list[str] = []
+    if not isinstance(previous_frozen_pair, Mapping):
+        reasons.append("previous frozen application/governance pair is missing")
+    else:
+        for field in ("application_sha", "governance_sha", "application_repository", "governance_repository", "acceptance_status"):
+            if not previous_frozen_pair.get(field):
+                reasons.append(f"previous frozen pair missing: {field}")
+        if previous_frozen_pair.get("acceptance_status") != "ACCEPTED":
+            reasons.append("previous frozen pair is not accepted")
+
+    candidates = list(active_candidates) if isinstance(active_candidates, Sequence) and not isinstance(active_candidates, (str, bytes)) else []
+    authoritative = [item for item in candidates if isinstance(item, Mapping) and item.get("status") == "AUTHORITATIVE"]
+    if len(authoritative) != 1:
+        reasons.append("exactly one authoritative application candidate is required")
+    if len(authoritative) > 1:
+        reasons.append("more than one authoritative application candidate exists")
+    candidate = authoritative[0] if len(authoritative) == 1 else {}
+    candidate_sha = candidate.get("application_sha")
+    if not _hex(candidate_sha, 40):
+        reasons.append("authoritative candidate must declare an exact application SHA")
+    for field in ("foundation_id", "application_repository", "application_branch"):
+        if not candidate.get(field):
+            reasons.append(f"authoritative candidate missing: {field}")
+    if candidate.get("superseded") is True or candidate.get("status") == "SUPERSEDED":
+        reasons.append("superseded candidate cannot be accepted")
+    if isinstance(qualification, Mapping):
+        if qualification.get("candidate_sha") != candidate_sha:
+            reasons.append("qualification evidence does not bind to the authoritative candidate SHA")
+        if qualification.get("status") != "PASS":
+            reasons.append("qualification is not PASS")
+        if qualification.get("invalidated") is True or qualification.get("mutation_after_qualification") is True:
+            reasons.append("qualification was invalidated by a post-qualification mutation")
+        if qualification.get("superseded") is True:
+            reasons.append("qualification belongs to a superseded candidate")
+        if qualification.get("evidence_current") is not True:
+            reasons.append("qualification evidence is not current")
+    else:
+        reasons.append("qualification evidence is missing")
+    if isinstance(acceptance, Mapping):
+        if acceptance.get("status") != "ACCEPTED":
+            reasons.append("governance acceptance is not ACCEPTED")
+        if acceptance.get("application_sha") != candidate_sha:
+            reasons.append("governance acceptance does not bind to the qualified application SHA")
+        if acceptance.get("exact_sha_binding") is not True:
+            reasons.append("governance acceptance lacks exact SHA binding")
+        if not acceptance.get("governance_sha"):
+            reasons.append("governance acceptance SHA is missing")
+    else:
+        reasons.append("governance acceptance is missing")
+    if isinstance(currentness, Mapping):
+        if currentness.get("application_local_equals_remote") is not True or currentness.get("governance_local_equals_remote") is not True:
+            reasons.append("application and governance currentness are not proven")
+    else:
+        reasons.append("application and governance currentness evidence is missing")
+    if next_foundation_started and not (
+        isinstance(acceptance, Mapping)
+        and acceptance.get("status") == "ACCEPTED"
+        and acceptance.get("application_sha") == candidate_sha
+        and acceptance.get("exact_sha_binding") is True
+    ):
+        reasons.append("next Foundation started before the current frozen pair existed")
+    evidence = {
+        "previous_frozen_pair": previous_frozen_pair,
+        "active_candidates": candidates,
+        "qualification": qualification,
+        "acceptance": acceptance,
+        "currentness": currentness,
+        "next_foundation_started": next_foundation_started,
+    }
+    return _decision(PROGRESSION_GATE_ID, "PASS" if not reasons else "HOLD", reasons, evidence)
