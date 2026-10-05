@@ -1,0 +1,48 @@
+{
+  "foundation": "F15",
+  "status": "ACCEPTED",
+  "application": {
+    "repository": "chriskulbaba2025/gacm-qualification-sandbox",
+    "branch": "candidate/foundation15-real-repair-20261005",
+    "sha": "e7cbc6a9c150e0a7f9e1c0355b6233ff39044494",
+    "previous_sha": "bb27c9e23b0636a6913b871a9dd1e2647fc3fb38"
+  },
+  "governance": {
+    "repository": "chriskulbaba2025/gacm-trial",
+    "starting_sha": "43a56fb1876df8e1f82b13b18d1be1a4b2971a44",
+    "main_unchanged": "c50ba6e5f5382b3460f0ab1de7d508f330ced800"
+  },
+  "real_failure": {
+    "defect_family": "F15_FIXTURE_REPAIR",
+    "failure_digest": "5b7e13820da68dccaaf41e925063647baaeeb0fbc4b909ff2178ca0a82f940ca",
+    "qualification_setup_sha": "4346bc307d0bfb7741a4cf671d644317de7972dc"
+  },
+  "execution": {
+    "receipt": "GACM-F15-REAL-REPAIR-REQUALIFICATION-2026-10-05/04-F15-REPAIR-EXECUTION-RECEIPT.json",
+    "action_authorization": "GACM-F15-REAL-REPAIR-REQUALIFICATION-2026-10-05/05-F15-ACTION-AUTHORIZATION-RECEIPT.json",
+    "durable_state_sha256": "f04e932a2da8d01cabd4d12d5ca438d4838f9be9308bd296c9efc5c501250843",
+    "recipe_digest": "2c3be9d955ae86bf45c6185ad94785955e284f0e820024b6d68c81a0e5b0db3b",
+    "model": "gpt-5.6-luna",
+    "real_executor": "GCUExecutionAdapter/RealRepairRunner/real-subprocess"
+  },
+  "reverification": {
+    "receipt": "GACM-F15-REAL-REPAIR-REQUALIFICATION-2026-10-05/06-F15-INDEPENDENT-REVERIFICATION.md",
+    "verifier": "INDEPENDENT_F15_REVERIFIER",
+    "status": "PASS",
+    "negative_control": "GACM-F15-REAL-REPAIR-REQUALIFICATION-2026-10-05/08-F15-REAL-NEGATIVE-CONTROL.json"
+  },
+  "whole_machine": {
+    "status": "PASS",
+    "evidence_digest": "04523451968cdf4dcd6de140d42fbbaa1c311d62ed6623b947dc239f9072100d",
+    "drift_digest": "7c6611418d7fbaf19c479e70a78a5659d29580d042c79124df9a35b0f198d50c",
+    "acceptance_readiness_digest": "d6c0960f05ce1ef25530e5cde6c79179c4f7a7d4d69f67efedd3e17d867f36c6"
+  },
+  "currentness": {
+    "application_candidate_remote": "e7cbc6a9c150e0a7f9e1c0355b6233ff39044494",
+    "application_main": "32d474fdb8fe0672d826ff434b4bfc94c9537407",
+    "production": "UNTOUCHED"
+  },
+  "independent_verifier": "INDEPENDENT_F15_GOVERNANCE_AUDITOR_20261005",
+  "acceptance_timestamp": "2026-10-05T00:10:00Z",
+  "next_foundation": "F16_ONLY_AFTER_THIS_ACCEPTANCE"
+}
