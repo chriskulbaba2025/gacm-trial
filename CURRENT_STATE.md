@@ -22,7 +22,7 @@ GACM v4.2.2 remains the frozen base methodology authority. Explicitly authorized
 
 ## Current phase
 
-**GACM-GRAPH-FOUNDATION-12 — GRAPH-GOVERNED PRD / TRANCHE GENERATION — PASS**
+**GACM-GRAPH-FOUNDATION-13 — GRAPH-AWARE REPAIR PLANNING AND GRAPH INTEGRITY PRECONDITIONS — PASS**
 
 Historical Phases 1â€“14 remain preserved as recorded below. GACM-MVP-CLOSURE-00 established the reconciled candidate authority at `0dd82e6176bd00e32fddfc975584a70773350b14`; Graph Foundation 01 established the graph kernel candidate at `150f895f4effa74dee116d51dd7fbee974445447`; Graph Foundation 03B established the graph-to-PilotHarness planning candidate at `25d67953c465abe91b2ad0f5e9378e24e78dcb45`; Graph Foundation 04 established durable graph persistence at `4ecc2ead93f185bb563b99ca87580c0d90a69e27`; Foundation 05 governance closed at `74b08065f138159f6e1d49841b7baf0e9e6fc534` and binds that exact engine to qualification-app candidate `19028a49b89a00be718ee017149a7615e966e4fd`.
 
@@ -54,7 +54,7 @@ The reconciled authority set remains defined by `docs/GACM_MVP_AUTHORITY_MANIFES
 
 The authoritative SPEC `main` identity remains `30bfb0e78bab11c1e20cdc74b45530114c431654`. The authoritative CRIT `main` identity remains `187b7f7d3d63025f98386da09255942d6693303d`. Foundation 05 and Foundation 06 identities remain preserved as historical parents/evidence; the exact final MVP application candidate is now `32d474fdb8fe0672d826ff434b4bfc94c9537407`.
 
-Foundation 09 convergence/shared-root detection is now accepted at the staging-candidate boundary. Independently verified graph-derived release acceptance is the next roadmap capability, but no release-acceptance tranche is opened by this record. Authoritative causal claims, model/vector convergence, cross-project learning, automatic repair-scope expansion, graph mutation from convergence, legacy-planner removal, graph-triggered execution, provider/model changes, and production migration remain excluded.
+Foundation 13 graph-aware repair planning and graph-integrity preconditions are now the accepted current boundary. Foundation 14 — Governed Candidate-Tranche Execution Bridge — is the next frozen-roadmap capability, but it is not opened by this record. Authoritative causal claims, automatic repair execution, automatic repair approval, scope expansion, provider/model/tool selection, production mutation, and either `main` merge remain excluded.
 
 ## Completed phases
 
@@ -202,9 +202,9 @@ On 2026-10-04, human authority explicitly instructed GACM to freeze and audit th
 
 The frozen roadmap is `docs/GACM_FOUNDATION_COMPLETION_ROADMAP_V1.md`.
 
-The accepted Foundation 12 boundary remains unchanged. The fixed remaining sequence is Foundation 13 through Foundation 18, with Foundation 18 defined as capability-free whole-foundation closure. There is no implied Foundation 19.
+The accepted Foundation 13 boundary is current. The fixed remaining sequence is Foundation 14 through Foundation 18, with Foundation 18 defined as capability-free whole-foundation closure. There is no implied Foundation 19.
 
-Foundation 13 is the next planned capability: graph-aware repair planning. This roadmap does not open Foundation 13 or any later implementation tranche. A later capability may enter or alter the frozen Foundation sequence only through an explicit human-authorized roadmap amendment proving that the change is required to satisfy the frozen Foundation Complete definition.
+Foundation 13 was explicitly opened after the roadmap freeze and is now accepted PASS. Foundation 14 — Governed Candidate-Tranche Execution Bridge — is the next planned capability and remains not opened by this record. A later capability may enter or alter the frozen Foundation sequence only through an explicit human-authorized roadmap amendment proving that the change is required to satisfy the frozen Foundation Complete definition.
 
 Production mutation and either `main` merge remain outside this roadmap authority.
 
