@@ -92,8 +92,8 @@ def progression_inputs():
         "superseded": False,
     }
     qualification = {"candidate_sha": "3" * 40, "status": "PASS", "invalidated": False, "mutation_after_qualification": False, "superseded": False, "evidence_current": True}
-    acceptance = {"status": "ACCEPTED", "application_sha": "3" * 40, "governance_sha": "4" * 40, "exact_sha_binding": True}
-    currentness = {"application_local_equals_remote": True, "governance_local_equals_remote": True}
+    acceptance = {"status": "ACCEPTED", "foundation_id": "F16", "application_repository": "application/repo", "application_sha": "3" * 40, "governance_sha": "4" * 40, "exact_sha_binding": True}
+    currentness = {"application_local_equals_remote": True, "governance_local_equals_remote": True, "application_local_sha": "3" * 40, "application_remote_sha": "3" * 40, "governance_local_sha": "4" * 40, "governance_remote_sha": "4" * 40}
     return previous, [candidate], qualification, acceptance, currentness
 
 

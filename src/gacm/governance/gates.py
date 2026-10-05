@@ -386,13 +386,22 @@ def evaluate_progression_synchronization(
             reasons.append("governance acceptance does not bind to the qualified application SHA")
         if acceptance.get("exact_sha_binding") is not True:
             reasons.append("governance acceptance lacks exact SHA binding")
-        if not acceptance.get("governance_sha"):
-            reasons.append("governance acceptance SHA is missing")
+        if acceptance.get("foundation_id") != candidate.get("foundation_id"):
+            reasons.append("governance acceptance foundation does not match the candidate")
+        if acceptance.get("application_repository") != candidate.get("application_repository"):
+            reasons.append("governance acceptance repository does not match the candidate")
+        if not _hex(acceptance.get("governance_sha"), 40):
+            reasons.append("governance acceptance must declare an exact governance SHA")
     else:
         reasons.append("governance acceptance is missing")
     if isinstance(currentness, Mapping):
         if currentness.get("application_local_equals_remote") is not True or currentness.get("governance_local_equals_remote") is not True:
             reasons.append("application and governance currentness are not proven")
+        if currentness.get("application_local_sha") != candidate_sha or currentness.get("application_remote_sha") != candidate_sha:
+            reasons.append("application currentness does not bind local and remote to the candidate SHA")
+        governance_sha = acceptance.get("governance_sha") if isinstance(acceptance, Mapping) else None
+        if currentness.get("governance_local_sha") != governance_sha or currentness.get("governance_remote_sha") != governance_sha:
+            reasons.append("governance currentness does not bind local and remote to the acceptance SHA")
     else:
         reasons.append("application and governance currentness evidence is missing")
     if next_foundation_started and not (
