@@ -1,0 +1,32 @@
+{
+  "schema": "GACM_CUMULATIVE_GATES_V1",
+  "gate_ids": [
+    "GACM-WHOLE-MACHINE-INTEGRITY-GATE",
+    "GACM-INSTRUCTION-AND-AUTHORITY-DRIFT-GATE"
+  ],
+  "blocking_drift_classes": [
+    "STALE_DEPENDENCY",
+    "UNAUTHORIZED_CHANGE",
+    "MISSING_AUTHORITY",
+    "CONTRADICTION",
+    "UNKNOWN"
+  ],
+  "required_boundary_observation": [
+    "boundary_id",
+    "status",
+    "runtime_observed",
+    "synthetic",
+    "caller_asserted",
+    "candidate_sha",
+    "evidence_ids",
+    "receipt_digest"
+  ],
+  "required_connection_observation": [
+    "connection_id",
+    "status",
+    "runtime_observed",
+    "candidate_sha",
+    "evidence_ids",
+    "receipt_digest"
+  ]
+}
