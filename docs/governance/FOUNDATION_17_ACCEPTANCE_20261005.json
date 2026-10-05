@@ -23,6 +23,7 @@
   "provider": "openai",
   "evidence": {
     "real_qualification_sha256": "c9e7cb38afc74902366b40443b5b755b1200e19b777740807229b4f3cbcb5498",
+    "negative_controls_sha256": "9bb1c31b53afbc2003a2ca5c1582d5ca412bdce48a5907f63aa169a2ff8fc87e",
     "full_regression_sha256": "29d80a10869517fa569682bea45532a38904a6db43be82a3f634f5bafb7f95be",
     "whole_machine_gate_digest": "6fbe1cf18564dd6ebfa21495077051a2ca5786058a85862d664768d508d567d7",
     "drift_gate_digest": "5f23222760ddcaa247b9c9d08b92418a523594d5510e2d29f9fb243f84e62574",
