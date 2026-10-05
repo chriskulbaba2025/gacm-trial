@@ -270,6 +270,6 @@ Verification evidence:
 
 ### Acceptance decision
 
-Foundation 13 closes **PASS** at the isolated candidate boundary once the final governance regression and exact-SHA governance CI on this acceptance record pass.
+Foundation 13 is **PASS** at the isolated candidate boundary. Final governance regression passed 274/274 and exact-SHA governance CI passed on acceptance SHA `9e9dc75036711bf144cc6a91fa8e7f0eec713163` (run `37234072910`, job `111529600899`).
 
 The mandatory stop rule applies: Foundation 14 and every later stage remain **not opened**.
