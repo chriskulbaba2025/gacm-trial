@@ -25,6 +25,31 @@ from gacm.graph import (  # noqa: E402
 PROJECT = "gacm-test"
 
 
+def execution_recipe(work_unit_id):
+    return {
+        "schema": "GACM_EXECUTION_RECIPE_V1",
+        "recipe_id": "recipe-" + work_unit_id,
+        "version": "1",
+        "state": "FROZEN",
+        "work_unit_id": work_unit_id,
+        "mutation_policy": "GOVERNED_REFREEZE_REQUIRED",
+        "steps": [{
+            "step_id": "step-1", "sequence": 1,
+            "allowed_actions": [{
+                "action_kind": "COMMAND", "tools": ["python"],
+                "target_patterns": ["work-unit"],
+                "parameter_constraints": {"allowed_keys": ["command"], "required_keys": ["command"], "string_prefixes": {"command": ["python -m unittest"]}},
+                "judgment_slot_id": None,
+            }],
+            "bounded_judgment_slots": [],
+            "acceptable_prior_states": ["EXECUTION"],
+            "expected_result_states": ["DONE"],
+            "evidence_requirements": ["test output"],
+            "stop_conditions": ["authority mismatch"],
+        }],
+    }
+
+
 def node(
     object_id,
     object_type=NodeType.REQUIREMENT,
@@ -404,10 +429,12 @@ class GraphSchedulerTests(unittest.TestCase):
                 EpistemicState.OBSERVED,
                 "READY",
                 payload={
+                    "work_unit_id": "unit-tranche",
                     "selected_model": "gpt-5.6-luna",
                     "qualification_identity": "qual-luna-1",
                     "routing_decision_id": "route-luna-1",
                     "external_action_required": False,
+                    "execution_recipe": execution_recipe("unit-tranche"),
                     "task_objective": "bounded graph work",
                 },
             ),),
@@ -422,6 +449,32 @@ class GraphSchedulerTests(unittest.TestCase):
         self.assertFalse(package["subagents_authorized"])
         self.assertFalse(package["model_escalation_authorized"])
         self.assertEqual("READY_FOR_EXECUTION_GATE", package["status"])
+
+    def test_routed_package_without_frozen_execution_recipe_is_held(self):
+        graph = GovernedGraph()
+        graph.apply(mutation(
+            graph,
+            "m1",
+            nodes=(node(
+                "tranche",
+                NodeType.TRANCHE,
+                EpistemicState.OBSERVED,
+                "READY",
+                payload={
+                    "work_unit_id": "unit-no-recipe",
+                    "selected_model": "gpt-5.6-luna",
+                    "qualification_identity": "qual-luna-1",
+                    "routing_decision_id": "route-luna-1",
+                    "external_action_required": False,
+                    "task_objective": "must not execute without frozen recipe",
+                },
+            ),),
+        ))
+        scheduler = GraphScheduler(graph)
+        package = scheduler.project_work_package(scheduler.next_actions(PROJECT)[0])
+        self.assertFalse(package["routing_required"])
+        self.assertEqual("HOLD_MISSING_EXECUTION_RECIPE", package["status"])
+        self.assertIsNone(package["execution_recipe"])
 
     def test_model_name_without_route_authority_remains_routing_required(self):
         graph = GovernedGraph()

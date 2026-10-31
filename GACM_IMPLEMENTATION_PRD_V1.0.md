@@ -129,9 +129,11 @@ GCU is the governed implementation engine inside GACM. GCU remains responsible f
 
 GCU cannot produce authoritative final PASS. GACM wraps GCU with authority, routing, permissions, independent verification, durable state, promotion, settlement, and rollback.
 
+GCU execution is also subject to the mandatory `GACM Execution Authority and Inference State Contract v1`. Unbounded inference is allowed during design, but after a work-unit execution recipe is frozen, the runner must use the per-action authority gate. A material action may proceed only after deterministic `ALLOW`; available tools, commands, credentials, providers, models, dependencies, or workarounds do not create authority. Execution judgment is permitted only inside explicit bounded-judgment slots.
+
 ## 10. Long-run structure
 
-Long autonomous runs must be decomposed into bounded work units. Each unit has input state, expected outcome, allowed surfaces, model, risk class, test contract, stop conditions, and output evidence.
+Long autonomous runs must be decomposed into bounded work units. Each unit has input state, expected outcome, allowed surfaces, model, risk class, test contract, stop conditions, output evidence, and a versioned frozen execution recipe defining the permitted action sequence, tools, targets, parameter constraints, state transitions, evidence, and bounded-judgment slots.
 
 A failure does not automatically invalidate all prior successful units.
 
@@ -160,7 +162,7 @@ Only the independent verification layer may produce authoritative PASS.
 
 ## 13. Durable run state
 
-Each run requires durable state including run ID, project ID, authoritative starting SHA, branch/worktree, PRD identity, GACM version, Graphify index identity, operational context, task units, model used per unit, model qualification identity, inputs, outputs, tests, failures, repairs, affected scope, verification decisions, human interventions, promotion state, deployment identity, settlement state, and rollback target.
+Each run requires durable state including run ID, project ID, authoritative starting SHA, branch/worktree, PRD identity, GACM version, Graphify index identity, operational context, task units, model used per unit, model qualification identity, frozen execution-recipe identity/digest, execution-authority state, inputs, outputs, per-action authorization receipts, tests, failures, repairs, affected scope, verification decisions, human interventions, promotion state, deployment identity, settlement state, and rollback target.
 
 A new chat must be able to reconstruct the run without relying on conversational memory.
 
@@ -212,15 +214,17 @@ Pilot v1 passes only if:
 5. Known values cannot be replaced with placeholders.
 6. Model routing is controlled by GACM.
 7. GCU performs bounded implementation.
-8. Execution cannot declare authoritative PASS.
-9. Verification can identify affected repair scope.
-10. Local repairs do not automatically trigger full reruns.
-11. Model-bearing or authority-bearing changes trigger broader requalification where required.
-12. Run state survives loss of the originating chat.
-13. Every promoted state has reproducible identity.
-14. Stable rollback remains available.
-15. Release requires SETTLE where applicable.
-16. The pilot produces a complete evidence trail.
+8. Every execution-ready work unit has a frozen, identity-stamped execution recipe and explicit execution-authority state.
+9. Every material execution action is machine-authorized with `ALLOW` before execution; unguarded runners and unauthorized workarounds fail closed.
+10. Execution cannot declare authoritative PASS.
+11. Verification can identify affected repair scope.
+12. Local repairs do not automatically trigger full reruns.
+13. Model-bearing or authority-bearing changes trigger broader requalification where required.
+14. Run state survives loss of the originating chat, including execution-recipe identity and authority state.
+15. Every promoted state has reproducible identity.
+16. Stable rollback remains available.
+17. Release requires SETTLE where applicable.
+18. The pilot produces a complete evidence trail.
 
 ## 21. Fixed implementation sequence
 

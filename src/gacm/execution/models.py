@@ -11,6 +11,8 @@ import json
 from dataclasses import dataclass, field
 from typing import Any, Mapping
 
+from .action_authority import recipe_digest, validate_recipe
+
 
 EXECUTION_STATUSES = ("COMPLETED", "FAILED", "BLOCKED", "STOPPED")
 AUTHORITY_SURFACES = ("authority", "model", "architecture")
@@ -51,6 +53,7 @@ class WorkUnitContract:
     evidence_requirements: tuple[str, ...]
     stop_conditions: tuple[str, ...]
     broader_requalification_triggers: tuple[str, ...]
+    execution_recipe: Mapping[str, Any]
     dependencies: tuple[str, ...] = ()
     authority_status: str = "VERIFIED"
     context_status: str = "VERIFIED"
@@ -88,6 +91,7 @@ class WorkUnitContract:
             raise ValueError("at least one allowed writable path is required")
         if not self.test_contract or not self.evidence_requirements or not self.stop_conditions:
             raise ValueError("test, evidence, and STOP contracts are required")
+        validate_recipe(self.execution_recipe, self.work_unit_id)
         # These values are retained on the contract so the adapter can return a
         # deterministic BLOCKED result for an invalid request.  Construction of
         # a request is not itself authorization to execute.
@@ -119,6 +123,8 @@ class WorkUnitContract:
             "evidence_requirements": list(self.evidence_requirements),
             "stop_conditions": list(self.stop_conditions),
             "broader_requalification_triggers": list(self.broader_requalification_triggers),
+            "execution_recipe": dict(self.execution_recipe),
+            "execution_recipe_digest": recipe_digest(self.execution_recipe),
             "dependencies": list(self.dependencies),
             "authority_status": self.authority_status,
             "context_status": self.context_status,

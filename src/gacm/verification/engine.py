@@ -15,6 +15,7 @@ from .checks import (
     check_routing,
     check_tests,
 )
+from .graph_release import check_graph_release
 from .models import VerificationInput, VerificationReceipt, VerificationStatus, canonical
 from .scope import determine_scope
 
@@ -55,7 +56,11 @@ class IndependentVerificationEngine:
         regression_status, regression_reasons = check_tests(contract, inputs.test_contract, inputs.test_outcomes)
         claim_status, claim_reasons = check_executor_claim(receipt)
         outcome_status, outcome_reasons = self._check_outcome(inputs)
-        reasons.extend(authority_reasons + path_reasons + context_reasons + routing_reasons + regression_reasons + claim_reasons + outcome_reasons)
+        graph_release = check_graph_release(contract, inputs.graph_release_evidence)
+        graph_release_reasons = list(graph_release.reasons)
+        reasons.extend(authority_reasons + path_reasons + context_reasons + routing_reasons + regression_reasons + claim_reasons + outcome_reasons + graph_release_reasons)
+        if graph_release.status != "NOT_APPLICABLE":
+            evidence_reviewed.append("graph_release_evidence")
 
         changed = inputs.actual_changed_paths
         scope = determine_scope(
@@ -80,6 +85,8 @@ class IndependentVerificationEngine:
             reasons.append("blast radius cannot be determined independently")
 
         statuses = [authority_status, path_status, context_status, routing_status, regression_status, claim_status, outcome_status]
+        if graph_release.status != "NOT_APPLICABLE":
+            statuses.append(graph_release.status)
         if any(item == "FAIL" for item in statuses):
             status = VerificationStatus.FAIL
         elif any(item == "UNOBSERVABLE" for item in statuses) or inputs.actual_changed_paths is None or inputs.diff_evidence is None:
@@ -105,6 +112,8 @@ class IndependentVerificationEngine:
             authority=authority_status,
             context=context_status,
             routing=routing_status,
+            graph_release=graph_release.status,
+            graph_release_digest=graph_release.evidence_digest,
         )
 
     @staticmethod
@@ -130,6 +139,8 @@ class IndependentVerificationEngine:
         authority="UNOBSERVABLE",
         context="UNOBSERVABLE",
         routing="UNOBSERVABLE",
+        graph_release="NOT_APPLICABLE",
+        graph_release_digest=None,
     ) -> VerificationReceipt:
         scope_dict = scope.to_dict() if scope is not None else {
             "classification": "UNKNOWN", "changed_paths": [], "affected_scope": [],
@@ -142,6 +153,8 @@ class IndependentVerificationEngine:
             "status": status.value,
             "scope": scope_dict,
             "reasons": sorted(set(reasons)),
+            "graph_release_result": graph_release,
+            "graph_release_evidence_digest": graph_release_digest,
         }
         verification_id = "verify-" + hashlib.sha256(canonical(material).encode("utf-8")).hexdigest()[:24]
         return VerificationReceipt(
@@ -159,6 +172,8 @@ class IndependentVerificationEngine:
             authority_integrity_result=authority,
             operational_context_result=context,
             model_routing_integrity_result=routing,
+            graph_release_result=graph_release,
+            graph_release_evidence_digest=graph_release_digest,
             affected_scope_determination=scope_dict,
             prior_assurance_invalidated=tuple(scope_dict.get("prior_assurance_invalidated", [])),
             prior_assurance_preserved=tuple(scope_dict.get("prior_assurance_preserved", [])),

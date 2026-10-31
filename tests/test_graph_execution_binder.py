@@ -8,6 +8,7 @@ from jsonschema import Draft202012Validator, FormatChecker
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
+from gacm.execution import recipe_digest  # noqa: E402
 from gacm.graph import GraphBindingError, GraphWorkPackageBinder  # noqa: E402
 from gacm.routing import (  # noqa: E402
     DeterministicModelRouter,
@@ -19,6 +20,37 @@ from gacm.routing import (  # noqa: E402
 
 
 SHA = "a" * 40
+
+
+def execution_recipe(work_unit_id="unit-graph"):
+    return {
+        "schema": "GACM_EXECUTION_RECIPE_V1",
+        "recipe_id": "recipe-" + work_unit_id,
+        "version": "1",
+        "state": "FROZEN",
+        "work_unit_id": work_unit_id,
+        "mutation_policy": "GOVERNED_REFREEZE_REQUIRED",
+        "steps": [{
+            "step_id": "step-1",
+            "sequence": 1,
+            "allowed_actions": [{
+                "action_kind": "COMMAND",
+                "tools": ["python"],
+                "target_patterns": ["work-unit"],
+                "parameter_constraints": {
+                    "allowed_keys": ["command"],
+                    "required_keys": ["command"],
+                    "exact": {"command": "python -m unittest tests.test_jev_classification"},
+                },
+                "judgment_slot_id": None,
+            }],
+            "bounded_judgment_slots": [],
+            "acceptable_prior_states": ["EXECUTION"],
+            "expected_result_states": ["DONE"],
+            "evidence_requirements": ["targeted test output"],
+            "stop_conditions": ["authority mismatch"],
+        }],
+    }
 
 
 def dimensions(**overrides):
@@ -70,6 +102,7 @@ def package(decision, **overrides):
         "forbidden_surfaces": ["production/*"],
         "test_contract": ["python -m unittest tests.test_jev_classification"],
         "stop_conditions": ["authority mismatch", "graph revision mismatch"],
+        "execution_recipe": execution_recipe("unit-graph"),
         "authority_refs": ["github://gacm/candidate"],
         "selected_model": decision.selected_model,
         "qualification_identity": decision.qualification_identity,
@@ -118,6 +151,8 @@ class GraphExecutionBinderTests(unittest.TestCase):
                 "graph_revision": 7,
                 "graph_target_object_id": "tranche-graph-2",
                 "graph_project_id": "project-gacm",
+                "execution_authority_state": "EXECUTION",
+                "execution_recipe_digest": recipe_digest(contract.execution_recipe),
             },
             bound.current_state_binding(),
         )
@@ -130,7 +165,9 @@ class GraphExecutionBinderTests(unittest.TestCase):
                 encoding="utf-8"
             )
         )
-        state["work_units"][0]["graph_binding"] = bound.run_state_projection()["graph_binding"]
+        projection = bound.run_state_projection()
+        state["work_units"][0]["graph_binding"] = projection["graph_binding"]
+        state["work_units"][0]["execution_authority"] = projection["execution_authority"]
         schema = json.loads(
             (ROOT / "schemas" / "gacm-run-state.schema.json").read_text(
                 encoding="utf-8"

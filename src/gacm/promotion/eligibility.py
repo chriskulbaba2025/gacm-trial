@@ -21,6 +21,18 @@ class PromotionEligibility:
         if identity != "VALID": reasons.append("IDENTITY_VALIDATION_NOT_VALID")
         verifier = evidence.get("verification", {})
         if not isinstance(verifier, Mapping) or verifier.get("status") != "PASS" or verifier.get("authoritative") is not True or verifier.get("issuer_role") != "INDEPENDENT_VERIFIER": reasons.append("AUTHORITATIVE_VERIFIER_PASS_REQUIRED")
+        if evidence.get("graph_release_required"):
+            if not isinstance(verifier, Mapping) or verifier.get("graph_release_result") != "PASS":
+                reasons.append("GRAPH_RELEASE_VERIFIER_PASS_REQUIRED")
+            expected_graph_digest = evidence.get("graph_release_evidence_digest")
+            if not isinstance(expected_graph_digest, str) or len(expected_graph_digest) != 64:
+                reasons.append("GRAPH_RELEASE_EVIDENCE_DIGEST_REQUIRED")
+            elif verifier.get("graph_release_evidence_digest") != expected_graph_digest:
+                reasons.append("GRAPH_RELEASE_EVIDENCE_DIGEST_MISMATCH")
+            verification_id = verifier.get("verification_id")
+            receipt_ids = tuple(map(str, evidence.get("verification_receipt_ids", ())))
+            if not isinstance(verification_id, str) or verification_id not in receipt_ids:
+                reasons.append("GRAPH_RELEASE_VERIFICATION_RECEIPT_BINDING_REQUIRED")
         if evidence.get("unresolved_blocked") or evidence.get("blocked_condition"): blocked.append("UNRESOLVED_BLOCKED_CONDITION")
         if evidence.get("repair_required") or evidence.get("requalification_required"): reasons.append("REPAIR_OR_REQUALIFICATION_INCOMPLETE")
         if not evidence.get("rollback_target_sha"): reasons.append("ROLLBACK_TARGET_REQUIRED")

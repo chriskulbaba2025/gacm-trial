@@ -58,6 +58,8 @@ class PromotionReceipt:
     timestamp: str
     reason: str
     settle_required: bool = False
+    graph_release_evidence_digest: str | None = None
+    graph_release_verification_id: str | None = None
     event_type: str = "PROMOTION"
 
     def to_dict(self) -> dict[str, Any]:
@@ -67,7 +69,10 @@ class PromotionReceipt:
             "prior_authoritative_sha": self.prior_authoritative_sha, "rollback_target_sha": self.rollback_target_sha,
             "verification_receipt_ids": list(self.verification_receipt_ids), "required_approvals": list(self.required_approvals),
             "operational_context_id": self.operational_context_id, "timestamp": self.timestamp,
-            "reason": self.reason, "settle_required": self.settle_required, "event_type": self.event_type,
+            "reason": self.reason, "settle_required": self.settle_required,
+            "graph_release_evidence_digest": self.graph_release_evidence_digest,
+            "graph_release_verification_id": self.graph_release_verification_id,
+            "event_type": self.event_type,
         }
 
     def content_sha(self) -> str:

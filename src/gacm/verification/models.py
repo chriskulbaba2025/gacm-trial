@@ -58,6 +58,7 @@ class VerificationInput:
     scope_patterns: Mapping[str, tuple[str, ...]] = field(default_factory=dict)
     dependency_paths: tuple[str, ...] = ()
     expected_outcome_met: bool | None = True
+    graph_release_evidence: Mapping[str, Any] | None = None
 
 
 @dataclass(frozen=True)
@@ -100,6 +101,8 @@ class VerificationReceipt:
     authority_integrity_result: str
     operational_context_result: str
     model_routing_integrity_result: str
+    graph_release_result: str
+    graph_release_evidence_digest: str | None
     affected_scope_determination: Mapping[str, Any]
     prior_assurance_invalidated: tuple[str, ...]
     prior_assurance_preserved: tuple[str, ...]
@@ -134,6 +137,8 @@ class VerificationReceipt:
             "authority_integrity_result": self.authority_integrity_result,
             "operational_context_result": self.operational_context_result,
             "model_routing_integrity_result": self.model_routing_integrity_result,
+            "graph_release_result": self.graph_release_result,
+            "graph_release_evidence_digest": self.graph_release_evidence_digest,
             "affected_scope_determination": dict(self.affected_scope_determination),
             "prior_assurance_invalidated": list(self.prior_assurance_invalidated),
             "prior_assurance_preserved": list(self.prior_assurance_preserved),
@@ -168,6 +173,8 @@ class VerificationReceipt:
                     "issuer_role": self.issuer_role,
                     "evidence_ids": [evidence_id],
                     "decision_at": self.completed_at,
+                    "graph_release_result": self.graph_release_result,
+                    "graph_release_evidence_digest": self.graph_release_evidence_digest,
                 },
                 "affected_scope": list(self.affected_scope_determination.get("affected_scope", [])),
                 "broader_requalification_triggers": list(self.affected_scope_determination.get("requalification_reasons", [])),

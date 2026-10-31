@@ -330,7 +330,9 @@
         "authoritative": { "type": "boolean" },
         "issuer_role": { "enum": ["ORCHESTRATION", "EXECUTOR", "INDEPENDENT_VERIFIER", "RELEASE_AUTHORITY"] },
         "evidence_ids": { "type": "array", "items": { "$ref": "#/$defs/id" } },
-        "decision_at": { "$ref": "#/$defs/isoTime" }
+        "decision_at": { "$ref": "#/$defs/isoTime" },
+        "graph_release_result": { "enum": ["NOT_APPLICABLE", "PASS", "FAIL", "BLOCKED", "UNOBSERVABLE"] },
+        "graph_release_evidence_digest": { "type": ["string", "null"], "pattern": "^[a-f0-9]{64}$" }
       },
       "allOf": [
         {
@@ -408,6 +410,19 @@
         "project_id": { "$ref": "#/$defs/id" }
       }
     },
+    "executionAuthorityBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state", "recipe_id", "recipe_version", "recipe_digest", "mutation_policy", "inference_mode"],
+      "properties": {
+        "state": { "enum": ["DESIGN", "FROZEN", "EXECUTION", "VERIFICATION", "BLOCKED"] },
+        "recipe_id": { "$ref": "#/$defs/id" },
+        "recipe_version": { "type": "string", "minLength": 1 },
+        "recipe_digest": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "mutation_policy": { "const": "GOVERNED_REFREEZE_REQUIRED" },
+        "inference_mode": { "enum": ["UNBOUNDED_DESIGN", "BOUNDED_ONLY_AFTER_FREEZE"] }
+      }
+    },
     "workUnit": {
       "type": "object",
       "additionalProperties": false,
@@ -416,6 +431,7 @@
         "unit_id": { "$ref": "#/$defs/id" },
         "title": { "type": "string", "minLength": 1 },
         "graph_binding": { "$ref": "#/$defs/graphBinding" },
+        "execution_authority": { "$ref": "#/$defs/executionAuthorityBinding" },
         "dependencies": { "type": "array", "items": { "$ref": "#/$defs/id" } },
         "allowed_surfaces": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
         "model": { "$ref": "#/$defs/modelSelection" },
@@ -716,7 +732,10 @@
         "verification_receipt_ids": { "type": "array", "items": { "$ref": "#/$defs/id" } },
         "required_approvals": { "type": "array", "items": { "type": "string" } },
         "operational_context_id": { "type": ["string", "null"] }, "timestamp": { "$ref": "#/$defs/isoTime" },
-        "reason": { "type": "string", "minLength": 1 }, "settle_required": { "type": "boolean" }, "event_type": { "const": "PROMOTION" }
+        "reason": { "type": "string", "minLength": 1 }, "settle_required": { "type": "boolean" },
+        "graph_release_evidence_digest": { "type": ["string", "null"], "pattern": "^[a-f0-9]{64}$" },
+        "graph_release_verification_id": { "type": ["string", "null"], "minLength": 1 },
+        "event_type": { "const": "PROMOTION" }
       }
     },
     "rollbackHistory": {

@@ -1,0 +1,48 @@
+{
+  "foundation": "F14",
+  "acceptance_status": "ACCEPTED",
+  "acceptance_timestamp_utc": "2026-10-05T12:31:20.3690062Z",
+  "application": {
+    "repository": "chriskulbaba2025/gacm-qualification-sandbox",
+    "branch": "candidate/foundation14-18-requalification-20261005",
+    "sha": "bb27c9e23b0636a6913b871a9dd1e2647fc3fb38",
+    "main_sha_unchanged": "32d474fdb8fe0672d826ff434b4bfc94c9537407"
+  },
+  "governance": {
+    "previous_accepted_sha": "3904adb8c46e16e72880106faf13e5f967983afc",
+    "main_sha_unchanged": "c50ba6e5f5382b3460f0ab1de7d508f330ced800",
+    "acceptance_branch": "governance/foundation14-acceptance-20261005"
+  },
+  "qualification": {
+    "real_execution": "PASS",
+    "per_action_authorization": "PASS",
+    "real_negative_control": "PASS",
+    "application_currentness": "PASS",
+    "production": "UNTOUCHED",
+    "executor_evidence_authoritative": false
+  },
+  "proof_identity": {
+    "real_execution_receipt": "03-REAL-GCU-EXECUTION-RECEIPT.json",
+    "action_authorization_receipt": "04-ACTION-AUTHORIZATION-RECEIPT.json",
+    "negative_control_receipt": "05-REAL-NEGATIVE-CONTROL.json",
+    "application_currentness_receipt": "07-CURRENTNESS-PROOF.txt",
+    "proof_folder": "C:\\Users\\kulba\\Downloads\\GACM-F14-REAL-EXECUTION-REQUALIFICATION-2026-10-05",
+    "proof_sha256": {
+      "03-REAL-GCU-EXECUTION-RECEIPT.json": "18f964ab28c334319429cd8490da0221db0f726e02da35c48a81f1b2e8158afe",
+      "04-ACTION-AUTHORIZATION-RECEIPT.json": "b9b7548d4a93faabd52e60d97fba0bb01aa8ac1100a3a9d010fa47ac7ca48f0e",
+      "05-REAL-NEGATIVE-CONTROL.json": "e76543625539d2b55de823917d2b1bb71057230f8cfc9656da8467dc3eb3d627",
+      "07-CURRENTNESS-PROOF.txt": "b23dc66ea97c9b78894528c4ac0f70582b6ee920c41110e25ffcd0fe0d22c815"
+    }
+  },
+  "independent_verifier": {
+    "identity": "INDEPENDENT_F14_GOVERNANCE_AUDITOR_20261005",
+    "basis": "cross_repository_source_and_ref_audit_plus_exact_candidate_receipt_consistency",
+    "executor_self_assertion_accepted": false
+  },
+  "evidence_manifest": {
+    "authority_audit": "C:\\Users\\kulba\\Downloads\\GACM-F14-GOVERNANCE-ACCEPTANCE-2026-10-05\\01-INDEPENDENT-F14-EVIDENCE-AUDIT.md",
+    "application_currentness": "C:\\Users\\kulba\\Downloads\\GACM-F14-GOVERNANCE-ACCEPTANCE-2026-10-05\\02-APPLICATION-CURRENTNESS-PROOF.txt",
+    "governance_currentness": "C:\\Users\\kulba\\Downloads\\GACM-F14-GOVERNANCE-ACCEPTANCE-2026-10-05\\04-GOVERNANCE-CURRENTNESS-PROOF.txt"
+  },
+  "next_authorized_foundation": "F15"
+}

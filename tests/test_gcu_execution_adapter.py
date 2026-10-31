@@ -11,13 +11,64 @@ sys.path.insert(0, str(ROOT / "src"))
 from gacm.execution import (  # noqa: E402
     ExecutionRequest,
     GCUExecutionAdapter,
+    ProposedAction,
     RunnerResult,
     WorkUnitContract,
+    recipe_digest,
 )
 
 
 SHA = "a" * 40
 END_SHA = "b" * 40
+
+
+def frozen_recipe(work_unit_id="unit-exec"):
+    return {
+        "schema": "GACM_EXECUTION_RECIPE_V1",
+        "recipe_id": "recipe-" + work_unit_id,
+        "version": "1",
+        "state": "FROZEN",
+        "work_unit_id": work_unit_id,
+        "mutation_policy": "GOVERNED_REFREEZE_REQUIRED",
+        "steps": [{
+            "step_id": "step-1",
+            "sequence": 1,
+            "allowed_actions": [{
+                "action_kind": "COMMAND",
+                "tools": ["python", "deploy"],
+                "target_patterns": ["work-unit"],
+                "parameter_constraints": {
+                    "allowed_keys": ["command"],
+                    "required_keys": ["command"],
+                    "string_prefixes": {"command": ["python -m unittest", "deploy --account"]},
+                },
+                "judgment_slot_id": None,
+            }],
+            "bounded_judgment_slots": [],
+            "acceptable_prior_states": ["EXECUTION"],
+            "expected_result_states": ["DONE"],
+            "evidence_requirements": ["action receipt"],
+            "stop_conditions": ["authority mismatch", "unexpected state"],
+        }],
+    }
+
+
+class StaticGuardedRunner:
+    def __init__(self, result):
+        self.result = result
+
+    def run(self, package, authority_gate):
+        command = self.result.commands_executed[0] if self.result.commands_executed else "python -m unittest"
+        tool = "deploy" if command.startswith("deploy ") else "python"
+        action = ProposedAction(
+            action_id="action-1", step_id="step-1", action_kind="COMMAND",
+            tool=tool, target="work-unit", parameters={"command": command},
+        )
+        decision = authority_gate.authorize(action, "EXECUTION")
+        if decision.result != "ALLOW":
+            return RunnerResult(ending_sha=None, status="BLOCKED", stop_reason=decision.reason)
+        authority_gate.record_result("action-1", "DONE", ("evidence:action-1",))
+        return self.result
 
 
 def contract(**overrides):
@@ -45,6 +96,7 @@ def contract(**overrides):
         "evidence_requirements": ("receipt", "diff", "test-output"),
         "stop_conditions": ("authority mismatch", "scope violation"),
         "broader_requalification_triggers": ("ARCHITECTURE", "SHARED_SCHEMA"),
+        "execution_recipe": frozen_recipe("unit-exec"),
         "routing_decision_id": "route-1",
         "rollback_authority": "rollback-sha-1",
     }
@@ -69,6 +121,8 @@ def request(**overrides):
             "graph_revision": 7,
             "graph_target_object_id": "tranche-1",
             "graph_project_id": "project-gacm",
+            "execution_authority_state": "EXECUTION",
+            "execution_recipe_digest": recipe_digest(c.execution_recipe),
         },
         "category_patterns": {"authority": ("CURRENT_STATE.md",), "model": ("prompts/*",), "architecture": ("schemas/*",)},
     }
@@ -90,7 +144,7 @@ def completed_runner(files=("src/gacm/execution/adapter.py",), **overrides):
         "status": "COMPLETED",
     }
     values.update(overrides)
-    return lambda package: RunnerResult(**values)
+    return StaticGuardedRunner(RunnerResult(**values))
 
 
 class GCUExecutionAdapterTests(unittest.TestCase):
@@ -166,14 +220,53 @@ class GCUExecutionAdapterTests(unittest.TestCase):
         first = self.adapter.prepare(first_request)
         current = dict(first_request.current_state)
         current["graph_revision"] = 8
+        second_contract = contract(graph_revision=8)
+        current["execution_recipe_digest"] = recipe_digest(second_contract.execution_recipe)
         second = self.adapter.prepare(
             request(
-                contract=contract(graph_revision=8),
+                contract=second_contract,
                 current_state=current,
             )
         )
         self.assertEqual("READY", second.status)
         self.assertNotEqual(first.package_id, second.package_id)
+
+
+    def test_execution_recipe_digest_mismatch_is_blocked(self):
+        req = request()
+        state = dict(req.current_state)
+        state["execution_recipe_digest"] = "0" * 64
+        package = self.adapter.prepare(request(current_state=state))
+        self.assertEqual("BLOCKED", package.status)
+        self.assertIn("execution recipe digest", " ".join(package.blocking_reasons))
+
+    def test_execution_authority_state_must_be_explicit_execution(self):
+        req = request()
+        state = dict(req.current_state)
+        state["execution_authority_state"] = "DESIGN"
+        package = self.adapter.prepare(request(current_state=state))
+        self.assertEqual("BLOCKED", package.status)
+        self.assertIn("execution authority state", " ".join(package.blocking_reasons))
+
+    def test_unguarded_runner_is_blocked_before_executor_invocation(self):
+        called = []
+        def legacy_runner(package):
+            called.append(package)
+            return RunnerResult(ending_sha=END_SHA)
+        receipt = self.adapter.execute(request(), legacy_runner)
+        self.assertEqual("BLOCKED", receipt.execution_status)
+        self.assertFalse(called)
+        self.assertIn("per-action authorization", receipt.stop_reason)
+
+    def test_action_authorization_receipt_is_preserved(self):
+        receipt = self.adapter.execute(request(), completed_runner())
+        action_receipts = [
+            item for item in receipt.evidence_artifacts
+            if item.get("kind") == "ACTION_AUTHORIZATION_RECEIPT"
+        ]
+        self.assertEqual(1, len(action_receipts))
+        self.assertTrue(action_receipts[0]["complete"])
+        self.assertEqual("VERIFICATION", action_receipts[0]["final_authority_state"])
 
     def test_unverified_github_authority_is_blocked(self):
         package = self.adapter.prepare(request(authority={"status": "BLOCKED"}))
@@ -233,7 +326,7 @@ class GCUExecutionAdapterTests(unittest.TestCase):
             model_used="gpt-5.6-luna",
             starting_sha=SHA,
         )
-        receipt = self.adapter.execute(request(), lambda package: result)
+        receipt = self.adapter.execute(request(), StaticGuardedRunner(result))
         self.assertEqual({"authority": True, "model": True, "architecture": True}, dict(receipt.changed_surface_flags))
         self.assertEqual("FAILED", receipt.execution_status)
 

@@ -121,6 +121,7 @@ Where settlement is required, `RUNNING` or `PROMOTION_PENDING` cannot become dur
 - `authoritative_start_sha`, PRD identity/digest, GACM methodology/pilot identity.
 - The initial rollback authority and protected stable target.
 - A work unit’s identity, declared dependency IDs, and allowed surfaces once execution starts.
+- A frozen work unit’s execution-recipe ID, version, digest, mutation policy, and bounded-inference mode.
 - Historical evidence records, failure records, repair attempts, human interventions, and transition records.
 
 ### Mutable only through governed state transitions
@@ -128,6 +129,7 @@ Where settlement is required, `RUNNING` or `PROMOTION_PENDING` cannot become dur
 - `current_repository_sha` when a candidate is intentionally created and recorded.
 - Operational context revision, only after a new authoritative resolution and impact requalification.
 - Run and work-unit statuses.
+- Execution-authority state transitions (`DESIGN`, `FROZEN`, `EXECUTION`, `VERIFICATION`, `BLOCKED`) only through governed orchestration; the recipe digest itself is not mutable in EXECUTION.
 - Promotion, deployment, SETTLE, and rollback state.
 - Append-only evidence references and completion timestamps.
 
@@ -137,7 +139,7 @@ Where settlement is required, `RUNNING` or `PROMOTION_PENDING` cannot become dur
 |---|---|---|
 | DURABLE AUTHORITY adapter | Repository/PRD/GACM/rollback identity and authoritative context receipts | Graph-only facts, model qualification, verification PASS |
 | ORCHESTRATION | Run/unit creation, lifecycle transitions, context binding, routing receipt, repair classification, state assembly | Independent PASS, human approval impersonation, silent history rewrite |
-| EXECUTION / GCU | Execution evidence, output evidence, failure proposal, bounded repair evidence within granted scope | Authority changes, lifecycle promotion, authoritative PASS, rollback waiver |
+| EXECUTION / GCU | Execution evidence, output evidence, failure proposal, bounded repair evidence within granted scope, per-action authorization receipts | Authority changes, execution-recipe mutation, undeclared action/judgment, lifecycle promotion, authoritative PASS, rollback waiver |
 | INDEPENDENT VERIFICATION | Verification status and authoritative PASS/FAIL/BLOCKED/UNOBSERVABLE evidence | Candidate mutation, scope expansion, human approval |
 | RELEASE / SETTLE | Promotion/deployment/settlement/rollback receipts | Rewriting source authority or verifier evidence |
 | HUMAN JUDGMENT | Explicit approval, rejection, stop, or risk decision within scope | Editing machine-derived identity or pretending to be an automated verifier |

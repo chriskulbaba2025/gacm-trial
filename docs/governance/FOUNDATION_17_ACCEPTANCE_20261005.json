@@ -1,0 +1,46 @@
+{
+  "schema": "GACM_FOUNDATION_ACCEPTANCE_V1",
+  "foundation_id": "F17",
+  "status": "ACCEPTED",
+  "application_repository": "chriskulbaba2025/gacm-qualification-sandbox",
+  "application_branch": "candidate/foundation17-real-generalization-20261005",
+  "application_sha": "e31edc33a0e986427d457673f71a2a048983c722",
+  "previous_frozen_application_sha": "3b2980717d49670a63506470b668a86ee2acecbe",
+  "previous_frozen_governance_sha": "5c25b23995fa9ae5ae7ec38a51b142b4f74ce76f",
+  "real_scenarios": [
+    "authorized-execution",
+    "dependency-order",
+    "governance-refusal",
+    "second-independent-project"
+  ],
+  "real_negative_controls": [
+    "forbidden-target-denied-before-subprocess",
+    "wrong-candidate-currentness-blocked",
+    "graph-and-work-unit-boundary",
+    "real-GCU-baseline-dependency-failure"
+  ],
+  "selected_model": "gpt-5.6-luna",
+  "provider": "openai",
+  "evidence": {
+    "real_qualification_sha256": "c9e7cb38afc74902366b40443b5b755b1200e19b777740807229b4f3cbcb5498",
+    "negative_controls_sha256": "9bb1c31b53afbc2003a2ca5c1582d5ca412bdce48a5907f63aa169a2ff8fc87e",
+    "full_regression_sha256": "29d80a10869517fa569682bea45532a38904a6db43be82a3f634f5bafb7f95be",
+    "whole_machine_gate_digest": "6fbe1cf18564dd6ebfa21495077051a2ca5786058a85862d664768d508d567d7",
+    "drift_gate_digest": "5f23222760ddcaa247b9c9d08b92418a523594d5510e2d29f9fb243f84e62574",
+    "proof_root": "C:/Users/kulba/Downloads/GACM-F17-REAL-GENERALIZATION-GRAPH-VALUE-2026-10-05"
+  },
+  "independent_verifier": "GACM_GOVERNANCE_F17_ACCEPTANCE_REVIEW",
+  "application_currentness": {
+    "local_sha": "e31edc33a0e986427d457673f71a2a048983c722",
+    "remote_sha": "e31edc33a0e986427d457673f71a2a048983c722",
+    "status": "PASS"
+  },
+  "whole_machine_integrity": "PASS",
+  "instruction_authority_drift": "PASS",
+  "progression_synchronization": "PASS",
+  "application_main": "32d474fdb8fe0672d826ff434b4bfc94c9537407",
+  "governance_main": "c50ba6e5f5382b3460f0ab1de7d508f330ced800",
+  "production": "UNTOUCHED",
+  "next_foundation": "F18_NOT_STARTED",
+  "accepted_at": "2026-10-05T20:50:00Z"
+}

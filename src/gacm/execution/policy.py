@@ -6,6 +6,7 @@ from fnmatch import fnmatchcase
 from pathlib import PurePosixPath
 from typing import Any, Iterable, Mapping
 
+from .action_authority import recipe_digest
 from .models import ExecutionRequest
 
 
@@ -35,6 +36,11 @@ def precondition_failures(request: ExecutionRequest) -> list[str]:
         failures.append("operational context resolver status is not VERIFIED")
     if state.get("work_unit_status") != "READY":
         failures.append("work unit is not READY")
+    if state.get("execution_authority_state") != "EXECUTION":
+        failures.append("execution authority state is not EXECUTION")
+    expected_recipe_digest = recipe_digest(contract.execution_recipe)
+    if state.get("execution_recipe_digest") != expected_recipe_digest:
+        failures.append("execution recipe digest differs from frozen work unit authority")
     if not route or not route.get("decision_id"):
         failures.append("routing decision is missing")
     if route.get("decision_id") != contract.routing_decision_id:
