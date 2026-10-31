@@ -1,5 +1,20 @@
-# GACM Trial â€” Current State
+# GACM Trial — Current State
 
+> **LATEST STATE — 2026-10-31.** This section supersedes older "Current phase", "Current objective", and "Next authorized action" headings below for currentness and branch status. Older sections are preserved as historical evidence.
+
+## Latest governance and branch status
+
+- **Repository and branch:** `chriskulbaba2025/gacm-trial`, `main`. Resolve exact HEAD fresh at execution. Historical post-PR #7 merge SHA: `8c3ec15a847ad30e0035f4950c995f7b595a040f` (not a future pinned identity).
+- **Accepted Foundation:** F17. Its exact application candidate is `e31edc33a0e986427d457673f71a2a048983c722` in the separate `chriskulbaba2025/gacm-qualification-sandbox`. Evidence: `docs/governance/FOUNDATION_17_ACCEPTANCE_20261005.json`. F18 has NOT STARTED.
+- **Consolidation:** [PR #8](https://github.com/chriskulbaba2025/gacm-trial/pull/8) merged accepted Foundation 07–17 governance/source history into `main`; [PR #7](https://github.com/chriskulbaba2025/gacm-trial/pull/7) merged October 27–31 planning and project-status handoffs. No controller, production or externally deployed application was changed by these GitHub merges.
+- **Latest cross-project directions and evidence limits:** `docs/GACM_CROSS_PROJECT_CURRENTNESS_RECONCILIATION_2026-10-31.md`. This is a dated project-authority pointer, not proof of current operational state in every project.
+- **Autonomous sequential controller:** `docs/GACM_AUTONOMOUS_TRANCHE_DESIGN_HANDOFF_2026-10-27.md` is a PLANNING PROPOSAL, not implemented runtime. `gacm-controller` lives in a separate repository; current installed local process/controller, SQLite recovery, cost accounting, repeat-run scheduling and browser acceptance are NOT_VERIFIED by a governance merge.
+- **Unmerged divergent branch:** [Phase 15 draft PR #1](https://github.com/chriskulbaba2025/gacm-trial/pull/1) diverges from current main and is not approved as an automatic merge. Do not substitute its historical checks for current conflict/acceptance proof.
+- **Operating limits:** One tranche per approval; no implicit next tranche; fixed scope/cost/model/provider and no automatic Luna→Terra→Sol escalation or child agents; read authoritative current repo/project identity; freeze outcome and independent proof; research native solutions first; diagnose root/owning boundary before coding; generic repair; three-attempt same-family reset; targeted tests then required regression; production read-only without explicit authorization; preserve PASS/FAIL/HOLD and UNKNOWN/PARTIAL/UNAVAILABLE/NOT_CONNECTED/NOT_APPLICABLE.
+- **Currentness result:** GitHub history consolidation COMPLETE; universal GACM runtime and per-project currentness PARTIAL/NOT_VERIFIED. A GitHub merge, successful workflow, route HTTP 200, or READY Preview is not whole-product/browser release acceptance.
+- **Next action:** Verify post-merge main CI and exact running controller/project SHAs before making a GACM operational-readiness claim. New projects, F18 or autonomous-coordinator implementation require separately scoped and approved work.
+
+## Historical phase records, retained below
 ## Authoritative repository
 
 `chriskulbaba2025/gacm-trial`
