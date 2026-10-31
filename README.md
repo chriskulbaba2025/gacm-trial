@@ -11,6 +11,7 @@
 4. [`docs/GACM_CROSS_PROJECT_CURRENTNESS_RECONCILIATION_2026-10-31.md`](docs/GACM_CROSS_PROJECT_CURRENTNESS_RECONCILIATION_2026-10-31.md) — dated index of recent Falardeau, GSC, PRYSM, VANTAGE and related project lessons; verify each project's current repository instead of treating the snapshot as current authority.
 5. [`docs/GACM_AUTONOMOUS_TRANCHE_DESIGN_HANDOFF_2026-10-27.md`](docs/GACM_AUTONOMOUS_TRANCHE_DESIGN_HANDOFF_2026-10-27.md) — proposed bounded sequential execution, not approved or implemented runtime.
 6. [`docs/GACM_RED_QUEEN_CHALLENGE_REVIEW_2026-10-31.md`](docs/GACM_RED_QUEEN_CHALLENGE_REVIEW_2026-10-31.md) — external adversarial findings and proposed recurring challenger, **not validated controller enforcement**.
+7. [`docs/GACM_RED_QUEEN_TOKEN_EFFICIENCY_PROCESS_V1.md`](docs/GACM_RED_QUEEN_TOKEN_EFFICIENCY_PROCESS_V1.md) — bounded challenger loop and token-efficiency receipt contract; additive process proposal, not proof of controller enforcement.
 
 ## Verified repository status (2026-10-31)
 
