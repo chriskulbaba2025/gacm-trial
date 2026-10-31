@@ -36,6 +36,12 @@ When a separately authorized controller-boundary review is opened, define an ind
 
 **Acceptance principle, not a completed test:** Zero unauthorized effects on the agreed attack manifest, true status under every failure, exact candidate-SHA evidence, non-replayed single-use grants, and complete auditable receipts. Each negative control must state setup, authorization, test oracle, expected reject/hold, observed side effects and a reproducible proof digest. No synthetic test may be substituted for real runtime proof where the gate requires it.
 
+### Recurring challenger intent (proposal, not enabled)
+
+The operator's earlier request was to **incorporate Red Queen into GACM as an ongoing adversarial challenger**, rather than only archive a one-off report. A future accepted controller design should call the independent negative-control suite at the approved pre-action, post-repair and pre-promotion gates **when the frozen acceptance contract requires it**, and persist coverage against the exact candidate, authorization and runtime identities. The challenger must not mint approvals, expand the tranche, silently choose a model, or certify its own success. Prefer existing deterministic TypeScript/testing boundaries; do not import the prototype's Python implementation by default.
+
+**Decision status:** Integration intent recorded; exact test manifest, code placement, invocation frequency, scope, cost and pass criteria are **PROPOSED / NOT AUTHORIZED / NOT IMPLEMENTED** pending current controller inspection and a separately approved implementation tranche.
+
 ## 3. Actual evidence and explicit limits
 
 - The external reviewer reported building a standalone **Python reference authorization broker** and **32/32 passing adversarial unit tests**, with source, test output and SHA-256 manifest supplied in that review context. This result belongs only to the independent prototype; **it is not 32/32 GACM controller tests**.
