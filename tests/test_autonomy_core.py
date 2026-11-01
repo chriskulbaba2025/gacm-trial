@@ -3,6 +3,7 @@ import unittest
 from gacm.metrics.autonomy import (
     allowed_at_level,
     approval_matches,
+    independent_approval_matches,
     codeowners_exceptions,
     parse_level,
     recommend,
@@ -30,6 +31,15 @@ class AutonomyCoreTests(unittest.TestCase):
     def test_stale_or_non_owner_approval_does_not_match(self):
         reviews = [{"user": {"login": "other"}, "state": "APPROVED", "commit_id": "head"}, {"user": {"login": "chriskulbaba2025"}, "state": "APPROVED", "commit_id": "old"}]
         self.assertFalse(approval_matches(reviews, "chriskulbaba2025", "head"))
+
+    def test_independent_current_head_approval_matches(self):
+        reviews = [{"user": {"login": "reviewer"}, "state": "APPROVED", "commit_id": "head"}]
+        self.assertTrue(independent_approval_matches(reviews, "head", "chriskulbaba2025"))
+        self.assertFalse(independent_approval_matches(reviews, "old", "chriskulbaba2025"))
+
+    def test_author_cannot_satisfy_independent_approval(self):
+        reviews = [{"user": {"login": "chriskulbaba2025"}, "state": "APPROVED", "commit_id": "head"}]
+        self.assertFalse(independent_approval_matches(reviews, "head", "chriskulbaba2025"))
 
     def test_codeowners_must_match_risk_exceptions(self):
         risk = {"low": ["tests/test_*.py"], "medium": ["src/gacm/**/*.py"]}
