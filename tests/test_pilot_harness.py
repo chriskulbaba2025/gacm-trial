@@ -1,7 +1,9 @@
+import tempfile
 import unittest
+from pathlib import Path
 
 from gacm.generalization import GATE_ID, GeneralizationGate
-from gacm.harness import HarnessAdapters, HarnessConfig, MemoryRunStateStore, PilotHarness, TopLevelState
+from gacm.harness import HarnessAdapters, HarnessConfig, JsonRunStateStore, MemoryRunStateStore, PilotHarness, PilotState, TopLevelState
 
 
 SHA = "a" * 40
@@ -47,13 +49,13 @@ def config(**kwargs):
 
 
 class PilotHarnessTests(unittest.TestCase):
-    def make(self, verify_status="PASS", settle_outcome="PASS", authority="VERIFIED", context="VERIFIED", route=True, broad=False):
+    def make(self, verify_status="PASS", settle_outcome="PASS", authority="VERIFIED", context="VERIFIED", route=True, broad=False, always_fail=False):
         store = MemoryRunStateStore(); calls = {"execute": 0, "verify": 0}
         def authority_fn(c): return {"status": authority, "sha": SHA}
         def context_fn(c, a, d): return {"status": context, "context_id": "ctx-1"}
         def route_fn(u): return {"selected_model": "Luna", "qualification_identity": "qual-1"} if route else {"selected_model": "Luna"}
         def execute(u, r, c): calls["execute"] += 1; return {"execution_status": "COMPLETED", "ending_sha": SHA}
-        def verify(u, e, c): calls["verify"] += 1; return {"status": verify_status if calls["verify"] == 1 else "PASS", "issuer_role": "INDEPENDENT_VERIFIER"}
+        def verify(u, e, c): calls["verify"] += 1; return {"status": verify_status if always_fail or calls["verify"] == 1 else "PASS", "issuer_role": "INDEPENDENT_VERIFIER"}
         def repair_plan(u, v, s): return {"status": "PLANNED", "classification": "BROADER_REQUALIFICATION" if broad else "LOCAL"}
         def repair(u, p, c): return {"execution_status": "COMPLETED", "ending_sha": SHA}
         def identity(u, c): return {"result": "VALID"}
@@ -108,6 +110,47 @@ class PilotHarnessTests(unittest.TestCase):
         paused = h.run(c, [{"unit_id": "u1"}]); self.assertEqual(paused["state"], "PROMOTION_PENDING")
         done = h.run(c, run_id=paused["run_id"], resume=True, human_approval=True)
         self.assertEqual(done["state"], "COMPLETED")
+
+    def test_resume_from_executed_unit_does_not_execute_again(self):
+        h, c, calls, store = self.make()
+        state = PilotState("interrupted", c, state=TopLevelState.EXECUTING)
+        state.evidence = [{"kind": "context", "value": {"status": "VERIFIED", "context_id": "ctx-1"}}]
+        state.units = [{
+            "unit_id": "u1", "status": "EXECUTED",
+            "route": {"selected_model": "Luna", "qualification_identity": "qual-1"},
+            "execution": {"execution_status": "COMPLETED", "ending_sha": SHA},
+        }]
+        store.save(state.snapshot())
+        result = h.run(c, run_id="interrupted", resume=True)
+        self.assertEqual(result["state"], TopLevelState.COMPLETED.value)
+        self.assertEqual(calls["execute"], 0)
+
+    def test_repair_attempts_survive_resume_and_block_at_three(self):
+        h, c, calls, store = self.make(verify_status="FAIL", always_fail=True)
+        state = PilotState("capped", c, state=TopLevelState.EXECUTING)
+        state.evidence = [{"kind": "context", "value": {"status": "VERIFIED", "context_id": "ctx-1"}}]
+        state.units = [{
+            "unit_id": "u1", "status": "EXECUTED",
+            "route": {"selected_model": "Luna", "qualification_identity": "qual-1"},
+            "execution": {"execution_status": "COMPLETED", "ending_sha": SHA},
+        }]
+        state.repair_attempts_by_family["VERIFICATION_FAILURE"] = 2
+        state.repair_attempts_by_unit["u1"] = 2
+        store.save(state.snapshot())
+        result = h.run(c, run_id="capped", resume=True)
+        self.assertEqual(result["state"], TopLevelState.BLOCKED.value)
+        self.assertEqual(len(result["receipts"]["repair"]), 1)
+        self.assertEqual(result["repair_attempts_by_family"]["VERIFICATION_FAILURE"], 3)
+
+    def test_corrupt_json_state_holds(self):
+        with tempfile.TemporaryDirectory() as directory:
+            store = JsonRunStateStore(Path(directory))
+            (Path(directory) / "broken.json").write_text("{", encoding="utf-8")
+            h, c, _, _ = self.make()
+            h.store = store
+            result = h.run(c, run_id="broken", resume=True)
+            self.assertEqual(result["state"], TopLevelState.BLOCKED.value)
+            self.assertTrue(any("CORRUPT_DURABLE_STATE" in item for item in result["blockers"]))
 
 
 if __name__ == "__main__": unittest.main()

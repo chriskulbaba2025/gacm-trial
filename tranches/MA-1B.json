@@ -1,0 +1,15 @@
+{
+  "tranche_id": "MA-1B",
+  "objective": "Make pilot execution durable across resume, interruption and repair retries.",
+  "repository": "chriskulbaba2025/gacm-trial",
+  "base_branch": "main",
+  "start_sha": "e0734ce5f376af108121c4ee3d10547a6ee6e88c",
+  "model": "gpt-5.6-luna",
+  "allowed_paths": ["src/gacm/harness/pilot.py", "tests/test_pilot_harness.py", "tests/test_provider_authority_harness.py", "tests/test_pilot_graph_planning_integration.py", "tests/red_queen/**", "tranches/MA-1B.json", "docs/GACM_PILOT_HARNESS_V1.md"],
+  "forbidden_paths": ["AGENTS.md", "CURRENT_STATE.md", "docs/governance/**", "docs/GACM_RED_QUEEN_TOKEN_EFFICIENCY_PROCESS_V1.md", "src/gacm/gate/**", "src/gacm/execution/**"],
+  "required_checks": ["gacm-gate", "governance-regression"],
+  "retry_limit": 3,
+  "budget": "one Codex session at Chris-configured limits",
+  "approver": "@chriskulbaba2025",
+  "declared_risk_class": "high"
+}

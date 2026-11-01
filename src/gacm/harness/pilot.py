@@ -8,6 +8,8 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
+import tempfile
 from dataclasses import asdict, dataclass, field
 from enum import StrEnum
 from pathlib import Path
@@ -80,10 +82,25 @@ class MemoryRunStateStore:
 class JsonRunStateStore:
     def __init__(self, directory: Path): self.directory = Path(directory); self.directory.mkdir(parents=True, exist_ok=True)
     def _path(self, run_id): return self.directory / f"{run_id}.json"
-    def save(self, state): self._path(str(state["run_id"])).write_text(json.dumps(state, indent=2, sort_keys=True, default=str), encoding="utf-8")
+    def save(self, state):
+        target = self._path(str(state["run_id"]))
+        payload = json.dumps(state, indent=2, sort_keys=True, default=str)
+        fd, temporary = tempfile.mkstemp(prefix=target.name + ".", suffix=".tmp", dir=target.parent)
+        try:
+            with os.fdopen(fd, "w", encoding="utf-8", newline="") as handle:
+                handle.write(payload)
+                handle.flush()
+                os.fsync(handle.fileno())
+            os.replace(temporary, target)
+        finally:
+            if os.path.exists(temporary): os.unlink(temporary)
     def load(self, run_id):
         path = self._path(run_id)
-        return json.loads(path.read_text(encoding="utf-8")) if path.is_file() else None
+        if not path.is_file(): return None
+        try:
+            return json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, ValueError, TypeError) as error:
+            raise ValueError(f"CORRUPT_DURABLE_STATE:{error}") from error
 
 
 @dataclass
@@ -100,6 +117,8 @@ class PilotState:
     human_action_required: bool = False
     generalization_contract_digest: str | None = None
     generalization_gate: dict[str, Any] | None = None
+    repair_attempts_by_family: dict[str, int] = field(default_factory=dict)
+    repair_attempts_by_unit: dict[str, int] = field(default_factory=dict)
 
     def snapshot(self) -> dict[str, Any]:
         return {"run_id": self.run_id, "config": asdict(self.config), "state": self.state.value,
@@ -107,7 +126,9 @@ class PilotState:
                 "blockers": self.blockers, "receipts": self.receipts,
                 "assurance_preserved": self.assurance_preserved, "human_action_required": self.human_action_required,
                 "generalization_contract_digest": self.generalization_contract_digest,
-                "generalization_gate": self.generalization_gate}
+                "generalization_gate": self.generalization_gate,
+                "repair_attempts_by_family": self.repair_attempts_by_family,
+                "repair_attempts_by_unit": self.repair_attempts_by_unit}
 
     @classmethod
     def restore(cls, raw: Mapping[str, Any]) -> "PilotState":
@@ -128,6 +149,8 @@ class PilotState:
             human_action_required=bool(raw.get("human_action_required", False)),
             generalization_contract_digest=raw.get("generalization_contract_digest"),
             generalization_gate=dict(raw["generalization_gate"]) if isinstance(raw.get("generalization_gate"), Mapping) else None,
+            repair_attempts_by_family={str(k): int(v) for k, v in dict(raw.get("repair_attempts_by_family", {})).items()},
+            repair_attempts_by_unit={str(k): int(v) for k, v in dict(raw.get("repair_attempts_by_unit", {})).items()},
         )
 
 
@@ -136,17 +159,23 @@ class PilotHarness:
     def __init__(
         self,
         adapters: HarnessAdapters,
-        store: RunStateStore | None = None,
+        store: RunStateStore,
         graph_scheduler: GraphScheduler | None = None,
     ):
         self.adapters = adapters
-        self.store = store or MemoryRunStateStore()
+        self.store = store
         self.graph_scheduler = graph_scheduler
 
     def run(self, config: HarnessConfig, work_units: list[Mapping[str, Any]] | None = None, *, run_id: str | None = None, resume: bool = False, human_approval: bool | None = None) -> dict[str, Any]:
         rid = run_id or self._id(config)
-        prior = self.store.load(rid) if resume else None
-        if resume and prior is None: raise ValueError("durable run state is missing")
+        try:
+            prior = self.store.load(rid) if resume else None
+        except ValueError as error:
+            state = PilotState(rid, config)
+            return self._block(state, str(error))
+        if resume and prior is None:
+            state = PilotState(rid, config)
+            return self._block(state, "MISSING_DURABLE_STATE")
         state = PilotState.restore(prior) if prior else PilotState(rid, config)
         if state.config.authoritative_start_sha != config.authoritative_start_sha or state.config.project_id != config.project_id:
             return self._block(state, "RESUME_IDENTITY_MISMATCH")
@@ -318,7 +347,14 @@ class PilotHarness:
                 if pre_gate.status != "PASS":
                     raise _Blocked("EXTERNAL_PROVIDER_AUTHORITY_GATE_HOLD:" + ",".join(pre_gate.reasons))
             self._validate_graph_plan_currentness(state, config)
-            route = self.adapters.route(unit)
+            resumed_execution = unit.get("status") == "EXECUTED"
+            if resumed_execution:
+                execution = unit.get("execution")
+                route = unit.get("route")
+                if not isinstance(execution, Mapping) or execution.get("execution_status") != "COMPLETED" or not isinstance(route, Mapping):
+                    raise _Blocked("INTERRUPTED_AFTER_EFFECT")
+            else:
+                route = self.adapters.route(unit)
             if not self._route_is_qualified(route): raise _Blocked("MODEL_QUALIFICATION_MISSING")
             self._validate_graph_route_binding(config, unit, route)
             if provider_policy_required and unit.get("external_action_required") is not True:
@@ -347,9 +383,11 @@ class PilotHarness:
                 if runtime_gate.status != "PASS":
                     raise _Blocked("EXTERNAL_PROVIDER_RUNTIME_IDENTITY_HOLD:" + ",".join(runtime_gate.reasons))
             self._validate_graph_plan_currentness(state, config)
-            execution = self.adapters.execute(unit, route, context)
-            if self._get(execution, "execution_status") != "COMPLETED": raise _Blocked("EXECUTION_FAILED_OR_BLOCKED")
-            unit.update({"route": self._plain(route), "execution": self._plain(execution), "status": "EXECUTED"})
+            if not resumed_execution:
+                execution = self.adapters.execute(unit, route, context)
+                if self._get(execution, "execution_status") != "COMPLETED": raise _Blocked("EXECUTION_FAILED_OR_BLOCKED")
+                unit.update({"route": self._plain(route), "execution": self._plain(execution), "status": "EXECUTED"})
+                self._save(state)
             if not self.adapters.identity_validate: raise _Blocked("IDENTITY_VALIDATION_ADAPTER_MISSING")
             identity = self.adapters.identity_validate(unit, context)
             unit["identity_validation"] = self._plain(identity)
@@ -358,7 +396,8 @@ class PilotHarness:
             verification = self.adapters.verify(unit, execution, context)
             unit["verification"] = self._plain(verification)
             self.receipt(state, "verification", verification)
-            attempts = 0
+            family = self._defect_family(verification)
+            attempts = max(state.repair_attempts_by_family.get(family, 0), state.repair_attempts_by_unit.get(str(unit.get("unit_id")), 0))
             while self._get(verification, "status") != "PASS" or self._get(verification, "issuer_role") != "INDEPENDENT_VERIFIER":
                 if not self.adapters.repair_plan or not self.adapters.repair:
                     raise _Blocked("MISSING_OR_UNRESOLVED_VERIFICATION")
@@ -371,11 +410,19 @@ class PilotHarness:
                 repaired = self.adapters.repair(unit, plan, context)
                 self.receipt(state, "repair", plan)
                 attempts += 1
+                state.repair_attempts_by_family[family] = attempts
+                state.repair_attempts_by_unit[str(unit.get("unit_id"))] = attempts
+                self._save(state)
                 verification = self.adapters.verify(unit, repaired, context)
                 unit[f"verification_after_repair_{attempts}"] = self._plain(verification)
                 self.receipt(state, "verification", verification)
             unit["status"] = "PASS"
         self._transition(state, TopLevelState.VERIFYING)
+
+    @staticmethod
+    def _defect_family(verification):
+        value = PilotHarness._plain(verification)
+        return str(value.get("reason_code") or value.get("primary_reason") or value.get("reason") or "VERIFICATION_FAILURE")
 
     def _freeze_generalization_contract(self, state, config):
         gate = GeneralizationGate()

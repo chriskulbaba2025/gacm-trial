@@ -1,6 +1,6 @@
 import unittest
 
-from gacm.harness.pilot import HarnessAdapters, HarnessConfig, PilotHarness
+from gacm.harness.pilot import HarnessAdapters, HarnessConfig, MemoryRunStateStore, PilotHarness
 
 
 class ProviderAuthorityHarnessTests(unittest.TestCase):
@@ -77,7 +77,7 @@ class ProviderAuthorityHarnessTests(unittest.TestCase):
             },
         )
 
-        state = PilotHarness(adapters).run(config)
+        state = PilotHarness(adapters, MemoryRunStateStore()).run(config)
 
         self.assertEqual("BLOCKED", state["state"])
         self.assertTrue(any("EXTERNAL_PROVIDER_AUTHORITY_GATE_HOLD" in x for x in state["blockers"]))
@@ -128,7 +128,7 @@ class ProviderAuthorityHarnessTests(unittest.TestCase):
                 "minimum_fresh_scenarios": 2,
             },
         )
-        state = PilotHarness(adapters).run(config)
+        state = PilotHarness(adapters, MemoryRunStateStore()).run(config)
         self.assertEqual("BLOCKED", state["state"])
         self.assertIn("EXTERNAL_ACTION_CLASSIFICATION_REQUIRED", state["blockers"])
         self.assertEqual(0, calls["route"])
@@ -178,7 +178,7 @@ class ProviderAuthorityHarnessTests(unittest.TestCase):
                 "minimum_fresh_scenarios": 2,
             },
         )
-        state = PilotHarness(adapters).run(config)
+        state = PilotHarness(adapters, MemoryRunStateStore()).run(config)
         self.assertEqual("BLOCKED", state["state"])
         self.assertIn("UNDECLARED_EXTERNAL_PROVIDER_ROUTE", state["blockers"])
         self.assertEqual(0, calls["execute"])

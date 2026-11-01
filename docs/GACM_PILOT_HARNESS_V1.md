@@ -21,3 +21,13 @@ Verification must return an independent `PASS`. A non-pass result is sent to the
 ## Stop conditions and synthetic paths
 
 The harness fails closed for ambiguous/stale authority, unresolved context, missing model qualification, execution failure, missing or non-independent verification, unresolved repair, blocked promotion, and missing settle/rollback adapters. The deterministic test suite exercises clean pass, local repair, broad requalification, blocked authority/context, model and scope enforcement, verifier self-certification rejection, human promotion gating, durable resume, duplicate retry, and settle failure to rollback. All simulations are in-memory and do not use credentials or modify a real project.
+
+## Amendment 2026-11-01 -- MA-1B durability contract
+
+The run-state store is a required harness dependency. Production execution may use a durable store; tests that intentionally use memory must pass `MemoryRunStateStore` explicitly. A missing or corrupt state file produces a blocked/HOLD result and never starts a fresh run silently.
+
+JSON state writes are crash-safe: write a temporary file in the same directory, flush and fsync it, then atomically replace the target. A failed save leaves the previous valid file intact.
+
+After an execution effect is recorded, an `EXECUTED` unit is never executed again on resume. The harness resumes from the recorded route and execution only when the execution record is complete; otherwise it reports `INTERRUPTED_AFTER_EFFECT`.
+
+Repair attempts are persisted by defect family and unit. The three-attempt cap therefore survives resume and new sessions. A fourth attempt in the same family is blocked and requires diagnostic reset.

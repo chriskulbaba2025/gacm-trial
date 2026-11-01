@@ -308,7 +308,7 @@ class PilotGraphPlanningIntegrationTests(unittest.TestCase):
             execute=lambda unit, route, context: calls.__setitem__("execute", calls["execute"] + 1),
             verify=lambda unit, execution, context: {"status": "PASS", "issuer_role": "INDEPENDENT_VERIFIER"},
         )
-        result = PilotHarness(adapters).run(config())
+        result = PilotHarness(adapters, MemoryRunStateStore()).run(config())
 
         self.assertEqual("BLOCKED", result["state"])
         self.assertIn("GRAPH_SCHEDULER_REQUIRED", result["blockers"])
