@@ -58,6 +58,21 @@ def changed_paths(root: str, merge_base: str, head: str) -> tuple[list[str], lis
     return paths, modes
 
 
+def tranche_id_from_trailers(trailers: list[str]) -> str:
+    values = [value.strip() for value in trailers if value.strip()]
+    if not values:
+        raise ValueError("NOT_A_TRANCHE")
+    if len(set(values)) != 1:
+        raise ValueError("MIXED_OR_MISMATCHED_TRAILER")
+    return values[0]
+
+
+def tranche_id_for_range(root: str, base: str, head: str) -> str:
+    merge_base = _git(root, "merge-base", base, head)
+    trailers = _git(root, "log", "--format=%(trailers:key=GACM-Tranche,valueonly)", f"{merge_base}..{head}").splitlines()
+    return tranche_id_from_trailers(trailers)
+
+
 def preflight(root: str, spec: dict[str, object]) -> Verdict:
     reasons: list[str] = []
     if _git(root, "status", "--porcelain"):
@@ -82,10 +97,12 @@ def postcheck(root: str, base: str, head: str, spec: dict[str, object]) -> Verdi
         if not matches(normalized, spec["allowed_paths"]): reasons.append("PATH_OUTSIDE_ALLOWLIST:" + normalized)
     if any(old in {"120000", "160000"} or new in {"120000", "160000"} for old, new, _ in modes): reasons.append("LINK_OR_SUBMODULE")
     trailers = [value for value in _git(root, "log", "--format=%(trailers:key=GACM-Tranche,valueonly)", f"{merge_base}..{head}").splitlines() if value]
-    if not trailers:
-        reasons.append("NOT_A_TRANCHE")
-    elif any(value != spec["tranche_id"] for value in trailers) or len(set(trailers)) != 1:
-        reasons.append("MIXED_OR_MISMATCHED_TRAILER")
+    try:
+        trailer_id = tranche_id_from_trailers(trailers)
+        if trailer_id != spec["tranche_id"]:
+            reasons.append("MIXED_OR_MISMATCHED_TRAILER")
+    except ValueError as error:
+        reasons.append(str(error))
     try:
         base_spec = json.loads(_git(root, "show", f"{base}:tranches/{spec['tranche_id']}.json"))
         if base_spec != spec: reasons.append("TRANCHE_SPEC_MUTATED")
