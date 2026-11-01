@@ -1,0 +1,15 @@
+{
+  "tranche_id": "MA-3",
+  "objective": "Add measured autonomy levels, risk classification, approval-aware CI and promotion recommendations without changing the level automatically.",
+  "repository": "chriskulbaba2025/gacm-trial",
+  "base_branch": "main",
+  "start_sha": "7e649c4d28d3b03ac3cf92787f4ae139e5c9fdb6",
+  "model": "gpt-5.6-luna",
+  "allowed_paths": ["policy/risk_paths.json", "policy/autonomy.json", "schemas/gacm-policy*.schema.json", "tranches/MA-3.json", "runs/MA-3.json", ".github/CODEOWNERS", ".github/workflows/gacm-autonomy.yml", ".github/workflows/gacm-gate.yml", ".github/workflows/gacm-report.yml", "src/gacm/gate/**", "src/gacm/metrics/**", "tests/red_queen/**", "tests/test_autonomy_*.py", "tests/fixtures/**", "docs/GACM_AUTONOMY_LEVELS_V1.md", "README.md"],
+  "forbidden_paths": ["AGENTS.md", "CURRENT_STATE.md", "docs/governance/**", "docs/GACM_RED_QUEEN_TOKEN_EFFICIENCY_PROCESS_V1.md"],
+  "required_checks": ["gacm-gate", "governance-regression", "gacm-autonomy"],
+  "retry_limit": 3,
+  "budget": "one Codex session at Chris-configured limits",
+  "approver": "@chriskulbaba2025",
+  "declared_risk_class": "high"
+}

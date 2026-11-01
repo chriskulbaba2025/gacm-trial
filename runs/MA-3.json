@@ -1,0 +1,20 @@
+{
+  "backfilled": false,
+  "result": "PASS",
+  "self_reported": {
+    "computed_risk_class": "high",
+    "changed_lines": 0,
+    "broad_regression": "UNAVAILABLE",
+    "evidence_artifacts": "UNAVAILABLE",
+    "human_interventions": "UNAVAILABLE",
+    "repair_attempts": "UNAVAILABLE",
+    "reruns_avoided": "UNAVAILABLE",
+    "round_trips": "UNAVAILABLE",
+    "targeted_tests": [],
+    "token_budget": "UNAVAILABLE",
+    "tokens_used": "UNAVAILABLE",
+    "tool_calls": "UNAVAILABLE",
+    "wall_clock_ms": "UNAVAILABLE"
+  },
+  "tranche_id": "MA-3"
+}
