@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import hashlib
+import re
 import subprocess
 from pathlib import Path
 from typing import Any, Iterable, Mapping
@@ -42,6 +43,9 @@ def check_paths(actual: Iterable[str] | None, allowed: Iterable[str], forbidden:
     if actual is None:
         return "UNOBSERVABLE", ["independent changed-path evidence is unavailable"]
     actual_paths = tuple(actual)
+    unsafe = [path for path in actual_paths if _unsafe_path(path)]
+    if unsafe:
+        return "FAIL", [f"unsafe changed path: {path}" for path in sorted(set(unsafe))]
     unauthorized = [path for path in actual_paths if not matches_any(path, allowed)]
     forbidden_paths = [path for path in actual_paths if matches_any(path, forbidden)]
     if unauthorized:
@@ -103,16 +107,26 @@ def check_routing(contract: Mapping[str, Any], route: Mapping[str, Any], receipt
     return ("FAIL", reasons) if reasons else ("PASS", [])
 
 
-def check_tests(contract: Mapping[str, Any], test_contract: Iterable[str], outcomes: Mapping[str, str] | None) -> tuple[str, list[str]]:
+def check_tests(contract: Mapping[str, Any], test_contract: Iterable[str], outcomes: Mapping[str, Any] | None, candidate_sha: str | None = None) -> tuple[str, list[str]]:
     required = tuple(test_contract)
     if outcomes is None:
         return "UNOBSERVABLE", ["independent test outcomes are unavailable"]
     missing = [name for name in required if name not in outcomes]
-    failed = [name for name in required if outcomes.get(name) != "PASS"]
     if missing:
         return "UNOBSERVABLE", [f"required test outcome unavailable: {name}" for name in missing]
-    if failed:
-        return "FAIL", [f"required test did not PASS: {name}" for name in failed]
+    failures: list[str] = []
+    for name in required:
+        outcome = outcomes.get(name)
+        if not isinstance(outcome, Mapping):
+            return "UNOBSERVABLE", [f"test outcome lacks provenance: {name}"]
+        if outcome.get("status") != "PASS":
+            failures.append(f"required test did not PASS: {name}")
+        if not outcome.get("runner") or not re.fullmatch(r"[0-9a-fA-F]{64}", str(outcome.get("result_digest", ""))):
+            return "UNOBSERVABLE", [f"test outcome provenance is incomplete: {name}"]
+        if candidate_sha is None or outcome.get("candidate_sha") != candidate_sha:
+            return "UNOBSERVABLE", [f"test outcome candidate binding is missing or stale: {name}"]
+    if failures:
+        return "FAIL", failures
     return "PASS", []
 
 
@@ -123,3 +137,8 @@ def check_executor_claim(receipt: Mapping[str, Any]) -> tuple[str, list[str]]:
     if isinstance(verification, Mapping) and (verification.get("status") == "PASS" or verification.get("authoritative") is True):
         return "FAIL", ["executor-issued verification PASS is not accepted"]
     return "PASS", []
+
+
+def _unsafe_path(path: str) -> bool:
+    normalized = path.replace("\\", "/")
+    return normalized.startswith("/") or bool(re.match(r"^[A-Za-z]:/", normalized)) or ".." in normalized.split("/")

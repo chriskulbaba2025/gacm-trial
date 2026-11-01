@@ -166,7 +166,7 @@ def verification_input(*, graph_required=True, evidence=_DEFAULT_EVIDENCE, contr
         actual_changed_paths=("src/release.py",),
         diff_evidence={"source": "git", "base": START, "head": CANDIDATE},
         test_contract=("release-currentness",),
-        test_outcomes={"release-currentness": "PASS"},
+        test_outcomes={"release-currentness": {"status": "PASS", "runner": "unittest", "result_digest": "c" * 64, "candidate_sha": CANDIDATE}},
         allowed_writable_surfaces=("src/*",),
         forbidden_surfaces=("production/*",),
         operational_context={"status": "VERIFIED", "context_id": "ctx-release", "context_revision": "1"},

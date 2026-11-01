@@ -1,0 +1,15 @@
+{
+  "tranche_id": "MA-1C",
+  "objective": "Make execution receipts and independent verification depend on observed, provenance-bound evidence.",
+  "repository": "chriskulbaba2025/gacm-trial",
+  "base_branch": "main",
+  "start_sha": "439ee5118db57f76d76160287c24890a308410d2",
+  "model": "gpt-5.6-luna",
+  "allowed_paths": ["src/gacm/execution/adapter.py", "src/gacm/execution/models.py", "src/gacm/execution/policy.py", "src/gacm/verification/engine.py", "src/gacm/verification/models.py", "src/gacm/verification/checks.py", "src/gacm/verification/scope.py", "tests/test_gcu_execution_adapter.py", "tests/test_independent_verification_engine.py", "tests/test_graph_release_acceptance.py", "tests/red_queen/**", "tranches/MA-1C.json", "docs/GACM_GCU_EXECUTION_ADAPTER_V1.md", "docs/GACM_INDEPENDENT_VERIFICATION_ENGINE_V1.md"],
+  "forbidden_paths": ["AGENTS.md", "CURRENT_STATE.md", "docs/governance/**", "docs/GACM_RED_QUEEN_TOKEN_EFFICIENCY_PROCESS_V1.md", ".github/workflows/**"],
+  "required_checks": ["gacm-gate", "governance-regression"],
+  "retry_limit": 3,
+  "budget": "one Codex session at Chris-configured limits",
+  "approver": "@chriskulbaba2025",
+  "declared_risk_class": "high"
+}

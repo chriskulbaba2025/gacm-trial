@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from fnmatch import fnmatchcase
 from pathlib import PurePosixPath
+import re
 from typing import Any, Iterable, Mapping
 
 from .action_authority import recipe_digest
@@ -11,7 +12,10 @@ from .models import ExecutionRequest
 
 
 def _path_matches(path: str, pattern: str) -> bool:
-    normalized = str(PurePosixPath(path.replace("\\", "/")))
+    raw = path.replace("\\", "/")
+    if raw.startswith("/") or re.match(r"^[A-Za-z]:/", raw) or ".." in raw.split("/"):
+        return False
+    normalized = str(PurePosixPath(raw))
     candidate = pattern.replace("\\", "/")
     return normalized == candidate or fnmatchcase(normalized, candidate)
 
