@@ -47,7 +47,7 @@ class VerificationInput:
     actual_changed_paths: tuple[str, ...] | None
     diff_evidence: Mapping[str, Any] | None
     test_contract: tuple[str, ...]
-    test_outcomes: Mapping[str, str] | None
+    test_outcomes: Mapping[str, Any] | None
     allowed_writable_surfaces: tuple[str, ...]
     forbidden_surfaces: tuple[str, ...]
     operational_context: Mapping[str, Any]
@@ -57,7 +57,7 @@ class VerificationInput:
     prior_assurance: tuple[Mapping[str, Any], ...] = ()
     scope_patterns: Mapping[str, tuple[str, ...]] = field(default_factory=dict)
     dependency_paths: tuple[str, ...] = ()
-    expected_outcome_met: bool | None = True
+    expected_outcome_met: bool | None = None
     graph_release_evidence: Mapping[str, Any] | None = None
 
 

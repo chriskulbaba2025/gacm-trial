@@ -136,7 +136,7 @@ def completed_runner(files=("src/gacm/execution/adapter.py",), **overrides):
         "files_changed": tuple(files),
         "commands_executed": ("python -m unittest",),
         "tests_executed": ("python -m unittest",),
-        "test_outcomes": {"python -m unittest": "PASS"},
+        "test_outcomes": {"python -m unittest": {"status": "PASS", "runner": "unittest", "result_digest": "c" * 64, "candidate_sha": END_SHA}},
         "evidence_artifacts": ({"path": "evidence/test.txt", "sha": "c" * 64},),
         "claimed_affected_scope": ("src/gacm/execution/adapter.py",),
         "model_used": "gpt-5.6-luna",
@@ -362,13 +362,19 @@ class GCUExecutionAdapterTests(unittest.TestCase):
         self.assertEqual("FAILED", receipt.execution_status)
         self.assertIn("different from the authorized route", receipt.stop_reason)
 
+    def test_unobserved_model_and_start_sha_are_not_asserted(self):
+        runner = completed_runner(model_used=None, starting_sha=None)
+        receipt = self.adapter.execute(request(), runner)
+        self.assertIsNone(receipt.model_used)
+        self.assertIsNone(receipt.starting_sha)
+
     def test_execution_preserves_identity_and_evidence(self):
         receipt = self.adapter.execute(request(), completed_runner())
         data = receipt.to_dict()
         self.assertEqual(SHA, data["starting_sha"])
         self.assertEqual(END_SHA, data["ending_sha"])
         self.assertTrue(data["evidence_artifacts"])
-        self.assertEqual("PASS", data["test_outcomes"]["python -m unittest"])
+        self.assertEqual("PASS", data["test_outcomes"]["python -m unittest"]["status"])
 
     def test_real_state_reader_is_checked_before_runner(self):
         class Reader:

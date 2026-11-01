@@ -52,7 +52,7 @@ def base_input(**overrides):
         "actual_changed_paths": ("src/local.py",),
         "diff_evidence": {"source": "git", "base": START, "head": END},
         "test_contract": ("test-local",),
-        "test_outcomes": {"test-local": "PASS"},
+        "test_outcomes": {"test-local": {"status": "PASS", "runner": "unittest", "result_digest": "c" * 64, "candidate_sha": END}},
         "allowed_writable_surfaces": ("src/*",),
         "forbidden_surfaces": ("schemas/*", "CURRENT_STATE.md"),
         "operational_context": {"status": "VERIFIED", "context_id": "ctx-1", "context_revision": "1"},
@@ -108,7 +108,7 @@ class IndependentVerificationTests(unittest.TestCase):
     def test_executor_claimed_pass_but_evidence_fails(self):
         receipt = dict(base_input().execution_receipt)
         receipt["authoritative_pass"] = True
-        result = self.engine.verify(base_input(execution_receipt=receipt, test_outcomes={"test-local": "FAIL"}))
+        result = self.engine.verify(base_input(execution_receipt=receipt, test_outcomes={"test-local": {"status": "FAIL", "runner": "unittest", "result_digest": "c" * 64, "candidate_sha": END}}))
         self.assertEqual("FAIL", result.status)
         self.assertFalse(result.authoritative)
 
@@ -212,7 +212,7 @@ class IndependentVerificationTests(unittest.TestCase):
         self.assertEqual(first, second)
 
     def test_regression_failure_is_detected(self):
-        result = self.engine.verify(base_input(test_outcomes={"test-local": "FAIL"}))
+        result = self.engine.verify(base_input(test_outcomes={"test-local": {"status": "FAIL", "runner": "unittest", "result_digest": "c" * 64, "candidate_sha": END}}))
         self.assertEqual("FAIL", result.status)
         self.assertEqual("FAIL", result.regression_result)
 
@@ -223,6 +223,19 @@ class IndependentVerificationTests(unittest.TestCase):
     def test_expected_outcome_failure_is_detected(self):
         result = self.engine.verify(base_input(expected_outcome_met=False))
         self.assertEqual("FAIL", result.status)
+
+    def test_unset_expected_outcome_holds(self):
+        result = self.engine.verify(base_input(expected_outcome_met=None))
+        self.assertEqual("UNOBSERVABLE", result.status)
+
+    def test_test_outcome_without_provenance_is_unobservable(self):
+        result = self.engine.verify(base_input(test_outcomes={"test-local": "PASS"}))
+        self.assertEqual("UNOBSERVABLE", result.status)
+
+    def test_stale_test_outcome_candidate_is_unobservable(self):
+        outcome = {"status": "PASS", "runner": "unittest", "result_digest": "c" * 64, "candidate_sha": START}
+        result = self.engine.verify(base_input(test_outcomes={"test-local": outcome}))
+        self.assertEqual("UNOBSERVABLE", result.status)
 
 
 if __name__ == "__main__":

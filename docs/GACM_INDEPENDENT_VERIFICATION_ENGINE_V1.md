@@ -99,3 +99,6 @@ model-assisted judging, promotion, rollback orchestration, repair execution,
 SETTLE, or Phase 9 dependency-logic orchestration. Any condition requiring
 unavailable semantic or model judgment remains explicit evidence for a later
 governed decision rather than an implicit PASS.
+## Amendment 2026-11-01 -- provenance and fail-closed verification
+
+`expected_outcome_met` defaults to unset and therefore produces `UNOBSERVABLE` until independently established. Test outcomes require a runner identity, result-file digest and exact candidate SHA; executor-authored or stale outcomes cannot satisfy verification. Path checks reject traversal, absolute and drive-qualified paths before glob matching. A verifier receipt is authoritative only when produced by the configured independent-verifier boundary.

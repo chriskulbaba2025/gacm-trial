@@ -103,3 +103,6 @@ returns `RunnerResult`. This isolates Codex/GCU invocation details from GACM
 policy and receipts. Hermes or another executor can implement the same boundary
 without acquiring authority, routing, verification, promotion, or release
 permissions.
+## Amendment 2026-11-01 -- observed receipt fields
+
+The execution adapter records model and starting-SHA values only when the executor or independent state reader observed them. It never substitutes the authorized request values into an observation field. A missing observation is serialized as unavailable and cannot satisfy independent verification.

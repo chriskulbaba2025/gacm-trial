@@ -53,7 +53,7 @@ class IndependentVerificationEngine:
         path_status, path_reasons = check_paths(inputs.actual_changed_paths, inputs.allowed_writable_surfaces, inputs.forbidden_surfaces)
         context_status, context_reasons = check_context(contract, inputs.operational_context)
         routing_status, routing_reasons = check_routing(contract, inputs.routing_decision, receipt)
-        regression_status, regression_reasons = check_tests(contract, inputs.test_contract, inputs.test_outcomes)
+        regression_status, regression_reasons = check_tests(contract, inputs.test_contract, inputs.test_outcomes, inputs.ending_repository.get("sha"))
         claim_status, claim_reasons = check_executor_claim(receipt)
         outcome_status, outcome_reasons = self._check_outcome(inputs)
         graph_release = check_graph_release(contract, inputs.graph_release_evidence)
