@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["tranche_id", "objective", "repository", "base_branch", "start_sha", "model", "allowed_paths", "forbidden_paths", "required_checks", "retry_limit", "budget", "approver"],
+  "properties": {
+    "tranche_id": {"type": "string", "pattern": "^MA-[0-9A-Z]+(?:[A-Z])?$"},
+    "objective": {"type": "string", "minLength": 1},
+    "repository": {"type": "string", "minLength": 1},
+    "base_branch": {"type": "string", "minLength": 1},
+    "start_sha": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "model": {"type": "string", "minLength": 1},
+    "allowed_paths": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "forbidden_paths": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "required_checks": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "retry_limit": {"type": "integer", "minimum": 0},
+    "budget": {"type": "string", "minLength": 1},
+    "approver": {"type": "string", "minLength": 1},
+    "declared_risk_class": {"enum": ["low", "medium", "high"]}
+  },
+  "description": "Path patterns use segment-aware globs: * does not cross /, while ** matches any depth."
+}

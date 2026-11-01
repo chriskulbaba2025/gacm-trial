@@ -1,0 +1,15 @@
+{
+  "tranche_id": "MA-1A",
+  "objective": "Bootstrap an enforceable tranche gate with observed scope and identity checks.",
+  "repository": "chriskulbaba2025/gacm-trial",
+  "base_branch": "main",
+  "start_sha": "bc8bd3a73112e14331c917cea78775cafa0f798a",
+  "model": "gpt-5.6-luna",
+  "allowed_paths": ["src/gacm/gate/**", "src/gacm/__main__.py", "schemas/gacm-tranche.schema.json", "tranches/MA-1A.json", "tests/red_queen/**", ".github/workflows/gacm-gate.yml", "requirements-ci.txt", "docs/GACM_TRANCHE_GATE_V1.md"],
+  "forbidden_paths": ["AGENTS.md", "CURRENT_STATE.md", "docs/governance/**", "docs/GACM_RED_QUEEN_TOKEN_EFFICIENCY_PROCESS_V1.md"],
+  "required_checks": ["gacm-gate", "governance-regression"],
+  "retry_limit": 3,
+  "budget": "one Codex session at Chris-configured limits",
+  "approver": "@chriskulbaba2025",
+  "declared_risk_class": "high"
+}
