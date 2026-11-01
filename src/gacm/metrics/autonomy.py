@@ -52,6 +52,15 @@ def approval_matches(reviews: Iterable[Mapping[str, object]], owner: str, head_s
     )
 
 
+def independent_approval_matches(reviews: Iterable[Mapping[str, object]], head_sha: str, author_login: str) -> bool:
+    return any(
+        review.get("user", {}).get("login") != author_login
+        and review.get("state") == "APPROVED"
+        and review.get("commit_id") == head_sha
+        for review in reviews
+    )
+
+
 def recommend(level: int, stats: Mapping[str, Mapping[str, object]]) -> str:
     low = stats.get("low", {})
     medium = stats.get("medium", {})

@@ -25,19 +25,22 @@ jobs:
           PYTHONPATH: src
           GH_TOKEN: ${{ github.token }}
           GACM_AUTONOMY_LEVEL: ${{ vars.GACM_AUTONOMY_LEVEL }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
           python - <<'PY'
           import json, os, subprocess
           from pathlib import Path
-          from gacm.metrics.autonomy import parse_level, risk_class
-          base=os.environ["GITHUB_BASE_REF"]; head=os.environ["GITHUB_SHA"]
+          from gacm.metrics.autonomy import independent_approval_matches, parse_level, risk_class
+          repository=os.environ["GITHUB_REPOSITORY"]; number=os.environ["PR_NUMBER"]
+          pr=json.loads(subprocess.check_output(["gh","api",f"repos/{repository}/pulls/{number}"],text=True))
+          base=pr["base"]["ref"]; head=pr["head"]["sha"]; author=pr["user"]["login"]
           paths=subprocess.check_output(["git","diff","--name-only",f"origin/{base}..{head}"],text=True).splitlines()
           policy=json.loads(Path("policy/risk_paths.json").read_text())
           cls=risk_class(paths, policy)
-          reviews=json.loads(subprocess.check_output(["gh","api",f"repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/reviews"],text=True))
+          reviews=json.loads(subprocess.check_output(["gh","api",f"repos/{repository}/pulls/{number}/reviews"],text=True))
           level=parse_level(os.environ.get("GACM_AUTONOMY_LEVEL"))
-          from gacm.metrics.autonomy import allowed_at_level, approval_matches
-          ok=allowed_at_level(cls,level) or approval_matches(reviews,"chriskulbaba2025",head)
-          print(json.dumps({"status":"PASS" if ok else "FAIL","class":cls,"level":level}))
+          from gacm.metrics.autonomy import allowed_at_level
+          ok=allowed_at_level(cls,level) or independent_approval_matches(reviews,head,author)
+          print(json.dumps({"status":"PASS" if ok else "FAIL","class":cls,"level":level,"head":head,"author":author}))
           raise SystemExit(0 if ok else 1)
           PY

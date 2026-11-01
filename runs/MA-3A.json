@@ -1,0 +1,13 @@
+{
+  "backfilled": false,
+  "result": "PASS",
+  "self_reported": {
+    "computed_risk_class": "high",
+    "changed_lines": 0,
+    "targeted_tests": ["tests/test_autonomy_core.py"],
+    "broad_regression": "UNAVAILABLE",
+    "tokens_used": "UNAVAILABLE",
+    "token_budget": "UNAVAILABLE"
+  },
+  "tranche_id": "MA-3A"
+}
