@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["tranche_id", "self_reported", "result", "backfilled"],
+  "properties": {
+    "tranche_id": {"type": "string", "minLength": 1},
+    "self_reported": {"type": "object", "additionalProperties": true},
+    "result": {"type": "string", "minLength": 1},
+    "backfilled": {"type": "boolean"}
+  }
+}
