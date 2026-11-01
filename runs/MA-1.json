@@ -1,0 +1,18 @@
+{
+  "backfilled": true,
+  "result": "UNKNOWN",
+  "self_reported": {
+    "broad_regression": "PASS",
+    "evidence_artifacts": "C:\\Users\\kulba\\Downloads\\GACM_MA1A_20261101\\REPORT.md",
+    "human_interventions": "UNAVAILABLE",
+    "repair_attempts": "UNAVAILABLE",
+    "reruns_avoided": "UNAVAILABLE",
+    "round_trips": "UNAVAILABLE",
+    "targeted_tests": ["focused Red Queen tests"],
+    "token_budget": "UNAVAILABLE",
+    "tokens_used": "UNAVAILABLE",
+    "tool_calls": "UNAVAILABLE",
+    "wall_clock_ms": "UNAVAILABLE"
+  },
+  "tranche_id": "MA-1"
+}

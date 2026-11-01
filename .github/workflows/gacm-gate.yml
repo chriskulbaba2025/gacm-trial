@@ -24,3 +24,7 @@ jobs:
         env:
           PYTHONPATH: src
         run: python -m gacm check --tranche-from-head --base "${{ github.event.pull_request.base.sha }}" --head "${{ github.event.pull_request.head.sha }}" --out gate-verdict.json
+      - name: Run test-weakening guard
+        env:
+          PYTHONPATH: src
+        run: python -m gacm guard --base "${{ github.event.pull_request.base.sha }}" --head "${{ github.event.pull_request.head.sha }}"

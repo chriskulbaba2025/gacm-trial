@@ -1,0 +1,23 @@
+name: Escaped defect
+description: Record a defect shipped by a governed tranche.
+title: "Escaped defect: "
+labels: [escaped]
+body:
+  - type: input
+    id: tranche_id
+    attributes:
+      label: Tranche ID
+    validations:
+      required: true
+  - type: textarea
+    id: what_broke
+    attributes:
+      label: What broke
+    validations:
+      required: true
+  - type: textarea
+    id: how_found
+    attributes:
+      label: How it was found
+    validations:
+      required: true

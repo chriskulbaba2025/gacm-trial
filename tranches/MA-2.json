@@ -1,0 +1,15 @@
+{
+  "tranche_id": "MA-2",
+  "objective": "Measure governed runs from GitHub evidence, trace escapes, and detect test weakening.",
+  "repository": "chriskulbaba2025/gacm-trial",
+  "base_branch": "main",
+  "start_sha": "a310b14f55c28e5998c24f5f4a4eddddcf84085d",
+  "model": "gpt-5.6-luna",
+  "allowed_paths": ["src/gacm/metrics/**", "src/gacm/gate/**", "src/gacm/__main__.py", "schemas/gacm-run-record.schema.json", "tranches/MA-2.json", "runs/MA-1.json", "runs/MA-2.json", "policy/test_removals.json", "tests/red_queen/**", "tests/test_metrics_*.py", "tests/fixtures/github/**", ".github/workflows/gacm-gate.yml", ".github/workflows/gacm-report.yml", ".github/ISSUE_TEMPLATE/escaped-defect.yml", "requirements-ci.txt", "docs/GACM_MEASUREMENT_V1.md"],
+  "forbidden_paths": ["AGENTS.md", "CURRENT_STATE.md", "docs/governance/**", "docs/GACM_RED_QUEEN_TOKEN_EFFICIENCY_PROCESS_V1.md"],
+  "required_checks": ["gacm-gate", "governance-regression"],
+  "retry_limit": 3,
+  "budget": "one Codex session at Chris-configured limits",
+  "approver": "@chriskulbaba2025",
+  "declared_risk_class": "high"
+}
