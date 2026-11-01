@@ -23,4 +23,4 @@ jobs:
       - name: Run tranche gate
         env:
           PYTHONPATH: src
-        run: python -m gacm check --tranche MA-1A --base "${{ github.event.pull_request.base.sha }}" --head "${{ github.event.pull_request.head.sha }}" --out gate-verdict.json
+        run: python -m gacm check --tranche-from-head --base "${{ github.event.pull_request.base.sha }}" --head "${{ github.event.pull_request.head.sha }}" --out gate-verdict.json
