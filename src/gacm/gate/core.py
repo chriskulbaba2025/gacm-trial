@@ -4,7 +4,9 @@ import json
 import re
 import subprocess
 from dataclasses import dataclass
-from pathlib import PurePosixPath
+from pathlib import Path, PurePosixPath
+
+from ..metrics.autonomy import declared_class_is_safe, risk_class, validate_codeowners
 
 
 @dataclass(frozen=True)
@@ -108,6 +110,17 @@ def postcheck(root: str, base: str, head: str, spec: dict[str, object]) -> Verdi
         if base_spec != spec: reasons.append("TRANCHE_SPEC_MUTATED")
     except subprocess.CalledProcessError:
         pass
+    if spec.get("tranche_id") == "MA-3":
+        try:
+            risk_map = json.loads((Path(root) / "policy" / "risk_paths.json").read_text(encoding="utf-8"))
+            computed = risk_class(paths, risk_map, not_a_tranche=False)
+            if not declared_class_is_safe(str(spec.get("declared_risk_class", "high")), computed):
+                reasons.append("DECLARED_RISK_LOWER_THAN_COMPUTED")
+            owners = (Path(root) / ".github" / "CODEOWNERS").read_text(encoding="utf-8")
+            if not validate_codeowners(owners, risk_map):
+                reasons.append("CODEOWNERS_RISK_MAP_DRIFT")
+        except (OSError, ValueError, json.JSONDecodeError):
+            reasons.append("RISK_POLICY_UNAVAILABLE")
     if reasons == ["NOT_A_TRANCHE"]:
         return Verdict("NOT_A_TRANCHE", tuple(reasons))
     return Verdict("PASS" if not reasons else "FAIL", tuple(reasons))

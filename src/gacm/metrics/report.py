@@ -4,6 +4,8 @@ import json
 from pathlib import Path
 from typing import Any, Mapping
 
+from .autonomy import recommend
+
 
 def load_fixture(directory: Path) -> dict[str, Any]:
     result: dict[str, Any] = {}
@@ -41,7 +43,26 @@ def observe_run(record: Mapping[str, Any], fixture: Mapping[str, Any]) -> dict[s
 
 def render_report(records: list[Mapping[str, Any]], fixture: Mapping[str, Any]) -> tuple[str, dict[str, Any]]:
     rows = [observe_run(record, fixture) for record in records]
-    payload = {"runs": rows, "count": len(rows)}
+    stats: dict[str, dict[str, int]] = {"low": {"measured_runs": 0, "first_push_green": 0, "escapes": 0, "discrepancies": 0, "trivial_ignored": 0}, "medium": {"measured_runs": 0, "first_push_green": 0, "escapes": 0, "discrepancies": 0, "trivial_ignored": 0}}
+    for record, row in zip(records, rows):
+        reported = record.get("self_reported", {})
+        risk = reported.get("computed_risk_class")
+        if risk not in stats:
+            continue
+        changed = int(reported.get("changed_lines", 0) or 0)
+        if changed <= 20:
+            stats[risk]["trivial_ignored"] += 1
+            continue
+        stats[risk]["measured_runs"] += 1
+        if row["observed"].get("first_push_green") is True:
+            stats[risk]["first_push_green"] += 1
+        if row["observed"].get("escaped_defects") not in (0, "UNKNOWN", "UNAVAILABLE", None):
+            stats[risk]["escapes"] += 1
+        if row["discrepancies"]:
+            stats[risk]["discrepancies"] += 1
+    level = int(fixture.get("autonomy_level", 0) or 0)
+    recommendations = {"current_level": level, "low": recommend(level, stats), "medium": recommend(level, stats)}
+    payload = {"runs": rows, "count": len(rows), "autonomy": {"stats": stats, "recommendations": recommendations}}
     lines = ["# GACM measurement report", "", f"Runs: {len(rows)}", ""]
     for row in rows:
         lines.append(f"## {row['tranche_id']} -- {row['result']}")
@@ -49,4 +70,5 @@ def render_report(records: list[Mapping[str, Any]], fixture: Mapping[str, Any]) 
         lines.append("Observed: " + json.dumps(row["observed"], sort_keys=True))
         if row["discrepancies"]: lines.append("Discrepancies: " + json.dumps(row["discrepancies"], sort_keys=True))
         lines.append("")
+    lines.extend(["## Measured autonomy", "", "Autonomy level: " + str(level), "", "Stats: " + json.dumps(stats, sort_keys=True), "", "Recommendations: " + json.dumps(recommendations, sort_keys=True), "", "Chris: Settings -> Secrets and variables -> Actions -> Variables -> GACM_AUTONOMY_LEVEL", ""])
     return "\n".join(lines), payload

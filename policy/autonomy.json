@@ -1,0 +1,13 @@
+{
+  "owner": "chriskulbaba2025",
+  "levels": {
+    "0": {"low": false, "medium": false, "high": false},
+    "1": {"low": true, "medium": false, "high": false},
+    "2": {"low": true, "medium": true, "high": false}
+  },
+  "promotion": {
+    "level_1": {"runs": 5, "first_push_green_percent": 80, "escapes": 0, "discrepancies": 0},
+    "level_2": {"runs": 10, "first_push_green_percent": 90, "escapes": 0, "discrepancies": 0}
+  },
+  "trivial_changed_lines": 20
+}

@@ -1,0 +1,43 @@
+name: gacm-autonomy
+
+on:
+  pull_request:
+  pull_request_review:
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  autonomy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38 # v5.4.0
+        with:
+          python-version: "3.12"
+      - name: Install pinned CI dependencies
+        run: python -m pip install --disable-pip-version-check -r requirements-ci.txt
+      - name: Check policy and current-head approval
+        env:
+          PYTHONPATH: src
+          GH_TOKEN: ${{ github.token }}
+          GACM_AUTONOMY_LEVEL: ${{ vars.GACM_AUTONOMY_LEVEL }}
+        run: |
+          python - <<'PY'
+          import json, os, subprocess
+          from pathlib import Path
+          from gacm.metrics.autonomy import parse_level, risk_class
+          base=os.environ["GITHUB_BASE_REF"]; head=os.environ["GITHUB_SHA"]
+          paths=subprocess.check_output(["git","diff","--name-only",f"origin/{base}..{head}"],text=True).splitlines()
+          policy=json.loads(Path("policy/risk_paths.json").read_text())
+          cls=risk_class(paths, policy)
+          reviews=json.loads(subprocess.check_output(["gh","api",f"repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/reviews"],text=True))
+          level=parse_level(os.environ.get("GACM_AUTONOMY_LEVEL"))
+          from gacm.metrics.autonomy import allowed_at_level, approval_matches
+          ok=allowed_at_level(cls,level) or approval_matches(reviews,"chriskulbaba2025",head)
+          print(json.dumps({"status":"PASS" if ok else "FAIL","class":cls,"level":level}))
+          raise SystemExit(0 if ok else 1)
+          PY

@@ -1,0 +1,4 @@
+* @chriskulbaba2025
+tests/test_*.py
+docs/*.md
+src/gacm/**/*.py

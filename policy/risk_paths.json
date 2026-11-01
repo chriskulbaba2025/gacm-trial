@@ -1,0 +1,9 @@
+{
+  "low": [
+    "tests/test_*.py",
+    "docs/*.md"
+  ],
+  "medium": [
+    "src/gacm/**/*.py"
+  ]
+}

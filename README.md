@@ -13,6 +13,10 @@
 6. [`docs/GACM_RED_QUEEN_CHALLENGE_REVIEW_2026-10-31.md`](docs/GACM_RED_QUEEN_CHALLENGE_REVIEW_2026-10-31.md) — external adversarial findings and proposed recurring challenger, **not validated controller enforcement**.
 7. [`docs/GACM_RED_QUEEN_TOKEN_EFFICIENCY_PROCESS_V1.md`](docs/GACM_RED_QUEEN_TOKEN_EFFICIENCY_PROCESS_V1.md) — bounded challenger loop and token-efficiency receipt contract; additive process proposal, not proof of controller enforcement.
 
+## Measured autonomy
+
+MA-3 provides recommendation-only risk classes and autonomy levels. `GACM_AUTONOMY_LEVEL` is a repository Actions variable; missing or invalid values are level 0. High-risk changes always require Chris approval, and reports never change the level.
+
 ## Verified repository status (2026-10-31)
 
 - GACM historical MVP closure is preserved. Accepted Foundation **F17** is recorded in governance with application SHA `e31edc33a0e986427d457673f71a2a048983c722` on a separate sandbox candidate branch. **F18 NOT STARTED**; accepting a Foundation does not promote its application candidate or authorize the next tranche.
