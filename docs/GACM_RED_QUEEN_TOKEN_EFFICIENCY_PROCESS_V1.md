@@ -21,6 +21,8 @@ GACM must improve reliability under repeated change while spending the fewest to
 
 The Red Queen is a recurring adversarial challenger around each governed candidate, not an autonomous decision-maker.
 
+Before the Red Queen pre-action challenge, apply [GACM Expert Pre-Execution Prompt Quality Gate v1](GACM_EXPERT_PREFLIGHT_GATE_V1.md) once per substantive authorized execution boundary. It records expert omissions, original sources, proven methods, independent acceptance and material risks; observations never grant authority to extend scope. Reuse an unchanged receipt rather than incurring repeated model calls. Controller implementation remains separately unverified.
+
 ### Required sequence
 
 1. **Pre-action challenge:** before a material action, challenge authority, identity, scope, model/provider, budget, retry, and production-boundary assumptions.
