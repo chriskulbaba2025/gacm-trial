@@ -1,0 +1,31 @@
+{
+  "tranche_id": "MA-4",
+  "objective": "Add a scope-preserving expert pre-execution prompt-quality governance contract and references; leave code/runtime enforcement to the separately verified controller candidate.",
+  "repository": "chriskulbaba2025/gacm-trial",
+  "base_branch": "main",
+  "start_sha": "1ae6b3f56b3fe461a79c95e7d35c6103e1cefdca",
+  "model": "NO_EXTERNAL_MODEL_CALLS",
+  "allowed_paths": [
+    "docs/GACM_EXPERT_PREFLIGHT_GATE_V1.md",
+    "docs/GACM_RED_QUEEN_TOKEN_EFFICIENCY_PROCESS_V1.md",
+    "README.md",
+    "tranches/MA-4.json"
+  ],
+  "forbidden_paths": [
+    "src/**",
+    "tests/**",
+    "schemas/**",
+    "policy/**",
+    ".github/**",
+    "CURRENT_STATE.md",
+    "docs/governance/**"
+  ],
+  "required_checks": [
+    "gacm-gate",
+    "governance-regression"
+  ],
+  "retry_limit": 0,
+  "budget": "No paid model/provider calls; GitHub documentation PR and standard repository CI only.",
+  "approver": "@chriskulbaba2025",
+  "declared_risk_class": "high"
+}
