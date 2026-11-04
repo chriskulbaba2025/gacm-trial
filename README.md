@@ -13,6 +13,10 @@
 6. [`docs/GACM_RED_QUEEN_CHALLENGE_REVIEW_2026-10-31.md`](docs/GACM_RED_QUEEN_CHALLENGE_REVIEW_2026-10-31.md) — external adversarial findings and proposed recurring challenger, **not validated controller enforcement**.
 7. [`docs/GACM_RED_QUEEN_TOKEN_EFFICIENCY_PROCESS_V1.md`](docs/GACM_RED_QUEEN_TOKEN_EFFICIENCY_PROCESS_V1.md) — bounded challenger loop and token-efficiency receipt contract; additive process proposal, not proof of controller enforcement.
 
+## Expert pre-execution prompt quality gate
+
+The additive [Expert Pre-Execution Prompt Quality Gate](docs/GACM_EXPERT_PREFLIGHT_GATE_V1.md) requires substantive GACM execution prompts to review expert omissions, current primary evidence, established methods, independent acceptance and risks **without enlarging the user's authorized objective**. It is a governance contract; installed-controller enforcement remains `NOT_VERIFIED` until exact-SHA runtime proof. No added models, sessions, cost, production writes, tranches or automatic approvals are authorized.
+
 ## Measured autonomy
 
 MA-3 provides recommendation-only risk classes and autonomy levels. `GACM_AUTONOMY_LEVEL` is a repository Actions variable; missing or invalid values are level 0. High-risk changes always require Chris approval, and reports never change the level.
