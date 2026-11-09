@@ -1,5 +1,7 @@
 # GACM Trial — Current State
 
+> **Candidate amendment (2026-11-08, NOT MERGED):** [Pre-approved Sequential Batch Amendment v1](docs/GACM_PREAPPROVED_SEQUENTIAL_BATCH_AMENDMENT_V1.md) permits *only independently approved and sealed* sequential batches, without relaxing the original individual tranche/production/model/proof gates. Existing single-tranche semantics remain operative until explicit adoption. The corresponding controller feature branch is not installed or live-verified.
+
 > **LATEST STATE — 2026-10-31.** This section supersedes older "Current phase", "Current objective", and "Next authorized action" headings below for currentness and branch status. Older sections are preserved as historical evidence.
 
 ## Latest governance and branch status
