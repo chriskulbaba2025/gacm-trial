@@ -1,5 +1,7 @@
 # GACM | Governed AI Change Management
 
+> **Candidate amendment (2026-11-08, NOT MERGED):** [Pre-approved Sequential Batch Amendment v1](docs/GACM_PREAPPROVED_SEQUENTIAL_BATCH_AMENDMENT_V1.md) permits *only independently approved and sealed* sequential batches, without relaxing the original individual tranche/production/model/proof gates. Existing single-tranche semantics remain operative until explicit adoption. The corresponding controller feature branch is not installed or live-verified.
+
 **Primary governance repository:** `chriskulbaba2025/gacm-trial`
 **Authoritative branch for consolidated source:** `main`. Always resolve its live HEAD before work; branch names and this README are not immutable source identity.
 
