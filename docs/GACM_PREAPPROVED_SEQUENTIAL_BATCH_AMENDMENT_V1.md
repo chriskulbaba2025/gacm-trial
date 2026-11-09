@@ -31,3 +31,13 @@ This amendment does not alter production, authorize release/promotion, or change
 Acceptance requires: signed approval binding and revocation checks; exact local installed-source reconciliation; one-worktree, bounded sequential Codex execution; Git scope gate; independent product/browser checks where applicable; verified prior-tranche currentness; interruption without duplicated effects; negative tests for stale identity, false PASS, provider/model drift, unauthorized paths, chargeable usage, and a three-tranche sandbox test with failure, repair and automatic progression. A controller module test alone is not live acceptance.
 
 **Deployment status:** This feature branch is a source candidate only. Installed Windows runtime, credentials, real browser checks and authenticated end-to-end proof remain separate gates.
+
+## 6. Source qualification evidence (2026-11-08, opt-in candidate only)
+
+- Controller repository: `chriskulbaba2025/gacm-controller`; candidate branch `feature/gacm-preapproved-batches-20261108`.
+- Current exact accepted source-test candidate: `e55f532133d7d83b130fb5240c428bea5dc34429`.
+- Windows and Linux hosted CI passed: [run 42551740321](https://github.com/chriskulbaba2025/gacm-controller/actions/runs/42551740321).
+- Tests include three sequential tranches, an intentional failed independent npm verification and automatic repair, same-worktree restart, forged/self-issued PASS rejection, signed approval, and forbidden-path HOLD. Codex was simulated; no model/provider calls.
+- Operator-facing native CLI: `npm run batch:run -- <absolute-signed-plan.json>` and `npm run batch:status -- <project> <batchId>` from the verified existing controller worktree. The batch requires an independently signed human approval and frozen per-action execution recipes.
+- **Not qualified:** installed Windows process identity, authenticated real Codex session, signed live plan, project-specific acceptance/browser, promotion or production. No merge, deployment, installed-controller switch or next-tranche authorization is implied.
+
