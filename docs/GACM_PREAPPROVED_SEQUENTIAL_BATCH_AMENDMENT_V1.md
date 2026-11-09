@@ -41,3 +41,19 @@ Acceptance requires: signed approval binding and revocation checks; exact local 
 - Operator-facing native CLI: `npm run batch:run -- <absolute-signed-plan.json>` and `npm run batch:status -- <project> <batchId>` from the verified existing controller worktree. The batch requires an independently signed human approval and frozen per-action execution recipes.
 - **Not qualified:** installed Windows process identity, authenticated real Codex session, signed live plan, project-specific acceptance/browser, promotion or production. No merge, deployment, installed-controller switch or next-tranche authorization is implied.
 
+
+## 7. Authoritative C1 reconciliation (2026-11-08, superseding source selection)
+
+The real installed Windows controller was observed on `c1/status-integrity-20261014` at commit `076db8cc67c36d04804ad9563524ad6e3d825156`. This contains 12 unique commits relative to main, so the earlier main-based batch candidate `e55f532133d7d83b130fb5240c428bea5dc34429` **must not be installed over the C1 controller**.
+
+The replacement integration is constructed directly on the installed C1 commit, retaining C1's status-integrity, SQLite, Telegram, workspace and progress contracts.
+
+- Controller candidate branch: `feature/gacm-batches-c1-reconciled-20261108`.
+- Exact source candidate: `626d42c72374f3e5b565fa29ae859430353ecbd5`.
+- Source relationship: C1 baseline +16 commits, behind 0, changed files 14; no C1 code removed.
+- Exact-candidate GitHub Actions Windows and Linux: [PASS run 42554081180](https://github.com/chriskulbaba2025/gacm-controller/actions/runs/42554081180).
+- Batch execution used simulated Codex only, real local Git and native `npm run` checks. C1 status contract, workspace and Telegram selftests PASS on hosted CI. C1 integrated launch test requires actual `C:\\Users\\kulba\\Desktop\\telegram-control-sandbox`; this is **NOT_APPLICABLE on hosted runners** and remains an installed-runtime gate.
+- Activation is permitted only after exact installed C1 branch/SHA, clean and idle state, model authentication, candidate SHA, targeted local tests and rollback identity are independently checked. Source CI alone does not establish Windows activation or a real Codex batch.
+- Previous section 6 records historical qualification of the main-based candidate and is superseded for this specific installed C1 controller. It must not be taken as installation authority.
+
+**Status:** Source integration PASS; installation HOLD until local proof. Governance branch not merged; production and original C1 branch unchanged.
